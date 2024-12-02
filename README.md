@@ -21,7 +21,8 @@
    
 #### NOTE : Only games that you have analyzed will be included. After playing, simply click the button displayed below:
 
-![image](https://github.com/user-attachments/assets/28e50257-8364-4f6d-b1fb-be08e9e10ec0)
+![image](https://github.com/user-attachments/assets/236e2af8-8fe5-4e04-861f-e1589cdad4da)
+
 
 
 
