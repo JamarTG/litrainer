@@ -1,4 +1,4 @@
-# Litrainer - Learn From Your Mistakes 2.0 - Lichess Improvement 
+# Litrainer - Learn From Your Mistakes 2.0 
 
 ## Preview
 
