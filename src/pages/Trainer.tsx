@@ -84,7 +84,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const width = initialWidth + (moveEvent.clientX - initialX);
-      setBoardSize(Math.max(500, Math.min(width, 700)));
+      setBoardSize(Math.max(300, Math.min(width, 500)));
     };
 
     const onMouseUp = () => {
@@ -188,7 +188,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
                   icon={faChessKing}
                   className="text-white text-4xl"
                 />
-                <div className="text-center">
+                <div>
                   <p className="text-md font-semibold">
                     {currentPuzzle?.players.white.user}
                   </p>
@@ -202,7 +202,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
                   icon={faChessQueen}
                   className="text-black text-4xl"
                 />
-                <div className="text-center">
+                <div>
                   <p className="text-md font-semibold">
                     {currentPuzzle?.players.black.user}
                   </p>
