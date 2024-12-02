@@ -1,19 +1,10 @@
-## 🚧 Currently under development 🚧
-
-# Learn From Your Mistakes 2.0 - Lichess Improvement 
-
-**Learn From Your Mistakes 2.0**, an enhancement to the popular "Learn From Your Mistakes" feature on Lichess. This repository provides a more engaging and efficient way to review and learn from your chess games by serving mistake puzzles in bulks
-
+# Litrainer - Learn From Your Mistakes 2.0 
 
 ## Preview
 
 <div style="display: flex; justify-content: center; align-items: center;">
- 
-  ![image](https://github.com/user-attachments/assets/5cf0a5fe-1013-4d68-9334-b79ba535dcc4)
-
+  <img src="https://github.com/user-attachments/assets/1e3fdd5c-be87-4f92-90e2-83c011739249" alt="description" width="800"/>
 </div>
-
-
 
 
 
@@ -30,7 +21,8 @@
    
 #### NOTE : Only games that you have analyzed will be included. After playing, simply click the button displayed below:
 
-![image](https://github.com/user-attachments/assets/28e50257-8364-4f6d-b1fb-be08e9e10ec0)
+![image](https://github.com/user-attachments/assets/236e2af8-8fe5-4e04-861f-e1589cdad4da)
+
 
 
 
