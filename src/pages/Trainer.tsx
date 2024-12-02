@@ -10,15 +10,10 @@ import { normalizeCastlingMove } from "../utils/normalizeCastle";
 import {
   faChessKing,
   faChessQueen,
-  faChessPawn,
   faChessRook,
   faArrowRight,
-  faCheck,
-  faTimes,
   faCircleCheck,
   faCircleXmark,
-  faXmarkCircle,
-  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface TrainerProps {
@@ -240,7 +235,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               />
               <br />
               <div className="grid grid-cols-5 gap-2">
-                {puzzles.map((puzzle, index) => (
+                {puzzles.map((_, index) => (
                   <div key={index} className="flex items-center">
                     <FontAwesomeIcon
                       icon={index % 2 === 0 ? faCircleCheck : faCircleXmark}

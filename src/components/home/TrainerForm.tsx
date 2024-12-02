@@ -1,5 +1,4 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import Button from "../ui/Button";
 import { Models } from "../../typings";
 
 interface ParamsFormProps {
