@@ -1,7 +1,11 @@
 // src/components/Sidebar.tsx
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChessKnight, faPuzzlePiece, faUser } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChessKnight,
+  faPuzzlePiece,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar: React.FC = () => {
   return (
@@ -11,25 +15,25 @@ const Sidebar: React.FC = () => {
       </div>
       <nav className="flex-1 p-4">
         <ul>
-        <li className="mb-4">
-            <a href="#" className="flex items-center p-2 hover:bg-gray-700 rounded">
+          <li className="mb-4">
+            <a
+              href="#"
+              className="flex items-center p-2 hover:bg-gray-700 rounded"
+            >
               <FontAwesomeIcon icon={faUser} className="mr-3" />
-              Profile
+              Create Session
             </a>
           </li>
+
           <li className="mb-4">
-            <a href="#" className="flex items-center p-2 hover:bg-gray-700 rounded">
-              <FontAwesomeIcon icon={faChessKnight} className="mr-3" />
-              Play
-            </a>
-          </li>
-          <li className="mb-4">
-            <a href="#" className="flex items-center p-2 hover:bg-gray-700 rounded">
+            <a
+              href="#"
+              className="flex items-center p-2 hover:bg-gray-700 rounded"
+            >
               <FontAwesomeIcon icon={faPuzzlePiece} className="mr-3" />
-              Puzzles
+              Practice
             </a>
           </li>
-         
         </ul>
       </nav>
     </div>
