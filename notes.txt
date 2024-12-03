@@ -1,30 +1,18 @@
 //Keep your token safe 
 //Include only positions of the user in question
 
-//Add Routing
-// Fix Navigation Link and Add About, Report Bugs, Message Creator on Lichess
-// Get only positions from The Player we are about
-// Request engine analysis if not already available and display on screen
-// Use some sort of feedback to tell whether it was good
-// Display stars to rank moves - 1 star for 3rd best move etc
-// Initiatilize the puzzle
-// Request engine analysis when a new position cache is not available
-//Allow Users To Customize Board Etc
-// Solve Until All correct?
-// Skip on Failure
-// Recycle Failed puzzle
-// Play out Variation and Skip
-
-
-Information From User Profile
-==================================
-Player Title
-Patron
-Flair
-FullName
-=================================
-
-
+Implement Routing
+Support Clicking
+Integrate Stockfish
+Customization
+Responsivity
+Hint Feature
+Report Bug
+Account for Title And Flairs And Patrons
+Request for GH Starts
+Add Toasts
+Allow Some Way To Save State
+Utilize What Azure Provides 
 
 We need to save the state of the user when they leave the site
  Do we opt for local storage. Do we store this in a database?

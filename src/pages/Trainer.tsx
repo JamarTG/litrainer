@@ -15,8 +15,6 @@ import {
   faCircleCheck,
   faCircleXmark,
   faExternalLinkAlt,
-  faCheck,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import SkeletonControlPanel from "../components/ui/SkeletonControlPanel";
 SkeletonControlPanel;
@@ -37,7 +35,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
   const [feedbackMessage, setFeedbackMessage] = useState<React.ReactNode>(null);
-  
+  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(null);
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[currentIndex.x]?.[currentIndex.y] || null);
@@ -125,7 +123,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       )
     );
 
-    // Clear feedback message after 2 seconds
     setTimeout(() => {
       setFeedbackMessage(null);
     }, 900);
@@ -137,6 +134,15 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     },
     [game, fen, currentPuzzle?.evaluation.best, currentIndex]
   );
+
+  const handleSquareClick = (square: string) => {
+      if (!clickSourceSquare) {
+        setClickSourceSquare(square);
+      } else {
+        handlePieceDrop(clickSourceSquare, square);
+        setClickSourceSquare(null);
+      }
+    }
 
   const attemptMove = (sourceSquare: string, targetSquare: string) => {
     return game.move({
@@ -186,6 +192,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           >
             <Chessboard
               position={fen}
+              onSquareClick={handleSquareClick}
               onPieceDrop={handlePieceDrop}
               boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
               customArrows={[convertMove(currentPuzzle?.move) as any]}
