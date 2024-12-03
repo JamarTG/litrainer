@@ -71,6 +71,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     if(!sessionStarted) {
       newIndex = { x: 0, y: 0 };
       newFen = puzzles[0][0].fen;
+      setSessionStarted(true);
     }
     else if (currentIndex.y + 1 < puzzles[currentIndex.x]?.length) {
       newIndex = { x: currentIndex.x, y: currentIndex.y + 1 };
