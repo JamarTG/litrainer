@@ -26,4 +26,4 @@ export const customBoardStyles = {
 
 };
 
-export const INITIAL_INDEX_STATE = { x: 0, y: 0 };
+export const INITIAL_INDEX_STATE = { x:  0, y: 0 };
