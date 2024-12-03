@@ -31,8 +31,10 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   );
   const [game, setGame] = useState<Chess>(new Chess(STARTINGPOSFEN));
   const [boardSize, setBoardSize] = useState<number>(400);
+  const [sessionStarted, setSessionStarted] = useState<boolean>(false);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[currentIndex.x]?.[currentIndex.y] || null);
@@ -58,12 +60,19 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   }, []);
 
   const moveToNextPuzzle = () => {
+
     if (puzzles.length === 0) return;
+
+    
 
     let newIndex;
     let newFen;
 
-    if (currentIndex.y + 1 < puzzles[currentIndex.x]?.length) {
+    if(!sessionStarted) {
+      newIndex = { x: 0, y: 0 };
+      newFen = puzzles[0][0].fen;
+    }
+    else if (currentIndex.y + 1 < puzzles[currentIndex.x]?.length) {
       newIndex = { x: currentIndex.x, y: currentIndex.y + 1 };
       newFen = puzzles[currentIndex.x][currentIndex.y + 1].fen;
     } else if (currentIndex.x + 1 < puzzles.length) {
@@ -163,9 +172,19 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               customArrows={[convertMove(currentPuzzle?.move) as any]}
               boardWidth={boardSize}
             />
+            <div
+              ref={resizeRef}
+              onMouseDown={handleMouseDown}
+              className="absolute bottom-[-23px] right-[-25px] w-5 h-5 cursor-se-resize"
+            >
+              <FontAwesomeIcon
+                icon={faUpRightAndDownLeftFromCenter}
+                className="transform rotate-90"
+              />
+            </div>
           </div>
-          <div className="ml-4 flex flex-col space-y-6 p-6 bg-gray-800 rounded-lg shadow-lg w-96 flex-grow">
-            {isDataAvailable ? (
+          {isDataAvailable ? (
+            <div className="ml-4 flex flex-col space-y-6 p-6 bg-gray-800 rounded-lg shadow-lg w-80 flex-grow">
               <>
                 <div className="flex items-center mb-4 gap-2">
                   <div className="flex items-center space-x-2 w-1/3">
@@ -190,7 +209,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
                       {currentPuzzle.game_id}
                     </a>
                   </div>
-                 
                 </div>
                 <div className="flex flex-col justify-center mb-4 space-y-4">
                   <div className="flex items-center space-x-2 bg-gray-700 p-2 rounded-lg">
@@ -249,10 +267,11 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
                   </div>
                 </div>
               </>
-            ) : (
-              <SkeletonControlPanel />
-            )}
-          </div>
+            </div>
+          ) : (
+            <SkeletonControlPanel />
+            // <div></div>
+          )}
         </div>
       </div>
     </div>
