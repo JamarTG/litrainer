@@ -119,9 +119,9 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
      
     setFeedbackMessage(
       isBestMove ? (
-      <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+      <FontAwesomeIcon icon={faCircleCheck} className="text-green-500" />
       ) : (
-      <FontAwesomeIcon icon={faXmark} className="text-red-500" />
+      <FontAwesomeIcon icon={faCircleXmark} className="text-red-500" />
       )
     );
 
