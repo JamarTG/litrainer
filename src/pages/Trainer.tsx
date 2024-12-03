@@ -15,6 +15,8 @@ import {
   faCircleCheck,
   faCircleXmark,
   faExternalLinkAlt,
+  faCheck,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import SkeletonControlPanel from "../components/ui/SkeletonControlPanel";
 SkeletonControlPanel;
@@ -34,6 +36,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const [sessionStarted, setSessionStarted] = useState<boolean>(false);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
+  const [feedbackMessage, setFeedbackMessage] = useState<React.ReactNode>(null);
   
 
   useEffect(() => {
@@ -112,6 +115,21 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       if (!move) return false;
       const isBestMove = checkBestMove(move);
       playGameSound(isBestMove);
+
+     
+    setFeedbackMessage(
+      isBestMove ? (
+      <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+      ) : (
+      <FontAwesomeIcon icon={faXmark} className="text-red-500" />
+      )
+    );
+
+    // Clear feedback message after 2 seconds
+    setTimeout(() => {
+      setFeedbackMessage(null);
+    }, 900);
+
       setFen(game.fen());
       if (!isBestMove) resetBoardAfterDelay();
 
@@ -173,6 +191,11 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               customArrows={[convertMove(currentPuzzle?.move) as any]}
               boardWidth={boardSize}
             />
+            {feedbackMessage && (
+            <div className={`feedback-message ${feedbackMessage ? 'fade-out' : ''}`}>
+              {feedbackMessage}
+            </div>
+          )}
             <div
               ref={resizeRef}
               onMouseDown={handleMouseDown}

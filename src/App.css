@@ -1,5 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 body {
-    @apply bg-darkBackground text-white;
+  @apply bg-darkBackground text-white;
+}
+
+.feedback-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 84px;
+  opacity: 1;
+  transition: opacity 6s ease-out;
+}
+
+.feedback-message.fade-out {
+  opacity: 0.5;
 }
