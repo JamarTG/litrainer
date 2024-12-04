@@ -2,23 +2,18 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons/faUpRightAndDownLeftFromCenter";
 import { STARTINGPOSFEN, INITIAL_INDEX_STATE } from "../constants";
 import { Models } from "../typings";
 import { playGameSound } from "../utils/playSound";
 import { normalizeCastlingMove } from "../utils/normalizeCastle";
 import {
-  faChessKing,
-  faChessQueen,
-  faChessRook,
-  faArrowRight,
   faCircleCheck,
   faCircleXmark,
-  faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import ControlPanel from "../components/trainer/ControlPanel";
-import SkeletonControlPanel from "../components/ui/SkeletonControlPanel";
-SkeletonControlPanel;
+
+import ResizeHandle from "../components/trainer/ResizeHandle";
+
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
@@ -204,17 +199,10 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               </div>
             )}
 
-            {/* <BoardResizer ref={resizeRef} onMouseDown={handle} > */}
-            <div
-              ref={resizeRef}
-              onMouseDown={handleMouseDown}
-              className="absolute bottom-[-23px] right-[-25px] w-5 h-5 cursor-se-resize"
-            >
-              <FontAwesomeIcon
-                icon={faUpRightAndDownLeftFromCenter}
-                className="transform rotate-90"
-              />
-            </div>
+            <ResizeHandle
+              resizeRef={resizeRef}
+              handleMouseDown={handleMouseDown}
+            />
           </div>
           <ControlPanel
             puzzles={puzzles}
