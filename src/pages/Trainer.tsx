@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { STARTINGPOSFEN} from "../constants";
+import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
 import { playGameSound } from "../utils/playSound";
 import { normalizeCastlingMove } from "../utils/normalizeCastle";
@@ -11,7 +11,6 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import ControlPanel from "../components/trainer/ControlPanel";
-
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useMoveToNextPuzzle from "../hooks/useMoveToNextPuzzle";
 
@@ -147,7 +146,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      {/* <div className="flex flex-col items-center"> */}
         <div className="flex">
           <div
             ref={boardRef}
@@ -187,7 +185,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
             moveToNextPuzzle={moveToNextPuzzle}
           />
         </div>
-      {/* </div> */}
     </div>
   );
 };
