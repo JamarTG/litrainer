@@ -44,6 +44,7 @@ export namespace Models {
       players: Player.ChessPlayers;
       moves: string;
       game_id: string;
+      fen :string;
       perf: string;
       rated: boolean;
       status: string;
