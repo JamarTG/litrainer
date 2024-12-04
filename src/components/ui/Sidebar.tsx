@@ -8,7 +8,6 @@ import {
 import { useMediaQuery } from "react-responsive";
 
 const Sidebar: React.FC = () => {
-  const isMidScreen = useMediaQuery({ minWidth: 768 });
 
   return (
     <div className="flex flex-col justify-between h-full bg-gray-800 text-gray-100">
