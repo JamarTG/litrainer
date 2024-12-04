@@ -5,7 +5,6 @@ import {
   faPuzzlePiece,
   faChessKnight,
 } from "@fortawesome/free-solid-svg-icons";
-import { useMediaQuery } from "react-responsive";
 
 const Sidebar: React.FC = () => {
 
