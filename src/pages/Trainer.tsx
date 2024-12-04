@@ -20,9 +20,7 @@ interface TrainerProps {
 }
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
-  // const [fen, setFen] = useState(STARTINGPOSFEN);
-  // const [puzzleIndex, setPuzzleIndex] =
-  //   useState<Models.Move.Index>(INITIAL_INDEX_STATE);
+
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
   );
@@ -149,7 +147,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="flex flex-col items-center">
+      {/* <div className="flex flex-col items-center"> */}
         <div className="flex">
           <div
             ref={boardRef}
@@ -189,7 +187,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
             moveToNextPuzzle={moveToNextPuzzle}
           />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 };
