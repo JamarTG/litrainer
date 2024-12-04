@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { STARTINGPOSFEN, INITIAL_INDEX_STATE } from "../constants";
+import { STARTINGPOSFEN} from "../constants";
 import { Models } from "../typings";
 import { playGameSound } from "../utils/playSound";
 import { normalizeCastlingMove } from "../utils/normalizeCastle";
@@ -13,27 +13,29 @@ import {
 import ControlPanel from "../components/trainer/ControlPanel";
 
 import ResizeHandle from "../components/trainer/ResizeHandle";
+import useMoveToNextPuzzle from "../hooks/useMoveToNextPuzzle";
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
-  const [fen, setFen] = useState(STARTINGPOSFEN);
-  const [puzzleIndex, setPuzzleIndex] =
-    useState<Models.Move.Index>(INITIAL_INDEX_STATE);
+  // const [fen, setFen] = useState(STARTINGPOSFEN);
+  // const [puzzleIndex, setPuzzleIndex] =
+  //   useState<Models.Move.Index>(INITIAL_INDEX_STATE);
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
   );
   const [game, setGame] = useState<Chess>(new Chess(STARTINGPOSFEN));
   const [boardSize, setBoardSize] = useState<number>(400);
-  const [sessionStarted, setSessionStarted] = useState<boolean>(false);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
   const [feedbackMessage, setFeedbackMessage] = useState<React.ReactNode>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
+
+  const { puzzleIndex, fen, moveToNextPuzzle, setFen } = useMoveToNextPuzzle(puzzles);
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
@@ -58,30 +60,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return () => window.removeEventListener("resize", updateBoardSize);
   }, []);
 
-  const moveToNextPuzzle = () => {
-    if (puzzles.length === 0) return;
-
-    let newIndex;
-    let newFen;
-
-    if (!sessionStarted) {
-      newIndex = { x: 0, y: 0 };
-      newFen = puzzles[0][0].fen;
-      setSessionStarted(true);
-    } else if (puzzleIndex.y + 1 < puzzles[puzzleIndex.x]?.length) {
-      newIndex = { x: puzzleIndex.x, y: puzzleIndex.y + 1 };
-      newFen = puzzles[puzzleIndex.x][puzzleIndex.y + 1].fen;
-    } else if (puzzleIndex.x + 1 < puzzles.length) {
-      newIndex = { x: puzzleIndex.x + 1, y: 0 };
-      newFen = puzzles[puzzleIndex.x + 1][0].fen;
-    } else {
-      newIndex = { x: 0, y: 0 };
-      newFen = puzzles[0][0].fen;
-    }
-
-    setPuzzleIndex(newIndex);
-    setFen(newFen);
-  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     const initialX = e.clientX;
