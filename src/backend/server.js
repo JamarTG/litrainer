@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 import path,{dirname} from "path";
 
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -34,7 +33,7 @@ app.post("/evaluate", (req, res) => {
       res.status(500).send(`Stderr: ${stderr}`);
       return;
     }
-    console.log(`Stockfish output: ${stdout}`); 
+    // console.log(`Stockfish output: ${stdout}`); 
     res.header('Access-Control-Allow-Origin', '*'); 
     res.json(JSON.parse(stdout)); 
   });
