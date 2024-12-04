@@ -1,5 +1,4 @@
 // FILE: src/components/ui/SkeletonControlPanel.tsx
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChessKing,
