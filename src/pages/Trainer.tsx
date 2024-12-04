@@ -64,7 +64,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const width = initialWidth + (moveEvent.clientX - initialX);
-      setBoardSize(Math.max(300, Math.min(width, 500)));
+      setBoardSize(Math.max(300, Math.min(width, 650)));
     };
 
     const onMouseUp = () => {
