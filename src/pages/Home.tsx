@@ -50,7 +50,7 @@ const Home = () => {
 
       const puzzles = combineEvalAndMisplays(
         username,
-        parsedPuzzleData.misplayInfo,
+        parsedPuzzleData.misplayInfo as Models.Game.LichessGameInfo[],
         parsedPuzzleData.moveEvaluations
       );
 

@@ -4,7 +4,7 @@ import Sidebar from "./components/ui/Sidebar";
 
 const App = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-red-400">
       <div className="w-1/4">
         <Sidebar />
       </div>
