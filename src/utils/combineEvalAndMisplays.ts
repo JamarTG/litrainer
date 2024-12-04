@@ -1,6 +1,16 @@
 import { Chess } from "chess.js";
 import { Models } from "../typings";
+import axios from "axios";
 
+
+const getEvaluationFromStockfish = async (fen: string): Promise<any> => {
+  try {
+    const response = await axios.post('http://localhost:3000/evaluate', { fen });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(`Error: ${error.message}`);
+  }
+};
 
 const filterStandardGames = (extraGameInfo: Models.Game.LichessGameInfo[]) => {
   return extraGameInfo.filter(
@@ -17,7 +27,6 @@ const combineEvalAndMisplays = (
 
   const playerColor =
     username === standardGames[0].players.white.user ? "white" : "black";
-
 
   return standardGames
     .map((gameInfo: Models.Game.LichessGameInfo, index: number) => {
@@ -51,6 +60,8 @@ const filterGameErrors = (
       const colorToPlay = game.turn();
 
       game.move(move);
+
+      console.log(getEvaluationFromStockfish(positionFenBeforeMove))
 
       const moveIsBad = evaluation[index]?.judgment;
 

@@ -25,6 +25,7 @@ export const splitNDJSON = async (response: Response) => {
       players: parsedLine.players,
       moves: parsedLine.moves,
       game_id: parsedLine.id,
+      fen: parsedLine.fen,
       perf: parsedLine.perf,
       rated: parsedLine.rated,
       status: parsedLine.status,
