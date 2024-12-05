@@ -1,16 +1,16 @@
 import { Chess } from "chess.js";
 import { Models } from "../typings";
-import axios from "axios";
+// import axios from "axios";
 
 
-const getEvaluationFromStockfish = async (fen: string): Promise<any> => {
-  try {
-    const response = await axios.post('http://localhost:3000/evaluate', { fen });
-    return response.data;
-  } catch (error: any) {
-    throw new Error(`Error: ${error.message}`);
-  }
-};
+// const getEvaluationFromStockfish = async (fen: string): Promise<any> => {
+//   try {
+//     const response = await axios.post('http://localhost:3000/evaluate', { fen });
+//     return response.data;
+//   } catch (error: any) {
+//     throw new Error(`Error: ${error.message}`);
+//   }
+// };
 
 const filterStandardGames = (extraGameInfo: Models.Game.LichessGameInfo[]) => {
   return extraGameInfo.filter(
