@@ -30,6 +30,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
+  const [showWarning, setShowWarning] = useState<boolean>(true);
 
   const {
     sessionStarted,
@@ -52,7 +53,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   useEffect(() => {
     const updateBoardSize = () => {
       if (boardRef.current) {
-        const width = Math.min(window.innerWidth * 0.9, 650);
+        const width = Math.min(window.innerWidth * 0.9, 500);
         setBoardSize(width);
       }
     };
@@ -151,46 +152,60 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="flex">
-        <div
-          ref={boardRef}
-          className="relative"
-          style={{
-            width: `${boardSize}px`,
-            height: `${boardSize}px`,
-          }}
+      {showWarning && (
+      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10">
+        <div className="text-center">
+        <p className="text-yellow-500 text-sm font-bold animate-pulse mb-4">
+          🚧 Training mode is currently under development. Stay tuned for updates!
+        </p>
+        <button
+          onClick={() => setShowWarning(false)}
+          className="border-2 border-blue-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
         >
-          <Chessboard
-            position={fen}
-            onSquareClick={handleSquareClick}
-            onPieceDrop={handlePieceDrop}
-            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-            customArrows={[convertMove(currentPuzzle?.move) as any]}
-            boardWidth={boardSize}
-          />
-          {feedbackMessage && (
-            <div
-              className={`feedback-message ${
-                feedbackMessage ? "fade-out" : ""
-              }`}
-            >
-              {feedbackMessage}
-            </div>
-          )}
-
-          <ResizeHandle
-            resizeRef={resizeRef}
-            handleMouseDown={handleMouseDown}
-          />
+          Close
+        </button>
         </div>
-        <ControlPanel
-          puzzles={puzzles}
-          puzzleIndex={puzzleIndex}
-          currentPuzzle={currentPuzzle}
-          moveToNextPuzzle={moveToNextPuzzle}
-          moveToPreviousPuzzle={moveToPreviousPuzzle}
-          sessionStarted={sessionStarted}
+      </div>
+      )}
+      <div className="flex">
+      <div
+        ref={boardRef}
+        className="relative"
+        style={{
+        width: `${boardSize}px`,
+        height: `${boardSize}px`,
+        }}
+      >
+        <Chessboard
+        position={fen}
+        onSquareClick={handleSquareClick}
+        onPieceDrop={handlePieceDrop}
+        boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+        customArrows={[convertMove(currentPuzzle?.move) as any]}
+        boardWidth={boardSize}
         />
+        {feedbackMessage && (
+        <div
+          className={`feedback-message ${
+          feedbackMessage ? "fade-out" : ""
+          }`}
+        >
+          {feedbackMessage}
+        </div>
+        )}
+        <ResizeHandle
+        resizeRef={resizeRef}
+        handleMouseDown={handleMouseDown}
+        />
+      </div>
+      <ControlPanel
+        puzzles={puzzles}
+        puzzleIndex={puzzleIndex}
+        currentPuzzle={currentPuzzle}
+        moveToNextPuzzle={moveToNextPuzzle}
+        moveToPreviousPuzzle={moveToPreviousPuzzle}
+        sessionStarted={sessionStarted}
+      />
       </div>
     </div>
   );

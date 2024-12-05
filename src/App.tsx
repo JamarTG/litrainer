@@ -18,8 +18,11 @@ const App = () => {
         </div>
       )}
       {/* Main content area */}
-      <div className={`flex-1 flex flex-col ${!isNotSmallScreen ? 'pb-16' : ''}`}>
+      <div
+        className={`flex-1 flex flex-col ${!isNotSmallScreen ? "pb-16" : ""}`}
+      >
         <div className="flex-1 overflow-auto">
+        
           <Home />
         </div>
         {/* BottomNav for smaller screens */}
@@ -30,4 +33,3 @@ const App = () => {
 };
 
 export default App;
-
