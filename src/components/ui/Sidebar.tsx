@@ -6,7 +6,6 @@ import {
   faChessKnight,
   faBug,
   faLightbulb,
-  faBook,
   faQuestionCircle,
   faBullseye,
 } from "@fortawesome/free-solid-svg-icons";
