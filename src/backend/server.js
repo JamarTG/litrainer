@@ -33,7 +33,6 @@ app.post("/evaluate", (req, res) => {
       res.status(500).send(`Stderr: ${stderr}`);
       return;
     }
-    // console.log(`Stockfish output: ${stdout}`); 
     res.header('Access-Control-Allow-Origin', '*'); 
     res.json(JSON.parse(stdout)); 
   });

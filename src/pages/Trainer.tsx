@@ -12,14 +12,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
-import useMoveToNextPuzzle from "../hooks/useMoveToNextPuzzle";
+import useMoveToNextPuzzle from "../hooks/useChangePuzzle";
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
-
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
   );
@@ -32,7 +31,14 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     null
   );
 
-  const { puzzleIndex, fen, moveToNextPuzzle, setFen } = useMoveToNextPuzzle(puzzles);
+  const {
+    sessionStarted,
+    puzzleIndex,
+    fen,
+    moveToNextPuzzle,
+    moveToPreviousPuzzle,
+    setFen,
+  } = useMoveToNextPuzzle(puzzles);
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
@@ -46,7 +52,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   useEffect(() => {
     const updateBoardSize = () => {
       if (boardRef.current) {
-        const width = Math.min(window.innerWidth * 0.9, 500);
+        const width = Math.min(window.innerWidth * 0.9, 650);
         setBoardSize(width);
       }
     };
@@ -57,10 +63,9 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return () => window.removeEventListener("resize", updateBoardSize);
   }, []);
 
-
   const handleMouseDown = (e: React.MouseEvent) => {
     const initialX = e.clientX;
-    const initialWidth = boardRef.current?.offsetWidth || 400;
+    const initialWidth = boardRef.current?.offsetWidth || 650;
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const width = initialWidth + (moveEvent.clientX - initialX);
@@ -146,45 +151,47 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        <div className="flex">
-          <div
-            ref={boardRef}
-            className="relative"
-            style={{
-              width: `${boardSize}px`,
-              height: `${boardSize}px`,
-            }}
-          >
-            <Chessboard
-              position={fen}
-              onSquareClick={handleSquareClick}
-              onPieceDrop={handlePieceDrop}
-              boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-              customArrows={[convertMove(currentPuzzle?.move) as any]}
-              boardWidth={boardSize}
-            />
-            {feedbackMessage && (
-              <div
-                className={`feedback-message ${
-                  feedbackMessage ? "fade-out" : ""
-                }`}
-              >
-                {feedbackMessage}
-              </div>
-            )}
+      <div className="flex">
+        <div
+          ref={boardRef}
+          className="relative"
+          style={{
+            width: `${boardSize}px`,
+            height: `${boardSize}px`,
+          }}
+        >
+          <Chessboard
+            position={fen}
+            onSquareClick={handleSquareClick}
+            onPieceDrop={handlePieceDrop}
+            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+            customArrows={[convertMove(currentPuzzle?.move) as any]}
+            boardWidth={boardSize}
+          />
+          {feedbackMessage && (
+            <div
+              className={`feedback-message ${
+                feedbackMessage ? "fade-out" : ""
+              }`}
+            >
+              {feedbackMessage}
+            </div>
+          )}
 
-            <ResizeHandle
-              resizeRef={resizeRef}
-              handleMouseDown={handleMouseDown}
-            />
-          </div>
-          <ControlPanel
-            puzzles={puzzles}
-            puzzleIndex={puzzleIndex}
-            currentPuzzle={currentPuzzle}
-            moveToNextPuzzle={moveToNextPuzzle}
+          <ResizeHandle
+            resizeRef={resizeRef}
+            handleMouseDown={handleMouseDown}
           />
         </div>
+        <ControlPanel
+          puzzles={puzzles}
+          puzzleIndex={puzzleIndex}
+          currentPuzzle={currentPuzzle}
+          moveToNextPuzzle={moveToNextPuzzle}
+          moveToPreviousPuzzle={moveToPreviousPuzzle}
+          sessionStarted={sessionStarted}
+        />
+      </div>
     </div>
   );
 };
