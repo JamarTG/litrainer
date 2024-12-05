@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import { Models } from '../typings';
 import { STARTINGPOSFEN } from '../constants';
-interface Puzzle {
-  fen: string;
-}
 
-interface PuzzleIndex {
-  x: number;
-  y: number;
-}
-
-const useMoveToNextPuzzle = (puzzles: Puzzle[][]) => {
+const useChangePuzzle = (puzzles: Models.Move.Info[][]) => {
   const [sessionStarted, setSessionStarted] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState<Models.Move.Index>({ x: 0, y: 0 });
   const [fen, setFen] = useState<string>(puzzles[0]?.[0]?.fen || STARTINGPOSFEN);
@@ -18,7 +10,7 @@ const useMoveToNextPuzzle = (puzzles: Puzzle[][]) => {
   const moveToNextPuzzle = () => {
     if (puzzles.length === 0) return;
 
-    let newIndex: PuzzleIndex;
+    let newIndex: Models.Move.Index;
     let newFen: string;
 
     if (!sessionStarted) {
@@ -40,9 +32,28 @@ const useMoveToNextPuzzle = (puzzles: Puzzle[][]) => {
     setFen(newFen);
   };
 
-  console.log(puzzles);
+  const moveToPreviousPuzzle = () => {
+    if (!sessionStarted || puzzles.length === 0) return;
 
-  return { sessionStarted, puzzleIndex, fen, moveToNextPuzzle, setSessionStarted, setPuzzleIndex, setFen };
+    let newIndex: Models.Move.Index;
+    let newFen: string;
+
+    if (puzzleIndex.y > 0) {
+      newIndex = { x: puzzleIndex.x, y: puzzleIndex.y - 1 };
+      newFen = puzzles[puzzleIndex.x][puzzleIndex.y - 1].fen;
+    } else if (puzzleIndex.x > 0) {
+      newIndex = { x: puzzleIndex.x - 1, y: puzzles[puzzleIndex.x - 1].length - 1 };
+      newFen = puzzles[puzzleIndex.x - 1][puzzles[puzzleIndex.x - 1].length - 1].fen;
+    } else {
+      newIndex = { x: puzzles.length - 1, y: puzzles[puzzles.length - 1].length - 1 };
+      newFen = puzzles[puzzles.length - 1][puzzles[puzzles.length - 1].length - 1].fen;
+    }
+
+    setPuzzleIndex(newIndex);
+    setFen(newFen);
+  };
+
+  return { sessionStarted, puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setSessionStarted, setPuzzleIndex, setFen };
 };
 
-export default useMoveToNextPuzzle;
+export default useChangePuzzle;

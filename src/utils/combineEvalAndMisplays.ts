@@ -61,8 +61,6 @@ const filterGameErrors = (
 
       game.move(move);
 
-      console.log(getEvaluationFromStockfish(positionFenBeforeMove))
-
       const moveIsBad = evaluation[index]?.judgment;
 
       return moveIsBad
