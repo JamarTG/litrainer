@@ -1,6 +1,4 @@
 import {
-  faChessKing,
-  faChessQueen,
   faBackward,
   faForward,
   faCircleCheck,
@@ -8,8 +6,6 @@ import {
   faExternalLinkAlt,
   faFlagCheckered,
   faCircle,
-  faSquareCaretLeft,
-  faSquareCaretRight,
   faChessBoard,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
