@@ -1,16 +1,20 @@
 import { Chess } from "chess.js";
 import { Models } from "../typings";
-// import axios from "axios";
+import axios from "axios";
 
 
-// const getEvaluationFromStockfish = async (fen: string): Promise<any> => {
-//   try {
-//     const response = await axios.post('http://localhost:3000/evaluate', { fen });
-//     return response.data;
-//   } catch (error: any) {
-//     throw new Error(`Error: ${error.message}`);
-//   }
-// };
+const getEvaluationFromStockfish = async (fen: string): Promise<any> => {
+  try {
+    
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+    const response = await axios.post(`${backendUrl}/evaluate`, { fen });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(`Error: ${error.message}`);
+  }
+};
+
 
 const filterStandardGames = (extraGameInfo: Models.Game.LichessGameInfo[]) => {
   return extraGameInfo.filter(
@@ -24,7 +28,7 @@ const combineEvalAndMisplays = (
   evaluationsInfo: Models.Move.Evaluation[][]
 ) => {
   const standardGames = filterStandardGames(misplaysInfo);
-
+  console.log(getEvaluationFromStockfish("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
   const playerColor =
     username === standardGames[0].players.white.user ? "white" : "black";
 

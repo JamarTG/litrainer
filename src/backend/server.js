@@ -10,9 +10,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = 3000;
 
-app.use(cors()); 
+const PORT = import.meta.VITE_PORT ;
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); 
 app.use(bodyParser.json()); 
 
 
@@ -24,20 +30,17 @@ app.post("/evaluate", (req, res) => {
 
   exec(`${pythonExecutable} ${scriptPath} "${fen}"`, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error: ${error.message}`); 
-      res.status(500).send(`Error: ${error.message}`);
+      res.status(500).send({ error: error.message });
       return;
     }
     if (stderr) {
-      console.error(`Stderr: ${stderr}`); 
-      res.status(500).send(`Stderr: ${stderr}`);
+      res.status(500).send({ error: stderr });
       return;
     }
-    res.header('Access-Control-Allow-Origin', '*'); 
-    res.json(JSON.parse(stdout)); 
+    res.send({ result: stdout });
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running ${PORT}`);
 });
