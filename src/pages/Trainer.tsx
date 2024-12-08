@@ -13,9 +13,8 @@ import {
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
-import FeedbackMessage from "../components/trainer/FeedbackMessage";
 import WarningMessage from "../components/trainer/WarningMessage";
-// import getLichessCloudEvaluation from "../utils/getLichessCloudEvaluation";
+
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
@@ -31,8 +30,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const [boardSize, setBoardSize] = useState<number>(400);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
-
-  const [feedbackMessage, setFeedbackMessage] = useState<React.ReactNode>(null);
+  const [isBestMove, setIsBestMove] = useState<boolean | null>(null);
   const [showWarning, setShowWarning] = useState<boolean>(true);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
@@ -45,6 +43,17 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
+    const updateBoardSize = () => {
+      if (boardRef.current) {
+        const width = Math.min(window.innerWidth * 0.9, 500);
+        setBoardSize(width);
+      }
+    };
+
+    updateBoardSize();
+    window.addEventListener("resize", updateBoardSize);
+
+    return () => window.removeEventListener("resize", updateBoardSize);
   }, [puzzleIndex, puzzles]);
 
   useEffect(() => {
@@ -64,26 +73,11 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     }
   }, [currentPuzzle]);
 
-  useEffect(() => {
-    const newGame = new Chess(fen);
-    setGame(newGame);
-  }, [fen]);
-
-  useEffect(() => {
-    const updateBoardSize = () => {
-      if (boardRef.current) {
-        const width = Math.min(window.innerWidth * 0.9, 500);
-        setBoardSize(width);
-      }
-    };
-
-    updateBoardSize();
-    window.addEventListener("resize", updateBoardSize);
-
-    return () => window.removeEventListener("resize", updateBoardSize);
-  }, []);
+ 
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+
     const initialX = e.clientX;
     const initialWidth = boardRef.current?.offsetWidth || 650;
 
@@ -106,20 +100,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       const move = attemptMove(sourceSquare, targetSquare);
       if (!move) return false;
       const isBestMove = checkBestMove(move);
-
+      setIsBestMove(isBestMove);
       playSound(game, move);
-
-      setFeedbackMessage(
-        isBestMove ? (
-          <FontAwesomeIcon icon={faCircleCheck} className="text-green-500" />
-        ) : (
-          <FontAwesomeIcon icon={faCircleXmark} className="text-red-500" />
-        )
-      );
-
-      setTimeout(() => {
-        setFeedbackMessage(null);
-      }, 400);
       setIsTransitioning(true);
       setFen(game.fen());
       setTimeout(() => setIsTransitioning(false), 300);
@@ -132,6 +114,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           moveToNextPuzzle();
         }, 400);
       }
+      setTimeout(() => setIsBestMove(null), 500);
 
       return true;
     },
@@ -257,20 +240,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return [move?.from, move?.to, move?.from && move.to ? color : ""];
   };
 
-  const getCustomArrows = (
-    currentPuzzle: Models.Move.Info | null,
-    moveSquares: Record<string, any>
-  ): [Square, Square, string][] => {
-    if (currentPuzzle && Object.keys(moveSquares).length === 0) {
-      const {
-        move,
-        evaluation: { judgment },
-      } = currentPuzzle;
-      return [convertMove(move, judgment) as [Square, Square, string]];
-    }
-    return [];
-  };
-
   return (
     <div className="flex items-center justify-center min-h-screen">
       <WarningMessage
@@ -284,28 +253,28 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           style={{
             width: `${boardSize}px`,
             height: `${boardSize}px`,
+            // backgroundColor: isTransitioning ? "white" : "green", // Use rgba with opacity
+            backgroundColor: isBestMove === null ? "grey" : isBestMove ? "green" : "red",
+            transition: "background 0.9s ease-out", // Apply transition for background and opacity
           }}
         >
           <Chessboard
             position={fen}
             showBoardNotation={true}
             onSquareClick={handleSquareClick}
+            
             animationDuration={200}
             onPieceDrop={handlePieceDrop}
             boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-            customArrows={getCustomArrows(currentPuzzle, moveSquares)}
+           
             boardWidth={boardSize}
             customSquareStyles={{
               ...moveSquares,
             }}
-            customBoardStyle={{ 
-              opacity: isTransitioning ? 0.9 : 1, 
-              transition: "opacity 0.3s, background-color 0.3s", 
-              backgroundColor: isTransitioning ? "lightgreen" : "green" 
+            customBoardStyle={{
+              opacity: isTransitioning ? 0.9 :1, 
             }}
           />
-
-          <FeedbackMessage message={feedbackMessage} />
           <ResizeHandle
             resizeRef={resizeRef}
             handleMouseDown={handleMouseDown}
