@@ -1,26 +1,29 @@
 import { Chess, Move } from "chess.js";
 
-export const playVariationSound = (game: Chess, move: Move) => {
-  //   capture
+export const playSound = (game: Chess, move: Move) => {
+  const volume = 0.5; // Set the desired volume level (0.0 to 1.0)
+
+  // Capture
   const isCapture = move.captured;
-  // checks
+  // Checks
   const isCheck = game.isCheck();
-  // regular moves
+  // Regular moves
 
   if (isCapture) {
-    new Audio("/sounds/capture.mp3").play();
+    const captureSound = new Audio("/sounds/capture.mp3");
+    captureSound.volume = volume;
+    captureSound.play();
     return;
   }
 
   if (isCheck) {
-    new Audio("/sounds/check.mp3").play();
+    const checkSound = new Audio("/sounds/check.mp3");
+    checkSound.volume = volume;
+    checkSound.play();
     return;
   }
 
-  new Audio("/sounds/move.mp3").play();
-};
-
-export const playGameSound = (isMoveGood: boolean) => {
-  const sound = new Audio(`/sounds/${isMoveGood ? "good" : "bad"}-move.mp3`);
-  sound.play();
+  const moveSound = new Audio("/sounds/move.mp3");
+  moveSound.volume = volume;
+  moveSound.play();
 };

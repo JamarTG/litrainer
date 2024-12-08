@@ -2,9 +2,7 @@
 //Include only positions of the user in question
 
 Implement Routing
-Support Clicking
 Integrate Stockfish
-Customization
 Responsivity
 Hint Feature
 Report Bug
@@ -12,7 +10,7 @@ Account for Title And Flairs And Patrons
 Request for GH Starts
 Add Toasts
 Allow Some Way To Save State
-Utilize What Azure Provides 
+MoveSquares Reset on Clicking Next
 
 We need to save the state of the user when they leave the site
  Do we opt for local storage. Do we store this in a database?

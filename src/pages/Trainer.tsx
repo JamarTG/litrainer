@@ -4,7 +4,7 @@ import { Chess, Move, Square } from "chess.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
-import { playGameSound } from "../utils/playSound";
+import { playSound } from "../utils/playSound";
 import { normalizeCastlingMove } from "../utils/normalizeCastle";
 import {
   faCircleCheck,
@@ -119,7 +119,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       const move = attemptMove(sourceSquare, targetSquare);
       if (!move) return false;
       const isBestMove = checkBestMove(move);
-      playGameSound(isBestMove);
+
+      playSound(game, move);
 
       setFeedbackMessage(
         isBestMove ? (
@@ -131,10 +132,17 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
       setTimeout(() => {
         setFeedbackMessage(null);
-      }, 900);
+      }, 400);
 
       setFen(game.fen());
-      if (!isBestMove) resetBoardAfterDelay();
+      if (!isBestMove) {
+        resetBoardAfterDelay();
+      } else {
+        setTimeout(() => {
+          moveToNextPuzzle();
+        }, 400);
+        
+      }
 
       return true;
     },
@@ -225,7 +233,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     setTimeout(() => {
       game.load(fen);
       setFen(fen);
-    }, 1000);
+    }, 400);
   };
 
   const convertMove = (
@@ -238,21 +246,21 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
     const moves = game.moves({ verbose: true });
     const move = moves.find((m) => m.san === moveNotation);
-    let color = "grey"; // Default color
+    let color = "grey";
 
     if (judgment) {
       switch (judgment.name as string) {
-      case "Blunder":
-        color = "red";
-        break;
-      case "Mistake":
-        color = "orange";
-        break;
-      case "Inaccuracy":
-        color = "deepskyblue";
-        break;
-      default:
-        color = "grey";
+        case "Blunder":
+          color = "red";
+          break;
+        case "Mistake":
+          color = "orange";
+          break;
+        case "Inaccuracy":
+          color = "deepskyblue";
+          break;
+        default:
+          color = "grey";
       }
     }
 
@@ -261,6 +269,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      {/* H{JSON.stringify(moveSquares)} */}
+      {/* {JSON.stringify(moveSquares)} */}
       {showWarning && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10">
           <div className="text-center">
@@ -290,13 +300,14 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
             position={fen}
             showBoardNotation={true}
             onSquareClick={handleSquareClick}
+            animationDuration={200}
             onPieceDrop={handlePieceDrop}
             boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
             customArrows={
               convertMove(
                 currentPuzzle?.move,
                 currentPuzzle?.evaluation.judgment
-              )
+              ) && Object.keys(moveSquares).length === 0
                 ? [
                     convertMove(
                       currentPuzzle?.move,
@@ -310,6 +321,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               ...moveSquares,
             }}
           />
+
           {feedbackMessage && (
             <div
               className={`feedback-message ${
