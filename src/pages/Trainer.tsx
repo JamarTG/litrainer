@@ -38,6 +38,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     null
   );
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const { puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setFen } =
     useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
@@ -119,7 +120,9 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       setTimeout(() => {
         setFeedbackMessage(null);
       }, 400);
-
+      setIsTransitioning(true);
+      setFen(game.fen());
+      setTimeout(() => setIsTransitioning(false), 300);
       setFen(game.fen());
       console.log("isBestMove", isBestMove);
       if (!isBestMove) {
@@ -294,6 +297,11 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
             boardWidth={boardSize}
             customSquareStyles={{
               ...moveSquares,
+            }}
+            customBoardStyle={{ 
+              opacity: isTransitioning ? 0.9 : 1, 
+              transition: "opacity 0.3s, background-color 0.3s", 
+              backgroundColor: isTransitioning ? "lightgreen" : "green" 
             }}
           />
 
