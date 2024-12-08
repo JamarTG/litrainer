@@ -82,36 +82,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return () => window.removeEventListener("resize", updateBoardSize);
   }, []);
 
-  // useEffect(() => {
-  //   const fetchAnalysis = async () => {
-  //     const token = "YOUR_LICHESS_API_TOKEN"; // Replace with your Lichess API token
-  //     try {
-  //       const analysis = await getLichessCloudEvaluation(fen, token);
-  //       const threshold = 50;
-
-  //       if (analysis) {
-  //         const bestScore = analysis[0].cp;
-  //         const goodMoves = analysis
-  //           .filter((pv: any) => Math.abs(pv.cp - bestScore) <= threshold)
-  //           .map((pv: any) => ({
-  //             move: pv.moves[0],
-  //             evaluation: pv.cp / 100,
-  //           }));
-  //         setGoodMoves(goodMoves);
-  //       } else {
-  //         setGoodMoves([]);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching analysis from Lichess:", error);
-  //       setGoodMoves([]);
-  //     }
-  //   };
-
-  //   if (fen) {
-  //     fetchAnalysis();
-  //   }
-  // }, [fen]);
-
   const handleMouseDown = (e: React.MouseEvent) => {
     const initialX = e.clientX;
     const initialWidth = boardRef.current?.offsetWidth || 650;
