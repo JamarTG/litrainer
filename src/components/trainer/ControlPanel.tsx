@@ -33,7 +33,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div>
       {isDataAvailable ? (
-        <div className="ml-4 flex flex-col space-y-6 p-6 bg-gray-800 rounded-lg shadow-lg w-80 flex-grow">
+        <div className="ml-4 flex flex-col space-y-6 p-6 bg-gray-500 rounded-lg shadow-lg w-80 flex-grow">
           <div className="flex items-center mb-4 gap-2">
             <div className="flex items-center justify-center space-x-2 w-1/3">
               <FontAwesomeIcon
