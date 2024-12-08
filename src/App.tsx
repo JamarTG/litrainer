@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="flex h-screen bg-gray-200 text-violet-100">
+      <div className="flex h-screen bg-gray-700 text-violet-100">
         {/* Sidebar for larger screens */}
         {isNotSmallScreen && (
           <div className={`${isMidScreen ? "w-48" : "w-16"} h-full`}>
