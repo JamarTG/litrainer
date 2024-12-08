@@ -1,14 +1,5 @@
 import axios from "axios";
 
-/**
- * Fetches cached evaluation from Lichess API.
- * 
- * @param {string} fen - The FEN string of the chess position.
- * @param {string} token - The authorization token.
- * @param {number} [retries=3] - The number of retry attempts if the request fails.
- * @returns {Promise<any>} - The evaluation data from Lichess API.
- */
-
 const getCachedEval = async (fen: string, token: string, retries = 3) => {
   try {
     const response = await axios.get(

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./App.css";
 
@@ -16,13 +15,13 @@ const App = () => {
   return (
     <Router>
       <div className="flex h-screen bg-gray-700 text-violet-100">
-        {/* Sidebar for larger screens */}
+
         {isNotSmallScreen && (
           <div className={`${isMidScreen ? "w-48" : "w-16"} h-full`}>
             <Sidebar />
           </div>
         )}
-        {/* Main content area */}
+       
         <div
           className={`flex-1 flex flex-col ${!isNotSmallScreen ? "pb-16" : ""}`}
         >
@@ -31,7 +30,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
         
-              {/* Add more routes as needed */}
+             
             </Routes>
           </div>
           {!isNotSmallScreen && <BottomNav />}
