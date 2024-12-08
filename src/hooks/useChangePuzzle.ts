@@ -21,6 +21,10 @@ const useChangePuzzle = (
     let newIndex: Models.Move.Index;
     let newFen: string;
 
+    if(!sessionStarted) {
+      setSessionStarted(true);
+    }
+
      if (puzzleIndex.y + 1 < puzzles[puzzleIndex.x]?.length) {
       newIndex = { x: puzzleIndex.x, y: puzzleIndex.y + 1 };
       newFen = puzzles[puzzleIndex.x][puzzleIndex.y + 1].fen;
