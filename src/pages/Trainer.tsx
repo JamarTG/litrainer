@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
 import { playSound } from "../utils/audio/playSound";
 import { normalizeCastlingMove } from "../utils/chess/normalizeCastle";
-import {
-  faCircleCheck,
-  faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -207,37 +202,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       game.load(fen);
       setFen(fen);
     }, 400);
-  };
-
-  const convertMove = (
-    moveNotation: string | undefined | null,
-    judgment: Models.Move.Judgement | undefined
-  ) => {
-    if (moveNotation === null || judgment === undefined) {
-      return;
-    }
-
-    const moves = game.moves({ verbose: true });
-    const move = moves.find((m) => m.san === moveNotation);
-    let color = "grey";
-
-    if (judgment) {
-      switch (judgment.name as string) {
-        case "Blunder":
-          color = "red";
-          break;
-        case "Mistake":
-          color = "orange";
-          break;
-        case "Inaccuracy":
-          color = "deepskyblue";
-          break;
-        default:
-          color = "grey";
-      }
-    }
-
-    return [move?.from, move?.to, move?.from && move.to ? color : ""];
   };
 
   return (
