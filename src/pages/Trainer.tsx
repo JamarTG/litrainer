@@ -236,7 +236,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
               ...moveSquares,
             }}
             customBoardStyle={{
-              opacity: isTransitioning ? 0.9 :1, 
+              opacity: isTransitioning ? 0.3 :1, 
             }}
           />
           <ResizeHandle
