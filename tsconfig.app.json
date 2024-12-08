@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/typings", "src/utils/combineEvalAndMisplays.ts"]
+  "include": ["src", "src/typings", "src/utils/combineEvalAndMisplays.ts", "src/utils/libs/stockfish.js"]
 }
