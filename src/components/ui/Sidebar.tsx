@@ -12,7 +12,7 @@ import {
 const Sidebar: React.FC = () => {
 
   return (
-    <div className="flex flex-col justify-between h-full bg-gray-500 text-gray-100">
+    <div className="flex flex-col justify-between h-full bg-gray-800 text-gray-100">
       <div>
         <div className="flex items-center mt-6 mb-12 ml-4">
             <div className="relative flex">
@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
               <li>
                 <a
                   href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
+                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 text-lg"
                 >
                     <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faBullseye} className="text-2xl text-white" />
@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
               <li>
                 <a
                   href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
+                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 text-lg"
                 >
                     <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faQuestionCircle} className="text-2xl text-white" />
@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
               <li>
                 <a
                   href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
+                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 text-lg"
                 >
                   <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faUser} className="text-2xl text-white" />
@@ -61,7 +61,7 @@ const Sidebar: React.FC = () => {
               <li>
                 <a
                   href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
+                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 text-lg"
                 >
                   <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faBug} className="text-2xl text-white" />
@@ -72,7 +72,7 @@ const Sidebar: React.FC = () => {
               <li>
                 <a
                   href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
+                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 text-lg"
                 >
                     <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faLightbulb} className="text-2xl text-white" />
