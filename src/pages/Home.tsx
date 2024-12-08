@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { API_BASE_URL, INITIAL_FORM_STATE } from "../constants";
 import { Models } from "../typings";
-import { splitNDJSON } from "../utils/splitNDJSON";
+import { extractErrors } from "../utils/processing/extractErrors";
 import TrainerForm from "../components/home/TrainerForm";
-import combineEvalAndMisplays from "../utils/combineEvalAndMisplays";
+import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
 import Trainer from "./Trainer";
 
 const Home = () => {
@@ -44,7 +44,7 @@ const Home = () => {
         return;
       }
 
-      const parsedPuzzleData = await splitNDJSON(response);
+      const parsedPuzzleData = await extractErrors(response);
 
       if (!parsedPuzzleData) return;
 
@@ -53,6 +53,8 @@ const Home = () => {
         parsedPuzzleData.misplayInfo as Models.Game.LichessGameInfo[],
         parsedPuzzleData.moveEvaluations
       );
+
+      console.log(puzzles)
 
       setPuzzles(puzzles);
     } catch (error) {

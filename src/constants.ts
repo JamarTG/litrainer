@@ -1,4 +1,4 @@
-import formatDate from "./utils/formatDate";
+import formatDate from "./utils/date/formatDate";
 
 export const STARTINGPOSFEN =
   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -9,6 +9,7 @@ export const STARTINGPOSFEN =
 //   SINCE: new Date("2024-07-03T00:00:00Z").getTime(),
 //   UNTIL: new Date("2024-08-08T00:00:00Z").getTime(),
 // };
+export const DEFAULT_VOLUME = 0.9;
 
 export const INITIAL_FORM_STATE = {
   username: "JamariTheGreat",

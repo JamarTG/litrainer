@@ -4,15 +4,17 @@ import { Chess, Move, Square } from "chess.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
-import { playSound } from "../utils/playSound";
-import { normalizeCastlingMove } from "../utils/normalizeCastle";
+import { playSound } from "../utils/audio/playSound";
+import { normalizeCastlingMove } from "../utils/chess/normalizeCastle";
 import {
   faCircleCheck,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
-import useMoveToNextPuzzle from "../hooks/useChangePuzzle";
+import useChangePuzzle from "../hooks/useChangePuzzle";
+import FeedbackMessage from "../components/trainer/FeedbackMessage";
+import WarningMessage from "../components/trainer/WarningMessage";
 // import getLichessCloudEvaluation from "../utils/getLichessCloudEvaluation";
 
 interface TrainerProps {
@@ -20,32 +22,46 @@ interface TrainerProps {
 }
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
+  const [game, setGame] = useState<Chess>(new Chess(STARTINGPOSFEN));
+  const [sessionStarted, setSessionStarted] = useState(false);
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
   );
-  const [game, setGame] = useState<Chess>(new Chess(STARTINGPOSFEN));
+
   const [boardSize, setBoardSize] = useState<number>(400);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
+
   const [feedbackMessage, setFeedbackMessage] = useState<React.ReactNode>(null);
+  const [showWarning, setShowWarning] = useState<boolean>(true);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-  const [showWarning, setShowWarning] = useState<boolean>(true);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
-  const {
-    sessionStarted,
-    puzzleIndex,
-    fen,
-    moveToNextPuzzle,
-    moveToPreviousPuzzle,
-    setFen,
-  } = useMoveToNextPuzzle(puzzles);
+  const { puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setFen } =
+    useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
 
   useEffect(() => {
     setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
   }, [puzzleIndex, puzzles]);
+
+  useEffect(() => {
+    if (currentPuzzle) {
+      const newGame = new Chess(currentPuzzle.fen);
+      setGame(newGame);
+      setFen(newGame.fen());
+
+      if (currentPuzzle.lastMove) {
+        setTimeout(() => {
+          const move = newGame.move(currentPuzzle.lastMove);
+          playSound(newGame, move);
+          setGame(newGame);
+          setFen(newGame.fen());
+        }, 1000);
+      }
+    }
+  }, [currentPuzzle]);
 
   useEffect(() => {
     const newGame = new Chess(fen);
@@ -135,13 +151,13 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       }, 400);
 
       setFen(game.fen());
+      console.log("isBestMove", isBestMove);
       if (!isBestMove) {
         resetBoardAfterDelay();
       } else {
         setTimeout(() => {
           moveToNextPuzzle();
         }, 400);
-        
       }
 
       return true;
@@ -149,64 +165,65 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     [game, fen, currentPuzzle?.evaluation.best, puzzleIndex]
   );
 
-  const handleSquareClick = (square: Square) => {
-    const piece = game.get(square);
+  const handleSquareClick = (clickedSquare: Square) => {
+    const clickedPiece = game.get(clickedSquare);
 
-    // If no source square is selected and the clicked square has a piece, set it as the source square
-    if (!clickSourceSquare && piece) {
-      setClickSourceSquare(square);
+    const isValidFirstClick = !clickSourceSquare && clickedPiece;
+    const isSecondClick = clickSourceSquare;
 
-      // Get the legal moves for the selected piece
-      const legalMoves = game.moves({ square: square, verbose: true });
+    if (isValidFirstClick) {
+      setClickSourceSquare(clickedSquare);
+
+      const legalMovesFromClickedSquare = game.moves({
+        square: clickedSquare,
+        verbose: true,
+      });
       setMoveSquares({
-        [square]: {
+        [clickedSquare]: {
           borderRadius: "50%",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)", // Smaller shadow for a subtle effect
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
           transform: "scale(0.7)",
         },
       });
 
-      highlightLegalMoves(legalMoves);
-    } else {
-      handlePieceDrop(clickSourceSquare!, square);
+      highlightLegalMoves(legalMovesFromClickedSquare);
+    } else if (isSecondClick) {
+      handlePieceDrop(clickSourceSquare!, clickedSquare);
       setClickSourceSquare(null);
       setMoveSquares({});
     }
   };
 
   const highlightLegalMoves = useCallback(
-    (moves: Move[]) => {
-      const legalSquares = moves.map((move) => move.to);
+    (legalMoves: Move[]) => {
+      const legalDestinationSquares = legalMoves.map((move) => move.to);
 
-      const moveSquaresStyles = legalSquares.reduce((acc, square) => {
-        const moveStyle = moves.find(
-          (move) => move.to === square && move.captured
-        )
-          ? {
-              background:
-                "radial-gradient(circle, rgba(0,0,0,.1) 70%, transparent 25%)",
-              borderRadius: "50%",
-              zIndex: 1,
-            }
-          : {
-              background:
-                "radial-gradient(circle, rgba(0,0,0,.1) 30%, transparent 25%)",
-              borderRadius: "50%",
-              zIndex: 1,
-            };
+      const highlightedSquaresStyles = legalDestinationSquares.reduce(
+        (styles, square) => {
+          const isCaptureMove = legalMoves.some(
+            (move) => move.to === square && move.captured
+          );
 
-        acc[square] = moveStyle;
+          const squareStyle = {
+            background: `radial-gradient(circle, rgba(0,0,0,.1) ${
+              isCaptureMove ? "70%" : "30%"
+            }, transparent 25%)`,
+            borderRadius: "50%",
+            zIndex: 1,
+          };
 
-        return acc;
-      }, {} as Record<string, any>);
-      setMoveSquares(moveSquaresStyles);
+          styles[square] = squareStyle;
+          return styles;
+        },
+        {} as Record<string, any>
+      );
+      setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
   );
 
   const attemptMove = useCallback(
     (sourceSquare: string, targetSquare: string) => {
-      console.log("Attempting move", sourceSquare, targetSquare);
       try {
         const move = game.move({
           from: sourceSquare,
@@ -267,24 +284,26 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return [move?.from, move?.to, move?.from && move.to ? color : ""];
   };
 
+  const getCustomArrows = (
+    currentPuzzle: Models.Move.Info | null,
+    moveSquares: Record<string, any>
+  ): [Square, Square, string][] => {
+    if (currentPuzzle && Object.keys(moveSquares).length === 0) {
+      const {
+        move,
+        evaluation: { judgment },
+      } = currentPuzzle;
+      return [convertMove(move, judgment) as [Square, Square, string]];
+    }
+    return [];
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
-      {showWarning && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10">
-          <div className="text-center">
-            <p className="text-yellow-500 text-sm font-bold animate-pulse mb-4">
-              🚧 Training mode is currently under development. Stay tuned for
-              updates!
-            </p>
-            <button
-              onClick={() => setShowWarning(false)}
-              className="border-2 border-blue-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      <WarningMessage
+        show={showWarning}
+        onClose={() => setShowWarning(false)}
+      />
       <div className="flex">
         <div
           ref={boardRef}
@@ -301,40 +320,14 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
             animationDuration={200}
             onPieceDrop={handlePieceDrop}
             boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-            customArrows={
-              convertMove(
-                currentPuzzle?.move,
-                currentPuzzle?.evaluation.judgment
-              ) && Object.keys(moveSquares).length === 0
-                ? [
-                    convertMove(
-                      currentPuzzle?.move,
-                      currentPuzzle?.evaluation.judgment
-                    ) as [Square, Square, string],
-                  ]
-                : []
-            }
+            customArrows={getCustomArrows(currentPuzzle, moveSquares)}
             boardWidth={boardSize}
             customSquareStyles={{
               ...moveSquares,
             }}
           />
 
-          {feedbackMessage && (
-            <div
-              className={`feedback-message ${
-                feedbackMessage ? "fade-out" : ""
-              } absolute inset-0 flex items-center justify-center text-6xl`}
-              style={{
-                zIndex: 10,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              {feedbackMessage}
-            </div>
-          )}
+          <FeedbackMessage message={feedbackMessage} />
           <ResizeHandle
             resizeRef={resizeRef}
             handleMouseDown={handleMouseDown}

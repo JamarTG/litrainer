@@ -1,11 +1,19 @@
-import { useState } from 'react';
-import { Models } from '../typings';
-import { STARTINGPOSFEN } from '../constants';
+import { Dispatch, SetStateAction, useState } from "react";
+import { Models } from "../typings";
+import { STARTINGPOSFEN } from "../constants";
 
-const useChangePuzzle = (puzzles: Models.Move.Info[][]) => {
-  const [sessionStarted, setSessionStarted] = useState(false);
-  const [puzzleIndex, setPuzzleIndex] = useState<Models.Move.Index>({ x: 0, y: 0 });
-  const [fen, setFen] = useState<string>(puzzles[0]?.[0]?.fen || STARTINGPOSFEN);
+const useChangePuzzle = (
+  puzzles: Models.Move.Info[][],
+  sessionStarted: boolean,
+  setSessionStarted: Dispatch<SetStateAction<boolean>>
+) => {
+  const [puzzleIndex, setPuzzleIndex] = useState<Models.Move.Index>({
+    x: 0,
+    y: 0,
+  });
+  const [fen, setFen] = useState<string>(
+    STARTINGPOSFEN
+  );
 
   const moveToNextPuzzle = () => {
     if (puzzles.length === 0) return;
@@ -13,11 +21,7 @@ const useChangePuzzle = (puzzles: Models.Move.Info[][]) => {
     let newIndex: Models.Move.Index;
     let newFen: string;
 
-    if (!sessionStarted) {
-      newIndex = { x: 0, y: 0 };
-      newFen = puzzles[0][0].fen;
-      setSessionStarted(true);
-    } else if (puzzleIndex.y + 1 < puzzles[puzzleIndex.x]?.length) {
+     if (puzzleIndex.y + 1 < puzzles[puzzleIndex.x]?.length) {
       newIndex = { x: puzzleIndex.x, y: puzzleIndex.y + 1 };
       newFen = puzzles[puzzleIndex.x][puzzleIndex.y + 1].fen;
     } else if (puzzleIndex.x + 1 < puzzles.length) {
@@ -42,18 +46,33 @@ const useChangePuzzle = (puzzles: Models.Move.Info[][]) => {
       newIndex = { x: puzzleIndex.x, y: puzzleIndex.y - 1 };
       newFen = puzzles[puzzleIndex.x][puzzleIndex.y - 1].fen;
     } else if (puzzleIndex.x > 0) {
-      newIndex = { x: puzzleIndex.x - 1, y: puzzles[puzzleIndex.x - 1].length - 1 };
-      newFen = puzzles[puzzleIndex.x - 1][puzzles[puzzleIndex.x - 1].length - 1].fen;
+      newIndex = {
+        x: puzzleIndex.x - 1,
+        y: puzzles[puzzleIndex.x - 1].length - 1,
+      };
+      newFen =
+        puzzles[puzzleIndex.x - 1][puzzles[puzzleIndex.x - 1].length - 1].fen;
     } else {
-      newIndex = { x: puzzles.length - 1, y: puzzles[puzzles.length - 1].length - 1 };
-      newFen = puzzles[puzzles.length - 1][puzzles[puzzles.length - 1].length - 1].fen;
+      newIndex = {
+        x: puzzles.length - 1,
+        y: puzzles[puzzles.length - 1].length - 1,
+      };
+      newFen =
+        puzzles[puzzles.length - 1][puzzles[puzzles.length - 1].length - 1].fen;
     }
 
     setPuzzleIndex(newIndex);
     setFen(newFen);
   };
 
-  return { sessionStarted, puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setSessionStarted, setPuzzleIndex, setFen };
+  return {
+    puzzleIndex,
+    fen,
+    moveToNextPuzzle,
+    moveToPreviousPuzzle,
+    setPuzzleIndex,
+    setFen,
+  };
 };
 
 export default useChangePuzzle;

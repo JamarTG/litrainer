@@ -15,6 +15,7 @@ export namespace Models {
       rated: boolean;
       status: string;
       variant: string;
+      lastMove: string;
     }
 
     // resolved
