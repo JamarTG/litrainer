@@ -7,11 +7,14 @@ export const playSound = (chessGame: Chess, chessMove: Move) => {
 
   switch (true) {
   case !!chessMove.captured:
-    soundAction = "capture";
-    break;
+  soundAction = "capture";
+  break;
   case chessGame.isCheck():
-    soundAction = "check";
-    break;
+  soundAction = "check";
+  break;
+  case chessMove.flags.includes("k") || chessMove.flags.includes("q"):
+  soundAction = "castle";
+  break;
   }
 
   const sound = new Audio(`/sounds/${soundAction}.mp3`);
