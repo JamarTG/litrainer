@@ -1,6 +1,6 @@
-import { Models } from "../typings";
+import { Models } from "../../typings";
 
-export const splitNDJSON = async (response: Response) => {
+export const extractErrors = async (response: Response) => {
   if (!response.body) {
     return;
   }
@@ -14,7 +14,6 @@ export const splitNDJSON = async (response: Response) => {
     result += gameInfo;
   }
 
-  // Split NDJSON data into individual JSON objects
   const lines = result.split("\n").filter((line) => line.trim() !== "");
 
   const moveEvaluations = lines.map((line) => JSON.parse(line).analysis);
