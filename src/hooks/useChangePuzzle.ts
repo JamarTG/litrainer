@@ -1,6 +1,8 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Models } from "../typings";
 import { STARTINGPOSFEN } from "../constants";
+import { Chess } from "chess.js";
+
 
 const useChangePuzzle = (
   puzzles: Models.Move.Info[][],
@@ -68,6 +70,7 @@ const useChangePuzzle = (
     setPuzzleIndex(newIndex);
     setFen(newFen);
   };
+
 
   return {
     puzzleIndex,
