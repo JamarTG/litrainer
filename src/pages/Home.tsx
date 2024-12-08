@@ -61,7 +61,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gray-900">
+    <div>
       {formData.username &&
       formData.maxNoGames &&
       formData.startDate &&

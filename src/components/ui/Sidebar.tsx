@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faPuzzlePiece,
   faChessKnight,
   faBug,
   faLightbulb,
@@ -13,11 +12,11 @@ import {
 const Sidebar: React.FC = () => {
 
   return (
-    <div className="flex flex-col justify-between h-full bg-gray-800 text-gray-100">
+    <div className="flex flex-col justify-between h-full bg-gray-500 text-gray-100">
       <div>
         <div className="flex items-center mt-6 mb-12 ml-4">
             <div className="relative flex">
-                <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-25"></div>
+                <div className="absolute inset-0 bg-red-900 rounded-full blur-lg opacity-45"></div>
                 <FontAwesomeIcon icon={faChessKnight} className="relative text-2xl text-white z-10" />
                 <span className="relative text-white z-10 ml-2 text-2xl hidden md:inline whitespace-nowrap">LITRAINER</span>
             </div>
@@ -33,20 +32,10 @@ const Sidebar: React.FC = () => {
                     <div className="flex justify-center items-center">
                     <FontAwesomeIcon icon={faBullseye} className="text-2xl text-white" />
                     </div>
-                  <span className="hidden md:inline whitespace-nowrap text-sm">Create Session</span>
+                  <span className="hidden md:inline whitespace-nowrap text-sm">Train</span>
                 </a>
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="grid grid-cols-[40px_auto] md:grid-cols-[40px_1fr] items-center p-2 hover:bg-gray-700 rounded text-lg"
-                >
-                  <div className="flex justify-center items-center">
-                    <FontAwesomeIcon icon={faPuzzlePiece} className="text-2xl text-white" />
-                  </div>
-                  <span className="hidden md:inline whitespace-nowrap text-sm">Puzzle</span>
-                </a>
-              </li>
+              
               <li>
                 <a
                   href="#"

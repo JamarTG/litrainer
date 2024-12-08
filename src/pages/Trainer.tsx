@@ -268,9 +268,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      {/* H{JSON.stringify(moveSquares)} */}
-      {/* {JSON.stringify(moveSquares)} */}
+    <div className="flex items-center justify-center min-h-screen">
       {showWarning && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-10">
           <div className="text-center">
