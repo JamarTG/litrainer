@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { STARTINGPOSFEN } from "../constants";
@@ -9,7 +9,6 @@ import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import WarningMessage from "../components/trainer/WarningMessage";
-
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
@@ -37,18 +36,26 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
 
   useEffect(() => {
-    setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
-    const updateBoardSize = () => {
+    const handleResize = () => {
       if (boardRef.current) {
-        const width = Math.min(window.innerWidth * 0.9, 500);
-        setBoardSize(width);
+        const newSize = Math.min(
+          window.innerWidth - 100,
+          window.innerHeight - 100
+        );
+        setBoardSize(newSize);
       }
     };
 
-    updateBoardSize();
-    window.addEventListener("resize", updateBoardSize);
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Set initial size
 
-    return () => window.removeEventListener("resize", updateBoardSize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
   }, [puzzleIndex, puzzles]);
 
   useEffect(() => {
@@ -68,8 +75,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     }
   }, [currentPuzzle]);
 
- 
-
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -78,7 +83,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const width = initialWidth + (moveEvent.clientX - initialX);
-      setBoardSize(Math.max(300, Math.min(width, 650)));
+      setBoardSize(Math.max(200, Math.min(width, 650)));
     };
 
     const onMouseUp = () => {
@@ -205,54 +210,49 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-4">
       <WarningMessage
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
-      <div className="flex">
-        <div
-          ref={boardRef}
-          className="relative"
-          style={{
-            width: `${boardSize}px`,
-            height: `${boardSize}px`,
-            // backgroundColor: isTransitioning ? "white" : "green", // Use rgba with opacity
-            backgroundColor: isBestMove === null ? "grey" : isBestMove ? "green" : "red",
-            transition: "background 0.9s ease-out", // Apply transition for background and opacity
+      <div
+        ref={boardRef}
+        className="relative"
+        style={{
+          width: `${boardSize}px`,
+          height: `${boardSize}px`,
+          backgroundColor:
+            isBestMove === null ? "grey" : isBestMove ? "green" : "red",
+          transition: "background 0.9s ease-out",
+        }}
+      >
+        <Chessboard
+          position={fen}
+          showBoardNotation={true}
+          onSquareClick={handleSquareClick}
+          animationDuration={200}
+          onPieceDrop={handlePieceDrop}
+          boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+          boardWidth={boardSize}
+          customSquareStyles={{
+            ...moveSquares,
           }}
-        >
-          <Chessboard
-            position={fen}
-            showBoardNotation={true}
-            onSquareClick={handleSquareClick}
-            
-            animationDuration={200}
-            onPieceDrop={handlePieceDrop}
-            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-           
-            boardWidth={boardSize}
-            customSquareStyles={{
-              ...moveSquares,
-            }}
-            customBoardStyle={{
-              opacity: isTransitioning ? 0.3 :1, 
-            }}
-          />
-          <ResizeHandle
-            resizeRef={resizeRef}
-            handleMouseDown={handleMouseDown}
-          />
-        </div>
-        <ControlPanel
-          puzzles={puzzles}
-          puzzleIndex={puzzleIndex}
-          currentPuzzle={currentPuzzle}
-          moveToNextPuzzle={moveToNextPuzzle}
-          moveToPreviousPuzzle={moveToPreviousPuzzle}
-          sessionStarted={sessionStarted}
+          customBoardStyle={{
+            opacity: isTransitioning ? 0.3 : 1,
+          }}
         />
+        <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
+      <ControlPanel
+        game={game}
+        puzzles={puzzles}
+        puzzleIndex={puzzleIndex}
+        currentPuzzle={currentPuzzle}
+        moveToNextPuzzle={moveToNextPuzzle}
+        moveToPreviousPuzzle={moveToPreviousPuzzle}
+        sessionStarted={sessionStarted}
+        className="w-full md:w-auto mt-4 md:mt-0 md:ml-4"
+      />
     </div>
   );
 };
