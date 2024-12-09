@@ -1,16 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-
-body {
-  background-color: aliceblue;
-  font-family: "Noto Sans", serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.noto {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;}
 
 .feedback-message {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   font-size: 84px;
   opacity: 1;
   transition: opacity 6s ease-out;
@@ -18,4 +16,16 @@ body {
 
 .feedback-message.fade-out {
   opacity: 0.5;
+}
+
+@font-face {
+  font-family: 'LichessIcons';
+  src: url('/font/lichess.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon {
+  font-family: 'LichessIcons';
+  font-size: 16px; /* Adjust as needed */
 }
