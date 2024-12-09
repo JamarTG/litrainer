@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    --c-body-gradient: rgba(0, 0, 0, 0.5);
+    --c-bg-page: #1a1a1a;
+    --c-bg-zebra: hsl(37, 5%, 19%);
+    --c-bg-box: hsl(37, 7%, 14%);
+}
+
+@font-face {
+    font-family: 'lichess';
+    src: url('/font/lichess.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'lichess', sans-serif;
+    background: var(--c-bg-page) linear-gradient(to bottom, var(--c-body-gradient), var(--c-bg-page) 116px) no-repeat;
+    color: #bababa;
+}
+
+
+.hide-calendar-icon {
+    -webkit-appearance: none;
+}
+
+.hide-calendar-icon::-webkit-inner-spin-button,
+.hide-calendar-icon::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+
+
+.trainer-form {
+    background: var(--c-bg-box);
+
+}

@@ -15,10 +15,13 @@ const Home = () => {
     event.preventDefault();
 
     const { username, maxNoGames, startDate, endDate } = formData;
+
+    // setDate
     const start = new Date(startDate);
     const end = new Date(endDate);
     end.setHours(23, 59, 59, 999);
 
+    // validateUserInput
     if (!(username && maxNoGames > 0 && startDate && endDate)) {
       alert("Please fill in all fields correctly");
       return;
@@ -31,6 +34,7 @@ const Home = () => {
 
     setFormSubmitted(true);
 
+    // fetchGames - When no games found - we have a no data found set to true
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
       const response = await fetch(url, {
@@ -46,6 +50,7 @@ const Home = () => {
 
       const parsedPuzzleData = await extractErrors(response);
 
+      // When no errors found - set no Errors state to true
       if (!parsedPuzzleData) return;
 
       const puzzles = combineEvalAndMisplays(
@@ -54,9 +59,9 @@ const Home = () => {
         parsedPuzzleData.moveEvaluations
       );
 
-      console.log(puzzles)
-
       setPuzzles(puzzles);
+
+      // If puzzles puzzles found set no errorsState to true
     } catch (error) {
       console.error("Error fetching games:", error);
     }
@@ -64,6 +69,23 @@ const Home = () => {
 
   return (
     <div>
+      {/* WHAT TO RENDER
+
+      No Errors
+        - No Games Found Message
+        - Analyze Games Message
+        - Link to How To Page
+      
+      No Games Found 
+        - No Games Found Message
+        - Link to How To Page
+
+      // Trainer
+        - Link to Return to Trainer Form
+      
+      // Trainer Form
+        - Submit Button Greyed Until Data is Provided
+      */}
       {formData.username &&
       formData.maxNoGames &&
       formData.startDate &&

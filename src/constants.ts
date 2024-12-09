@@ -19,4 +19,10 @@ export const customBoardStyles = {
   position: "relative" as const,
 };
 
+export const boardDimensions = {
+  MAX_SIZE: 500,  
+  MIN_SIZE: 200,
+  INITIAL_SIZE: 500
+}
+
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };
