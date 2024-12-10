@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import {
   faLightbulb,
   faCheck,
-  faBug,
-  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Models } from "../../typings";
 import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
-import { Chess, Square } from "chess.js";
+import { Chess} from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
 import ToggleButton from "../ui/ToggleButton";
-import useCurrentPuzzle from "../../hooks/useCurrentPuzzle";
+
 
 interface ControlPanelProps {
-  puzzles: Models.Move.Info[][];
-  puzzleIndex: Models.Move.Index;
   currentPuzzle: Models.Move.Info | null;
   moveToNextPuzzle: () => void;
   moveToPreviousPuzzle: () => void;
@@ -26,8 +22,6 @@ interface ControlPanelProps {
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
-  puzzles,
-  puzzleIndex,
   currentPuzzle,
   moveToNextPuzzle,
   moveToPreviousPuzzle,
