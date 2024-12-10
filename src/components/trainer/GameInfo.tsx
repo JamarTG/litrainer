@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface GameInfoProps {
   gameId: string;
@@ -8,6 +8,27 @@ interface GameInfoProps {
   };
   rated: boolean;
 }
+
+const formatTime = (seconds: number): string => {
+  if (seconds === 30) {
+    return "1/2";
+  }
+  if (seconds === 15) {
+    return "1/4";
+  }
+  if (seconds < 60) {
+    return `${seconds}`;
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  if (remainingSeconds === 0) {
+    return `${minutes}`;
+  }
+
+  return `${minutes}${formatTime(remainingSeconds).replace("0.", ".")}`;
+};
 
 const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated }) => {
   return (
@@ -21,14 +42,15 @@ const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated }) => {
       >
         <span className="icon text-2xl hover:text-blue-500 ml-1">&#xe07a;</span>
       </a>
+
+      <p>{rated ? "Rated" : "Casual"}</p>
       <p>
         {clock && (
           <>
-            {clock.initial} + {clock.increment}
+            {formatTime(clock.initial)} + {formatTime(clock.increment)}
           </>
         )}
       </p>
-      <p>{rated ? "Rated" : "Casual"}</p>
     </div>
   );
 };
