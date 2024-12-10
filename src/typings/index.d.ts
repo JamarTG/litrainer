@@ -16,6 +16,7 @@ export namespace Models {
       status: string;
       variant: string;
       lastMove: string;
+      clock : Game.Clock;
     }
 
     // resolved
@@ -39,8 +40,6 @@ export namespace Models {
   }
 
   namespace Game {
-    // type these later
-    // resolved
     export interface LichessGameInfo {
       players: Player.ChessPlayers;
       moves: string;
@@ -50,14 +49,27 @@ export namespace Models {
       rated: boolean;
       status: string;
       variant: string;
+      clock : Clock;
     }
+
+    export interface Clock {
+      increment: number;
+      initial: number;
+      totalTime: number;
+    }
+
   }
 
   // resolved
   namespace Player {
     interface ChessPlayerInfo {
       rating: number;
-      user: string
+      user: {
+        name: string;
+        flair: string;
+        title?: string;
+        patron?: boolean;
+      };
     }
 
     interface ChessPlayers {

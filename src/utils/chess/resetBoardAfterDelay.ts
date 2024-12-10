@@ -5,7 +5,7 @@ const resetBoardAfterDelay = (game: Chess, fen: string, setFen: Dispatch<SetStat
   setTimeout(() => {
     game.load(fen);
     setFen(fen);
-  }, 600);
+  }, 500);
 };
 
 export default resetBoardAfterDelay;

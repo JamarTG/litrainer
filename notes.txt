@@ -8,12 +8,21 @@ Hint Feature
 Report Bug
 Account for Title And Flairs And Patrons
 Request for GH Starts
-Add Toasts
+Add Toasts when games are fetched
 Allow Some Way To Save State
 MoveSquares Reset on Clicking Next
-
+Fetch Game Data is unused and not using axios
+Add puzzle history to the bottom of the board
+Deal with display for missing data on home screen
+Properly collect games on players
 We need to save the state of the user when they leave the site
- Do we opt for local storage. Do we store this in a database?
+Do we opt for local storage. Do we store this in a database?
+Read the player ratings and their color
+Highlight on drag as well
+Create a new display to show wrong and good move
+Add button to move back to the form
+Create a 404 Page
+Eval wrong sometimes use other api
 
 =====================
 Session             =
