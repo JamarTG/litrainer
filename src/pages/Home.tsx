@@ -48,8 +48,11 @@ const Home = () => {
         return;
       }
 
-      const parsedPuzzleData = await extractErrors(response);
+  
 
+      const parsedPuzzleData = await extractErrors(response);
+  
+      
       // When no errors found - set no Errors state to true
       if (!parsedPuzzleData) return;
 
@@ -59,6 +62,8 @@ const Home = () => {
         parsedPuzzleData.moveEvaluations
       );
 
+      
+      
       setPuzzles(puzzles);
 
       // If puzzles puzzles found set no errorsState to true
@@ -69,23 +74,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* WHAT TO RENDER
-
-      No Errors
-        - No Games Found Message
-        - Analyze Games Message
-        - Link to How To Page
       
-      No Games Found 
-        - No Games Found Message
-        - Link to How To Page
-
-      // Trainer
-        - Link to Return to Trainer Form
-      
-      // Trainer Form
-        - Submit Button Greyed Until Data is Provided
-      */}
       {formData.username &&
       formData.maxNoGames &&
       formData.startDate &&

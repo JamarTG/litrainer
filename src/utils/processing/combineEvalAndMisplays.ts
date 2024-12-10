@@ -7,7 +7,7 @@ const combineEvaluationsAndMisplays = (
   evaluations: Models.Move.Evaluation[][]
 ) => {
   const standardGames = misplays.filter((game) => game.variant === "standard");
-  //@ts-ignore
+
   const playerColor = username === standardGames[0].players.white.user.name ? "white" : "black";
 
   return standardGames
@@ -31,32 +31,21 @@ const combineEvaluationsAndMisplays = (
           return isBadMove
             ? {
                 game_id: game.game_id,
-                players: {
-                  white: {
-                    rating: game.players.white.rating,
-                    //@ts-ignore
-                    user: game.players.white.user.name,
-                  },
-                  black: {
-                    rating: game.players.black.rating,
-                    //@ts-ignore
-                    user: game.players.black.user.name,
-                  },
-                },
+                players: game.players,
                 variant: game.variant,
                 perf: game.perf,
                 status: game.status,
                 rated: game.rated,
+                clock: game.clock,
                 move,
-                
-                lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null, // Include the last move played
+                lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null,
                 evaluation: evaluations[index][moveIndex],
-                fen: fenBeforeOpponentMove, // FEN for moveIndex - 2
+                fen: fenBeforeOpponentMove, 
                 colorToPlay: turn === "w" ? "white" : "black",
               }
             : null;
         })
-        .filter((info): info is Models.Move.Info & { lastMove: string } => info !== null);
+        .filter((info): info is Models.Move.Info  => info !== null);
 
       return errors.filter((error) => error.colorToPlay === playerColor);
     })

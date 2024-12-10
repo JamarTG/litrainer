@@ -20,7 +20,6 @@ const getCachedEval = async (fen: string, token: string, retries = 3) => {
   } catch (error) {
     console.error("Error fetching analysis from Lichess:", error);
     if (retries > 0) {
-      console.log(`Retrying... (${retries} retries left)`);
       return getCachedEval(fen, token, retries - 1);
     } else {
       throw error;

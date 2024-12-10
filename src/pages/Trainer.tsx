@@ -38,6 +38,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
+  const [clickDestSquare, setClickDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
@@ -115,6 +116,10 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
       const localIsBestMove = checkBestMove(move, currentPuzzle);
 
+      setClickDestSquare(targetSquare);
+
+      setTimeout(() => setClickDestSquare(null), 500);
+
       setIsBestMove(checkBestMove(move, currentPuzzle));
       setIsTransitioning(true);
       setFen(game.fen());
@@ -122,7 +127,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       setFen(game.fen());
 
       localIsBestMove
-        ? nextPuzzleAfterDelay(50, moveToNextPuzzle, setMoveSquares)
+        ? nextPuzzleAfterDelay(500, moveToNextPuzzle, setMoveSquares)
         : resetBoardAfterDelay(game, fen, setFen);
       setTimeout(() => setIsBestMove(null), 500);
 
@@ -171,6 +176,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
         highlightLegalMoves(legalMovesFromClickedSquare);
       } else {
         handlePieceDrop(clickSourceSquare!, clickedSquare);
+        setClickDestSquare(clickedSquare);
         unhighlightSquares();
       }
     }
@@ -222,7 +228,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen p-4">
+    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 ">
       <WarningMessage
         show={showWarning}
         onClose={() => setShowWarning(false)}
@@ -230,13 +236,13 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       <div
         ref={boardRef}
         className="relative"
-        style={{
-          width: `${boardSize}px`,
-          height: `${boardSize}px`,
-          backgroundColor:
-            isBestMove === null ? "grey" : isBestMove ? "green" : "red",
-          transition: "background 0.9s ease-out",
-        }}
+        // style={{
+        //   width: `${boardSize}px`,
+        //   height: `${boardSize}px`,
+        //   backgroundColor:
+        //     isBestMove === null ? "grey" : isBestMove ? "green" : "red",
+        //   transition: "background 0.9s ease-out",
+        // }}
       >
         <Chessboard
           position={fen}
@@ -250,6 +256,21 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           boardWidth={boardSize}
           customSquareStyles={{
             ...moveSquares,
+            ...(clickDestSquare && {
+              [clickDestSquare]:{
+                position: "relative", // Make sure the element is positioned
+                zIndex: 1999, // Ensure the z-index is higher than the pieces' z-index
+              
+                backgroundImage: isBestMove
+                  ? "url('/svgs/correct.png')"
+                  : "url('/svgs/incorrect.png')",
+                backgroundSize: "40%",
+                backgroundPosition: "top right",
+                backgroundRepeat: "no-repeat",
+                
+                pointerEvents: "none", // Optional: to prevent interfering with piece interactions
+              }
+            }),
           }}
           customBoardStyle={{
             opacity: isTransitioning ? 0.3 : 1,
@@ -257,6 +278,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
+
       <ControlPanel
         game={game}
         puzzles={puzzles}
@@ -265,7 +287,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
         moveToNextPuzzle={moveToNextPuzzle}
         moveToPreviousPuzzle={moveToPreviousPuzzle}
         sessionStarted={sessionStarted}
-        className="w-full md:w-auto mt-4 md:mt-0 md:ml-4"
       />
     </div>
   );

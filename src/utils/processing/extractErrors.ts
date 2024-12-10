@@ -20,6 +20,7 @@ export const extractErrors = async (response: Response) => {
 
   const misplayInfo: Models.Game.LichessGameInfo[] = lines.map((line) => {
     const parsedLine = JSON.parse(line);
+   
     return {
       players: parsedLine.players,
       moves: parsedLine.moves,
@@ -29,6 +30,7 @@ export const extractErrors = async (response: Response) => {
       rated: parsedLine.rated,
       status: parsedLine.status,
       variant: parsedLine.variant,
+      clock : parsedLine.clock,
     };
   });
 
