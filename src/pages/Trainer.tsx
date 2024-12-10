@@ -257,23 +257,23 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           customSquareStyles={{
             ...moveSquares,
             ...(clickDestSquare && {
-              [clickDestSquare]:{
-                position: "relative", // Make sure the element is positioned
-                zIndex: 1999, // Ensure the z-index is higher than the pieces' z-index
-              
+              [clickDestSquare]: {
+                position: "relative",
+                zIndex: 0,
                 backgroundImage: isBestMove
                   ? "url('/svgs/correct.png')"
                   : "url('/svgs/incorrect.png')",
-                backgroundSize: "40%",
+                backgroundSize: "30%",
                 backgroundPosition: "top right",
                 backgroundRepeat: "no-repeat",
-                
-                pointerEvents: "none", // Optional: to prevent interfering with piece interactions
-              }
+
+                pointerEvents: "none"
+              },
             }),
           }}
           customBoardStyle={{
             opacity: isTransitioning ? 0.3 : 1,
+            backgroundColor:"red"
           }}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
