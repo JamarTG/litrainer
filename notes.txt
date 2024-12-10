@@ -23,6 +23,7 @@ Create a new display to show wrong and good move
 Add button to move back to the form
 Create a 404 Page
 Eval wrong sometimes use other api
+https://react-chessboard.vercel.app/?path=/docs/stockfishintegration--docs
 
 =====================
 Session             =
