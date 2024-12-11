@@ -10,8 +10,7 @@ import { Link } from "react-router-dom";
 const Navbar: React.FC = () => {
   return (
     <div
-      style={{ width: "96vw" }}
-      className="sticky overflow-x-hidden flex justify-between items-center h-full text-gray-100 p-4"
+      className="w-96 sticky overflow-x-hidden flex justify-between items-center h-full"
     >
       <div className="flex items-center">
         <div className="relative flex pl-6">

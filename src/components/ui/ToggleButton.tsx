@@ -29,7 +29,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
   return (
     <button
       onClick={onToggle}
-      className="w-24 transition duration-200 relative"
+      className="transition duration-200 relative"
     >
       <span
         className={`transition-opacity duration-500 ${

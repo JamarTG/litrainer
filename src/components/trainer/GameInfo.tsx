@@ -1,4 +1,5 @@
 import React from "react";
+import { perfIcons } from "../../constants";
 
 interface GameInfoProps {
   gameId: string;
@@ -33,21 +34,19 @@ const formatTime = (seconds: number): string => {
 
 const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, perf }) => {
   return (
-    <div className="flex items-center space-x-4">
-      <a
-        href={`https://lichess.org/${gameId}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="noto flex items-center text-blue-500 "
-      >
-        <span className="icon text-xl hover:text-blue-500 ml-1">&#xe07a;</span>
-      </a>
+    <div className="flex items-center space-x-4 mb-10">
+      <div className="flex justify-center items-center gap-1 text-bold ">
+        <span
+          className="icon text-4xl hover:text-blue-500"
+          dangerouslySetInnerHTML={{
+            __html: perfIcons[perf],
+          }}
+        ></span>
 
-      <div className="flex gap-1 text-sm text-bold">
         <p>{(rated ? "Rated" : "Casual").toLocaleUpperCase()}</p>
-        
+
         <p>{"• " + perf.toLocaleUpperCase()}</p>
-        
+
         <p>
           {clock && (
             <>
@@ -55,6 +54,20 @@ const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, perf }) => {
             </>
           )}
         </p>
+      </div>
+
+      <div className="flex justify-center items-center">
+        <a
+          href={`https://lichess.org/${gameId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="noto flex gap-1 items-center justify-center text-blue-500 "
+        >
+          <span className="icon text-xl hover:text-blue-500 ml-1">
+            &#xe07a;
+          </span>
+          <small> View on Lichess</small>
+        </a>
       </div>
     </div>
   );
