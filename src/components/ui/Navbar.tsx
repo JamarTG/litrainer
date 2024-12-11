@@ -8,7 +8,7 @@ import {
 
 const Navbar: React.FC = () => {
   return (
-    <div style={{width:"96vw"}} className="overflow-x-hidden flex justify-between items-center h-full text-gray-100 p-4">
+    <div style={{width:"96vw"}} className="sticky overflow-x-hidden flex justify-between items-center h-full text-gray-100 p-4">
       <div className="flex items-center">
         <div className="relative flex pl-6">
           <div className="absolute inset-0 bg-red-900 rounded-full blur-lg opacity-45"></div>
