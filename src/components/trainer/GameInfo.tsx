@@ -7,6 +7,7 @@ interface GameInfoProps {
     increment: number;
   };
   rated: boolean;
+  perf: string;
 }
 
 const formatTime = (seconds: number): string => {
@@ -30,27 +31,31 @@ const formatTime = (seconds: number): string => {
   return `${minutes}${formatTime(remainingSeconds).replace("0.", ".")}`;
 };
 
-const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated }) => {
+const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, perf }) => {
   return (
     <div className="flex items-center space-x-4">
-      <p className="noto">From Game</p>
       <a
         href={`https://lichess.org/${gameId}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="noto flex items-center text-blue-500 text-sm"
+        className="noto flex items-center text-blue-500 "
       >
-        <span className="icon text-2xl hover:text-blue-500 ml-1">&#xe07a;</span>
+        <span className="icon text-xl hover:text-blue-500 ml-1">&#xe07a;</span>
       </a>
 
-      <p>{rated ? "Rated" : "Casual"}</p>
-      <p>
-        {clock && (
-          <>
-            {formatTime(clock.initial)} + {formatTime(clock.increment)}
-          </>
-        )}
-      </p>
+      <div className="flex gap-1 text-sm text-bold">
+        <p>{(rated ? "Rated" : "Casual").toLocaleUpperCase()}</p>
+        
+        <p>{"• " + perf.toLocaleUpperCase()}</p>
+        
+        <p>
+          {clock && (
+            <>
+              {"• " + formatTime(clock.initial)}+{formatTime(clock.increment)}
+            </>
+          )}
+        </p>
+      </div>
     </div>
   );
 };
