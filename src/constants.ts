@@ -35,7 +35,7 @@ export const customBoardStyles = {
 };
 
 export const boardDimensions = {
-  MAX_SIZE: 600,
+  MAX_SIZE: 640,
   MIN_SIZE: 200,
   INITIAL_SIZE: 500,
 };
@@ -44,6 +44,14 @@ export const moveSquareStyles = {
   borderRadius: "50%",
   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
   transform: "scale(0.7)",
+};
+
+export  const perfIcons: { [key: string]: string } = {
+  bullet: "&#xe032;",
+  blitz: "&#xe02f;",
+  rapid: "&#xe002;",
+  correspondence: "&#xe019;",
+  classical: "&#xe00a;",
 };
 
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };

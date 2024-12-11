@@ -239,17 +239,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 ">
+    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3">
       <WarningMessage
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
       <div
         ref={boardRef}
-        className="relative"
+        className="relative flex justify-center items-center"
         style={{
-          width: `${boardSize}px`,
-          height: `${boardSize}px`,
+          width: "100%",
+          height: "100%",
+          maxWidth: `${boardSize}px`,
+          maxHeight: `${boardSize}px`,
+     
         }}
       >
         <Chessboard
