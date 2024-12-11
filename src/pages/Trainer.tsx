@@ -3,22 +3,19 @@ import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
-import { playSound } from "../utils/audio/playSound";
+import { playMoveSound } from "../utils/audio/playMoveSound";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import WarningMessage from "../components/trainer/WarningMessage";
 import useResizeableBoard from "../hooks/useResizableBoard";
 import checkBestMove from "../utils/chess/checkBestMove";
-import resetBoardAfterDelay from "../utils/chess/resetBoardAfterDelay";
 import useCurrentPuzzle from "../hooks/useCurrentPuzzle";
-import nextPuzzleAfterDelay from "../utils/chess/nextPuzzleAfterDelay";
 import { boardDimensions } from "../constants";
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
-
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const { MIN_SIZE, MAX_SIZE, INITIAL_SIZE } = boardDimensions;
@@ -37,9 +34,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-  const [clickDestSquare, setClickDestSquare] = useState<string | null>(null);
+  const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
-  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const { puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setFen } =
     useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
@@ -97,7 +93,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       if (currentPuzzle.lastMove) {
         setTimeout(() => {
           const move = newGame.move(currentPuzzle.lastMove);
-          playSound(newGame, move);
+          playMoveSound(newGame, move);
           setGame(newGame);
           setFen(newGame.fen());
         }, 1000);
@@ -110,35 +106,30 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     setMoveSquares({});
   }, []);
 
+  const resetFen = useCallback(() => {
+    game.load(fen);
+    setFen(fen);
+  }, [game, fen]);
+
   const handlePieceDrop = useCallback(
     (sourceSquare: string, targetSquare: string) => {
       const move = attemptMove(sourceSquare, targetSquare);
-
-      unhighlightSquares();
-
-      const isMoveInvalid = !move;
-
-      if (isMoveInvalid) return false;
-
-      playSound(game, move);
-
+  
+      if (!move) return false;
+  
+      playMoveSound(game, move);
+  
       const localIsBestMove = checkBestMove(move, currentPuzzle);
 
-      setClickDestSquare(targetSquare);
-
-      setTimeout(() => setClickDestSquare(null), 500);
-
-      setIsBestMove(checkBestMove(move, currentPuzzle));
-      setIsTransitioning(true);
+      setDestSquare(targetSquare);
       setFen(game.fen());
-      setTimeout(() => setIsTransitioning(false), 300);
-      setFen(game.fen());
+      setMoveSquares([]);
 
-      localIsBestMove
-        ? nextPuzzleAfterDelay(500, moveToNextPuzzle, setMoveSquares)
-        : resetBoardAfterDelay(game, fen, setFen);
+      setIsBestMove(localIsBestMove);
+      setTimeout( localIsBestMove ? moveToNextPuzzle : resetFen, 500);
+      setTimeout(() => setDestSquare(null), 500);
       setTimeout(() => setIsBestMove(null), 500);
-
+  
       return true;
     },
     [game, fen, currentPuzzle?.evaluation.best, puzzleIndex]
@@ -184,7 +175,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
         highlightLegalMoves(legalMovesFromClickedSquare);
       } else {
         handlePieceDrop(clickSourceSquare!, clickedSquare);
-        setClickDestSquare(clickedSquare);
+        setDestSquare(clickedSquare);
         unhighlightSquares();
       }
     }
@@ -261,8 +252,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           boardWidth={boardSize}
           customSquareStyles={{
             ...moveSquares,
-            ...(clickDestSquare && {
-              [clickDestSquare]: {
+            ...(destSquare && {
+              [destSquare]: {
                 position: "relative",
                 zIndex: 0,
                 backgroundImage: isBestMove
@@ -275,10 +266,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
                 pointerEvents: "none",
               },
             }),
-          }}
-          customBoardStyle={{
-            opacity: isTransitioning ? 0.3 : 1,
-            backgroundColor: "red",
           }}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
