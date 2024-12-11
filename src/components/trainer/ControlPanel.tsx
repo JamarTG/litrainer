@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // import { faLightbulb, faCheck } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Models } from "../../typings";
@@ -20,10 +20,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   currentPuzzle,
   moveToNextPuzzle,
   moveToPreviousPuzzle,
-  game,
+  // game,
 }) => {
-  const [showHint, setShowHint] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
+  // const [showHint, setShowHint] = useState(false);
+  // const [showSolution, setShowSolution] = useState(false);
 
   const isDataAvailable = currentPuzzle !== null;
 
