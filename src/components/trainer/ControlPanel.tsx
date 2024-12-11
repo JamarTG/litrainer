@@ -52,25 +52,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               clock={currentPuzzle.clock}
               rated={currentPuzzle.rated}
               gameId={currentPuzzle.game_id}
+              perf={currentPuzzle.perf}
             />
-            {/* <button
-              title="Report Bug"
-              className="hidden md:inline whitespace-nowrap text-sm text-white ml-2"
-            >
-              <FontAwesomeIcon icon={faBug} className="text-2xl text-white" />
-            </button> */}
-            {/* <span className="hidden md:inline whitespace-nowrap text-sm text-white ml-2 flex items-center">
-              <button
-                title="Contact Creator"
-                className="hidden md:inline whitespace-nowrap text-sm text-white ml-2"
-              >
-              
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className="text-2xl text-white mr-2"
-                />
-              </button>
-            </span> */}
+
           </div>
           <div className="flex gap-5 justify-between items-center">
             <div>
@@ -85,8 +69,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             </div>
 
             <div className="flex flex-col w-full bg-gray-700 p-2 rounded-md">
-              <PlayerInfo player={currentPuzzle.players.white} />
-              <PlayerInfo player={currentPuzzle.players.black} />
+              <PlayerInfo player={currentPuzzle.players.white} color = {"w"} />
+              <PlayerInfo player={currentPuzzle.players.black} color = {"b"}/>
             </div>
           </div>
           <div className="flex flex-row justify-center space-x-4">
