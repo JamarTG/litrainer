@@ -22,7 +22,6 @@ const combineEvaluationsAndMisplays = (
           const isBadMove = evaluations[index][moveIndex]?.judgment;
 
           if (moveIndex >= 2) {
-            // Update fenBeforeOpponentMove to the position two moves before the current move
             chessEngine.loadPgn(moves.slice(0, moveIndex - 1).join(" "));
             fenBeforeOpponentMove = chessEngine.fen();
             chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" ")); 
