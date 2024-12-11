@@ -1,7 +1,6 @@
 //Keep your token safe 
 //Include only positions of the user in question
 
-Implement Routing
 Responsivity
 Hint Feature Improvement
 Report Bug
@@ -25,7 +24,6 @@ Include that it was powered by lichess
 Properly Position Resize Handle
 Make Litrainer Lgo thicker and change color on hover
 Links back to homepage
-LichessEvalWrong(Remove bestMove) Integrate Stockfish - https://react-chessboard.vercel.app/?path=/docs/stockfishintegration--docs
 
 =====================
 Session             =
