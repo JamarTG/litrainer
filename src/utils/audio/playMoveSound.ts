@@ -1,7 +1,7 @@
 import { Chess, Move } from "chess.js";
 import { DEFAULT_VOLUME } from "../../constants";
 
-export const playSound = (chessGame: Chess, chessMove: Move) => {
+export const playMoveSound = (chessGame: Chess, chessMove: Move) => {
   
   let soundAction = "move";
 
