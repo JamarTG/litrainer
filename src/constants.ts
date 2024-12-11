@@ -35,9 +35,15 @@ export const customBoardStyles = {
 };
 
 export const boardDimensions = {
-  MAX_SIZE: 550,
+  MAX_SIZE: 600,
   MIN_SIZE: 200,
   INITIAL_SIZE: 500,
+};
+
+export const moveSquareStyles = {
+  borderRadius: "50%",
+  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
+  transform: "scale(0.7)",
 };
 
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };

@@ -12,19 +12,21 @@ import useResizeableBoard from "../hooks/useResizableBoard";
 import checkBestMove from "../utils/chess/checkBestMove";
 import useCurrentPuzzle from "../hooks/useCurrentPuzzle";
 import { boardDimensions } from "../constants";
+import { moveSquareStyles } from "../constants";
 
 interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
-  const { MIN_SIZE, MAX_SIZE, INITIAL_SIZE } = boardDimensions;
-
   const { boardSize, setBoardSize, boardRef, resizeRef, handleMouseDown } =
-    useResizeableBoard(INITIAL_SIZE, MIN_SIZE, MAX_SIZE);
+    useResizeableBoard(
+      boardDimensions.INITIAL_SIZE,
+      boardDimensions.MIN_SIZE,
+      boardDimensions.MAX_SIZE
+    );
 
-  // useInitializeGame(currentPuzzle, setGame, setFen, playSound);
-  const [game, setGame] = useState<Chess>(new Chess(STARTINGPOSFEN));
+  const [game, setGame] = useState<Chess>(new Chess());
   const [sessionStarted, setSessionStarted] = useState(false);
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
@@ -43,8 +45,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
 
   useEffect(() => {
     const stockfish = new Worker("./stockfish.js");
-    const DEPTH = 8; // number of halfmoves the engine looks ahead
-    const MULTIPV = 3; // number of best moves to consider
+    const DEPTH = 8; 
+    const MULTIPV = 3; 
     const FEN_POSITION =
       "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -53,8 +55,17 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     stockfish.postMessage(`position fen ${FEN_POSITION}`);
     stockfish.postMessage(`go depth ${DEPTH}`);
 
-    stockfish.onmessage = (e) => {
-      console.log(e.data); // in the console output you will see `bestmove e2e4` message
+    stockfish.onmessage = (event) => {
+      const data = event.data;
+      let moves = []
+      if (data.startsWith("info")) {
+        moves = data.split(" pv ")[1]?.split(" ") || [];
+        postMessage(moves);
+      }
+      console.log(moves);
+    };
+    return () => {
+      stockfish.terminate();
     };
   }, []);
 
@@ -62,9 +73,9 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     const handleResize = () => {
       if (boardRef.current) {
         const newSize = Math.max(
-          MIN_SIZE,
+          boardDimensions.MIN_SIZE,
           Math.min(
-            MAX_SIZE,
+            boardDimensions.MAX_SIZE,
             Math.min(window.innerWidth - 100, window.innerHeight - 100)
           )
         );
@@ -78,47 +89,57 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [boardRef, setBoardSize, MIN_SIZE, MAX_SIZE]);
+  }, [
+    boardRef,
+    setBoardSize,
+    boardDimensions.MIN_SIZE,
+    boardDimensions.MAX_SIZE,
+  ]);
 
   useEffect(() => {
-    setCurrentPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
-  }, [puzzleIndex, puzzles]);
+    const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
+    setCurrentPuzzle(puzzle);
 
-  useEffect(() => {
-    if (currentPuzzle) {
-      const newGame = new Chess(currentPuzzle.fen);
-      setGame(newGame);
-      setFen(newGame.fen());
-
-      if (currentPuzzle.lastMove) {
-        setTimeout(() => {
-          const move = newGame.move(currentPuzzle.lastMove);
-          playMoveSound(newGame, move);
-          setGame(newGame);
-          setFen(newGame.fen());
-        }, 1000);
-      }
+    if (puzzle) {
+      setGameFen(game, puzzle.fen);
+      executeComputerMove(game, puzzle.lastMove);
     }
-  }, [currentPuzzle, setFen]);
+  }, [puzzleIndex, puzzles, setFen]);
+
+ 
+  const executeComputerMove = useCallback(
+    (game: Chess, move: string) => {
+      setTimeout(() => {
+        const executedMove = game.move(move);
+        playMoveSound(game, executedMove);
+        setGame(game);
+        setFen(game.fen());
+      }, 1000);
+    },
+    [setFen]
+  );
 
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
     setMoveSquares({});
   }, []);
 
-  const resetFen = useCallback(() => {
-    game.load(fen);
-    setFen(fen);
-  }, [game, fen]);
+  const setGameFen = useCallback(
+    (game: Chess, fen: string) => {
+      game.load(fen);
+      setFen(fen);
+    },
+    [game, fen]
+  );
 
   const handlePieceDrop = useCallback(
     (sourceSquare: string, targetSquare: string) => {
       const move = attemptMove(sourceSquare, targetSquare);
-  
+
       if (!move) return false;
-  
+
       playMoveSound(game, move);
-  
+
       const localIsBestMove = checkBestMove(move, currentPuzzle);
 
       setDestSquare(targetSquare);
@@ -126,10 +147,13 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       setMoveSquares([]);
 
       setIsBestMove(localIsBestMove);
-      setTimeout( localIsBestMove ? moveToNextPuzzle : resetFen, 500);
+      setTimeout(
+        localIsBestMove ? moveToNextPuzzle : () => setGameFen(game, fen),
+        500
+      );
       setTimeout(() => setDestSquare(null), 500);
       setTimeout(() => setIsBestMove(null), 500);
-  
+
       return true;
     },
     [game, fen, currentPuzzle?.evaluation.best, puzzleIndex]
@@ -148,11 +172,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
         verbose: true,
       });
       setMoveSquares({
-        [clickedSquare]: {
-          borderRadius: "50%",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
-          transform: "scale(0.7)",
-        },
+        [clickedSquare]: moveSquareStyles,
       });
 
       highlightLegalMoves(legalMovesFromClickedSquare);
@@ -165,11 +185,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           verbose: true,
         });
         setMoveSquares({
-          [clickedSquare]: {
-            borderRadius: "50%",
-            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
-            transform: "scale(0.7)",
-          },
+          [clickedSquare]: moveSquareStyles,
         });
 
         highlightLegalMoves(legalMovesFromClickedSquare);
