@@ -3,7 +3,7 @@
 
 Implement Routing
 Responsivity
-Hint Feature
+Hint Feature Improvement
 Report Bug
 Request for GH Starts
 Add Patron Option
@@ -16,6 +16,15 @@ Properly collect games on players
 Read the player color
 Add button to move back to the form
 Create a 404 Page
+Fix X by simply touching opponent pieces
+Fix Unresponsive control panel, uncentered board and control panel new skeleton
+Fix huge space between navbar and main content
+Page Overflow
+Remove flash on move
+Include that it was powered by lichess
+Properly Position Resize Handle
+Make Litrainer Lgo thicker and change color on hover
+Links back to homepage
 LichessEvalWrong(Remove bestMove) Integrate Stockfish - https://react-chessboard.vercel.app/?path=/docs/stockfishintegration--docs
 
 =====================
