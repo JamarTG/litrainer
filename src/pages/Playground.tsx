@@ -61,7 +61,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         moves = data.split(" pv ")[1]?.split(" ") || [];
         postMessage(moves);
       }
-      console.log(moves);
     };
     return () => {
       stockfish.terminate();
