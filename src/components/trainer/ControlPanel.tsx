@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { faLightbulb, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faLightbulb, faCheck } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Models } from "../../typings";
 import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
 import { Chess } from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
-import ToggleButton from "../ui/ToggleButton";
+// import ToggleButton from "../ui/ToggleButton";
 
 interface ControlPanelProps {
   currentPuzzle: Models.Move.Info | null;
