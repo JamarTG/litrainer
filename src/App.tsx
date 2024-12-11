@@ -4,6 +4,7 @@ import "./App.css";
 import About from './pages/About';
 import Home from './pages/Home';
 import Navbar from './components/ui/Navbar';
+import Help from './pages/Help';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/help" element={<Help />} />
             </Routes>
           </div>
         </div>

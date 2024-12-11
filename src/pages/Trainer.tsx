@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { STARTINGPOSFEN } from "../constants";
 import { Models } from "../typings";
 import { playMoveSound } from "../utils/audio/playMoveSound";
 import ControlPanel from "../components/trainer/ControlPanel";
@@ -132,7 +131,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
     [game, fen]
   );
 
-  const handlePieceDrop = useCallback(
+  const handlePieceDrop = 
     (sourceSquare: string, targetSquare: string) => {
       const move = attemptMove(sourceSquare, targetSquare);
 
@@ -155,9 +154,7 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
       setTimeout(() => setIsBestMove(null), 500);
 
       return true;
-    },
-    [game, fen, currentPuzzle?.evaluation.best, puzzleIndex]
-  );
+    }
 
   const handleSquareClick = (clickedSquare: Square) => {
     const clickedPiece = game.get(clickedSquare);
