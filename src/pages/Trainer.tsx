@@ -19,7 +19,6 @@ interface TrainerProps {
   puzzles: Models.Move.Info[][];
 }
 
-// Board Dimensions
 
 const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const { MIN_SIZE, MAX_SIZE, INITIAL_SIZE } = boardDimensions;
@@ -109,14 +108,6 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
     setMoveSquares({});
-  }, []);
-
-  const handlePieceDragBegin = useCallback(() => {
-    unhighlightSquares();
-  }, []);
-
-  const handlePieceDragEnd = useCallback(() => {
-    unhighlightSquares();
   }, []);
 
   const handlePieceDrop = useCallback(
@@ -264,8 +255,8 @@ const Trainer: React.FC<TrainerProps> = ({ puzzles }) => {
           onSquareClick={handleSquareClick}
           animationDuration={200}
           onPieceDrop={handlePieceDrop}
-          onPieceDragBegin={handlePieceDragBegin}
-          onPieceDragEnd={handlePieceDragEnd}
+          onPieceDragBegin={unhighlightSquares}
+          onPieceDragEnd={unhighlightSquares}
           boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
           boardWidth={boardSize}
           customSquareStyles={{
