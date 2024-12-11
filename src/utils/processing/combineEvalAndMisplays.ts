@@ -8,13 +8,13 @@ const combineEvaluationsAndMisplays = (
 ) => {
   const standardGames = misplays.filter((game) => game.variant === "standard");
 
-  const playerColor = username === standardGames[0].players.white.user.name ? "white" : "black";
 
   return standardGames
     .map((game, index) => {
+      const playerColor = username === game.players.white.user.name ? "white" : "black";
       const chessEngine = new Chess();
       const moves = game.moves.split(" ");
-      let fenBeforeOpponentMove = chessEngine.fen(); // Initialize with the starting position
+      let fenBeforeOpponentMove = chessEngine.fen(); 
       const errors = moves
         .map((move, moveIndex) => {
           const turn = chessEngine.turn();
@@ -25,7 +25,7 @@ const combineEvaluationsAndMisplays = (
             // Update fenBeforeOpponentMove to the position two moves before the current move
             chessEngine.loadPgn(moves.slice(0, moveIndex - 1).join(" "));
             fenBeforeOpponentMove = chessEngine.fen();
-            chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" ")); // Restore the current state
+            chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" ")); 
           }
 
           return isBadMove
