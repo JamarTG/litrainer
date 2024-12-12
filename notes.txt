@@ -1,4 +1,4 @@
-//Keep your token safe 
+
 //Include only positions of the user in question
 
 Responsivity
@@ -18,10 +18,7 @@ Create a 404 Page
 Fix X by simply touching opponent pieces
 Fix Unresponsive control panel, uncentered board and control panel new skeleton
 Fix huge space between navbar and main content
-Page Overflow
-Remove flash on move
 Include that it was powered by lichess
-Properly Position Resize Handle
 Make Litrainer Lgo thicker and change color on hover
 Links back to homepage
 

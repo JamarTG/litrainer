@@ -11,8 +11,7 @@ const combineEvaluationsAndMisplays = (
 
   return standardGames
     .map((game, index) => {
-      const playerColor = username === game.players.white.user.name ? "white" : "black";
-      const chessEngine = new Chess();
+      const playerColor = username === game.players.white.user.name ? "w" : "b";      const chessEngine = new Chess();
       const moves = game.moves.split(" ");
       let fenBeforeOpponentMove = chessEngine.fen(); 
       const errors = moves
@@ -21,7 +20,7 @@ const combineEvaluationsAndMisplays = (
           chessEngine.move(move);
           const isBadMove = evaluations[index][moveIndex]?.judgment;
 
-          if (moveIndex >= 2) {
+          if (turn === playerColor && isBadMove) {
             chessEngine.loadPgn(moves.slice(0, moveIndex - 1).join(" "));
             fenBeforeOpponentMove = chessEngine.fen();
             chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" ")); 

@@ -8,7 +8,7 @@ import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import WarningMessage from "../components/trainer/WarningMessage";
 import useResizeableBoard from "../hooks/useResizableBoard";
-import checkBestMove from "../utils/chess/checkBestMove";
+import checkGoodMove from "../utils/chess/checkGoodMove";
 import useCurrentPuzzle from "../hooks/useCurrentPuzzle";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
@@ -30,7 +30,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
     null
   );
-  const [isBestMove, setIsBestMove] = useState<boolean | null>(null);
+  const [isGoodMove, setIsGoodMove] = useState<boolean | null>(null);
   const [showWarning, setShowWarning] = useState<boolean>(true);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
@@ -38,34 +38,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
-  const { puzzleIndex, fen, moveToNextPuzzle, moveToPreviousPuzzle, setFen } =
+
+  const { puzzleIndex, fen, setFen, moveToNextPuzzle, moveToPreviousPuzzle, acceptableMoves } =
     useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
   useCurrentPuzzle(puzzles, puzzleIndex, setCurrentPuzzle);
-
-  useEffect(() => {
-    const stockfish = new Worker("./stockfish.js");
-    const DEPTH = 8; 
-    const MULTIPV = 3; 
-    const FEN_POSITION =
-      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-
-    stockfish.postMessage("uci");
-    stockfish.postMessage(`setoption name MultiPV value ${MULTIPV}`);
-    stockfish.postMessage(`position fen ${FEN_POSITION}`);
-    stockfish.postMessage(`go depth ${DEPTH}`);
-
-    stockfish.onmessage = (event) => {
-      const data = event.data;
-      let moves = []
-      if (data.startsWith("info")) {
-        moves = data.split(" pv ")[1]?.split(" ") || [];
-        postMessage(moves);
-      }
-    };
-    return () => {
-      stockfish.terminate();
-    };
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -137,20 +113,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       if (!move) return false;
 
       playMoveSound(game, move);
-
-      const localIsBestMove = checkBestMove(move, currentPuzzle);
+      
+      const localIsGoodMove = checkGoodMove(acceptableMoves, move.lan);
 
       setDestSquare(targetSquare);
       setFen(game.fen());
       setMoveSquares([]);
 
-      setIsBestMove(localIsBestMove);
+      setIsGoodMove(localIsGoodMove);
       setTimeout(
-        localIsBestMove ? moveToNextPuzzle : () => setGameFen(game, fen),
+        localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
         500
       );
       setTimeout(() => setDestSquare(null), 500);
-      setTimeout(() => setIsBestMove(null), 500);
+      setTimeout(() => setIsGoodMove(null), 500);
 
       return true;
     }
@@ -255,6 +231,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
      
         }}
       >
+       
         <Chessboard
           position={fen}
           showBoardNotation={true}
@@ -271,7 +248,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
               [destSquare]: {
                 position: "relative",
                 zIndex: 0,
-                backgroundImage: isBestMove
+                backgroundImage: isGoodMove
                   ? "url('/svgs/correct.png')"
                   : "url('/svgs/incorrect.png')",
                 backgroundSize: "30%",
@@ -285,8 +262,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-
+      <small>{JSON.stringify(acceptableMoves)}</small>
+      You played {currentPuzzle?.move}
       <ControlPanel
+      
         game={game}
         currentPuzzle={currentPuzzle}
         moveToNextPuzzle={moveToNextPuzzle}
