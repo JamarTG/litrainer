@@ -262,8 +262,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-      <small>{JSON.stringify(acceptableMoves)}</small>
-      You played {currentPuzzle?.move}
+      <small className="text-sm absolute bottom-0">{JSON.stringify(acceptableMoves)}. You played {currentPuzzle?.move}</small>
       <ControlPanel
       
         game={game}
