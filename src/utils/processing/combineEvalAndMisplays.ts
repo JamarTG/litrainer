@@ -1,6 +1,5 @@
 import { Chess } from "chess.js";
 import { Models } from "../../typings";
-import { Mode } from "fs";
 
 const combineEvaluationsAndMisplays = (
   username: string,
