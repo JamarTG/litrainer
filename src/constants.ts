@@ -36,7 +36,7 @@ export const customBoardStyles = {
 
 export const boardDimensions = {
   MAX_SIZE: 640,
-  MIN_SIZE: 200,
+  MIN_SIZE: 300,
   INITIAL_SIZE: 500,
 };
 
