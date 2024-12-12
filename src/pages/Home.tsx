@@ -53,7 +53,7 @@ const Home: React.FC = () => {
       // When no errors found - set no Errors state to true
       if (!parsedPuzzleData) return;
 
-      const puzzles = combineEvalAndMisplays(
+      const puzzles = await combineEvalAndMisplays(
         username,
         parsedPuzzleData.misplayInfo as Models.Game.LichessGameInfo[],
         parsedPuzzleData.moveEvaluations
