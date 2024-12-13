@@ -8,20 +8,25 @@ const combineEvaluationsAndMisplays = (
 ) => {
   const standardGames = misplays.filter((game) => game.variant === "standard");
 
-  console.log(standardGames);
+  
 
   return standardGames
     .map((game, index) => {
       const playerColor = username === game.players.white.user.name ? "white" : "black";
       const chessEngine = new Chess();
       const moves = game.moves.split(" ");
+      let previousFen = chessEngine.fen();
 
       const errors = moves
         .map((move, moveIndex) => {
-          let fenBeforeOpponentMove = chessEngine.fen();
+          let fenBeforeOpponentMove = previousFen;
+          let fenAfterOpponentMove = chessEngine.fen();
 
+          previousFen = fenAfterOpponentMove;
           const turn = chessEngine.turn();
           chessEngine.move(move);
+          
+          
           const isBadMove = evaluations[index][moveIndex]?.judgment;
 
           if (moveIndex >= 2) {
@@ -42,7 +47,8 @@ const combineEvaluationsAndMisplays = (
                 move,
                 lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null,
                 evaluation: evaluations[index][moveIndex],
-                fen: fenBeforeOpponentMove,
+                fenBeforeOpponentMove: fenBeforeOpponentMove,
+                fenAfterOpponentMove : fenAfterOpponentMove,
                 colorToPlay: turn === "w" ? "white" : "black",
               }
             : null;

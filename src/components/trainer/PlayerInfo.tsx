@@ -41,14 +41,10 @@ const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color }) => {
               rel="noopener noreferrer"
             >
               {user.name}
+              <div></div>
+              
             </a>
-            {user.flair && (
-              <img
-                src={`https://lichess1.org/assets/______2/flair/img/${user.flair}.webp`}
-                alt="flair"
-                className="w-4 h-4 ml-1"
-              />
-            )}
+            
             <p className="text-gray-400 text-sm md:text-base ml-1">{rating}</p>
        
         </div>

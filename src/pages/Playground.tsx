@@ -9,9 +9,9 @@ import useChangePuzzle from "../hooks/useChangePuzzle";
 import WarningMessage from "../components/trainer/WarningMessage";
 import useResizeableBoard from "../hooks/useResizableBoard";
 import checkGoodMove from "../utils/chess/checkGoodMove";
-import useCurrentPuzzle from "../hooks/useCurrentPuzzle";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
+import evaluateFen from "../utils/chess/evaluateFen";
 
 interface PlayGroundProps {
   puzzles: Models.Move.Info[][];
@@ -38,10 +38,21 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
+  const [acceptableMoves, setAcceptableMoves] = useState<
+    { move: string; eval: number }[] | null
+  >(null);
+  const { puzzleIndex, fen, setFen, moveToNextPuzzle, moveToPreviousPuzzle } =
+    useChangePuzzle(puzzles,  sessionStarted, setSessionStarted,setCurrentPuzzle);
 
-  const { puzzleIndex, fen, setFen, moveToNextPuzzle, moveToPreviousPuzzle, acceptableMoves } =
-    useChangePuzzle(puzzles, sessionStarted, setSessionStarted);
-  useCurrentPuzzle(puzzles, puzzleIndex, setCurrentPuzzle);
+    useEffect(() => {
+      const fetchData = async () => {
+        if (currentPuzzle) {
+          await evaluateFen(currentPuzzle.fenAfterOpponentMove,setAcceptableMoves);
+          
+        }
+      };
+      fetchData();
+    }, [currentPuzzle, puzzleIndex]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -75,19 +86,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setCurrentPuzzle(puzzle);
 
     if (puzzle) {
-      setGameFen(game, puzzle.fen);
+      setGameFen(game, puzzle.fenBeforeOpponentMove);
       executeComputerMove(game, puzzle.lastMove);
     }
   }, [puzzleIndex, puzzles, setFen]);
 
- 
   const executeComputerMove = useCallback(
     (game: Chess, move: string) => {
       setTimeout(() => {
         const executedMove = game.move(move);
         playMoveSound(game, executedMove);
         setGame(game);
-        setFen(game.fen());
+        const newFen = game.fen();
+        setFen(newFen);
       }, 1000);
     },
     [setFen]
@@ -106,30 +117,34 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [game, fen]
   );
 
-  const handlePieceDrop = 
-    (sourceSquare: string, targetSquare: string) => {
-      const move = attemptMove(sourceSquare, targetSquare);
+  const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+    const move = attemptMove(sourceSquare, targetSquare);
 
-      if (!move) return false;
+    if (!move) return false;
 
-      playMoveSound(game, move);
-      
-      const localIsGoodMove = checkGoodMove(acceptableMoves.map(m => m.move), move.lan);
+    playMoveSound(game, move);
 
-      setDestSquare(targetSquare);
-      setFen(game.fen());
-      setMoveSquares([]);
+    const localIsGoodMove = acceptableMoves
+      ? checkGoodMove(
+          acceptableMoves.map((m) => m.move),
+          move.lan
+        )
+      : false;
 
-      setIsGoodMove(localIsGoodMove);
-      setTimeout(
-        localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
-        500
-      );
-      setTimeout(() => setDestSquare(null), 500);
-      setTimeout(() => setIsGoodMove(null), 500);
+    setDestSquare(targetSquare);
+    setFen(game.fen());
+    setMoveSquares([]);
 
-      return true;
-    }
+    setIsGoodMove(localIsGoodMove);
+    setTimeout(
+      localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
+      500
+    );
+    setTimeout(() => setDestSquare(null), 500);
+    setTimeout(() => setIsGoodMove(null), 500);
+
+    return true;
+  };
 
   const handleSquareClick = (clickedSquare: Square) => {
     const clickedPiece = game.get(clickedSquare);
@@ -220,6 +235,27 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
+      
+      <div className="flex flex-col md:flex-row justify-center items-center gap-3">
+        <div className="w-24 h-24">
+          <Chessboard
+            position={currentPuzzle?.fenBeforeOpponentMove}
+            boardWidth={96}
+            showBoardNotation={false}
+            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+            arePiecesDraggable={false}
+          />
+        </div>
+        <div className="w-24 h-24">
+          <Chessboard
+            position={currentPuzzle?.fenAfterOpponentMove}
+            boardWidth={96}
+            showBoardNotation={false}
+            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+            arePiecesDraggable={false}
+          />
+        </div>
+      </div>
       <div
         ref={boardRef}
         className="relative flex justify-center items-center"
@@ -228,10 +264,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           height: "100%",
           maxWidth: `${boardSize}px`,
           maxHeight: `${boardSize}px`,
-     
         }}
       >
-       
         <Chessboard
           position={fen}
           showBoardNotation={true}
@@ -262,9 +296,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-      <small className="text-sm absolute bottom-0">{JSON.stringify(acceptableMoves)}. You played {currentPuzzle?.move}</small>
+
+      <div className="absolute bottom-0 right-0 p-2  bg-opacity-75 text-xs rounded shadow-md" style={{ width: '200px' }}>
+        <div>
+            <strong>Acceptable Moves:</strong> {acceptableMoves?.map(move => move.move).join(', ')}
+        </div>
+        <div>
+          <strong>You played:</strong> {currentPuzzle?.move}
+        </div>
+        <div>
+          <strong>Current Puzzle:</strong> {JSON.stringify(currentPuzzle?.fenAfterOpponentMove)}
+        </div>
+      </div>
       <ControlPanel
-      
         game={game}
         currentPuzzle={currentPuzzle}
         moveToNextPuzzle={moveToNextPuzzle}

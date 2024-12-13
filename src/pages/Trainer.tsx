@@ -6,11 +6,7 @@ const Trainer: React.FC = () => {
   const location = useLocation();
   const { puzzles } = location.state || { puzzles: [] };
 
-  return (
-    <div>
-      <Playground puzzles={puzzles} />
-    </div>
-  );
+  return <Playground puzzles={puzzles} />;
 };
 
 export default Trainer;
