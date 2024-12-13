@@ -66,13 +66,12 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
+ 
       <TrainerForm
         formData={formData}
         setFormData={setFormData}
         handleSubmit={handleSubmit}
       />
-    </div>
   );
 };
 
