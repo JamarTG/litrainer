@@ -42,17 +42,25 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     { move: string; eval: number }[] | null
   >(null);
   const { puzzleIndex, fen, setFen, moveToNextPuzzle, moveToPreviousPuzzle } =
-    useChangePuzzle(puzzles,  sessionStarted, setSessionStarted,setCurrentPuzzle);
+    useChangePuzzle(
+      puzzles,
+      sessionStarted,
+      setSessionStarted,
+      setCurrentPuzzle
+    );
+  const lastFivePuzzles = puzzles[puzzleIndex.x];
 
-    useEffect(() => {
-      const fetchData = async () => {
-        if (currentPuzzle) {
-          await evaluateFen(currentPuzzle.fenAfterOpponentMove,setAcceptableMoves);
-          
-        }
-      };
-      fetchData();
-    }, [currentPuzzle, puzzleIndex]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (currentPuzzle) {
+        await evaluateFen(
+          currentPuzzle.fenAfterOpponentMove,
+          setAcceptableMoves
+        );
+      }
+    };
+    fetchData();
+  }, [currentPuzzle, puzzleIndex]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -235,27 +243,23 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
-      
-      <div className="flex flex-col md:flex-row justify-center items-center gap-3">
-        <div className="w-24 h-24">
-          <Chessboard
-            position={currentPuzzle?.fenBeforeOpponentMove}
-            boardWidth={96}
-            showBoardNotation={false}
-            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-            arePiecesDraggable={false}
-          />
+
+      <div className="hidden lg:flex flex-col items-center" style={{ width: "150px" }}>
+        {lastFivePuzzles
+          .slice(Math.max(0, puzzleIndex.y - 5), puzzleIndex.y)
+          .map((puzzle, index) => (
+        <div key={index} className="flex items-center space-x-4 p-2">
+          <div className="flex-shrink-0">
+        <Chessboard
+          position={puzzle.fenAfterOpponentMove}
+          boardWidth={100}
+          showBoardNotation={false}
+        />
+          </div>
         </div>
-        <div className="w-24 h-24">
-          <Chessboard
-            position={currentPuzzle?.fenAfterOpponentMove}
-            boardWidth={96}
-            showBoardNotation={false}
-            boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
-            arePiecesDraggable={false}
-          />
-        </div>
+          ))}
       </div>
+
       <div
         ref={boardRef}
         className="relative flex justify-center items-center"
@@ -297,15 +301,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
-      <div className="absolute bottom-0 right-0 p-2  bg-opacity-75 text-xs rounded shadow-md" style={{ width: '200px' }}>
+      <div
+        className="absolute bottom-0 right-0 p-2  bg-opacity-75 text-xs rounded shadow-md"
+        style={{ width: "200px" }}
+      >
         <div>
-            <strong>Acceptable Moves:</strong> {acceptableMoves?.map(move => move.move).join(', ')}
+          <strong>Acceptable Moves:</strong>{" "}
+          {acceptableMoves?.map((move) => move.move).join(", ")}
         </div>
         <div>
           <strong>You played:</strong> {currentPuzzle?.move}
         </div>
         <div>
-          <strong>Current Puzzle:</strong> {JSON.stringify(currentPuzzle?.fenAfterOpponentMove)}
+          <strong>Current Puzzle:</strong>{" "}
+          {JSON.stringify(currentPuzzle?.fenAfterOpponentMove)}
         </div>
       </div>
       <ControlPanel

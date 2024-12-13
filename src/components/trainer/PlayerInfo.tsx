@@ -41,10 +41,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color }) => {
               rel="noopener noreferrer"
             >
               {user.name}
-              <div></div>
-              
             </a>
-            
             <p className="text-gray-400 text-sm md:text-base ml-1">{rating}</p>
        
         </div>
