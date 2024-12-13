@@ -1,13 +1,14 @@
 export namespace Models {
   namespace Move {
-    // resolved
+    
     type Severity = "Inaccuracy" | "Blunder" | "Mistake";
 
-    // resolved
+    
     interface Info {
       move: string;
       evaluation: Evaluation;
-      fen: string;
+      fenBeforeOpponentMove: string;
+      fenAfterOpponentMove: string;
       colorToPlay: string;
       players: Player.ChessPlayers;
       game_id: string;
@@ -19,13 +20,13 @@ export namespace Models {
       clock : Game.Clock;
     }
 
-    // resolved
+    
     interface Judgement {
       name: Severity;
       comment: string;
     }
 
-    // resolved
+    
     interface Evaluation {
       eval: number;
       best?: string;
@@ -60,7 +61,7 @@ export namespace Models {
 
   }
 
-  // resolved
+  
   namespace Player {
     interface ChessPlayerInfo {
       rating: number;

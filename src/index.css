@@ -20,7 +20,7 @@
 
 body {
     /* font-family: 'lichess', sans-serif; */
-    background: var(--c-bg-page) linear-gradient(to bottom, var(--c-body-gradient), var(--c-bg-page) 116px) no-repeat;
+    background:#28282B;
     color: #bababa;
 }
 

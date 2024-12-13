@@ -34,7 +34,6 @@ const Home: React.FC = () => {
       return;
     }
 
-    // fetchGames - When no games found - we have a no data found set to true
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
       const response = await fetch(url, {
@@ -50,7 +49,6 @@ const Home: React.FC = () => {
 
       const parsedPuzzleData = await extractErrors(response);
 
-      // When no errors found - set no Errors state to true
       if (!parsedPuzzleData) return;
 
       const puzzles = combineEvalAndMisplays(

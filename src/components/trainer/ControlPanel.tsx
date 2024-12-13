@@ -1,12 +1,9 @@
 import React from "react";
-// import { faLightbulb, faCheck } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Models } from "../../typings";
 import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
 import { Chess } from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
-// import ToggleButton from "../ui/ToggleButton";
 
 interface ControlPanelProps {
   currentPuzzle: Models.Move.Info | null;
@@ -20,10 +17,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   currentPuzzle,
   moveToNextPuzzle,
   moveToPreviousPuzzle,
-  // game,
 }) => {
-  // const [showHint, setShowHint] = useState(false);
-  // const [showSolution, setShowSolution] = useState(false);
+
 
   const isDataAvailable = currentPuzzle !== null;
 
@@ -57,35 +52,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                   &#xe036;
                 </span>
               </button>
-              {/* <div className="flex">
-                <ToggleButton
-                  isToggled={showHint}
-                  onToggle={() => setShowHint(!showHint)}
-                  OffIcon={
-                    <FontAwesomeIcon
-                      className="hover:text-yellow-300 text-3xl"
-                      icon={faLightbulb}
-                    />
-                  }
-                  bestMove={currentPuzzle.evaluation.best}
-                  game={game}
-                  type="Hint"
-                />
-
-                <ToggleButton
-                  isToggled={showSolution}
-                  onToggle={() => setShowSolution(!showSolution)}
-                  OffIcon={
-                    <FontAwesomeIcon
-                      className="hover:text-green-600 text-3xl"
-                      icon={faCheck}
-                    />
-                  }
-                  bestMove={currentPuzzle.evaluation.best!}
-                  game={game}
-                  type="Solution"
-                />
-              </div> */}
             </div>
           </div>
         </div>
