@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState,  Dispatch, SetStateAction } from "react";
 import { Models } from "../typings";
 import { STARTINGPOSFEN } from "../constants";
 
