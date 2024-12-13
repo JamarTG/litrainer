@@ -114,7 +114,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       playMoveSound(game, move);
       
-      const localIsGoodMove = checkGoodMove(acceptableMoves, move.lan);
+      const localIsGoodMove = checkGoodMove(acceptableMoves.map(m => m.move), move.lan);
 
       setDestSquare(targetSquare);
       setFen(game.fen());

@@ -1,8 +1,7 @@
-import { useState, useEffect,Dispatch,SetStateAction } from 'react';
-import evaluateFen from '../utils/chess/evaluateFen'; // Adjust the path as necessary
-import { Models } from '../typings';
-import { STARTINGPOSFEN } from '../constants';
-
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import evaluateFen from "../utils/chess/evaluateFen"; // Adjust the path as necessary
+import { Models } from "../typings";
+import { STARTINGPOSFEN } from "../constants";
 
 const useChangePuzzle = (
   puzzles: Models.Move.Info[][],
@@ -14,7 +13,9 @@ const useChangePuzzle = (
     y: 0,
   });
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
-  const [acceptableMoves, setAcceptableMoves] = useState<string[]>([]);
+  const [acceptableMoves, setAcceptableMoves] = useState<
+    { move: any; eval: number }[]
+  >([]);
 
   const moveToNextPuzzle = () => {
     if (puzzles.length === 0) return;
@@ -51,7 +52,10 @@ const useChangePuzzle = (
       newIndex = { x: puzzleIndex.x, y: puzzleIndex.y - 1 };
       newFen = puzzles[puzzleIndex.x][puzzleIndex.y - 1].fen;
     } else if (puzzleIndex.x > 0) {
-      newIndex = { x: puzzleIndex.x - 1, y: puzzles[puzzleIndex.x - 1].length - 1 };
+      newIndex = {
+        x: puzzleIndex.x - 1,
+        y: puzzles[puzzleIndex.x - 1].length - 1,
+      };
       newFen = puzzles[puzzleIndex.x - 1][puzzleIndex.y - 1].fen;
     } else {
       // No previous puzzles
