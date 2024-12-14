@@ -12,7 +12,6 @@ import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
 import { useEngine } from "../hooks/useEngine";
 import { EngineName } from "../types/enums";
-import evaluateFen from "../utils/chess/evaluateFen";
 import { PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math/winPercentage";
 import { Game } from "../types/game";
@@ -59,10 +58,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (currentPuzzle) {
-        await evaluateFen(
-          currentPuzzle.fenAfterOpponentMove,
-          setAcceptableMoves
-        );
+        // await evaluateFen(
+        //   currentPuzzle.fenAfterOpponentMove,
+        //   setAcceptableMoves
+        // );
 
         const position = await engine?.evaluatePosition(
           currentPuzzle.fenAfterOpponentMove
