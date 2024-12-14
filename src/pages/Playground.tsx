@@ -11,7 +11,7 @@ import checkGoodMove from "../utils/chess/checkGoodMove";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
 import { useEngine } from "../hooks/useEngine";
-import { EngineName, MoveClassification } from "../types/enums";
+import { EngineName} from "../types/enums";
 import { LineEval, PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math/winPercentage";
 import { Game } from "../types/game";
@@ -37,6 +37,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
+  // @ts-ignore
   const [evaluation, setEvaluation] = useState<PositionEval | null>(null);
   const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
