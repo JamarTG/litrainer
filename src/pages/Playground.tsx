@@ -277,7 +277,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 bg-red-900 items-center">
+    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
       <WarningMessage
         show={showWarning}
         onClose={() => setShowWarning(false)}
