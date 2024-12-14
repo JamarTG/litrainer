@@ -34,21 +34,22 @@ const combineEvaluationsAndMisplays = (
             chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" "));
           }
 
-          return isBadMove
+            return isBadMove
             ? {
-                game_id: game.game_id,
-                players: game.players,
-                variant: game.variant,
-                perf: game.perf,
-                status: game.status,
-                rated: game.rated,
-                clock: game.clock,
-                move,
-                lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null,
-                evaluation: evaluations[index][moveIndex],
-                fenBeforeOpponentMove: fenBeforeOpponentMove,
-                fenAfterOpponentMove : fenAfterOpponentMove,
-                colorToPlay: turn === "w" ? "white" : "black",
+              game_id: game.game_id,
+              players: game.players,
+              variant: game.variant,
+              perf: game.perf,
+              status: game.status,
+              rated: game.rated,
+              clock: game.clock,
+              move,
+              lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null,
+              evaluation: evaluations[index][moveIndex],
+              previousEvaluation: moveIndex > 0 ? evaluations[index][moveIndex - 1] : null,
+              fenBeforeOpponentMove: fenBeforeOpponentMove,
+              fenAfterOpponentMove: fenAfterOpponentMove,
+              colorToPlay: turn === "w" ? "white" : "black",
               }
             : null;
         })

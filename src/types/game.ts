@@ -5,7 +5,7 @@ export namespace Game {
     eval: number;
     best?: string;
     variation?: string;
-    judgment: {
+    judgment?: {
       name: "Inaccuracy" | "Blunder" | "Mistake";
       comment: string;
     };
@@ -26,6 +26,7 @@ export namespace Game {
   export interface Info {
     move: string;
     evaluation:Evaluation,
+    previousEvaluation: Evaluation;
     fenBeforeOpponentMove: string;
     fenAfterOpponentMove: string;
     colorToPlay: string;

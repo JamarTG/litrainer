@@ -11,10 +11,11 @@ import checkGoodMove from "../utils/chess/checkGoodMove";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
 import { useEngine } from "../hooks/useEngine";
-import { EngineName } from "../types/enums";
-import { PositionEval } from "../types/eval";
+import { EngineName, MoveClassification } from "../types/enums";
+import { LineEval, PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math/winPercentage";
 import { Game } from "../types/game";
+import getMoveBasicClassification from "./moveClassification";
 
 interface PlayGroundProps {
   puzzles: Game.Info[][];
@@ -58,42 +59,42 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (currentPuzzle) {
-        // await evaluateFen(
-        //   currentPuzzle.fenAfterOpponentMove,
-        //   setAcceptableMoves
-        // );
-
-        setAcceptableMoves([])
+        setAcceptableMoves([]);
 
         const position = await engine?.evaluatePosition(
           currentPuzzle.fenAfterOpponentMove
         );
 
-        
         const result = position?.lines
           .map(({ pv, cp }) => ({
-            move: pv[0], 
-            eval: cp 
+            move: pv[0],
+            eval: cp,
           }))
-          .filter((line) => line.eval !== undefined) as { move: string; eval: number }[];
+          .filter((line) => line.eval !== undefined) as {
+          move: string;
+          eval: number;
+        }[];
         setAcceptableMoves(result || []);
 
-        // if (winPercentageDiff < -20) return MoveClassification.Blunder;
-        // if (winPercentageDiff < -10) return MoveClassification.Mistake;
-        // if (winPercentageDiff < -5) return MoveClassification.Inaccuracy;
-        // if (winPercentageDiff < -2) return MoveClassification.Good;
-        // return MoveClassification.Excellent;
-        // Also There is Best and Book Move
+        const previousWinPercentage = getLineWinPercentage({
+          cp: currentPuzzle.previousEvaluation.eval,
+        } as LineEval);
 
+        console.log(previousWinPercentage);
+        if (position && position.lines) {
+          console.log(position.lines);
+        }
         if (position !== undefined) {
-          setEvaluation(position);
-          console.log(position);
-          const bestMoveWinPercentage = getLineWinPercentage(position.lines[0]);
           for (let i = 0; i < position.lines.length; i++) {
             const line = position.lines[i];
             const currentWinPercentage = getLineWinPercentage(line);
-            const difference = currentWinPercentage - bestMoveWinPercentage;
-            console.log(currentWinPercentage, difference);
+
+            console.log(currentWinPercentage,previousWinPercentage);
+            console.log(getMoveBasicClassification(
+              previousWinPercentage,
+              currentWinPercentage,
+              currentPuzzle.colorToPlay !== "black"
+            ));
           }
         }
       }
@@ -350,7 +351,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       >
         <div>
           <strong>Severity:</strong>{" "}
-          {JSON.stringify(currentPuzzle?.evaluation.judgment.name)}
+          {JSON.stringify(currentPuzzle?.evaluation?.judgment?.name ?? "N/A")}
         </div>
         <div>
           <strong>Acceptable Moves:</strong>{" "}
