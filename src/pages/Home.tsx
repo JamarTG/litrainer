@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TrainerForm from "../components/home/TrainerForm";
-import { Models } from "../typings";
 import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
 import { extractErrors } from "../utils/processing/extractErrors";
 import { API_BASE_URL } from "../constants";
+import { Form } from "../types/form";
+import { Game } from "../types/game";
 
 const Home: React.FC = () => {
-  const [formData, setFormData] = useState<Models.Form.FormData>({
+  const [formData, setFormData] = useState<Form.Fields>({
     username: "JamariTheGreat",
     maxNoGames: 10,
     startDate: "2023-01-01",
@@ -53,25 +54,23 @@ const Home: React.FC = () => {
 
       const puzzles = combineEvalAndMisplays(
         username,
-        parsedPuzzleData.misplayInfo as Models.Game.LichessGameInfo[],
+        parsedPuzzleData.misplayInfo as Game.LichessResponse[],
         parsedPuzzleData.moveEvaluations
       );
-      console.log("Result",puzzles)
+      console.log("Result", puzzles);
 
       navigate("/train", { state: { puzzles } });
-
     } catch (error) {
       console.error("Error fetching games:", error);
     }
   };
 
   return (
- 
-      <TrainerForm
-        formData={formData}
-        setFormData={setFormData}
-        handleSubmit={handleSubmit}
-      />
+    <TrainerForm
+      formData={formData}
+      setFormData={setFormData}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 

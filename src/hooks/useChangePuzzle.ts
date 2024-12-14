@@ -1,14 +1,14 @@
 import { useState,  Dispatch, SetStateAction } from "react";
-import { Models } from "../typings";
 import { STARTINGPOSFEN } from "../constants";
+import { Game } from "../types/game";
 
 const useChangePuzzle = (
-  puzzles: Models.Move.Info[][],
+  puzzles: Game.Info[][],
   sessionStarted: boolean,
   setSessionStarted: Dispatch<SetStateAction<boolean>>,
-  setCurrentPuzzle : Dispatch<SetStateAction<Models.Move.Info | null>>
+  setCurrentPuzzle : Dispatch<SetStateAction<Game.Info | null>>
 ) => {
-  const [puzzleIndex, setPuzzleIndex] = useState<Models.Move.Index>({
+  const [puzzleIndex, setPuzzleIndex] = useState<Game.Index>({
     x: 0,
     y: 0,
   });
@@ -18,7 +18,7 @@ const useChangePuzzle = (
   const moveToNextPuzzle = () => {
     if (puzzles.length === 0) return;
 
-    let newIndex: Models.Move.Index;
+    let newIndex: Game.Index;
     let newFen: string;
 
     if (!sessionStarted) {
@@ -42,7 +42,7 @@ const useChangePuzzle = (
   const moveToPreviousPuzzle = () => {
     if (puzzles.length === 0) return;
 
-    let newIndex: Models.Move.Index;
+    let newIndex: Game.Index;
     let newFen: string;
 
     if (puzzleIndex.y > 0) {
