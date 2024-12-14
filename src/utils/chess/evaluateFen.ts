@@ -1,8 +1,8 @@
 const evaluateFen = (
   fen: string | undefined,
   setAcceptableMoves: (moves: { move: any; eval: number }[]) => void,
-  depth: number = 20,
-  multipv: number = 2
+  depth: number = 50,
+  multipv: number = 1
 ): Promise<void> => {
 
   return new Promise((resolve) => {
