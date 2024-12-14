@@ -1,10 +1,9 @@
 import { Chess } from "chess.js";
-import { Models } from "../../typings";
-
+import { Game } from "../../types/game";
 const combineEvaluationsAndMisplays = (
   username: string,
-  misplays: Models.Game.LichessGameInfo[],
-  evaluations: Models.Move.Evaluation[][]
+  misplays: Game.LichessResponse[],
+  evaluations: Game.Evaluation[][] 
 ) => {
   const standardGames = misplays.filter((game) => game.variant === "standard");
 

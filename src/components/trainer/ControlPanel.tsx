@@ -1,12 +1,12 @@
 import React from "react";
-import { Models } from "../../typings";
 import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
 import { Chess } from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
+import { Game } from "../../types/game";
 
 interface ControlPanelProps {
-  currentPuzzle: Models.Move.Info | null;
+  currentPuzzle: Game.Info | null;
   moveToNextPuzzle: () => void;
   moveToPreviousPuzzle: () => void;
   sessionStarted: boolean;

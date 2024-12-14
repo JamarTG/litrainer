@@ -1,11 +1,11 @@
 import { ChangeEvent, Dispatch,MouseEventHandler, SetStateAction } from "react";
-import { Models } from "../../typings";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form } from "../../types/form";
 
 interface ParamsFormProps {
-  formData: Models.Form.FormData;
-  setFormData: Dispatch<SetStateAction<Models.Form.FormData>>;
+  formData: Form.Fields;
+  setFormData: Dispatch<SetStateAction<Form.Fields>>;
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 

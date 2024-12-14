@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { Models } from "../typings";
 import { playMoveSound } from "../utils/audio/playMoveSound";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
@@ -11,10 +10,15 @@ import useResizeableBoard from "../hooks/useResizableBoard";
 import checkGoodMove from "../utils/chess/checkGoodMove";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
+import { useEngine } from "../hooks/useEngine";
+import { EngineName } from "../types/enums";
 import evaluateFen from "../utils/chess/evaluateFen";
+import { PositionEval } from "../types/eval";
+import { getLineWinPercentage } from "../utils/math/winPercentage";
+import { Game } from "../types/game";
 
 interface PlayGroundProps {
-  puzzles: Models.Move.Info[][];
+  puzzles: Game.Info[][];
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
@@ -27,14 +31,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const [game, setGame] = useState<Chess>(new Chess());
   const [sessionStarted, setSessionStarted] = useState(false);
-  const [currentPuzzle, setCurrentPuzzle] = useState<Models.Move.Info | null>(
-    null
-  );
+  const [currentPuzzle, setCurrentPuzzle] = useState<Game.Info | null>(null);
   const [isGoodMove, setIsGoodMove] = useState<boolean | null>(null);
   const [showWarning, setShowWarning] = useState<boolean>(true);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
+  const [evaluation, setEvaluation] = useState<PositionEval | null>(null);
   const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
@@ -48,6 +51,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setSessionStarted,
       setCurrentPuzzle
     );
+
+  const engine = useEngine(EngineName.Stockfish16);
+
   const lastFivePuzzles = puzzles[puzzleIndex.x];
 
   useEffect(() => {
@@ -57,6 +63,29 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           currentPuzzle.fenAfterOpponentMove,
           setAcceptableMoves
         );
+
+        const position = await engine?.evaluatePosition(
+          currentPuzzle.fenAfterOpponentMove
+        );
+
+        // if (winPercentageDiff < -20) return MoveClassification.Blunder;
+        // if (winPercentageDiff < -10) return MoveClassification.Mistake;
+        // if (winPercentageDiff < -5) return MoveClassification.Inaccuracy;
+        // if (winPercentageDiff < -2) return MoveClassification.Good;
+        // return MoveClassification.Excellent;
+        // Also There is Best and Book Move
+
+        if (position !== undefined) {
+          setEvaluation(position);
+          console.log(position);
+          const bestMoveWinPercentage = getLineWinPercentage(position.lines[0]);
+          for (let i = 0; i < position.lines.length; i++) {
+            const line = position.lines[i];
+            const currentWinPercentage = getLineWinPercentage(line);
+            const difference = currentWinPercentage - bestMoveWinPercentage;
+            console.log(currentWinPercentage, difference);
+          }
+        }
       }
     };
     fetchData();
@@ -238,25 +267,29 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3">
+    <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 bg-red-900 items-center">
       <WarningMessage
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
 
-      <div className="hidden lg:flex flex-col items-center" style={{ width: "150px" }}>
+      <div
+        className="hidden lg:flex flex-col items-center"
+        style={{ width: "150px" }}
+      >
         {lastFivePuzzles
           .slice(Math.max(0, puzzleIndex.y - 5), puzzleIndex.y)
           .map((puzzle, index) => (
-        <div key={index} className="flex items-center space-x-4 p-2">
-          <div className="flex-shrink-0">
-        <Chessboard
-          position={puzzle.fenAfterOpponentMove}
-          boardWidth={100}
-          showBoardNotation={false}
-        />
-          </div>
-        </div>
+            <div key={index} className="flex items-center space-x-4 p-2">
+              <div className="flex-shrink-0">
+                <Chessboard
+                  position={puzzle.fenAfterOpponentMove}
+                  boardWidth={boardSize / 8}
+                  showBoardNotation={false}
+                  arePiecesDraggable={false}
+                />
+              </div>
+            </div>
           ))}
       </div>
 
@@ -319,6 +352,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <div>
           <strong>Current Puzzle:</strong>{" "}
           {JSON.stringify(currentPuzzle?.fenAfterOpponentMove)}
+        </div>
+        <div>
+          <strong>Other Eval:</strong> {JSON.stringify(evaluation)}
         </div>
       </div>
       <ControlPanel
