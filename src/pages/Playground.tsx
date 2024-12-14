@@ -69,6 +69,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           currentPuzzle.fenAfterOpponentMove
         );
 
+        
+        const result = position?.lines
+          .map(({ pv, cp }) => ({
+            move: pv[0], 
+            eval: cp 
+          }))
+          .filter((line) => line.eval !== undefined) as { move: string; eval: number }[];
+        setAcceptableMoves(result || []);
+
         // if (winPercentageDiff < -20) return MoveClassification.Blunder;
         // if (winPercentageDiff < -10) return MoveClassification.Mistake;
         // if (winPercentageDiff < -5) return MoveClassification.Inaccuracy;
