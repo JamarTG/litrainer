@@ -306,8 +306,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         style={{ width: "200px" }}
       >
         <div>
+          <strong>Severity:</strong>{" "}
+          {JSON.stringify(currentPuzzle?.evaluation.judgment.name)}
+        </div>
+        <div>
           <strong>Acceptable Moves:</strong>{" "}
-          {acceptableMoves?.map((move) => move.move).join(", ")}
+          {acceptableMoves?.map((move) => JSON.stringify(move)).join(", ")}
         </div>
         <div>
           <strong>You played:</strong> {currentPuzzle?.move}
