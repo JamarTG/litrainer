@@ -63,6 +63,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         //   setAcceptableMoves
         // );
 
+        setAcceptableMoves([])
+
         const position = await engine?.evaluatePosition(
           currentPuzzle.fenAfterOpponentMove
         );
