@@ -16,12 +16,18 @@ Read the player color
 Add button to move back to the form
 Create a 404 Page
 Fix X by simply touching opponent pieces
-Fix Unresponsive control panel, uncentered board and control panel new skeleton
+Fix Unresponsive control panel and control panel new skeleton
 Fix huge space between navbar and main content
 Include that it was powered by lichess
 Make Litrainer Lgo thicker and change color on hover
 Links back to homepage
 Move to exact position based on move
+Classify Moves Correct Including Best moves from openings
+change Engine Option
+Rating the moves
+FetchMove number - Utilize IFrame
+Use Gif On Loading Screen
+
 
 =====================
 Session             =
