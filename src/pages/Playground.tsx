@@ -63,14 +63,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       if (currentPuzzle) {
         setAcceptableMoves([]);
 
-        const evalPos = await engine?.evaluatePosition(
+        const position = await engine?.evaluatePosition(
           currentPuzzle.fenAfterOpponentMove,
           20
         );
-
-        const position = evalPos?.eval;
-        const newFens = evalPos?.newFens;
-        console.log(newFens)
+     
 
         interface LineResult {
           move: string;
@@ -80,21 +77,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
         const result: LineResult[] = position?.lines
           .map(({ pv, cp }, index) => {
-            const move = pv[0];
-
-            const openingFound = openings.some(
-              (opening) => opening.fen === newFens?.[index]?.split(" ")[0]
-            );
-
-            console.log(newFens?.[index]?.split(" ")[0])
-            console.log(openingFound,"<-")
-            if (openingFound) {
-              return {
-                move,
-                eval: cp,
-                classification: MoveClassification.Book,
-              };
-            }
+            const move = pv[0]; 
 
             const classification = getMoveBasicClassification(
               getLineWinPercentage({ cp: position.lines[0].cp } as LineEval),

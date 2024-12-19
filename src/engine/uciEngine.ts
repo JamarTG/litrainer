@@ -103,8 +103,6 @@ export abstract class UciEngine {
     depth = 16
   ): Promise<PositionEval> {
 
-    // Attempt to get lichess eval first
-
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],
       "bestmove"
