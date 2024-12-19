@@ -1,10 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChessKnight,
-  faQuestionCircle,
-  faBullseye,
-} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {

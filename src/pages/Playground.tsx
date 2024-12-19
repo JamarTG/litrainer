@@ -74,7 +74,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         }
 
         const result: LineResult[] = position?.lines
-          .map(({ pv, cp }, index) => {
+          .map(({ pv, cp }, _) => {
             const move = pv[0];
 
             const classification = getMoveBasicClassification(
