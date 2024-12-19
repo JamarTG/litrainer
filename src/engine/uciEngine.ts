@@ -100,7 +100,7 @@ export abstract class UciEngine {
 
   public async evaluatePosition(
     fen: string,
-    depth = 16
+    depth = 15
   ): Promise<PositionEval> {
 
     const results = await this.sendCommands(
