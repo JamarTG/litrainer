@@ -24,7 +24,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
-      <form className="trainer-form p-6 rounded-lg shadow-md max-w-md w-full ">
+      <form className="trainer-form p-6 rounded-lg max-w-md w-full ">
         <h1 className="text-2xl pb-5">Training Session Form</h1>
         <div className="flex flex-col gap-1 mb-4">
           <label htmlFor="username">Username</label>

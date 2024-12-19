@@ -25,7 +25,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div className="ml-4 flex gap-5  px-4 rounded-md">
       {isDataAvailable ? (
-        <div className="flex flex-col rounded-lg shadow-lg flex-grow">
+        <div className="flex flex-col rounded-lg flex-grow">
           
           <GameInfo
             clock={currentPuzzle.clock}
