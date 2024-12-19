@@ -11,12 +11,11 @@ import checkGoodMove from "../utils/chess/checkGoodMove";
 import { boardDimensions } from "../constants";
 import { moveSquareStyles } from "../constants";
 import { useEngine } from "../hooks/useEngine";
-import { EngineName, MoveClassification } from "../types/enums";
+import { EngineName } from "../types/enums";
 import { LineEval, PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math/winPercentage";
 import { Game } from "../types/game";
 import getMoveBasicClassification from "./moveClassification";
-import { openings } from "../data/openings";
 
 interface PlayGroundProps {
   puzzles: Game.Info[][];
@@ -67,7 +66,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           currentPuzzle.fenAfterOpponentMove,
           20
         );
-     
 
         interface LineResult {
           move: string;
@@ -77,7 +75,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
         const result: LineResult[] = position?.lines
           .map(({ pv, cp }, index) => {
-            const move = pv[0]; 
+            const move = pv[0];
 
             const classification = getMoveBasicClassification(
               getLineWinPercentage({ cp: position.lines[0].cp } as LineEval),
@@ -120,7 +118,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }
     };
     fetchData();
-  }, [currentPuzzle, puzzleIndex,engine]);
+  }, [currentPuzzle, puzzleIndex, engine]);
 
   useEffect(() => {
     const handleResize = () => {

@@ -6,6 +6,8 @@ import { extractErrors } from "../utils/processing/extractErrors";
 import { API_BASE_URL } from "../constants";
 import { Form } from "../types/form";
 import { Game } from "../types/game";
+import LoadingScreen from "../components/loader";
+
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Form.Fields>({
@@ -14,6 +16,7 @@ const Home: React.FC = () => {
     startDate: "2023-01-01",
     endDate: "2023-12-31",
   });
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,6 +38,8 @@ const Home: React.FC = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
       const response = await fetch(url, {
@@ -45,12 +50,16 @@ const Home: React.FC = () => {
 
       if (!response.ok) {
         console.error(`Error ${response.status}: ${response.statusText}`);
+        setLoading(false);
         return;
       }
 
       const parsedPuzzleData = await extractErrors(response);
 
-      if (!parsedPuzzleData) return;
+      if (!parsedPuzzleData) {
+        setLoading(false);
+        return;
+      }
 
       const puzzles = combineEvalAndMisplays(
         username,
@@ -62,15 +71,23 @@ const Home: React.FC = () => {
       navigate("/train", { state: { puzzles } });
     } catch (error) {
       console.error("Error fetching games:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <TrainerForm
-      formData={formData}
-      setFormData={setFormData}
-      handleSubmit={handleSubmit}
-    />
+    <div className="flex flex-col text-violet-100 h-full">
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <TrainerForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+        />
+      )}
+    </div>
   );
 };
 
