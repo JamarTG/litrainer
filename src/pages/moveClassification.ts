@@ -109,7 +109,7 @@ export const getMovesClassification = (
 const getMoveBasicClassification = (
   lastPositionWinPercentage: number,
   positionWinPercentage: number,
-  isWhiteMove: boolean
+  _: boolean
 ): MoveClassification => {
   const winPercentageDiff =
     Math.abs(positionWinPercentage - lastPositionWinPercentage)
