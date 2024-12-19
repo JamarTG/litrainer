@@ -64,7 +64,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
         const position = await engine?.evaluatePosition(
           currentPuzzle.fenAfterOpponentMove,
-          20
+          15
         );
 
         interface LineResult {
