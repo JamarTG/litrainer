@@ -112,17 +112,16 @@ const getMoveBasicClassification = (
   isWhiteMove: boolean
 ): MoveClassification => {
   const winPercentageDiff =
-    (positionWinPercentage - lastPositionWinPercentage) *
-    (isWhiteMove ? 1 : -1);
+    Math.abs(positionWinPercentage - lastPositionWinPercentage)
 
-  if (winPercentageDiff < -20) return MoveClassification.Blunder;
-  if (winPercentageDiff < -10) return MoveClassification.Mistake;
-  if (winPercentageDiff < -5) return MoveClassification.Inaccuracy;
-  if (winPercentageDiff < -2) return MoveClassification.Good;
+  console.log(winPercentageDiff)
+
+  if (winPercentageDiff > 10) return MoveClassification.Blunder;
+  if (winPercentageDiff > 5) return MoveClassification.Mistake;
+  if (winPercentageDiff > 2) return MoveClassification.Inaccuracy;
+  if (winPercentageDiff > 1) return MoveClassification.Good;
   return MoveClassification.Excellent;
 };
-
-
 
 const isBrilliantMove = (
   lastPositionWinPercentage: number,
