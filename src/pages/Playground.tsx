@@ -120,7 +120,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }
     };
     fetchData();
-  }, [currentPuzzle, puzzleIndex]);
+  }, [currentPuzzle, puzzleIndex,engine]);
 
   useEffect(() => {
     const handleResize = () => {
