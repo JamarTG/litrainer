@@ -1,9 +1,8 @@
 import { PositionEval, LineEval } from "../types/eval";
-import { getLineWinPercentage } from "./math/winPercentage";
-import { getPositionWinPercentage } from "./math/winPercentage";
+import { getLineWinPercentage, getPositionWinPercentage } from "./math";
 import { MoveClassification } from "../types/enums";
 import { openings } from "../data/openings";
-// import { getIsPieceSacrifice, isSimplePieceRecapture } from "./chess";
+
 
 export const getMovesClassification = (
   rawPositions: PositionEval[],

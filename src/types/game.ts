@@ -26,7 +26,7 @@ export namespace Game {
   export interface Info {
     move: string;
     evaluation:Evaluation,
-    previousEvaluation: Evaluation;
+    previousEvaluation: Evaluation | null;
     fenBeforeOpponentMove: string;
     fenAfterOpponentMove: string;
     colorToPlay: string;
@@ -36,7 +36,7 @@ export namespace Game {
     rated: boolean;
     status: string;
     variant: string;
-    lastMove: string;
+    lastMove: string | null;
     clock: { increment: number; initial: number; totalTime: number };
   }
 

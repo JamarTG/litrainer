@@ -1,11 +1,41 @@
-import {
-  ceilsNumber,
-  getHarmonicMean,
-  getStandardDeviation,
-  getWeightedMean,
-} from "./math";
-import { Accuracy, PositionEval } from "../../types/eval";
-import { getPositionWinPercentage } from "./winPercentage";
+import { Accuracy, LineEval, PositionEval } from "../types/eval";
+
+export const ceilsNumber = (number: number, min: number, max: number) => {
+  if (number > max) return max;
+  if (number < min) return min;
+  return number;
+};
+
+export const getHarmonicMean = (array: number[]) => {
+  const sum = array.reduce((acc, curr) => acc + 1 / curr, 0);
+  return array.length / sum;
+};
+
+export const getStandardDeviation = (array: number[]) => {
+  const n = array.length;
+  const mean = array.reduce((a, b) => a + b) / n;
+  return Math.sqrt(
+    array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n
+  );
+};
+
+export const getWeightedMean = (array: number[], weights: number[]) => {
+  if (array.length > weights.length)
+    throw new Error("Weights array is too short");
+
+  const weightedSum = array.reduce(
+    (acc, curr, index) => acc + curr * weights[index],
+    0
+  );
+  const weightSum = weights
+    .slice(0, array.length)
+    .reduce((acc, curr) => acc + curr, 0);
+
+  return weightedSum / weightSum;
+};
+
+
+// COMPUTE ACCURACY
 
 export const computeAccuracy = (positions: PositionEval[]): Accuracy => {
   const positionsWinPercentage = positions.map(getPositionWinPercentage);
@@ -86,3 +116,33 @@ const getMovesAccuracy = (movesWinPercentage: number[]): number[] =>
 
     return Math.min(100, Math.max(0, rawAccuracy + 1));
   });
+
+// COMPUTE WIN PERCENTAGE
+
+export const getPositionWinPercentage = (position: PositionEval): number => {
+  return getLineWinPercentage(position.lines[0]);
+};
+
+export const getLineWinPercentage = (line: LineEval): number => {
+  if (line.cp !== undefined) {
+    return getWinPercentageFromCp(line.cp);
+  }
+
+  if (line.mate !== undefined) {
+    return getWinPercentageFromMate(line.mate);
+  }
+
+  throw new Error("No cp or mate in line");
+};
+
+const getWinPercentageFromMate = (mate: number): number => {
+  const mateInf = mate * Infinity;
+  return getWinPercentageFromCp(mateInf);
+};
+
+const getWinPercentageFromCp = (cp: number): number => {
+  const cpCeiled = ceilsNumber(cp, -1000, 1000);
+  const MULTIPLIER = -0.004;
+  const winChances = 2 / (1 + Math.exp(MULTIPLIER * cpCeiled)) - 1;
+  return 50 + 50 * winChances;
+};

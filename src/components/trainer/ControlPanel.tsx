@@ -19,8 +19,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   moveToPreviousPuzzle,
 }) => {
 
-
+  
   const isDataAvailable = currentPuzzle !== null;
+
 
   return (
     <div className="ml-4 flex gap-5  px-4 rounded-md">
