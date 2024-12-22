@@ -1,11 +1,7 @@
 import { EngineName } from "../types/enums";
-import {
-  PositionEval,
-} from "../types/eval";
+import { LineResult, PositionEval } from "../types/eval";
 
-import {
-  parseEvaluationResults,
-} from "../utils/processing/parseResults";
+import { parseEvaluationResults } from "../utils/processing/parseResults";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -98,11 +94,10 @@ export abstract class UciEngine {
     });
   }
 
-  public async evaluatePosition(
+  public async getBestMoves(
     fen: string,
     depth = 15
-  ): Promise<PositionEval> {
-
+  ): Promise<LineResult[] | null> {
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],
       "bestmove"
@@ -110,10 +105,17 @@ export abstract class UciEngine {
 
     const whiteToPlay = fen.split(" ")[1] === "w";
 
-    return parseEvaluationResults(results, whiteToPlay);
+    const position = parseEvaluationResults(results, whiteToPlay);
+
+    return position?.lines
+      .map(({ pv, cp }, _) => {
+        const move = pv[0];
+
+        return {
+          move,
+          eval: cp,
+        };
+      })
+      .filter((line) => line.eval !== undefined) as LineResult[];
   }
-
-  
-
-  
 }

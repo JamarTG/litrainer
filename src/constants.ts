@@ -34,7 +34,7 @@ export const customBoardStyles = {
   position: "relative" as const,
 };
 
-export const boardDimensions = {
+export const BOARD_DIMENSIONS = {
   MAX_SIZE: 500,
   MIN_SIZE: 300,
   INITIAL_SIZE: 400,
