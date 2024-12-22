@@ -1,21 +1,24 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
+
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
-import useChangePuzzle from "../hooks/useChangePuzzle";
 import WarningMessage from "../components/trainer/WarningMessage";
+
+import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
 import checkGoodMove from "../utils/chess/checkGoodMove";
-import { boardDimensions } from "../constants";
-import { moveSquareStyles } from "../constants";
+
 import { useEngine } from "../hooks/useEngine";
 import { EngineName } from "../types/enums";
 import { LineEval, PositionEval } from "../types/eval";
-import { getLineWinPercentage } from "../utils/math/winPercentage";
+import { getLineWinPercentage } from "../utils/math";
 import { Game } from "../types/game";
+
 import getMoveBasicClassification from "../utils/classifyMove";
 import { playSound } from "../utils/sound";
+import { boardDimensions, moveSquareStyles } from "../constants";
 
 interface PlayGroundProps {
   puzzles: Game.Info[][];
@@ -55,7 +58,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const engine = useEngine(EngineName.Stockfish16);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       if (currentPuzzle) {
@@ -147,12 +149,16 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   ]);
 
   useEffect(() => {
+
     const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
+    console.log(puzzles,'s');
     setCurrentPuzzle(puzzle);
 
     if (puzzle) {
       setGameFen(game, puzzle.fenBeforeOpponentMove);
-      executeComputerMove(game, puzzle.lastMove);
+      if (puzzle.lastMove) {
+        executeComputerMove(game, puzzle.lastMove);
+      }
     }
   }, [puzzleIndex, puzzles, setFen]);
 
@@ -189,7 +195,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     if (!move) return false;
 
     playSound(game, move);
-   
+
     const localIsGoodMove = acceptableMoves
       ? checkGoodMove(
           acceptableMoves.map((m) => m.move),
@@ -312,6 +318,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
+
+        {JSON.stringify(puzzles)}
         <Chessboard
           position={fen}
           showBoardNotation={true}

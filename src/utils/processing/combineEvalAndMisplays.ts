@@ -1,63 +1,57 @@
 import { Chess } from "chess.js";
 import { Game } from "../../types/game";
+
+const getOnlyStandardGames = (games: Game.LichessResponse[]) => {
+  return games.filter((game) => game.variant === "standard");
+};
+
+const getOpColor = (username: string, game: Game.LichessResponse) => {
+  return username === game.players.white.user.name ? "w" : "b";
+};
+
 const combineEvaluationsAndMisplays = (
   username: string,
   misplays: Game.LichessResponse[],
-  evaluations: Game.Evaluation[][] 
+  evaluations: Game.Evaluation[][]
 ) => {
-  const standardGames = misplays.filter((game) => game.variant === "standard");
+  const standardGames = getOnlyStandardGames(misplays);
 
-  
+  const result = standardGames.map((game, index) => {
+    const chessgame = new Chess();
+    chessgame.loadPgn(game.moves);
 
-  return standardGames
-    .map((game, index) => {
-      const playerColor = username === game.players.white.user.name ? "white" : "black";
-      const chessEngine = new Chess();
-      const moves = game.moves.split(" ");
-      let previousFen = chessEngine.fen();
+    const history = chessgame.history({ verbose: true });
+    const gameEvals = evaluations[index];
+    const OPColor = getOpColor(username, game);
 
-      const errors = moves
-        .map((move, moveIndex) => {
-          let fenBeforeOpponentMove = previousFen;
-          let fenAfterOpponentMove = chessEngine.fen();
+    const res: Game.Info [] = []
 
-          previousFen = fenAfterOpponentMove;
-          const turn = chessEngine.turn();
-          chessEngine.move(move);
-          
-          
-          const isBadMove = evaluations[index][moveIndex]?.judgment;
+    for (let i = 0; i < gameEvals.length; i++) {
+      if (gameEvals[i].judgment && OPColor === history[i].color) {
+        res.push({
+          game_id: game.game_id,
+          players: game.players,
+          variant: game.variant,
+          perf: game.perf,
+          status: game.status,
+          rated: game.rated,
+          clock: game.clock,
+          move: history[i].san,
+          lastMove: i > 0 ? history[i - 1].san : null,
+          evaluation: gameEvals[i],
+          previousEvaluation: i > 0 ? gameEvals[i - 1] : null,
+          colorToPlay: history[i].color === "w" ? "white" : "black",
+          fenAfterOpponentMove: history[i].before,
+          fenBeforeOpponentMove:
+            i > 0 ? history[i - 1].before : chessgame.fen(),
+        });
+      }
+    }
 
-          if (moveIndex >= 2) {
-            chessEngine.loadPgn(moves.slice(0, moveIndex - 1).join(" "));
-            fenBeforeOpponentMove = chessEngine.fen();
-            chessEngine.loadPgn(moves.slice(0, moveIndex + 1).join(" "));
-          }
+    return res;
+  });
 
-            return isBadMove
-            ? {
-              game_id: game.game_id,
-              players: game.players,
-              variant: game.variant,
-              perf: game.perf,
-              status: game.status,
-              rated: game.rated,
-              clock: game.clock,
-              move,
-              lastMove: moveIndex > 0 ? moves[moveIndex - 1] : null,
-              evaluation: evaluations[index][moveIndex],
-              previousEvaluation: moveIndex > 0 ? evaluations[index][moveIndex - 1] : null,
-              fenBeforeOpponentMove: fenBeforeOpponentMove,
-              fenAfterOpponentMove: fenAfterOpponentMove,
-              colorToPlay: turn === "w" ? "white" : "black",
-              }
-            : null;
-        })
-        .filter((info) => info !== null);
-
-      return errors.filter((error:any) => error.colorToPlay === playerColor);
-    })
-    .filter((filteredErrors) => filteredErrors.length > 0);
+  return result;
 };
 
 export default combineEvaluationsAndMisplays;

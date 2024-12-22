@@ -8,6 +8,7 @@ const useChangePuzzle = (
   setSessionStarted: Dispatch<SetStateAction<boolean>>,
   setCurrentPuzzle : Dispatch<SetStateAction<Game.Info | null>>
 ) => {
+
   const [puzzleIndex, setPuzzleIndex] = useState<Game.Index>({
     x: 0,
     y: 0,
@@ -63,6 +64,13 @@ const useChangePuzzle = (
     setFen(newFen);
   };
 
+  console.log({
+    puzzleIndex,
+    fen,
+    setFen,
+    moveToNextPuzzle,
+    moveToPreviousPuzzle,
+  })
 
   return {
     puzzleIndex,
