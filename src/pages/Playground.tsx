@@ -15,6 +15,7 @@ import MoveAnalysisPanel from "../components/trainer/MoveAnalysisPanel";
 import { getCustomSquareStyles } from "../utils/getCustomSquareStyles";
 import { attemptMove } from "../utils/attemptMove";
 import { BestMove } from "../types/move";
+import useEngineMoves from "../hooks/useEngineMoves";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -54,21 +55,25 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const engine = useEngine(EngineName.Stockfish16);
+  
+  useEngineMoves({
+    puzzle,
+    engine,
+    setBestMoves
+  });
+
 
   useEffect(() => {
-    const getEngineMoves = async () => {
-      if (puzzle) {
-        setBestMoves([]);
-        setBestMoves(
-          (await engine?.getBestMoves(puzzle.fen.current, 15)) || null
-        );
-      }
+    const executeComputerMove = (game: Chess, move: string) => {
+      setTimeout(() => {
+        const executedMove = game.move(move);
+        playSound(game, executedMove as Move);
+        setGame(game);
+        const newFen = game.fen();
+        setFen(newFen);
+      }, 1000);
     };
-    getEngineMoves();
-  }, [puzzle, engine]);
 
-
-  useEffect(() => {
     const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
     setPuzzle(puzzle);
 
@@ -79,19 +84,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }
     }
   }, [puzzleIndex, puzzles, setFen]);
-
-  const executeComputerMove = useCallback(
-    (game: Chess, move: string) => {
-      setTimeout(() => {
-        const executedMove = game.move(move);
-        playSound(game, executedMove as Move);
-        setGame(game);
-        const newFen = game.fen();
-        setFen(newFen);
-      }, 1000);
-    },
-    [setFen]
-  );
 
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
@@ -107,7 +99,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
-    const move = attemptMove(game,sourceSquare, targetSquare);
+    const move = attemptMove(game, sourceSquare, targetSquare);
 
     if (!move) return false;
 
@@ -200,7 +192,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
-
 
   return (
     <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
