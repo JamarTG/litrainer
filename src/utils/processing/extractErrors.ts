@@ -1,4 +1,4 @@
-import { Game } from "../../types/game";
+import { LichessGameResponse } from "../../types/response";
 
 export const extractErrors = async (response: Response) => {
   if (!response.body) {
@@ -16,11 +16,11 @@ export const extractErrors = async (response: Response) => {
 
   const lines = result.split("\n").filter((line) => line.trim() !== "");
 
-  const moveEvaluations = lines.map((line) => JSON.parse(line).analysis);
+  const moveEvaluations: any = lines.map((line) => JSON.parse(line).analysis);
 
-  const misplayInfo: Game.LichessResponse[] = lines.map((line) => {
+  const misplayInfo: LichessGameResponse[] = lines.map((line) => {
     const parsedLine = JSON.parse(line);
-   
+
     return {
       players: parsedLine.players,
       moves: parsedLine.moves,
@@ -30,7 +30,7 @@ export const extractErrors = async (response: Response) => {
       rated: parsedLine.rated,
       status: parsedLine.status,
       variant: parsedLine.variant,
-      clock : parsedLine.clock,
+      clock: parsedLine.clock,
     };
   });
 

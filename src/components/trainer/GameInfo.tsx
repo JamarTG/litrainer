@@ -1,5 +1,5 @@
 import React from "react";
-import { perfIcons } from "../../constants";
+import { timeControlIcons } from "../../constants";
 
 interface GameInfoProps {
   gameId: string;
@@ -8,7 +8,7 @@ interface GameInfoProps {
     increment: number;
   };
   rated: boolean;
-  perf: string;
+  timeControl: string;
 }
 
 const formatTime = (seconds: number): string => {
@@ -32,20 +32,20 @@ const formatTime = (seconds: number): string => {
   return `${minutes}${formatTime(remainingSeconds).replace("0.", ".")}`;
 };
 
-const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, perf }) => {
+const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, timeControl }) => {
   return (
     <div className="flex items-center space-x-4 mb-10">
       <div className="flex justify-center items-center gap-1 text-bold ">
         <span
           className="icon text-4xl hover:text-blue-500"
           dangerouslySetInnerHTML={{
-            __html: perfIcons[perf],
+            __html: timeControlIcons[timeControl],
           }}
         ></span>
 
         <p>{(rated ? "Rated" : "Casual").toLocaleUpperCase()}</p>
 
-        <p>{"• " + perf.toLocaleUpperCase()}</p>
+        <p>{"• " + timeControl.toLocaleUpperCase()}</p>
 
         <p>
           {clock && (

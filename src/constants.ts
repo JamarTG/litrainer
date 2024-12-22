@@ -46,7 +46,7 @@ export const moveSquareStyles = {
   transform: "scale(0.7)",
 };
 
-export const perfIcons: { [key: string]: string } = {
+export const timeControlIcons: { [key: string]: string } = {
   bullet: "&#xe032;",
   blitz: "&#xe02f;",
   rapid: "&#xe002;",

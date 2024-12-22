@@ -1,18 +1,20 @@
 import { Chess } from "chess.js";
-import { Game } from "../../types/game";
+import { LichessGameResponse } from "../../types/response";
+import { LichessEvaluation } from "../../types/eval";
+import { Puzzle } from "../../types/puzzle";
 
-const getOnlyStandardGames = (games: Game.LichessResponse[]) => {
+const getOnlyStandardGames = (games: LichessGameResponse[]) => {
   return games.filter((game) => game.variant === "standard");
 };
 
-const getOpColor = (username: string, game: Game.LichessResponse) => {
+const getOpColor = (username: string, game: LichessGameResponse) => {
   return username === game.players.white.user.name ? "w" : "b";
 };
 
 const combineEvaluationsAndMisplays = (
   username: string,
-  misplays: Game.LichessResponse[],
-  evaluations: Game.Evaluation[][]
+  misplays: LichessGameResponse[],
+  evaluations: LichessEvaluation[][]
 ) => {
   const standardGames = getOnlyStandardGames(misplays);
 
@@ -24,26 +26,40 @@ const combineEvaluationsAndMisplays = (
     const gameEvals = evaluations[index];
     const OPColor = getOpColor(username, game);
 
-    const res: Game.Info [] = []
+    const res: Puzzle[] = [];
 
     for (let i = 0; i < gameEvals.length; i++) {
-      if (gameEvals[i].judgment && OPColor === history[i].color) {
+      if (gameEvals[i].judgment && OPColor === history[i].color && i > 0) {
         res.push({
-          game_id: game.game_id,
+          gameId: game.game_id,
           players: game.players,
           variant: game.variant,
-          perf: game.perf,
+          timeControl: game.perf,
           status: game.status,
           rated: game.rated,
           clock: game.clock,
-          move: history[i].san,
-          lastMove: i > 0 ? history[i - 1].san : null,
+          userMove: {
+            san: history[i].san,
+            lan: history[i].lan,
+            piece: history[i].piece,
+            color: history[i].color,
+            source: history[i].from,
+            destination: history[i].to,
+          },
+          opponentMove: {
+            san: history[i - 1].san,
+            lan: history[i - 1].lan,
+            piece: history[i - 1].piece,
+            source: history[i - 1].from,
+            destination: history[i - 1].to,
+            color: history[i - 1].color,
+          },
           evaluation: gameEvals[i],
-          previousEvaluation: i > 0 ? gameEvals[i - 1] : null,
-          colorToPlay: history[i].color === "w" ? "white" : "black",
-          fenAfterOpponentMove: history[i].before,
-          fenBeforeOpponentMove:
-            i > 0 ? history[i - 1].before : chessgame.fen(),
+          fen : {
+            current: history[i].before,
+            previous: history[i - 1].before || history[i].before,
+          }
+          
         });
       }
     }
