@@ -17,6 +17,7 @@ import { Puzzle } from "../types/puzzle";
 
 import { playSound } from "../utils/sound";
 import { boardDimensions, moveSquareStyles } from "../constants";
+import PuzzleInfoDisplay from "../components/trainer/PuzzleInfoDisplay";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -38,13 +39,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-  // @ts-ignore
-  const [evaluation, setEvaluation] = useState<PositionEval | null>(null);
+
   const [destSquare, setDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
   const [acceptableMoves, setAcceptableMoves] = useState<
-    { move: string; eval: number; classification: string }[] | null
+    { move: string; eval: number }[] | null
   >(null);
   const { puzzleIndex, fen, setFen, moveToNextPuzzle, moveToPreviousPuzzle } =
     useChangePuzzle(
@@ -65,8 +65,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           currentPuzzle.fen.current,
           15
         );
-
-        
 
         const result: LineResult[] = position?.lines
           .map(({ pv, cp }, _) => {
@@ -257,7 +255,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
         return move;
       } catch (error) {
-        console.error("Move failed", error);
+        console.error(error);
       }
     },
     [game]
@@ -314,38 +312,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
-      <div
-        className="absolute bottom-0 right-0 p-2  bg-opacity-75 text-xs rounded shadow-md"
-        style={{ width: "200px" }}
-      >
-        <div>
-          <strong>Severity:</strong>{" "}
-          {JSON.stringify(currentPuzzle?.evaluation?.judgment?.name ?? "N/A")}
-        </div>
-        <div>
-          <strong>Acceptable Moves:</strong>{" "}
-          {acceptableMoves?.map((move) => (
-            <div key={move.move}>
-              {move.move}: {move.eval > 0 && "+"} {move.eval / 100} (
-              {move.classification})
-              {parseInt(
-                getLineWinPercentage({ cp: move.eval } as LineEval).toString()
-              )}
-              %
-            </div>
-          ))}
-        </div>
-        <div>
-          <strong>You played:</strong> {currentPuzzle?.userMove?.san}
-        </div>
-        <div>
-          <strong>Current Puzzle:</strong>{" "}
-          {JSON.stringify(currentPuzzle?.fen.current)}
-        </div>
-        <div>
-          <strong>Other Eval:</strong> {JSON.stringify(evaluation)}
-        </div>
-      </div>
+      <PuzzleInfoDisplay
+        currentPuzzle={currentPuzzle}
+        acceptableMoves={acceptableMoves}
+      />
+
       <ControlPanel
         game={game}
         currentPuzzle={currentPuzzle}

@@ -11,7 +11,6 @@ export interface PositionEval {
 export interface LineResult {
   move: string;
   eval: number;
-  classification: string;
 }
 
 export interface LineEval {
