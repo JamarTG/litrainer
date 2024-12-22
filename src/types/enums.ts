@@ -6,7 +6,7 @@ export enum EngineName {
   Stockfish11 = "stockfish_11",
 }
 
-export enum MoveClassification {
+export enum Severity {
   Blunder = "blunder",
   Mistake = "mistake",
   Inaccuracy = "inaccuracy",

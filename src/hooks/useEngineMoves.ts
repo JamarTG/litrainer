@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Puzzle } from '../types/puzzle';
 import { UciEngine } from '../engine/uciEngine';
+import { BestMove } from '../types/move';
 
 
 interface UseEngineMovesParams {
   puzzle: Puzzle | null;
   engine: UciEngine | null;
-  setBestMoves: (moves: any[]) => void;
+  setBestMoves: Dispatch<SetStateAction<BestMove[] | null>>;
 }
 
 const useEngineMoves = ({ puzzle, engine, setBestMoves }: UseEngineMovesParams) => {
@@ -14,8 +15,9 @@ const useEngineMoves = ({ puzzle, engine, setBestMoves }: UseEngineMovesParams) 
     const getEngineMoves = async () => {
       if (puzzle) {
         setBestMoves([]);
-        const bestMoves = await engine?.getBestMoves(puzzle.fen.current, 15);
-        setBestMoves(bestMoves || []);
+        const bestMoves_ = await engine?.getBestMoves(puzzle.fen.current, 15);
+        console.log(bestMoves_)
+        setBestMoves(bestMoves_ || []);
       }
     };
     getEngineMoves();
