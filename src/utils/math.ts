@@ -1,4 +1,4 @@
-import { Accuracy, LineEval, PositionEval } from "../types/eval";
+import { LineEval, PositionEval } from "../types/eval";
 
 export const ceilsNumber = (number: number, min: number, max: number) => {
   if (number > max) return max;
@@ -37,7 +37,7 @@ export const getWeightedMean = (array: number[], weights: number[]) => {
 
 // COMPUTE ACCURACY
 
-export const computeAccuracy = (positions: PositionEval[]): Accuracy => {
+export const computeAccuracy = (positions: PositionEval[]) => {
   const positionsWinPercentage = positions.map(getPositionWinPercentage);
 
   const weights = getAccuracyWeights(positionsWinPercentage);
