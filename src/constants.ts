@@ -6,7 +6,7 @@ import {
   faChessQueen,
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
-import formatDate from "./utils/date/formatDate";
+import formatDate from "./utils/formatDate";
 export const STARTINGPOSFEN =
   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -46,12 +46,22 @@ export const moveSquareStyles = {
   transform: "scale(0.7)",
 };
 
-export  const perfIcons: { [key: string]: string } = {
+export const perfIcons: { [key: string]: string } = {
   bullet: "&#xe032;",
   blitz: "&#xe02f;",
   rapid: "&#xe002;",
   correspondence: "&#xe019;",
   classical: "&#xe00a;",
+};
+
+export const SOUND_ACTIONS = {
+  MOVE: "move",
+  CAPTURE: "capture",
+  CHECK: "check",
+  CASTLE: "castle",
+  PROMOTION: "promotion",
+  START: "start",
+  END: "end",
 };
 
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };

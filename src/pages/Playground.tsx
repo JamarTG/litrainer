@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { playMoveSound } from "../utils/audio/playMoveSound";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -15,7 +14,8 @@ import { EngineName } from "../types/enums";
 import { LineEval, PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math/winPercentage";
 import { Game } from "../types/game";
-import getMoveBasicClassification from "./moveClassification";
+import getMoveBasicClassification from "../utils/classifyMove";
+import { playSound } from "../utils/sound";
 
 interface PlayGroundProps {
   puzzles: Game.Info[][];
@@ -55,8 +55,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const engine = useEngine(EngineName.Stockfish16);
 
-  const lastFivePuzzles = puzzles[puzzleIndex.x];
-
+  
   useEffect(() => {
     const fetchData = async () => {
       if (currentPuzzle) {
@@ -161,7 +160,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     (game: Chess, move: string) => {
       setTimeout(() => {
         const executedMove = game.move(move);
-        playMoveSound(game, executedMove);
+        // playChessMoveSound(game, executedMove);
+        playSound(game, executedMove as Move);
         setGame(game);
         const newFen = game.fen();
         setFen(newFen);
@@ -188,8 +188,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (!move) return false;
 
-    playMoveSound(game, move);
-
+    playSound(game, move);
+   
     const localIsGoodMove = acceptableMoves
       ? checkGoodMove(
           acceptableMoves.map((m) => m.move),
@@ -301,26 +301,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         show={showWarning}
         onClose={() => setShowWarning(false)}
       />
-
-      <div
-        className="hidden lg:flex flex-col items-center"
-        style={{ width: "150px" }}
-      >
-        {lastFivePuzzles
-          .slice(Math.max(0, puzzleIndex.y - 5), puzzleIndex.y)
-          .map((puzzle, index) => (
-            <div key={index} className="flex items-center space-x-4 p-2">
-              <div className="flex-shrink-0">
-                <Chessboard
-                  position={puzzle.fenAfterOpponentMove}
-                  boardWidth={boardSize / 8}
-                  showBoardNotation={false}
-                  arePiecesDraggable={false}
-                />
-              </div>
-            </div>
-          ))}
-      </div>
 
       <div
         ref={boardRef}

@@ -1,9 +1,9 @@
 import { PositionEval, LineEval } from "../types/eval";
-import { getLineWinPercentage } from "../utils/math/winPercentage";
-import { getPositionWinPercentage } from "../utils/math/winPercentage";
+import { getLineWinPercentage } from "./math/winPercentage";
+import { getPositionWinPercentage } from "./math/winPercentage";
 import { MoveClassification } from "../types/enums";
 import { openings } from "../data/openings";
-import { getIsPieceSacrifice, isSimplePieceRecapture } from "./chess";
+// import { getIsPieceSacrifice, isSimplePieceRecapture } from "./chess";
 
 export const getMovesClassification = (
   rawPositions: PositionEval[],
@@ -139,12 +139,12 @@ const isBrilliantMove = (
     (isWhiteMove ? 1 : -1);
   if (winPercentageDiff < -2) return false;
 
-  const isPieceSacrifice = getIsPieceSacrifice(
-    fen,
-    playedMove,
-    bestLinePvToPlay
-  );
-  if (!isPieceSacrifice) return false;
+  // const isPieceSacrifice = getIsPieceSacrifice(
+  //   fen,
+  //   playedMove,
+  //   bestLinePvToPlay
+  // );
+  // if (!isPieceSacrifice) return false;
 
   if (
     isLosingOrAlternateCompletelyWinning(
@@ -189,12 +189,12 @@ const isGreatMove = (
     (isWhiteMove ? 1 : -1);
   if (winPercentageDiff < -2) return false;
 
-  if (
-    fenTwoMovesAgo &&
-    uciMoves &&
-    isSimplePieceRecapture(fenTwoMovesAgo, uciMoves)
-  )
-    return false;
+  // if (
+  //   fenTwoMovesAgo &&
+  //   uciMoves &&
+  //   // isSimplePieceRecapture(fenTwoMovesAgo, uciMoves)
+  // )
+  //   return false;
 
   if (
     isLosingOrAlternateCompletelyWinning(
