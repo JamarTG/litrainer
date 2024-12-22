@@ -4,10 +4,9 @@ import { Puzzle, PuzzleIndex } from "../types/puzzle";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],
-  sessionStarted: boolean,
-  setSessionStarted: Dispatch<SetStateAction<boolean>>,
   setCurrentPuzzle: Dispatch<SetStateAction<Puzzle | null>>
 ) => {
+  const [sessionStarted, setSessionStarted] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState<PuzzleIndex>({ x: 0, y: 0 });
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
 
@@ -50,6 +49,8 @@ const useChangePuzzle = (
     setFen,
     moveToNextPuzzle,
     moveToPreviousPuzzle,
+    sessionStarted,
+    setSessionStarted,
   };
 };
 

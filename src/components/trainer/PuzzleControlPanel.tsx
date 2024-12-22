@@ -6,21 +6,21 @@ import GameInfo from "./GameInfo";
 import { Puzzle } from "../../types/puzzle";
 
 interface ControlPanelProps {
-  currentPuzzle: Puzzle | null;
+  puzzle: Puzzle | null;
   moveToNextPuzzle: () => void;
   moveToPreviousPuzzle: () => void;
   sessionStarted: boolean;
   game: Chess;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({
-  currentPuzzle,
+const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
+  puzzle,
   moveToNextPuzzle,
   moveToPreviousPuzzle,
 }) => {
 
   
-  const isDataAvailable = currentPuzzle !== null;
+  const isDataAvailable = puzzle !== null;
 
 
   return (
@@ -29,16 +29,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div className="flex flex-col rounded-lg flex-grow">
           
           <GameInfo
-            gameId={currentPuzzle.gameId}
-            timeControl={currentPuzzle.timeControl}
-            clock={currentPuzzle.clock}
-            rated={currentPuzzle.rated}
+            gameId={puzzle.gameId}
+            timeControl={puzzle.timeControl}
+            clock={puzzle.clock}
+            rated={puzzle.rated}
           />
 
           <div className="flex">
             <div className="flex flex-col w-full">
-              <PlayerInfo player={currentPuzzle.players.white} color={"w"} />
-              <PlayerInfo player={currentPuzzle.players.black} color={"b"} />
+              <PlayerInfo player={puzzle.players.white} color={"w"} />
+              <PlayerInfo player={puzzle.players.black} color={"b"} />
             </div>
 
             <div className="flex flex-row">
@@ -63,4 +63,4 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   );
 };
 
-export default ControlPanel;
+export default PuzzleControlPanel;

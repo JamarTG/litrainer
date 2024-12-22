@@ -3,13 +3,13 @@ import { Puzzle } from "../../types/puzzle";
 import { LineResult } from "../../types/eval";
 
 interface PuzzleInfoDisplayProps {
-  currentPuzzle: Puzzle | null;
-  acceptableMoves: { move: string; eval: number }[] | null;
+  puzzle: Puzzle | null;
+  bestMoves: { move: string; eval: number }[] | null;
 }
 
-const PuzzleInfoDisplay: React.FC<PuzzleInfoDisplayProps> = ({
-  currentPuzzle,
-  acceptableMoves,
+const MoveAnalysisPanel: React.FC<PuzzleInfoDisplayProps> = ({
+  puzzle,
+  bestMoves,
 }) => {
   return (
     <div
@@ -18,25 +18,25 @@ const PuzzleInfoDisplay: React.FC<PuzzleInfoDisplayProps> = ({
     >
       <div>
         <strong>Severity:</strong>{" "}
-        {JSON.stringify(currentPuzzle?.evaluation?.judgment?.name ?? "N/A")}
+        {JSON.stringify(puzzle?.evaluation?.judgment?.name ?? "N/A")}
       </div>
       <div>
         <strong>Acceptable Moves:</strong>{" "}
-        {acceptableMoves?.map((move: LineResult) => (
+        {bestMoves?.map((move: LineResult) => (
           <div key={move.move}>
             {move.move}: {move.eval > 0 && "+"} {move.eval / 100}
           </div>
         ))}
       </div>
       <div>
-        <strong>You played:</strong> {currentPuzzle?.userMove?.san}
+        <strong>You played:</strong> {puzzle?.userMove?.san}
       </div>
       <div>
         <strong>Current Puzzle:</strong>{" "}
-        {JSON.stringify(currentPuzzle?.fen.current)}
+        {JSON.stringify(puzzle?.fen.current)}
       </div>
     </div>
   );
 };
 
-export default PuzzleInfoDisplay;
+export default MoveAnalysisPanel;
