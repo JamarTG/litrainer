@@ -8,6 +8,12 @@ export interface PositionEval {
   lines: LineEval[];
 }
 
+export interface LineResult {
+  move: string;
+  eval: number;
+  classification: string;
+}
+
 export interface LineEval {
   pv: string[];
   cp?: number;
@@ -60,6 +66,16 @@ export interface SavedEval {
   bestMove?: string;
   lines: LineEval[];
   engine: EngineName;
+}
+
+export interface LichessEvaluation {
+  eval: number;
+  best?: string;
+  variation?: string;
+  judgment?: {
+    name: "Inaccuracy" | "Blunder" | "Mistake";
+    comment: string;
+  };
 }
 
 export type SavedEvals = Record<string, SavedEval | undefined>;

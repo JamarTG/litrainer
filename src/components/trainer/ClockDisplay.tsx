@@ -1,10 +1,8 @@
 import React from 'react';
+import { LichessClock } from '../../types/clock';
 
 interface ClockDisplayProps {
-  clock: {
-    initial: number;
-    increment: number;
-  };
+  clock: LichessClock
 }
 
 const ClockDisplay: React.FC<ClockDisplayProps> = ({ clock }) => {

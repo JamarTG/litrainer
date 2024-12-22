@@ -3,10 +3,10 @@ import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
 import { Chess } from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
-import { Game } from "../../types/game";
+import { Puzzle } from "../../types/puzzle";
 
 interface ControlPanelProps {
-  currentPuzzle: Game.Info | null;
+  currentPuzzle: Puzzle | null;
   moveToNextPuzzle: () => void;
   moveToPreviousPuzzle: () => void;
   sessionStarted: boolean;
@@ -29,10 +29,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         <div className="flex flex-col rounded-lg flex-grow">
           
           <GameInfo
+            gameId={currentPuzzle.gameId}
+            timeControl={currentPuzzle.timeControl}
             clock={currentPuzzle.clock}
             rated={currentPuzzle.rated}
-            gameId={currentPuzzle.game_id}
-            perf={currentPuzzle.perf}
           />
 
           <div className="flex">

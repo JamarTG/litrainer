@@ -1,10 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import {Player } from "../../types/player";
+import { LichessPlayer } from "../../types/player";
+
 
 interface PlayerInfoProps {
-  player: Player.Info;
+  player: LichessPlayer;
   color: "w" | "b";
 }
 

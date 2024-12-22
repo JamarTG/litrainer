@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-
+import { LineResult } from "../types/eval";
 import ControlPanel from "../components/trainer/ControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import WarningMessage from "../components/trainer/WarningMessage";
-
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
 import checkGoodMove from "../utils/chess/checkGoodMove";
@@ -14,14 +13,13 @@ import { useEngine } from "../hooks/useEngine";
 import { EngineName } from "../types/enums";
 import { LineEval, PositionEval } from "../types/eval";
 import { getLineWinPercentage } from "../utils/math";
-import { Game } from "../types/game";
+import { Puzzle } from "../types/puzzle";
 
-import getMoveBasicClassification from "../utils/classifyMove";
 import { playSound } from "../utils/sound";
 import { boardDimensions, moveSquareStyles } from "../constants";
 
 interface PlayGroundProps {
-  puzzles: Game.Info[][];
+  puzzles: Puzzle[][];
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
@@ -34,7 +32,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const [game, setGame] = useState<Chess>(new Chess());
   const [sessionStarted, setSessionStarted] = useState(false);
-  const [currentPuzzle, setCurrentPuzzle] = useState<Game.Info | null>(null);
+  const [currentPuzzle, setCurrentPuzzle] = useState<Puzzle | null>(null);
   const [isGoodMove, setIsGoodMove] = useState<boolean | null>(null);
   const [showWarning, setShowWarning] = useState<boolean>(true);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
@@ -64,58 +62,23 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         setAcceptableMoves([]);
 
         const position = await engine?.evaluatePosition(
-          currentPuzzle.fenAfterOpponentMove,
+          currentPuzzle.fen.current,
           15
         );
 
-        interface LineResult {
-          move: string;
-          eval: number;
-          classification: string;
-        }
+        
 
         const result: LineResult[] = position?.lines
           .map(({ pv, cp }, _) => {
             const move = pv[0];
 
-            const classification = getMoveBasicClassification(
-              getLineWinPercentage({ cp: position.lines[0].cp } as LineEval),
-              getLineWinPercentage({ cp: cp } as LineEval),
-              currentPuzzle.colorToPlay !== "black"
-            );
-
-            // console.log(`FEN at index ${index}: ${newFens?.[index]}`);
-
             return {
               move,
               eval: cp,
-              classification,
             };
           })
           .filter((line) => line.eval !== undefined) as LineResult[];
         setAcceptableMoves(result || []);
-
-        const previousWinPercentage = getLineWinPercentage({
-          cp: position?.lines[0].cp,
-        } as LineEval);
-
-        if (position && position.lines) {
-          console.log(position.lines);
-        }
-        if (position !== undefined) {
-          for (let i = 0; i < position.lines.length; i++) {
-            const line = position.lines[i];
-            const currentWinPercentage = getLineWinPercentage(line);
-            console.log(currentWinPercentage, previousWinPercentage);
-            console.log(
-              getMoveBasicClassification(
-                previousWinPercentage,
-                currentWinPercentage,
-                currentPuzzle.colorToPlay !== "black"
-              )
-            );
-          }
-        }
       }
     };
     fetchData();
@@ -149,15 +112,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   ]);
 
   useEffect(() => {
-
     const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
-    console.log(puzzles,'s');
+    console.log(puzzles, "s");
     setCurrentPuzzle(puzzle);
 
     if (puzzle) {
-      setGameFen(game, puzzle.fenBeforeOpponentMove);
-      if (puzzle.lastMove) {
-        executeComputerMove(game, puzzle.lastMove);
+      setGameFen(game, puzzle.fen.previous);
+      if (puzzle.opponentMove?.lan) {
+        executeComputerMove(game, puzzle.opponentMove.lan);
       }
     }
   }, [puzzleIndex, puzzles, setFen]);
@@ -318,7 +280,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
-
         {JSON.stringify(puzzles)}
         <Chessboard
           position={fen}
@@ -328,7 +289,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           onPieceDrop={handlePieceDrop}
           onPieceDragBegin={unhighlightSquares}
           onPieceDragEnd={unhighlightSquares}
-          boardOrientation={currentPuzzle?.colorToPlay as "black" | "white"}
+          boardOrientation={
+            currentPuzzle?.userMove.color == "w" ? "white" : "black"
+          }
           boardWidth={boardSize}
           customSquareStyles={{
             ...moveSquares,
@@ -373,11 +336,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           ))}
         </div>
         <div>
-          <strong>You played:</strong> {currentPuzzle?.move}
+          <strong>You played:</strong> {currentPuzzle?.userMove?.san}
         </div>
         <div>
           <strong>Current Puzzle:</strong>{" "}
-          {JSON.stringify(currentPuzzle?.fenAfterOpponentMove)}
+          {JSON.stringify(currentPuzzle?.fen.current)}
         </div>
         <div>
           <strong>Other Eval:</strong> {JSON.stringify(evaluation)}
