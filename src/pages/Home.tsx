@@ -4,13 +4,13 @@ import TrainerForm from "../components/home/TrainerForm";
 import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
 import { extractErrors } from "../utils/processing/extractErrors";
 import { API_BASE_URL } from "../constants";
-import { Form } from "../types/form";
-import { Game } from "../types/game";
+import { Fields } from "../types/form";
 import LoadingScreen from "../components/loader";
+import { LichessGameResponse } from "../types/response";
 
 
 const Home: React.FC = () => {
-  const [formData, setFormData] = useState<Form.Fields>({
+  const [formData, setFormData] = useState<Fields>({
     username: "JamariTheGreat",
     maxNoGames: 10,
     startDate: "2023-01-01",
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
 
       const puzzles = combineEvalAndMisplays(
         username,
-        parsedPuzzleData.misplayInfo as Game.LichessResponse[],
+        parsedPuzzleData.misplayInfo as LichessGameResponse[],
         parsedPuzzleData.moveEvaluations
       );
       console.log("Result", puzzles);

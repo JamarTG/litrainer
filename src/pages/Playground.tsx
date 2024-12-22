@@ -6,15 +6,15 @@ import { EngineName } from "../types/enums";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
+import { getCustomSquareStyles } from "../utils/getCustomSquareStyles";
+import { attemptMove } from "../utils/attemptMove";
+import { BestMove } from "../types/move";
 import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
 import checkGoodMove from "../utils/chess/checkGoodMove";
 import MoveAnalysisPanel from "../components/trainer/MoveAnalysisPanel";
-import { getCustomSquareStyles } from "../utils/getCustomSquareStyles";
-import { attemptMove } from "../utils/attemptMove";
-import { BestMove } from "../types/move";
 import useEngineMoves from "../hooks/useEngineMoves";
 
 interface PlayGroundProps {
@@ -55,13 +55,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const engine = useEngine(EngineName.Stockfish16);
-  
-  useEngineMoves({
-    puzzle,
-    engine,
-    setBestMoves
-  });
 
+  useEngineMoves({ puzzle, engine, setBestMoves});
 
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {
@@ -71,7 +66,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         setGame(game);
         const newFen = game.fen();
         setFen(newFen);
-      }, 1000);
+      }, 500);
     };
 
     const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;

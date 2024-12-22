@@ -1,5 +1,5 @@
 import { EngineName } from "../types/enums";
-import { LineResult, PositionEval } from "../types/eval";
+import { LineResult } from "../types/eval";
 
 import { parseEvaluationResults } from "../utils/processing/parseResults";
 
