@@ -2,19 +2,16 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { useEngine } from "../hooks/useEngine";
-import { EngineName } from "../types/enums";
+import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
 import { attemptMove } from "../utils/chess";
-import { BestMove } from "../types/move";
+import { Classification, ClassificationMessage } from "../types/move";
 import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
-import { checkGoodMove } from "../utils/chess";
-import MoveAnalysisPanel from "../components/trainer/MoveAnalysisPanel";
-import useEngineMoves from "../hooks/useEngineMoves";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -29,15 +26,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     );
 
   const [game, setGame] = useState<Chess>(new Chess());
+  const [moveClassification, setMoveClassification] = useState<
+    Classification | ""
+  >("");
+  const [movePlayed, setMovePlayed] = useState<string>("");
+  const [isLoadingEvaluation, setIsLoadingEvaluation] =
+    useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [_, setIsGoodMove] = useState<boolean | null>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
-
-  const [bestMoves, setBestMoves] = useState<BestMove[] | null>(null);
 
   const {
     puzzleIndex,
@@ -53,8 +53,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const engine = useEngine(EngineName.Stockfish16);
-
-  useEngineMoves({ puzzle, engine, setBestMoves });
 
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {
@@ -92,27 +90,30 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
-    const move = attemptMove(game, sourceSquare, targetSquare);
+    const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
 
-    if (!move) return false;
+    if (!movePlayedByUser) return false;
 
-    playSound(game, move);
+    const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
+      setIsLoadingEvaluation(true);
+      await engine
+        ?.evaluateMoveQuality(fen, move.lan, depth)
+        .then((classificationResult) => {
+          setMoveClassification(classificationResult ?? "");
+          setMovePlayed(move.san);
+        })
+        .finally(() => setIsLoadingEvaluation(false));
+    };
 
-    const localIsGoodMove = bestMoves
-      ? checkGoodMove(
-          bestMoves.map((m) => m.move),
-          move.lan
-        )
-      : false;
-
+    evaluateMoveQuality(fen, movePlayedByUser, 16);
+    playSound(game, movePlayedByUser);
     setFen(game.fen());
     setMoveSquares([]);
 
-    setIsGoodMove(localIsGoodMove);
-    setTimeout(
-      localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
-      500
-    );
+    // setTimeout(
+    //   localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
+    //   500
+    // );
 
     setTimeout(() => setIsGoodMove(null), 500);
 
@@ -196,6 +197,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
+        {/* Move Classification : {moveClassification} */}
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -206,12 +208,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
           customSquareStyles={moveSquares}
-      
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
-      <MoveAnalysisPanel puzzle={puzzle} bestMoves={bestMoves} />
+      {isLoadingEvaluation
+        ? "loading..."
+        : `${movePlayed} ${
+            moveClassification
+              ? ClassificationMessage[
+                  moveClassification.toString() as keyof typeof ClassificationMessage
+                ]
+              : ""
+          }`}
+
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}
