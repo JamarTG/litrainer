@@ -13,7 +13,7 @@ import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
-import checkGoodMove from "../utils/chess";
+import { checkGoodMove } from "../utils/chess";
 import MoveAnalysisPanel from "../components/trainer/MoveAnalysisPanel";
 import useEngineMoves from "../hooks/useEngineMoves";
 
@@ -56,7 +56,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const engine = useEngine(EngineName.Stockfish16);
 
-  useEngineMoves({ puzzle, engine, setBestMoves});
+  useEngineMoves({ puzzle, engine, setBestMoves });
 
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {

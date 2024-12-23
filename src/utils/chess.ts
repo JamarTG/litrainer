@@ -42,4 +42,3 @@ export const normalizeCastlingMove = (move: string) => {
   }
   return move;
 };
-export default checkGoodMove;
