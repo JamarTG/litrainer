@@ -6,7 +6,6 @@ import { EngineName } from "../types/enums";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
-import { getCustomSquareStyles } from "../utils/getCustomSquareStyles";
 import { attemptMove } from "../utils/chess";
 import { BestMove } from "../types/move";
 import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
@@ -31,12 +30,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const [game, setGame] = useState<Chess>(new Chess());
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [isGoodMove, setIsGoodMove] = useState<boolean | null>(null);
+  const [_, setIsGoodMove] = useState<boolean | null>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
 
-  const [clickDestSquare, setClickDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
   const [bestMoves, setBestMoves] = useState<BestMove[] | null>(null);
@@ -98,7 +96,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (!move) return false;
 
-    // playSound(game, move);
+    playSound(game, move);
 
     const localIsGoodMove = bestMoves
       ? checkGoodMove(
@@ -107,7 +105,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         )
       : false;
 
-    setClickDestSquare(targetSquare);
     setFen(game.fen());
     setMoveSquares([]);
 
@@ -116,7 +113,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
       500
     );
-    setTimeout(() => setClickDestSquare(null), 500);
+
     setTimeout(() => setIsGoodMove(null), 500);
 
     return true;
@@ -154,7 +151,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         highlightLegalMoves(legalMovesFromClickedSquare);
       } else {
         handlePieceDrop(clickSourceSquare!, clickedSquare);
-        setClickDestSquare(clickedSquare);
         unhighlightSquares();
       }
     }
@@ -202,18 +198,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       >
         <Chessboard
           position={fen}
-          showBoardNotation={true}
           onSquareClick={handleSquareClick}
+          animationDuration={60}
           onPieceDrop={handlePieceDrop}
           onPieceDragBegin={unhighlightSquares}
           onPieceDragEnd={unhighlightSquares}
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
-          customSquareStyles={getCustomSquareStyles(
-            moveSquares,
-            clickDestSquare,
-            isGoodMove
-          )}
+          customSquareStyles={moveSquares}
+      
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
