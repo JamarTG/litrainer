@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TrainerForm from "../components/home/TrainerForm";
-import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
-import { extractErrors } from "../utils/processing/extractErrors";
+import createPuzzles, { parseLichessResponse } from "../utils/lichess";
 import { API_BASE_URL, DEFAULT_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
 import LoadingScreen from "../components/loader";
 import { LichessGameResponse } from "../types/response";
-import axios from "axios";
+
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Fields>(DEFAULT_FORM_STATE);
@@ -37,30 +36,31 @@ const Home: React.FC = () => {
 
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
-      
-      const response = await axios.get(url, {
+      const response = await fetch(url, {
         headers: {
           Accept: "application/x-ndjson",
         },
       });
-      
-      if (response.status !== 200) {
+
+      if (!response.ok) {
+        console.error(`Error ${response.status}: ${response.statusText}`);
         setLoading(false);
         return;
       }
 
-      const parsedPuzzleData = await extractErrors(response);
+      const parsedPuzzleData = await parseLichessResponse(response);
 
       if (!parsedPuzzleData) {
         setLoading(false);
         return;
       }
 
-      const puzzles = combineEvalAndMisplays(
+      const puzzles = createPuzzles(
         username,
-        parsedPuzzleData.misplayInfo as LichessGameResponse[],
-        parsedPuzzleData.moveEvaluations
+        parsedPuzzleData.games as LichessGameResponse[],
+        parsedPuzzleData.evaluations
       );
+
       navigate("/train", { state: { puzzles } });
     } catch (error) {
       console.error("Error fetching games:", error);
