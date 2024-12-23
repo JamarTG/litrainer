@@ -11,8 +11,6 @@ Allow Some Way To Save State - Do we opt for local storage. Do we store this in 
 Fetch Game Data is unused and not using axios
 Add puzzle history to the bottom of the board
 Deal with display for missing data on home screen
-Properly collect games on players
-Read the player color
 Add button to move back to the form
 Create a 404 Page
 Fix X by simply touching opponent pieces
