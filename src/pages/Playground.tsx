@@ -36,7 +36,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     null
   );
 
-  const [destSquare, setDestSquare] = useState<string | null>(null);
+  const [clickDestSquare, setClickDestSquare] = useState<string | null>(null);
   const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
 
   const [bestMoves, setBestMoves] = useState<BestMove[] | null>(null);
@@ -98,7 +98,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (!move) return false;
 
-    playSound(game, move);
+    // playSound(game, move);
 
     const localIsGoodMove = bestMoves
       ? checkGoodMove(
@@ -107,7 +107,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         )
       : false;
 
-    setDestSquare(targetSquare);
+    setClickDestSquare(targetSquare);
     setFen(game.fen());
     setMoveSquares([]);
 
@@ -116,7 +116,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
       500
     );
-    setTimeout(() => setDestSquare(null), 500);
+    setTimeout(() => setClickDestSquare(null), 500);
     setTimeout(() => setIsGoodMove(null), 500);
 
     return true;
@@ -154,7 +154,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         highlightLegalMoves(legalMovesFromClickedSquare);
       } else {
         handlePieceDrop(clickSourceSquare!, clickedSquare);
-        setDestSquare(clickedSquare);
+        setClickDestSquare(clickedSquare);
         unhighlightSquares();
       }
     }
@@ -204,7 +204,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           position={fen}
           showBoardNotation={true}
           onSquareClick={handleSquareClick}
-          animationDuration={200}
           onPieceDrop={handlePieceDrop}
           onPieceDragBegin={unhighlightSquares}
           onPieceDragEnd={unhighlightSquares}
@@ -212,7 +211,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           boardWidth={boardSize}
           customSquareStyles={getCustomSquareStyles(
             moveSquares,
-            destSquare,
+            clickDestSquare,
             isGoodMove
           )}
         />
