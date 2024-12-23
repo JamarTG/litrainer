@@ -40,6 +40,13 @@ export const BOARD_DIMENSIONS = {
   INITIAL_SIZE: 400,
 };
 
+export const DEFAULT_FORM_STATE = {
+  username: "JamariTheGreat",
+  maxNoGames: 10,
+  startDate: "2023-01-01",
+  endDate: "2023-12-31",
+};
+
 export const moveSquareStyles = {
   borderRadius: "50%",
   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",

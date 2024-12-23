@@ -1,10 +1,11 @@
 import { LichessGameResponse } from "../../types/response";
+import { AxiosResponse } from "axios";
 
-export const extractErrors = async (response: Response) => {
-  if (!response.body) {
+export const extractErrors = async (response: AxiosResponse) => {
+  if (!response.data) {
     return;
   }
-  const reader = response.body.getReader();
+  const reader = response.data.getReader();
   const decoder = new TextDecoder();
   let result = "";
   let chunk;
