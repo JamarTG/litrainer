@@ -1,7 +1,7 @@
 import { EngineName } from "../types/enums";
 import { LineResult } from "../types/eval";
 
-import { parseEvaluationResults } from "../utils/processing/parseResults";
+import { parseEvaluationResults } from "../utils/parse";
 
 export abstract class UciEngine {
   private worker: Worker;

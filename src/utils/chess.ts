@@ -1,3 +1,27 @@
+import { Chess } from "chess.js";
+
+export const checkGoodMove = (acceptableMoves: string[], move: string) => {
+  return acceptableMoves.includes(normalizeCastlingMove(move as string));
+};
+
+export const attemptMove = (
+  game: Chess,
+  sourceSquare: string,
+  targetSquare: string
+) => {
+  try {
+    const move = game.move({
+      from: sourceSquare,
+      to: targetSquare,
+      promotion: "q",
+    });
+
+    return move;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const normalizeCastlingMove = (move: string) => {
   const sourceSquare = move.slice(0, 2); 
   const targetSquare = move.slice(2);
@@ -18,3 +42,4 @@ export const normalizeCastlingMove = (move: string) => {
   }
   return move;
 };
+export default checkGoodMove;

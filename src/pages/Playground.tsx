@@ -7,13 +7,13 @@ import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
 import { getCustomSquareStyles } from "../utils/getCustomSquareStyles";
-import { attemptMove } from "../utils/attemptMove";
+import { attemptMove } from "../utils/chess";
 import { BestMove } from "../types/move";
 import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import useResizeableBoard from "../hooks/useResizableBoard";
-import checkGoodMove from "../utils/chess/checkGoodMove";
+import checkGoodMove from "../utils/chess";
 import MoveAnalysisPanel from "../components/trainer/MoveAnalysisPanel";
 import useEngineMoves from "../hooks/useEngineMoves";
 
