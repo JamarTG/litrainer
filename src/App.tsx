@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/ui/Navbar";
 import Help from "./pages/Help";
 import Playground from "./pages/Playground";
+import NotFound from "./pages/NotFound";
 
 const AppContent = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const AppContent = () => {
             <Route path="/about" element={<About />} />
             <Route path="/help" element={<Help />} />
             <Route path="/train" element={<Playground puzzles={puzzles} />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
