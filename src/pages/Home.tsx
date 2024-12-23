@@ -3,19 +3,14 @@ import { useNavigate } from "react-router-dom";
 import TrainerForm from "../components/home/TrainerForm";
 import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
 import { extractErrors } from "../utils/processing/extractErrors";
-import { API_BASE_URL } from "../constants";
+import { API_BASE_URL, DEFAULT_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
 import LoadingScreen from "../components/loader";
 import { LichessGameResponse } from "../types/response";
-
+import axios from "axios";
 
 const Home: React.FC = () => {
-  const [formData, setFormData] = useState<Fields>({
-    username: "JamariTheGreat",
-    maxNoGames: 10,
-    startDate: "2023-01-01",
-    endDate: "2023-12-31",
-  });
+  const [formData, setFormData] = useState<Fields>(DEFAULT_FORM_STATE);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -42,14 +37,14 @@ const Home: React.FC = () => {
 
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
-      const response = await fetch(url, {
+      
+      const response = await axios.get(url, {
         headers: {
           Accept: "application/x-ndjson",
         },
       });
-
-      if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
+      
+      if (response.status !== 200) {
         setLoading(false);
         return;
       }
@@ -66,8 +61,6 @@ const Home: React.FC = () => {
         parsedPuzzleData.misplayInfo as LichessGameResponse[],
         parsedPuzzleData.moveEvaluations
       );
-      console.log("Result", puzzles);
-
       navigate("/train", { state: { puzzles } });
     } catch (error) {
       console.error("Error fetching games:", error);
