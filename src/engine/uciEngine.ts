@@ -1,7 +1,9 @@
-import { EngineName } from "../types/enums";
-import { LineResult } from "../types/eval";
-
+import { Classification, MoveClassification } from "../types/move";
+import { EngineName } from "../types/engine";
+import { LineResult, PositionEval } from "../types/eval";
+import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
+import { classifyMove } from "../utils/chess";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -115,6 +117,50 @@ export abstract class UciEngine {
           move,
           eval: cp,
         };
-      }) as LineResult[];
+      })
+      .filter((line) => line.eval !== undefined) as LineResult[];
+  }
+
+  private async evaluatePosition(
+    fen: string,
+    depth = 20
+  ): Promise<PositionEval> {
+    const results = await this.sendCommands(
+      [`position fen ${fen}`, `go depth ${depth}`],
+      "bestmove"
+    );
+
+    const whiteToPlay = fen.split(" ")[1] === "w";
+
+    return parseEvaluationResults(results, whiteToPlay);
+  }
+
+  public async evaluateMoveQuality(
+    fen: string,
+    move: string,
+    depth: number
+  ): Promise<"" | Classification> {
+    const chess = new Chess(fen);
+
+    const isValidMove = chess.move(move);
+    if (!isValidMove) {
+      // return ""
+      throw new Error("Invalid move");
+      
+    }
+
+    const isWhiteToMove = fen.split(" ")[1] === "w";
+    const lastPositionEval = await this.evaluatePosition(fen, depth);
+    const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
+
+    const classification = classifyMove(
+      lastPositionEval,
+      currentPositionEval,
+      move,
+      chess.fen(),
+      isWhiteToMove
+    );
+
+    return classification;
   }
 }

@@ -34,7 +34,6 @@ export const getWeightedMean = (array: number[], weights: number[]) => {
   return weightedSum / weightSum;
 };
 
-
 // COMPUTE ACCURACY
 
 export const computeAccuracy = (positions: PositionEval[]) => {
@@ -121,6 +120,10 @@ const getMovesAccuracy = (movesWinPercentage: number[]): number[] =>
 
 export const getPositionWinPercentage = (position: PositionEval): number => {
   return getLineWinPercentage(position.lines[0]);
+};
+
+export const calculateWinPercentage = (cp: number) => {
+  return 1 / (1 + Math.pow(10, -cp / 400));
 };
 
 export const getLineWinPercentage = (line: LineEval): number => {

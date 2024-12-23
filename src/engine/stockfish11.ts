@@ -1,4 +1,4 @@
-import { EngineName } from "../types/enums";
+import { EngineName } from "../types/engine";
 import { UciEngine } from "./uciEngine";
 
 export class Stockfish11 extends UciEngine {
