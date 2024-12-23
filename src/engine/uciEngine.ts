@@ -115,7 +115,6 @@ export abstract class UciEngine {
           move,
           eval: cp,
         };
-      })
-      .filter((line) => line.eval !== undefined) as LineResult[];
+      }) as LineResult[];
   }
 }
