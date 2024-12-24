@@ -4,7 +4,6 @@ import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
 import { Puzzle } from "../../../types/puzzle";
 import { Classification } from "../../../types/move";
-import { getGameResultMessage } from "../../../utils/chess";
 import GameResultMessage from "./GameResultMessage";
 import GameStatus from "./GameStatus";
 
