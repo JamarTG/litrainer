@@ -15,7 +15,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color, isWinner }) => {
     <div className="noto player-color flex items-center md:flex-row rounded-md ">
       <div className="flex items-center justify-center">
         {isWinner ? (
-          <img src="/svgs/ui/winner.svg" alt="Winner" width={20} />
+          <img src="/images/general/svg/winner.svg" alt="Winner" width={20} />
         ) : (
           <FontAwesomeIcon
             icon={faCircle}
