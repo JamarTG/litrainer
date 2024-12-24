@@ -8,11 +8,13 @@ interface PlayerIconProps {
 
 const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
   return (
-    <FontAwesomeIcon
-      icon={faCircle}
-      color={color === "w" ? "#ffffff" : "#000000"}
-      size="lg"
-    />
+    <div className="rounded-full px-1">
+      <FontAwesomeIcon
+        icon={faCircle}
+        color={color === "w" ? "#ffffff" : "#000000"}
+        size="lg"
+      />
+    </div>
   );
 };
 

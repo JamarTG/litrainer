@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const WinnerIcon: React.FC = () => {
-  return <img src="/images/general/svg/winner.svg" alt="Winner" width={20} />;
+  return (
+    <div className="rounded-full p-1 text-white">
+      <img src="/images/general/svg/winner.svg" alt="Winner" width={20} />
+    </div>
+  );
 };
 
 export default WinnerIcon;
