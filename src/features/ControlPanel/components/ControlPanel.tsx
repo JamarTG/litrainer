@@ -39,16 +39,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
           <div className="flex flex-row">
             <div className="flex flex-col w-full">
-              <PlayerInfo
-                player={puzzle.players.white}
-                color={"w"}
-                isWinner={puzzle?.winner == "white"}
-              />
-              <PlayerInfo
-                player={puzzle.players.black}
-                color={"b"}
-                isWinner={puzzle?.winner == "black"}
-              />
+              
             </div>
 
             <div className="flex flex-row">

@@ -16,25 +16,33 @@ import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizeableBoard from "../features/Board/hooks/useResizableBoard";
+import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
-  
   const [game, setGame] = useState<Chess>(new Chess());
-  const [moveClassification, setMoveClassification] = useState<Classification | "">("");
-  const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
+  const [moveClassification, setMoveClassification] = useState<
+    Classification | ""
+  >("");
+  const [isLoadingEvaluation, setIsLoadingEvaluation] =
+    useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(null);
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">("");
-  const [moveSquares, setMoveSquares] = useState({});
-  const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizeableBoard(
-    BOARD_DIMENSIONS.INITIAL_SIZE,
-    BOARD_DIMENSIONS.MIN_SIZE,
-    BOARD_DIMENSIONS.MAX_SIZE
+  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
+    null
   );
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
+    ""
+  );
+  const [moveSquares, setMoveSquares] = useState({});
+  const { boardSize, boardRef, resizeRef, handleMouseDown } =
+    useResizeableBoard(
+      BOARD_DIMENSIONS.INITIAL_SIZE,
+      BOARD_DIMENSIONS.MIN_SIZE,
+      BOARD_DIMENSIONS.MAX_SIZE
+    );
 
   const {
     puzzleIndex,
@@ -43,10 +51,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     moveToNextPuzzle,
     moveToPreviousPuzzle,
     sessionStarted,
-  } = useChangePuzzle(
-    puzzles,
-    setPuzzle
-  );
+  } = useChangePuzzle(puzzles, setPuzzle);
 
   const engine = useEngine(EngineName.Stockfish16);
 
@@ -54,31 +59,32 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const styles: Record<string, any> = { ...moveSquares };
 
     if (destinationSquare) {
-        styles[destinationSquare] = {
-            backgroundImage: `url(images/marker/${moveClassification}.svg)`,
-            backgroundColor: moveClassification && !isLoadingEvaluation
-                ? `${
-                    ClassificationColors[
-                        MoveClassification[
-                            moveClassification as keyof typeof MoveClassification
-                        ]
-                    ]
-                }`
-                : setDestinationSquare(""),
-            backgroundSize: "30%",
-            backgroundPosition: "top right",
-            backgroundRepeat: "no-repeat",
-        };
+      styles[destinationSquare] = {
+        backgroundImage: `url(images/marker/${moveClassification}.svg)`,
+        backgroundColor:
+          moveClassification && !isLoadingEvaluation
+            ? `${
+                ClassificationColors[
+                  MoveClassification[
+                    moveClassification as keyof typeof MoveClassification
+                  ]
+                ]
+              }`
+            : setDestinationSquare(""),
+        backgroundSize: "30%",
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+      };
     } else {
-      isLoadingEvaluation ? styles[clickSourceSquare!] = moveSquareStyles : null;
+      isLoadingEvaluation
+        ? (styles[clickSourceSquare!] = moveSquareStyles)
+        : null;
     }
 
-    
-
     return styles;
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     return () => {
       // Prevents square from being highlighted after the component is unmounted
       setDestinationSquare("");
@@ -131,14 +137,13 @@ useEffect(() => {
         .then((classificationResult) => {
           setMoveClassification(classificationResult ?? "");
           setDestinationSquare(move.to);
-       
         })
         .finally(() => setIsLoadingEvaluation(false));
     };
 
     evaluateMoveQuality(fen, movePlayedByUser);
     playSound(game, movePlayedByUser);
-    
+
     setFen(game.fen());
     setMoveSquares({});
 
@@ -223,21 +228,42 @@ useEffect(() => {
           maxHeight: `${boardSize}px`,
         }}
       >
-        <Chessboard
-          position={fen}
-          onSquareClick={handleSquareClick}
-          animationDuration={60}
-          onPieceDrop={handlePieceDrop}
-          onPieceDragBegin={unhighlightSquares}
-          onPieceDragEnd={unhighlightSquares}
-          boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
-          boardWidth={boardSize}
-          customSquareStyles={getCustomSquareStyles()}
-        />
+        <div className="flex flex-col">
+          <div className="py-2">
+            {puzzle && (
+              <PlayerInfo
+                player={puzzle.players.white}
+                color={"w"}
+                isWinner={puzzle?.winner == "white"}
+              />
+            )}
+          </div>
+
+          <Chessboard
+            position={fen}
+            onSquareClick={handleSquareClick}
+            animationDuration={60}
+            onPieceDrop={handlePieceDrop}
+            onPieceDragBegin={unhighlightSquares}
+            onPieceDragEnd={unhighlightSquares}
+            boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
+            boardWidth={boardSize}
+            customSquareStyles={getCustomSquareStyles()}
+          />
+          <div className="py-2 ">
+            {puzzle && (
+              <PlayerInfo
+                player={puzzle.players.black}
+                color={"b"}
+                isWinner={puzzle.winner == "black"}
+              />
+            )}
+          </div>
+        </div>
+
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
-        
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}
