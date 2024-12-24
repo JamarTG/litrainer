@@ -7,7 +7,11 @@ import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
 import { attemptMove } from "../utils/chess";
-import { Classification, ClassificationMessage } from "../types/move";
+import {
+  Classification,
+  ClassificationColors,
+  MoveClassification,
+} from "../types/move";
 import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
 import ResizeHandle from "../components/trainer/ResizeHandle";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -33,11 +37,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [_, setIsGoodMove] = useState<boolean | null>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-  const [moveSquares, setMoveSquares] = useState<Record<string, any>>({});
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
+    ""
+  );
+  const [moveSquares, setMoveSquares] = useState({});
 
   const {
     puzzleIndex,
@@ -54,6 +60,33 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const engine = useEngine(EngineName.Stockfish16);
 
+  const getCustomSquareStyles = () => {
+    const styles: Record<string, any> = { ...moveSquares };
+
+    if (destinationSquare) {
+        styles[destinationSquare] = {
+            backgroundImage: isLoadingEvaluation
+                ? `url(svgs/stockfish.svg)`
+                : `url(svgs/classification/${moveClassification}.svg)`,
+            backgroundColor: moveClassification && !isLoadingEvaluation
+                ? `${
+                    ClassificationColors[
+                        MoveClassification[
+                            moveClassification as keyof typeof MoveClassification
+                        ]
+                    ]
+                }`
+                : setDestinationSquare(""),
+            backgroundSize: "30%",
+            backgroundPosition: "top right",
+            backgroundRepeat: "no-repeat",
+        };
+    }
+
+    
+
+    return styles;
+};
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {
       setTimeout(() => {
@@ -100,22 +133,17 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         ?.evaluateMoveQuality(fen, move.lan, depth)
         .then((classificationResult) => {
           setMoveClassification(classificationResult ?? "");
+          setDestinationSquare(move.to);
           setMovePlayed(move.san);
         })
         .finally(() => setIsLoadingEvaluation(false));
     };
 
-    evaluateMoveQuality(fen, movePlayedByUser, 16);
+    evaluateMoveQuality(fen, movePlayedByUser);
     playSound(game, movePlayedByUser);
+    
     setFen(game.fen());
-    setMoveSquares([]);
-
-    // setTimeout(
-    //   localIsGoodMove ? moveToNextPuzzle : () => setGameFen(game, fen),
-    //   500
-    // );
-
-    setTimeout(() => setIsGoodMove(null), 500);
+    setMoveSquares({});
 
     return true;
   };
@@ -180,6 +208,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         },
         {} as Record<string, any>
       );
+      console.log(highlightedSquaresStyles);
       setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
@@ -197,7 +226,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
-        {/* Move Classification : {moveClassification} */}
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -207,24 +235,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           onPieceDragEnd={unhighlightSquares}
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
-          customSquareStyles={moveSquares}
+          customSquareStyles={getCustomSquareStyles()}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
-      {isLoadingEvaluation
-        ? "loading..."
-        : `${movePlayed} ${
-            moveClassification
-              ? ClassificationMessage[
-                  moveClassification.toString() as keyof typeof ClassificationMessage
-                ]
-              : ""
-          }`}
-
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}
+        setMoveClassification={setMoveClassification}
         moveToNextPuzzle={moveToNextPuzzle}
         moveToPreviousPuzzle={moveToPreviousPuzzle}
         sessionStarted={sessionStarted}
