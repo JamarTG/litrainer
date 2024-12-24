@@ -33,7 +33,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [moveClassification, setMoveClassification] = useState<
     Classification | ""
   >("");
-  const [movePlayed, setMovePlayed] = useState<string>("");
+
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
@@ -134,7 +134,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         .then((classificationResult) => {
           setMoveClassification(classificationResult ?? "");
           setDestinationSquare(move.to);
-          setMovePlayed(move.san);
+       
         })
         .finally(() => setIsLoadingEvaluation(false));
     };

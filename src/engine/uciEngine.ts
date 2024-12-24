@@ -1,4 +1,4 @@
-import { Classification, MoveClassification } from "../types/move";
+import { Classification } from "../types/move";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
