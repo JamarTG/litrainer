@@ -52,10 +52,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     moveToNextPuzzle,
     moveToPreviousPuzzle,
     sessionStarted,
-  } = useChangePuzzle(
-    puzzles,
-    setPuzzle
-  );
+  } = useChangePuzzle(puzzles, setPuzzle);
 
   const engine = useEngine(EngineName.Stockfish16);
 
@@ -63,29 +60,30 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const styles: Record<string, any> = { ...moveSquares };
 
     if (destinationSquare) {
-        styles[destinationSquare] = {
-            backgroundImage: `url(svgs/classification/${moveClassification}.svg)`,
-            backgroundColor: moveClassification && !isLoadingEvaluation
-                ? `${
-                    ClassificationColors[
-                        MoveClassification[
-                            moveClassification as keyof typeof MoveClassification
-                        ]
-                    ]
-                }`
-                : setDestinationSquare(""),
-            backgroundSize: "30%",
-            backgroundPosition: "top right",
-            backgroundRepeat: "no-repeat",
-        };
+      styles[destinationSquare] = {
+        backgroundImage: `url(svgs/classification/${moveClassification}.svg)`,
+        backgroundColor:
+          moveClassification && !isLoadingEvaluation
+            ? `${
+                ClassificationColors[
+                  MoveClassification[
+                    moveClassification as keyof typeof MoveClassification
+                  ]
+                ]
+              }`
+            : setDestinationSquare(""),
+        backgroundSize: "30%",
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+      };
     } else {
-      isLoadingEvaluation ? styles[clickSourceSquare!] = moveSquareStyles : null;
+      isLoadingEvaluation
+        ? (styles[clickSourceSquare!] = moveSquareStyles)
+        : null;
     }
 
-    
-
     return styles;
-};
+  };
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {
       setTimeout(() => {
@@ -133,14 +131,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         .then((classificationResult) => {
           setMoveClassification(classificationResult ?? "");
           setDestinationSquare(move.to);
-       
         })
         .finally(() => setIsLoadingEvaluation(false));
     };
 
     evaluateMoveQuality(fen, movePlayedByUser);
     playSound(game, movePlayedByUser);
-    
+
     setFen(game.fen());
     setMoveSquares({});
 
@@ -238,7 +235,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-
+      
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}

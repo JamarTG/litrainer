@@ -36,6 +36,7 @@ export const parseLichessResponse = async (response: Response) => {
       status: game.status,
       variant: game.variant,
       clock: game.clock,
+      winner: game.winner,
     };
   });
 
@@ -63,7 +64,7 @@ const createPuzzles = (
       const evaluation = gameEvaluations[i];
 
       if (evaluation.judgment && OPColor === history[i].color && i > 0) {
-        res.push({
+        const puzzle: Puzzle = {
           gameId: game.game_id,
           players: game.players,
           variant: game.variant,
@@ -92,7 +93,13 @@ const createPuzzles = (
             current: history[i].before,
             previous: history[i - 1].before || history[i].before,
           },
-        });
+        };
+
+        if (game.winner) {
+          puzzle.winner = game.winner as "white" | "black";
+        }
+
+        res.push(puzzle);
       }
     }
 

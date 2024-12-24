@@ -5,6 +5,7 @@ import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
 import { Puzzle } from "../../types/puzzle";
 import { Classification } from "../../types/move";
+import { getGameResultMessage } from "../../utils/chess";
 
 interface ControlPanelProps {
   puzzle: Puzzle | null;
@@ -38,8 +39,16 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
           <div className="flex">
             <div className="flex flex-col w-full">
-              <PlayerInfo player={puzzle.players.white} color={"w"} />
-              <PlayerInfo player={puzzle.players.black} color={"b"} />
+              <PlayerInfo
+                player={puzzle.players.white}
+                color={"w"}
+                isWinner={puzzle?.winner == "white"}
+              />
+              <PlayerInfo
+                player={puzzle.players.black}
+                color={"b"}
+                isWinner={puzzle?.winner == "black"}
+              />
             </div>
 
             <div className="flex flex-row">
@@ -65,6 +74,28 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
                 </span>
               </button>
             </div>
+          </div>
+
+          <div className="mt-2  text-white rounded-md text-md flex  gap-2">
+        
+            {puzzle.status && (
+              <img
+
+                src={`svgs/status/${puzzle.status}${
+                  puzzle.winner ? `_${puzzle.winner}` : ""
+                }.svg`}
+                width={20}
+                alt=""
+              />
+            )}
+            <p>
+              {getGameResultMessage(
+                puzzle.status,
+                puzzle.winner == "white"
+                  ? puzzle.players.white.user.name
+                  : puzzle.players.black.user.name
+              )}
+            </p>
           </div>
         </div>
       ) : (
