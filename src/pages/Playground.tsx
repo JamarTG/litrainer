@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { useEngine } from "../hooks/useEngine";
+import { useEngine } from "../engine/hooks/useEngine";
 import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
@@ -12,10 +12,10 @@ import {
   ClassificationColors,
   MoveClassification,
 } from "../types/move";
-import PuzzleControlPanel from "../components/trainer/PuzzleControlPanel";
-import ResizeHandle from "../components/trainer/ResizeHandle";
-import useChangePuzzle from "../hooks/useChangePuzzle";
-import useResizeableBoard from "../hooks/useResizableBoard";
+import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
+import ResizeHandle from "../features/Board/components/ResizeHandle";
+import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
+import useResizeableBoard from "../features/Board/hooks/useResizableBoard";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];

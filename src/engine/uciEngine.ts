@@ -143,8 +143,8 @@ export abstract class UciEngine {
     const chess = new Chess(fen);
 
     const isValidMove = chess.move(move);
+    
     if (!isValidMove) {
-      // return ""
       throw new Error("Invalid move");
       
     }

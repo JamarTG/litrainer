@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TrainerForm from "../components/home/TrainerForm";
+import TrainerForm from "../features/Form/components/TrainerForm";
 import createPuzzles, { parseLichessResponse } from "../utils/lichess";
 import { API_BASE_URL, DEFAULT_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
-import LoadingScreen from "../components/loader";
+import LoadingScreen from "../features/LoadingScreen/components/LoadingScreen";
 import { LichessGameResponse } from "../types/response";
 
 

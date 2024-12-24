@@ -1,11 +1,12 @@
 import React from "react";
-import SkeletonControlPanel from "../skeletons/SkeletonControlPanel";
 import { Chess } from "chess.js";
 import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
-import { Puzzle } from "../../types/puzzle";
-import { Classification } from "../../types/move";
-import { getGameResultMessage } from "../../utils/chess";
+import { Puzzle } from "../../../types/puzzle";
+import { Classification } from "../../../types/move";
+import { getGameResultMessage } from "../../../utils/chess";
+import GameResultMessage from "./GameResultMessage";
+import GameStatus from "./GameStatus";
 
 interface ControlPanelProps {
   puzzle: Puzzle | null;
@@ -28,7 +29,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
   return (
     <div className="ml-4 flex gap-5  px-4 rounded-md">
-      {isDataAvailable ? (
+      {isDataAvailable && (
         <div className="flex flex-col rounded-lg flex-grow">
           <GameInfo
             gameId={puzzle.gameId}
@@ -37,7 +38,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             rated={puzzle.rated}
           />
 
-          <div className="flex">
+          <div className="flex flex-row">
             <div className="flex flex-col w-full">
               <PlayerInfo
                 player={puzzle.players.white}
@@ -77,28 +78,14 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           </div>
 
           <div className="mt-2  text-white rounded-md text-md flex  gap-2">
-        
-            {puzzle.status && (
-              <img
-                src={`images/status/${puzzle.status}${
-                  puzzle.winner ? `_${puzzle.winner}` : ""
-                }.svg`}
-                width={20}
-                alt=""
-              />
-            )}
-            <p>
-              {getGameResultMessage(
-                puzzle.status,
-                puzzle.winner == "white"
-                  ? puzzle.players.white.user.name
-                  : puzzle.players.black.user.name
-              )}
-            </p>
+            <GameStatus status={puzzle.status} winner={puzzle.winner ?? null} />
+            <GameResultMessage
+              status={puzzle.status}
+              winner={puzzle.winner}
+              players={puzzle.players}
+            />
           </div>
         </div>
-      ) : (
-        <SkeletonControlPanel />
       )}
     </div>
   );
