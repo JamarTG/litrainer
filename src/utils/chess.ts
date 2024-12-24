@@ -51,7 +51,8 @@ export const classifyMove = (
   fen: string,
   isWhiteMove: boolean
 ) => {
-  const opening = openings.find((opening) => opening.fen === fen);
+
+  const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
 
   if (opening) {
     return MoveClassification.Book;

@@ -54,7 +54,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     sessionStarted,
   } = useChangePuzzle(
     puzzles,
-
     setPuzzle
   );
 
@@ -65,9 +64,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (destinationSquare) {
         styles[destinationSquare] = {
-            backgroundImage: isLoadingEvaluation
-                ? `url(svgs/stockfish.svg)`
-                : `url(svgs/classification/${moveClassification}.svg)`,
+            backgroundImage: `url(svgs/classification/${moveClassification}.svg)`,
             backgroundColor: moveClassification && !isLoadingEvaluation
                 ? `${
                     ClassificationColors[
@@ -81,6 +78,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             backgroundPosition: "top right",
             backgroundRepeat: "no-repeat",
         };
+    } else {
+      isLoadingEvaluation ? styles[clickSourceSquare!] = moveSquareStyles : null;
     }
 
     
