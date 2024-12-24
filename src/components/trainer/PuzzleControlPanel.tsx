@@ -80,8 +80,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
         
             {puzzle.status && (
               <img
-
-                src={`svgs/status/${puzzle.status}${
+                src={`images/status/${puzzle.status}${
                   puzzle.winner ? `_${puzzle.winner}` : ""
                 }.svg`}
                 width={20}

@@ -22,28 +22,19 @@ interface PlayGroundProps {
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
-  const { boardSize, boardRef, resizeRef, handleMouseDown } =
-    useResizeableBoard(
-      BOARD_DIMENSIONS.INITIAL_SIZE,
-      BOARD_DIMENSIONS.MIN_SIZE,
-      BOARD_DIMENSIONS.MAX_SIZE
-    );
-
+  
   const [game, setGame] = useState<Chess>(new Chess());
-  const [moveClassification, setMoveClassification] = useState<
-    Classification | ""
-  >("");
-
-  const [isLoadingEvaluation, setIsLoadingEvaluation] =
-    useState<boolean>(false);
+  const [moveClassification, setMoveClassification] = useState<Classification | "">("");
+  const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
-    null
-  );
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
-    ""
-  );
+  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(null);
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">("");
   const [moveSquares, setMoveSquares] = useState({});
+  const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizeableBoard(
+    BOARD_DIMENSIONS.INITIAL_SIZE,
+    BOARD_DIMENSIONS.MIN_SIZE,
+    BOARD_DIMENSIONS.MAX_SIZE
+  );
 
   const {
     puzzleIndex,
@@ -64,7 +55,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (destinationSquare) {
         styles[destinationSquare] = {
-            backgroundImage: `url(svgs/classification/${moveClassification}.svg)`,
+            backgroundImage: `url(images/marker/${moveClassification}.svg)`,
             backgroundColor: moveClassification && !isLoadingEvaluation
                 ? `${
                     ClassificationColors[
@@ -86,6 +77,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     return styles;
 };
+
+useEffect(() => {
+    return () => {
+      // Prevents square from being highlighted after the component is unmounted
+      setDestinationSquare("");
+    };
+  }, []);
   useEffect(() => {
     const executeComputerMove = (game: Chess, move: string) => {
       setTimeout(() => {
