@@ -80,3 +80,26 @@ export const classifyMove = (
   if (winPercentageDiff < -2) return MoveClassification.Good;
   return MoveClassification.Excellent;
 };
+
+
+export const getGameResultMessage = (
+  status: string,
+  winner?: string
+) => {
+  switch (status) {
+    case "mate":
+      return `${winner} won by checkmate`;
+    case "resign":
+      return `${winner} won by resignation`;
+    case "stalemate":
+      return "Game ended in stalemate";
+    case "outoftime":
+      return `${winner} won on time`;
+    case "draw":
+      return "Game ended in a draw";
+    case "cheat":
+      return "Cheat was detected from ${loser}";
+    default:
+      return "Unknown";
+  }
+};
