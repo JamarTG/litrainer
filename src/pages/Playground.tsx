@@ -127,9 +127,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
+    let hasResult = false;
 
     if (!movePlayedByUser) return false;
 
+    if (movePlayedByUser.lan === puzzle?.userMove.lan) {
+    
+      setMoveClassification(
+        puzzle.evaluation.judgment?.name as "" | Classification
+      );
+      setDestinationSquare(movePlayedByUser.to);
+      setIsLoadingEvaluation(false);
+      hasResult = true;
+    }
     const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
       setIsLoadingEvaluation(true);
       await engine
@@ -141,9 +151,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         .finally(() => setIsLoadingEvaluation(false));
     };
 
-    evaluateMoveQuality(fen, movePlayedByUser);
+    if (!hasResult){
+      evaluateMoveQuality(fen, movePlayedByUser);
+    }
+   
     playSound(game, movePlayedByUser);
-
     setFen(game.fen());
     setMoveSquares({});
 
