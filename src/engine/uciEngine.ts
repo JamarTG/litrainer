@@ -121,9 +121,9 @@ export abstract class UciEngine {
       .filter((line) => line.eval !== undefined) as LineResult[];
   }
 
-  private async evaluatePosition(
+  public async evaluatePosition(
     fen: string,
-    depth = 20
+    depth = 15
   ): Promise<PositionEval> {
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],

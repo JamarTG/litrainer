@@ -1,6 +1,5 @@
 import React from "react";
 import { Chess } from "chess.js";
-import PlayerInfo from "./PlayerInfo";
 import GameInfo from "./GameInfo";
 import { Puzzle } from "../../../types/puzzle";
 import { Classification } from "../../../types/move";
@@ -38,8 +37,17 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           />
 
           <div className="flex flex-row">
-            <div className="flex flex-col w-full">
-              
+            <div className="flex gap-2 w-full">
+              <img
+                src={`/images/marker/${puzzle.evaluation.judgment?.name}.svg`}
+                alt={puzzle.evaluation.judgment?.name}
+                width={40}
+              />
+              <p className="text-lg flex flex-col">
+                <p>{puzzle.userMove.san} was played here.</p>
+
+                <small>Find a better move</small>
+              </p>
             </div>
 
             <div className="flex flex-row">
