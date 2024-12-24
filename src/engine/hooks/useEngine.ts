@@ -1,9 +1,9 @@
-import { isWasmSupported } from "../engine/shared";
-import { Stockfish11 } from "../engine/stockfish11";
-import { Stockfish16 } from "../engine/stockfish16";
-import { Stockfish16_1 } from "../engine/stockfish16_1";
-import { UciEngine } from "../engine/uciEngine";
-import { EngineName } from "../types/engine";
+import { isWasmSupported } from "../shared";
+import { Stockfish11 } from "../stockfish11";
+import { Stockfish16 } from "../stockfish16";
+import { Stockfish16_1 } from "../stockfish16_1";
+import { UciEngine } from "../uciEngine";
+import { EngineName } from "../../types/engine";
 import { useEffect, useState } from "react";
 
 export const useEngine = (engineName: EngineName | undefined) => {

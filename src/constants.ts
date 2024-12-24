@@ -6,7 +6,7 @@ import {
   faChessQueen,
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
-import formatDate from "./utils/formatDate";
+import { formatDate } from "./utils/time";
 export const STARTINGPOSFEN =
   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 

@@ -1,5 +1,6 @@
-import React from "react";
-import { timeControlIcons } from "../../constants";
+import React, { Fragment } from "react";
+import { timeControlIcons } from "../../../constants";
+import { formatTime } from "../../../utils/time";
 
 interface GameInfoProps {
   gameId: string;
@@ -10,27 +11,6 @@ interface GameInfoProps {
   rated: boolean;
   timeControl: string;
 }
-
-const formatTime = (seconds: number): string => {
-  if (seconds === 30) {
-    return "1/2";
-  }
-  if (seconds === 15) {
-    return "1/4";
-  }
-  if (seconds < 60) {
-    return `${seconds}`;
-  }
-
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  if (remainingSeconds === 0) {
-    return `${minutes}`;
-  }
-
-  return `${minutes}${formatTime(remainingSeconds).replace("0.", ".")}`;
-};
 
 const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, timeControl }) => {
   return (
@@ -49,9 +29,9 @@ const GameInfo: React.FC<GameInfoProps> = ({ gameId, clock, rated, timeControl }
 
         <p>
           {clock && (
-            <>
+            <Fragment>
               {"• " + formatTime(clock.initial)}+{formatTime(clock.increment)}
-            </>
+            </Fragment>
           )}
         </p>
       </div>

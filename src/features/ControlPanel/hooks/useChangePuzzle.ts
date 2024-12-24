@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction } from "react";
-import { STARTINGPOSFEN } from "../constants";
-import { Puzzle, PuzzleIndex } from "../types/puzzle";
+import { STARTINGPOSFEN } from "../../../constants";
+import { Puzzle, PuzzleIndex } from "../../../types/puzzle";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],

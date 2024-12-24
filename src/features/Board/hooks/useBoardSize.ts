@@ -1,6 +1,6 @@
 import { useState, useEffect, RefObject } from 'react';
-import { calculateBoardSize } from '../utils/calculateBoardSize';
-import { BOARD_DIMENSIONS } from '../constants';
+import { calculateBoardSize } from '../../../utils/calculateBoardSize';
+import { BOARD_DIMENSIONS } from '../../../constants';
 
 const useBoardSize = (boardRef: RefObject<HTMLDivElement>) => {
   const [boardSize, setBoardSize] = useState<number>(BOARD_DIMENSIONS.INITIAL_SIZE);
