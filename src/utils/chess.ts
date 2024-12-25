@@ -1,9 +1,8 @@
-import { Chess } from "chess.js";
+import { Chess, Move } from "chess.js";
 import { MoveClassification } from "../types/move";
 import { calculateWinPercentage } from "./math";
 import { openings } from "../data/openings";
 import { PositionEval } from "../types/eval";
-
 
 export const attemptMove = (
   game: Chess,
@@ -51,7 +50,6 @@ export const classifyMove = (
   fen: string,
   isWhiteMove: boolean
 ) => {
-
   const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
 
   if (opening) {
@@ -81,11 +79,7 @@ export const classifyMove = (
   return MoveClassification.Excellent;
 };
 
-
-export const getGameResultMessage = (
-  status: string,
-  winner?: string
-) => {
+export const getGameResultMessage = (status: string, winner?: string) => {
   switch (status) {
     case "mate":
       return `${winner} won by checkmate`;
@@ -103,3 +97,113 @@ export const getGameResultMessage = (
       return "Unknown";
   }
 };
+
+const getMaterialValue = (game: Chess) => {
+  const pieceValues: { [key: string]: number } = {
+    p: 1,
+    n: 3,
+    b: 3,
+    r: 5,
+    q: 9,
+    k: 0,
+  };
+
+  const board = game.board();
+  let materialValue = { w: 0, b: 0 };
+
+  for (let row of board) {
+    for (let piece of row) {
+      if (piece) {
+        materialValue[piece.color] += pieceValues[piece.type];
+      }
+    }
+  }
+
+  return materialValue;
+};
+
+const getMaterialDifference = (fen: string, move: string) => {
+  const game = new Chess(fen);
+  const materialBefore = getMaterialValue(game);
+
+  game.move(move);
+
+  const materialAfter = getMaterialValue(game);
+
+  const materialDifference = {
+    w: materialAfter.w - materialBefore.w,
+    b: materialAfter.b - materialBefore.b,
+  };
+
+  return materialDifference;
+};
+
+const pieceValues = {
+  p: 1,
+  n: 3,
+  b: 3,
+  r: 5,
+  q: 9,
+  k: 0,
+};
+
+const isPieceSacrifice = (fen: string, move: string) => {
+  const game = new Chess(fen);
+  const moveObj = game.move(move);
+
+  if (!moveObj) {
+    return false;
+  }
+
+  let materialBalance = 0;
+
+  if (moveObj.captured) {
+    materialBalance += pieceValues[moveObj.captured];
+  }
+
+  const opponentMoves = game.moves({ verbose: true });
+  for (const opponentMove of opponentMoves) {
+    if (opponentMove.captured) {
+      console.log(
+        pieceValues[opponentMove.captured],
+        pieceValues[opponentMove.piece]
+      );
+    }
+    if (
+      opponentMove.captured &&
+      pieceValues[opponentMove.captured] > pieceValues[opponentMove.piece]
+    ) {
+      
+      return true;
+    }
+
+    if (opponentMove.to === moveObj.to) {
+      materialBalance -= pieceValues[moveObj.piece];
+
+      // -material difference and lesser value piece captures higher calue piece
+
+      // Check if the capturing piece can be recouped on the next move
+      const gameAfterOpponentMove = new Chess(game.fen());
+      gameAfterOpponentMove.move(opponentMove.san);
+      const recoupMoves = gameAfterOpponentMove.moves({ verbose: true });
+
+      const canBeRecouped = recoupMoves.some((recoupMove) => {
+        const gameAfterRecoupMove = new Chess(gameAfterOpponentMove.fen());
+        const recoupMoveObj = gameAfterRecoupMove.move(recoupMove.san);
+        const recoupMaterialBalance =
+          materialBalance +
+          (recoupMoveObj?.captured ? pieceValues[recoupMoveObj.captured] : 0);
+        return recoupMaterialBalance >= 0;
+      });
+
+      if (materialBalance < 0 && !canBeRecouped) {
+        console.log("Sacrifice");
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
+
+export { getMaterialDifference, isPieceSacrifice };
