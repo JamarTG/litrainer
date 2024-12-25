@@ -98,45 +98,6 @@ export const getGameResultMessage = (status: string, winner?: string) => {
   }
 };
 
-const getMaterialValue = (game: Chess) => {
-  const pieceValues: { [key: string]: number } = {
-    p: 1,
-    n: 3,
-    b: 3,
-    r: 5,
-    q: 9,
-    k: 0,
-  };
-
-  const board = game.board();
-  let materialValue = { w: 0, b: 0 };
-
-  for (let row of board) {
-    for (let piece of row) {
-      if (piece) {
-        materialValue[piece.color] += pieceValues[piece.type];
-      }
-    }
-  }
-
-  return materialValue;
-};
-
-const getMaterialDifference = (fen: string, move: string) => {
-  const game = new Chess(fen);
-  const materialBefore = getMaterialValue(game);
-
-  game.move(move);
-
-  const materialAfter = getMaterialValue(game);
-
-  const materialDifference = {
-    w: materialAfter.w - materialBefore.w,
-    b: materialAfter.b - materialBefore.b,
-  };
-
-  return materialDifference;
-};
 
 const pieceValues = {
   p: 1,
@@ -163,25 +124,19 @@ const isPieceSacrifice = (fen: string, move: string) => {
 
   const opponentMoves = game.moves({ verbose: true });
   for (const opponentMove of opponentMoves) {
-    if (opponentMove.captured) {
-      console.log(
-        pieceValues[opponentMove.captured],
-        pieceValues[opponentMove.piece]
-      );
-    }
+   
+    // If you give up a higher value piece for a lower value piece then its a sacrifice
+
     if (
       opponentMove.captured &&
       pieceValues[opponentMove.captured] > pieceValues[opponentMove.piece]
-    ) {
-      
+    ) {   
       return true;
     }
 
+    // if you give up a piece and is unable to recoup its a sacrifice
     if (opponentMove.to === moveObj.to) {
       materialBalance -= pieceValues[moveObj.piece];
-
-      // -material difference and lesser value piece captures higher calue piece
-
       // Check if the capturing piece can be recouped on the next move
       const gameAfterOpponentMove = new Chess(game.fen());
       gameAfterOpponentMove.move(opponentMove.san);
@@ -197,7 +152,6 @@ const isPieceSacrifice = (fen: string, move: string) => {
       });
 
       if (materialBalance < 0 && !canBeRecouped) {
-        console.log("Sacrifice");
         return true;
       }
     }
@@ -206,4 +160,4 @@ const isPieceSacrifice = (fen: string, move: string) => {
   return false;
 };
 
-export { getMaterialDifference, isPieceSacrifice };
+export {  isPieceSacrifice };
