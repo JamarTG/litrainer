@@ -3,7 +3,7 @@ import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
-import { classifyMove, getMaterialDifference, isPieceSacrifice } from "../utils/chess";
+import { classifyMove } from "../utils/chess";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -141,9 +141,6 @@ export abstract class UciEngine {
     depth: number
   ): Promise<"" | Classification> {
     const chess = new Chess(fen);
-
-    const materialDiff = getMaterialDifference(chess.fen(), move);
-    console.log(materialDiff,isPieceSacrifice(chess.fen(), move));
     const isValidMove = chess.move(move);
 
     if (!isValidMove) throw new Error("Invalid move");
