@@ -98,7 +98,6 @@ export const getGameResultMessage = (status: string, winner?: string) => {
   }
 };
 
-
 const pieceValues = {
   p: 1,
   n: 3,
@@ -112,7 +111,6 @@ const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
   const moveObj = game.move(move);
 
-
   if (!moveObj) {
     return false;
   }
@@ -120,24 +118,29 @@ const isPieceSacrifice = (fen: string, move: string) => {
   let materialBalance = 0;
 
   if (moveObj.captured) {
+    if (pieceValues[moveObj.captured] >= pieceValues[moveObj.piece]) {
+      return false;
+    }
     materialBalance += pieceValues[moveObj.captured];
   }
 
   const opponentMoves = game.moves({ verbose: true });
   for (const opponentMove of opponentMoves) {
-   
     // If you give up a higher value piece for a lower value piece then its a sacrifice
 
-    if (
-      opponentMove.captured &&
-      pieceValues[opponentMove.captured] > pieceValues[opponentMove.piece]
-    ) {
-      console.log("First condition")
+    if (!opponentMove.captured) {
+      continue;
+    }
+    
+    if (pieceValues[opponentMove.captured] > pieceValues[opponentMove.piece]) {
       return true;
     }
 
     // if you give up a piece and is unable to recoup its a sacrifice
-    if (opponentMove.to === moveObj.to) {
+    if (
+      opponentMove.to === moveObj.to &&
+      pieceValues[opponentMove.piece] < pieceValues[opponentMove.captured]
+    ) {
       materialBalance -= pieceValues[moveObj.piece];
       // Check if the capturing piece can be recouped on the next move
       const gameAfterOpponentMove = new Chess(game.fen());
@@ -154,13 +157,13 @@ const isPieceSacrifice = (fen: string, move: string) => {
       });
 
       if (materialBalance < 0 && !canBeRecouped) {
-        console.log("First condition")
+        console.log("First condition");
         return true;
       }
     }
   }
 
-  console.log("nope.")
+  console.log("nope.");
   return false;
 };
 
