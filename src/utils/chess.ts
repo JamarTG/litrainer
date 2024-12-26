@@ -1,6 +1,6 @@
 import { Chess, Move } from "chess.js";
 import { MoveClassification } from "../types/move";
-import { calculateWinPercentage } from "./math";
+import { calculateWinPercentage, getWinPercentageFromCp, getWinPercentageFromMate } from "./math";
 import { openings } from "../data/openings";
 import { PositionEval } from "../types/eval";
 
@@ -60,22 +60,41 @@ export const classifyMove = (
     return MoveClassification.Best;
   }
 
-  const positionWinPercentage = calculateWinPercentage(
-    currentPositionEval.lines[0].cp ?? 0
-  );
-  const lastPositionWinPercentage = calculateWinPercentage(
-    lastPositionEval.lines[0].cp ?? 0
-  );
+  let currentPositionWinPerc = null;
+  let lastPositionWinPerc = null;
+
+
+  if(!currentPositionEval.lines[0].mate) {
+    currentPositionWinPerc = getWinPercentageFromCp(
+      currentPositionEval.lines[0].cp ?? 0
+    );
+  } else {
+    currentPositionWinPerc = getWinPercentageFromMate(
+      currentPositionEval.lines[0].mate
+    );
+  }
+
+  if(!lastPositionEval.lines[0].mate) {
+    lastPositionWinPerc = getWinPercentageFromCp(
+      lastPositionEval.lines[0].cp ?? 0
+    );
+  } else {
+    lastPositionWinPerc = getWinPercentageFromMate(
+      lastPositionEval.lines[0].mate
+    );
+    
+  }
+  
+
+
 
   const winPercentageDiff =
-    (positionWinPercentage - lastPositionWinPercentage) *
-    100 *
-    (isWhiteMove ? 1 : -1);
+    Math.abs(currentPositionWinPerc - lastPositionWinPerc) 
 
-  if (winPercentageDiff < -20) return MoveClassification.Blunder;
-  if (winPercentageDiff < -10) return MoveClassification.Mistake;
-  if (winPercentageDiff < -5) return MoveClassification.Inaccuracy;
-  if (winPercentageDiff < -2) return MoveClassification.Good;
+  if (winPercentageDiff >=  20) return MoveClassification.Blunder;
+  if (winPercentageDiff >= 10) return MoveClassification.Mistake;
+  if (winPercentageDiff >= 5) return MoveClassification.Inaccuracy;
+  if (winPercentageDiff >= 2) return MoveClassification.Good;
   return MoveClassification.Excellent;
 };
 
@@ -136,13 +155,11 @@ const isPieceSacrifice = (fen: string, move: string) => {
       return true;
     }
 
-    // if you give up a piece and is unable to recoup its a sacrifice
     if (
       opponentMove.to === moveObj.to &&
       pieceValues[opponentMove.piece] < pieceValues[opponentMove.captured]
     ) {
       materialBalance -= pieceValues[moveObj.piece];
-      // Check if the capturing piece can be recouped on the next move
       const gameAfterOpponentMove = new Chess(game.fen());
       gameAfterOpponentMove.move(opponentMove.san);
       const recoupMoves = gameAfterOpponentMove.moves({ verbose: true });
@@ -157,7 +174,6 @@ const isPieceSacrifice = (fen: string, move: string) => {
       });
 
       if (materialBalance < 0 && !canBeRecouped) {
-        console.log("First condition");
         return true;
       }
     }
