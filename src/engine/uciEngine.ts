@@ -145,7 +145,7 @@ export abstract class UciEngine {
 
     if (!isValidMove) throw new Error("Invalid move");
 
-    
+    console.log("Evaluating move quality", move);
     const isWhiteToMove = fen.split(" ")[1] === "w";
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);

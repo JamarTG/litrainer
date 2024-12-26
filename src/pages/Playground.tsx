@@ -15,8 +15,7 @@ import {
 import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
-import useResizeableBoard from "../features/Board/hooks/useResizableBoard";
-import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
+import useResizableBoard from "../features/Board/hooks/useResizableBoard";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -37,12 +36,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     ""
   );
   const [moveSquares, setMoveSquares] = useState({});
-  const { boardSize, boardRef, resizeRef, handleMouseDown } =
-    useResizeableBoard(
-      BOARD_DIMENSIONS.INITIAL_SIZE,
-      BOARD_DIMENSIONS.MIN_SIZE,
-      BOARD_DIMENSIONS.MAX_SIZE
-    );
+  const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
+    BOARD_DIMENSIONS.INITIAL_SIZE,
+    BOARD_DIMENSIONS.MIN_SIZE,
+    BOARD_DIMENSIONS.MAX_SIZE
+  );
 
   const {
     puzzleIndex,
@@ -114,7 +112,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
-    setDestinationSquare("")
     setMoveSquares({});
   }, []);
 
@@ -128,35 +125,38 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
-    let hasResult = false;
+    let hasLichessAPIEvaluation = false;
 
     if (!movePlayedByUser) return false;
-
-    if (movePlayedByUser.lan === puzzle?.userMove.lan) {
-    
-      setMoveClassification(
-        puzzle.evaluation.judgment?.name as "" | Classification
-      );
+    if (movePlayedByUser.lan == puzzle?.userMove.lan) {
+      setMoveClassification(puzzle.evaluation.judgment?.name as Classification);
       setDestinationSquare(movePlayedByUser.to);
-      setIsLoadingEvaluation(false);
-      hasResult = true;
+      hasLichessAPIEvaluation = true;
     }
-    const evaluateMoveQuality = async (fen: string, move: Move, depth = 20) => {
+
+    const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
       setIsLoadingEvaluation(true);
       await engine
         ?.evaluateMoveQuality(fen, move.lan, depth)
-        .then((classificationResult) => {
-          setMoveClassification(classificationResult ?? "");
-          setDestinationSquare(move.to);
+        .then((classificationResult: "" | Classification) => {
+          if (classificationResult !== "") {
+            setMoveClassification(classificationResult);
+            setDestinationSquare(move.to);
+          } else {
+            setMoveClassification("");
+          }
         })
-        .finally(() => setIsLoadingEvaluation(false));
+        .finally(() => {
+          setIsLoadingEvaluation(false);
+        });
     };
 
-    // if (!hasResult){
+    if (!hasLichessAPIEvaluation) {
       evaluateMoveQuality(fen, movePlayedByUser);
-    // }
-   
+    }
+
     playSound(game, movePlayedByUser);
+
     setFen(game.fen());
     setMoveSquares({});
 
@@ -223,7 +223,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         },
         {} as Record<string, any>
       );
-   
+      console.log(highlightedSquaresStyles);
       setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
@@ -241,39 +241,17 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
-        <div className="flex flex-col">
-          <div className="py-2">
-            {puzzle && (
-              <PlayerInfo
-                player={puzzle.players.white}
-                color={"w"}
-                isWinner={puzzle?.winner == "white"}
-              />
-            )}
-          </div>
-
-          <Chessboard
-            position={fen}
-            onSquareClick={handleSquareClick}
-            animationDuration={60}
-            onPieceDrop={handlePieceDrop}
-            onPieceDragBegin={unhighlightSquares}
-            onPieceDragEnd={unhighlightSquares}
-            boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
-            boardWidth={boardSize}
-            customSquareStyles={getCustomSquareStyles()}
-          />
-          <div className="py-2 ">
-            {puzzle && (
-              <PlayerInfo
-                player={puzzle.players.black}
-                color={"b"}
-                isWinner={puzzle.winner == "black"}
-              />
-            )}
-          </div>
-        </div>
-
+        <Chessboard
+          position={fen}
+          onSquareClick={handleSquareClick}
+          animationDuration={60}
+          onPieceDrop={handlePieceDrop}
+          onPieceDragBegin={unhighlightSquares}
+          onPieceDragEnd={unhighlightSquares}
+          boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
+          boardWidth={boardSize}
+          customSquareStyles={getCustomSquareStyles()}
+        />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
 
@@ -282,9 +260,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         puzzle={puzzle}
         setMoveClassification={setMoveClassification}
         moveToNextPuzzle={moveToNextPuzzle}
-        unhighlightSquares={unhighlightSquares}
         moveToPreviousPuzzle={moveToPreviousPuzzle}
         sessionStarted={sessionStarted}
+        unhighlightLegalMoves={unhighlightSquares}
       />
     </div>
   );
