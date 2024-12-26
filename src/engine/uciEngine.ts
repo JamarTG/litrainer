@@ -98,7 +98,7 @@ export abstract class UciEngine {
 
   public async getBestMoves(
     fen: string,
-    depth = 15
+    depth = 20
   ): Promise<LineResult[] | null> {
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],
@@ -144,8 +144,6 @@ export abstract class UciEngine {
     const isValidMove = chess.move(move);
 
     if (!isValidMove) throw new Error("Invalid move");
-
-    console.log("Evaluating move quality", move);
     const isWhiteToMove = fen.split(" ")[1] === "w";
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
