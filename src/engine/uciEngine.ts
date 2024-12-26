@@ -3,7 +3,7 @@ import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
-import { classifyMove, isPieceSacrifice } from "../utils/chess";
+import { getBasicClassification, isPieceSacrifice } from "../utils/chess";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -150,7 +150,7 @@ export abstract class UciEngine {
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
 
-    const classification = classifyMove(
+    const basicClassification = getBasicClassification(
       lastPositionEval,
       currentPositionEval,
       move,
@@ -159,13 +159,13 @@ export abstract class UciEngine {
     );
 
     if (
-      (classification === MoveClassification.Best ||
-        classification === MoveClassification.Excellent) &&
+      (basicClassification === MoveClassification.Best ||
+        basicClassification === MoveClassification.Excellent) &&
       isPieceSacrifice(fen, move)
     ) {
-      return "Brilliant" as Classification;
+      return MoveClassification.Brilliant;
     }
 
-    return classification;
+    return basicClassification;
   }
 }

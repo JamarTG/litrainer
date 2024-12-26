@@ -1,0 +1,21 @@
+Implement Theme and Theme Switcher
+    - Make Application Themed
+    - Implement Dark/Light Mode
+
+Use Local Storage 
+    - Store Puzzles
+    - Store Puzzle Index
+
+Move Classification System
+    - Classification System More Consistent with Lichess
+
+Analysis source 
+    - Cache -> Opening Database -> Cloud -> Stockfish
+        - Cache - Always active in local Storage
+        - Opening Database is always there
+        - Cloud is next slowest - Still Requires Classification(Problem) - May Disregard
+        - Stockfish takes the longest and is the last resort
+
+Engine Switcher & Depth Changer
+
+

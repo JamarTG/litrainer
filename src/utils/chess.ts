@@ -43,7 +43,7 @@ export const normalizeCastlingMove = (move: string) => {
   return move;
 };
 
-export const classifyMove = (
+export const getBasicClassification = (
   lastPositionEval: PositionEval,
   currentPositionEval: PositionEval,
   move: string,
@@ -84,15 +84,12 @@ export const classifyMove = (
     );
     
   }
-  
-
-
 
   const winPercentageDiff =
     Math.abs(currentPositionWinPerc - lastPositionWinPerc) 
 
   if (winPercentageDiff >=  20) return MoveClassification.Blunder;
-  if (winPercentageDiff >= 10) return MoveClassification.Mistake;
+  if (winPercentageDiff >= 10 ) return MoveClassification.Mistake;
   if (winPercentageDiff >= 5) return MoveClassification.Inaccuracy;
   if (winPercentageDiff >= 2) return MoveClassification.Good;
   return MoveClassification.Excellent;

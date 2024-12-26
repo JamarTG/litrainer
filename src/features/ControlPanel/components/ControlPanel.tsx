@@ -13,6 +13,7 @@ interface ControlPanelProps {
   setMoveClassification: React.Dispatch<
     React.SetStateAction<"" | Classification>
   >;
+  unhighlightSquares: () => void;
   sessionStarted: boolean;
   game: Chess;
 }
@@ -22,8 +23,15 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   moveToNextPuzzle,
   moveToPreviousPuzzle,
   setMoveClassification,
+  unhighlightSquares,
 }) => {
   const isDataAvailable = puzzle !== null;
+
+  const resetBoardForNewPuzzle = () => {
+    moveToPreviousPuzzle();
+    unhighlightSquares();
+    setMoveClassification("");
+  };
 
   return (
     <div className="ml-4 flex gap-5  px-4 rounded-md">
@@ -51,23 +59,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             </div>
 
             <div className="flex flex-row">
-              <button
-                onClick={() => {
-                  moveToPreviousPuzzle();
-                  setMoveClassification("");
-                }}
-              >
+              <button onClick={resetBoardForNewPuzzle}>
                 <span className="icon text-2xl hover:text-blue-500 ">
                   &#xe037;
                 </span>
               </button>
 
-              <button
-                onClick={() => {
-                  moveToNextPuzzle();
-                  setMoveClassification("");
-                }}
-              >
+              <button onClick={resetBoardForNewPuzzle}>
                 <span className="icon text-2xl hover:text-blue-500">
                   &#xe036;
                 </span>

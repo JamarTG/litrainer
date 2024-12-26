@@ -114,6 +114,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
+    setDestinationSquare("")
     setMoveSquares({});
   }, []);
 
@@ -140,7 +141,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setIsLoadingEvaluation(false);
       hasResult = true;
     }
-    const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
+    const evaluateMoveQuality = async (fen: string, move: Move, depth = 20) => {
       setIsLoadingEvaluation(true);
       await engine
         ?.evaluateMoveQuality(fen, move.lan, depth)
@@ -151,9 +152,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         .finally(() => setIsLoadingEvaluation(false));
     };
 
-    if (!hasResult){
+    // if (!hasResult){
       evaluateMoveQuality(fen, movePlayedByUser);
-    }
+    // }
    
     playSound(game, movePlayedByUser);
     setFen(game.fen());
@@ -281,6 +282,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         puzzle={puzzle}
         setMoveClassification={setMoveClassification}
         moveToNextPuzzle={moveToNextPuzzle}
+        unhighlightSquares={unhighlightSquares}
         moveToPreviousPuzzle={moveToPreviousPuzzle}
         sessionStarted={sessionStarted}
       />

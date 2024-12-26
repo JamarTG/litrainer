@@ -148,7 +148,7 @@ export const getWinPercentageFromMate = (mate: number): number => {
 
 export const getWinPercentageFromCp = (cp: number): number => {
   const cpCeiled = ceilsNumber(cp, -1000, 1000);
-  const MULTIPLIER = -0.004;
+  const MULTIPLIER = -0.0035;
   const winChances = 2 / (1 + Math.exp(MULTIPLIER * cpCeiled)) - 1;
   console.log(50 + 50 * winChances)
   return 50 + 50 * winChances;
