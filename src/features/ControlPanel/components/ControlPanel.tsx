@@ -27,8 +27,8 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 }) => {
   const isDataAvailable = puzzle !== null;
 
-  const resetBoardForNewPuzzle = () => {
-    moveToPreviousPuzzle();
+  const resetBoardForNewPuzzle = (moveToNextorPrevPuzzle: () => void) => {
+    moveToNextorPrevPuzzle();
     unhighlightSquares();
     setMoveClassification("");
   };
@@ -59,13 +59,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             </div>
 
             <div className="flex flex-row">
-              <button onClick={resetBoardForNewPuzzle}>
+              <button onClick={() => resetBoardForNewPuzzle(moveToPreviousPuzzle)}>
                 <span className="icon text-2xl hover:text-blue-500 ">
                   &#xe037;
                 </span>
               </button>
 
-              <button onClick={resetBoardForNewPuzzle}>
+              <button onClick={() => resetBoardForNewPuzzle(moveToNextPuzzle)}>
                 <span className="icon text-2xl hover:text-blue-500">
                   &#xe036;
                 </span>
