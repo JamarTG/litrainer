@@ -73,10 +73,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         backgroundPosition: "top right",
         backgroundRepeat: "no-repeat",
       };
-    } else {
-      isLoadingEvaluation
-        ? (styles[clickSourceSquare!] = moveSquareStyles)
-        : null;
     }
 
     return styles;
@@ -175,9 +171,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         square: clickedSquare,
         verbose: true,
       });
-      setMoveSquares({
-        [clickedSquare]: moveSquareStyles,
-      });
 
       highlightLegalMoves(legalMovesFromClickedSquare);
     } else if (isSecondClick) {
@@ -187,9 +180,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         const legalMovesFromClickedSquare = game.moves({
           square: clickedSquare,
           verbose: true,
-        });
-        setMoveSquares({
-          [clickedSquare]: moveSquareStyles,
         });
 
         highlightLegalMoves(legalMovesFromClickedSquare);
@@ -223,7 +213,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         },
         {} as Record<string, any>
       );
-      console.log(highlightedSquaresStyles);
+
       setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
@@ -241,6 +231,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
+  
+
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
