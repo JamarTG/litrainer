@@ -5,16 +5,18 @@ import { Puzzle } from "../../../types/puzzle";
 import { Classification } from "../../../types/move";
 import GameResultMessage from "./GameResultMessage";
 import GameStatus from "./GameStatus";
+import IconButton from "../../../components/IconButton";
+import PuzzleInfo from "./PuzzleInfo";
 
 interface ControlPanelProps {
-  puzzle: Puzzle | null;
   moveToNextPuzzle: () => void;
   moveToPreviousPuzzle: () => void;
+  unhighlightLegalMoves: () => void;
   setMoveClassification: React.Dispatch<
     React.SetStateAction<"" | Classification>
   >;
-  unhighlightSquares: () => void;
   sessionStarted: boolean;
+  puzzle: Puzzle | null;
   game: Chess;
 }
 
@@ -23,13 +25,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   moveToNextPuzzle,
   moveToPreviousPuzzle,
   setMoveClassification,
-  unhighlightSquares,
+  unhighlightLegalMoves,
 }) => {
   const isDataAvailable = puzzle !== null;
 
   const resetBoardForNewPuzzle = (moveToNextorPrevPuzzle: () => void) => {
     moveToNextorPrevPuzzle();
-    unhighlightSquares();
+    unhighlightLegalMoves();
     setMoveClassification("");
   };
 
@@ -45,35 +47,17 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           />
 
           <div className="flex flex-row">
-            <div className="flex gap-2 w-full">
-              <img
-                src={`/images/marker/${puzzle.evaluation.judgment?.name}.svg`}
-                alt={puzzle.evaluation.judgment?.name}
-                width={40}
-              />
-              <p className="text-lg flex flex-col">
-                <p>{puzzle.userMove.san} was played here.</p>
-
-                <small>Find a better move</small>
-              </p>
-            </div>
-
+            <PuzzleInfo
+              evaluation={puzzle.evaluation}
+              userMove={puzzle.userMove}
+            />
             <div className="flex flex-row">
-              <button onClick={() => resetBoardForNewPuzzle(moveToPreviousPuzzle)}>
-                <span className="icon text-2xl hover:text-blue-500 ">
-                  &#xe037;
-                </span>
-              </button>
-
-              <button onClick={() => resetBoardForNewPuzzle(moveToNextPuzzle)}>
-                <span className="icon text-2xl hover:text-blue-500">
-                  &#xe036;
-                </span>
-              </button>
+            <IconButton onClick={moveToPreviousPuzzle} icon="&#xe037;" />
+            <IconButton onClick={moveToNextPuzzle} icon="&#xe036;" />
             </div>
           </div>
 
-          <div className="mt-2  text-white rounded-md text-md flex  gap-2">
+          <div className="mt-2  text-white rounded-md text-md flex gap-2">
             <GameStatus status={puzzle.status} winner={puzzle.winner ?? null} />
             <GameResultMessage
               status={puzzle.status}
