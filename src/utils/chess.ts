@@ -112,6 +112,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
   const moveObj = game.move(move);
 
+
   if (!moveObj) {
     return false;
   }
@@ -130,7 +131,8 @@ const isPieceSacrifice = (fen: string, move: string) => {
     if (
       opponentMove.captured &&
       pieceValues[opponentMove.captured] > pieceValues[opponentMove.piece]
-    ) {   
+    ) {
+      console.log("First condition")
       return true;
     }
 
@@ -152,12 +154,14 @@ const isPieceSacrifice = (fen: string, move: string) => {
       });
 
       if (materialBalance < 0 && !canBeRecouped) {
+        console.log("First condition")
         return true;
       }
     }
   }
 
+  console.log("nope.")
   return false;
 };
 
-export {  isPieceSacrifice };
+export { isPieceSacrifice };

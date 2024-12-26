@@ -1,9 +1,9 @@
-import { Classification } from "../types/move";
+import { Classification, MoveClassification } from "../types/move";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
-import { classifyMove } from "../utils/chess";
+import { classifyMove, isPieceSacrifice } from "../utils/chess";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -156,6 +156,14 @@ export abstract class UciEngine {
       chess.fen(),
       isWhiteToMove
     );
+
+    if (
+      (classification === MoveClassification.Best ||
+        classification === MoveClassification.Excellent) &&
+      isPieceSacrifice(fen, move)
+    ) {
+      return "Brilliant" as Classification;
+    }
 
     return classification;
   }

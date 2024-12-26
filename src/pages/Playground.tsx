@@ -33,7 +33,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
     null
   );
-  const [highlightedSquares, setHighlightedSquares] = useState<Square[]>([]);
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
@@ -114,10 +113,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, [puzzleIndex, puzzles, setFen]);
 
   const unhighlightSquares = useCallback(() => {
-    setDestinationSquare("");
-    setMoveSquares({});
-    setHighlightedSquares([]);
     setClickSourceSquare(null);
+    setMoveSquares({});
   }, []);
 
   const setGameFen = useCallback(
@@ -135,6 +132,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     if (!movePlayedByUser) return false;
 
     if (movePlayedByUser.lan === puzzle?.userMove.lan) {
+    
       setMoveClassification(
         puzzle.evaluation.judgment?.name as "" | Classification
       );
@@ -153,10 +151,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         .finally(() => setIsLoadingEvaluation(false));
     };
 
-    if (!hasResult) {
+    if (!hasResult){
       evaluateMoveQuality(fen, movePlayedByUser);
     }
-
+   
     playSound(game, movePlayedByUser);
     setFen(game.fen());
     setMoveSquares({});
@@ -204,7 +202,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const highlightLegalMoves = useCallback(
     (legalMoves: Move[]) => {
       const legalDestinationSquares = legalMoves.map((move) => move.to);
-      setHighlightedSquares(legalDestinationSquares);
+
       const highlightedSquaresStyles = legalDestinationSquares.reduce(
         (styles, square) => {
           const isCaptureMove = legalMoves.some(
@@ -224,6 +222,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         },
         {} as Record<string, any>
       );
+   
       setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
