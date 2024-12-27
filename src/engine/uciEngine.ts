@@ -144,16 +144,14 @@ export abstract class UciEngine {
     const isValidMove = chess.move(move);
 
     if (!isValidMove) throw new Error("Invalid move");
-    const isWhiteToMove = fen.split(" ")[1] === "w";
+  
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
 
     const basicClassification = getBasicClassification(
       lastPositionEval,
       currentPositionEval,
-      move,
-      chess.fen(),
-      isWhiteToMove
+      move
     );
 
     if (

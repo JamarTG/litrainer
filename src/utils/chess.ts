@@ -47,18 +47,43 @@ export const normalizeCastlingMove = (move: string) => {
   return move;
 };
 
+export function getEvaluationLossThreshold(classif: MoveClassification, prevEval: number) {
+
+  prevEval = Math.abs(prevEval);
+
+  let threshold = 0;
+
+  switch (classif) {
+      case MoveClassification.Best:
+          threshold = 0.0001 * Math.pow(prevEval, 2) + (0.0236 * prevEval) - 3.7143;
+          break;
+      case MoveClassification.Excellent:
+          threshold = 0.0002 * Math.pow(prevEval, 2) + (0.1231 * prevEval) + 27.5455;
+          break;
+      case MoveClassification.Good:
+          threshold = 0.0002 * Math.pow(prevEval, 2) + (0.2643 * prevEval) + 60.5455;
+          break;
+      case MoveClassification.Inaccuracy:
+          threshold = 0.0002 * Math.pow(prevEval, 2) + (0.3624 * prevEval) + 108.0909;
+          break;
+      case MoveClassification.Mistake:
+          threshold = 0.0003 * Math.pow(prevEval, 2) + (0.4027 * prevEval) + 225.8182;
+          break;
+      default:
+          threshold = Infinity;
+  }
+
+  return Math.max(threshold, 0);
+
+
+}
+
+
 export const getBasicClassification = (
   lastPositionEval: PositionEval,
   currentPositionEval: PositionEval,
   move: string,
-  fen: string,
-  isWhiteMove: boolean
 ) => {
-  const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
-
-  if (opening) {
-    return MoveClassification.Book;
-  }
 
   if (lastPositionEval.bestMove === move) {
     return MoveClassification.Best;
@@ -87,9 +112,9 @@ export const getBasicClassification = (
     );
   }
 
-  const winPercentageDiff = Math.abs(
-    currentPositionWinPerc - lastPositionWinPerc
-  );
+
+  console.log(lastPositionWinPerc, currentPositionWinPerc);
+  const winPercentageDiff = currentPositionWinPerc - lastPositionWinPerc;
 
   if (winPercentageDiff >= 20) return MoveClassification.Blunder;
   if (winPercentageDiff >= 10) return MoveClassification.Mistake;
@@ -97,6 +122,7 @@ export const getBasicClassification = (
   if (winPercentageDiff >= 2) return MoveClassification.Good;
   return MoveClassification.Excellent;
 };
+
 
 export const getGameResultMessage = (status: string, winner?: string) => {
   switch (status) {

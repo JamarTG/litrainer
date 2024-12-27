@@ -7,6 +7,7 @@ import GameResultMessage from "./GameResultMessage";
 import GameStatus from "./GameStatus";
 import IconButton from "../../../components/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
+import AnalysisSource from "./AnalysisSource";
 
 interface ControlPanelProps {
   moveToNextPuzzle: () => void;
@@ -18,6 +19,7 @@ interface ControlPanelProps {
   sessionStarted: boolean;
   puzzle: Puzzle | null;
   game: Chess;
+  source:"LichessApi" | "Stockfish" | "Local" | null;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -26,6 +28,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   moveToPreviousPuzzle,
   setMoveClassification,
   unhighlightLegalMoves,
+  source
 }) => {
   const isDataAvailable = puzzle !== null;
 
@@ -45,6 +48,8 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             clock={puzzle.clock}
             rated={puzzle.rated}
           />
+
+          <AnalysisSource source={source} />
 
           <div className="flex flex-row">
             <PuzzleInfo

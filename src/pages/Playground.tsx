@@ -16,6 +16,7 @@ import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
+import { openings } from "../data/openings";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -23,6 +24,9 @@ interface PlayGroundProps {
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [game, setGame] = useState<Chess>(new Chess());
+  const [source, setSource] = useState<
+    "LichessApi" | "Stockfish" | "Local" | null
+  >(null);
   const [moveClassification, setMoveClassification] = useState<
     Classification | ""
   >("");
@@ -122,12 +126,26 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     let hasLichessAPIEvaluation = false;
+    let isKnownOpening = false;
 
     if (!movePlayedByUser) return false;
-    if (movePlayedByUser.lan == puzzle?.userMove.lan) {
+
+    // Check if its a known opening
+    const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
+
+    if (opening) {
+      setMoveClassification(MoveClassification.Book);
+      setDestinationSquare(movePlayedByUser.to);
+      isKnownOpening = true;
+      setSource("Local");
+    }
+
+    // Check if its known bad move
+    if (!isKnownOpening && movePlayedByUser.lan == puzzle?.userMove.lan) {
       setMoveClassification(puzzle.evaluation.judgment?.name as Classification);
       setDestinationSquare(movePlayedByUser.to);
       hasLichessAPIEvaluation = true;
+      setSource("LichessApi");
     }
 
     const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
@@ -144,10 +162,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         })
         .finally(() => {
           setIsLoadingEvaluation(false);
+          setSource("Stockfish");
         });
     };
 
-    if (!hasLichessAPIEvaluation) {
+    if (!hasLichessAPIEvaluation && !isKnownOpening) {
       evaluateMoveQuality(fen, movePlayedByUser);
     }
 
@@ -231,8 +250,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           maxHeight: `${boardSize}px`,
         }}
       >
-  
-
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -250,6 +267,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}
+        source={source}
         setMoveClassification={setMoveClassification}
         moveToNextPuzzle={moveToNextPuzzle}
         moveToPreviousPuzzle={moveToPreviousPuzzle}
