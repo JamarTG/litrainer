@@ -20,7 +20,7 @@ const AnalysisSource: React.FC<AnalysisSourceProps> = ({ source }) => {
           <img src="/images/general/png/lichess.png" width={30} alt="Lichess" />
         )}
         {source === "Local" && (
-          <img src="/images/general/png/logo.png" width={30} alt="Local" />
+          <img src="/images/marker/Book.svg" width={30} alt="Local" />
         )}
       </div>
     )

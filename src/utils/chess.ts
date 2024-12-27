@@ -112,9 +112,7 @@ export const getBasicClassification = (
     );
   }
 
-
-  console.log(lastPositionWinPerc, currentPositionWinPerc);
-  const winPercentageDiff = currentPositionWinPerc - lastPositionWinPerc;
+  const winPercentageDiff = Math.abs(currentPositionWinPerc - lastPositionWinPerc);
 
   if (winPercentageDiff >= 20) return MoveClassification.Blunder;
   if (winPercentageDiff >= 10) return MoveClassification.Mistake;
@@ -188,9 +186,8 @@ const isPieceSacrifice = (fen: string, move: string) => {
         ourMove.captured &&
         pieceValues[ourMove.captured] +
           (moveObj.captured ? pieceValues[moveObj.captured] : 0) >=
-          pieceValues[opponentMove.captured]
+          pieceValues[opponentMove.captured] - 1
       ) {
-        console.log("can regain material");
         canRegainMaterial = true;
         break;
       }
