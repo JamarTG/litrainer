@@ -16,10 +16,11 @@ interface ControlPanelProps {
   setMoveClassification: React.Dispatch<
     React.SetStateAction<"" | Classification>
   >;
+  setIsPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>;
   sessionStarted: boolean;
   puzzle: Puzzle | null;
   game: Chess;
-  source:"LichessApi" | "Stockfish" | "Local" | null;
+  source: "LichessApi" | "Stockfish" | "Local" | null;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -28,11 +29,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   moveToPreviousPuzzle,
   setMoveClassification,
   unhighlightLegalMoves,
-  source
+  setIsPuzzleSolved,
+  source,
 }) => {
   const isDataAvailable = puzzle !== null;
 
   const resetBoardForNewPuzzle = (moveToNextorPrevPuzzle: () => void) => {
+    setIsPuzzleSolved(false);
     moveToNextorPrevPuzzle();
     unhighlightLegalMoves();
     setMoveClassification("");
@@ -57,8 +60,14 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               userMove={puzzle.userMove}
             />
             <div className="flex flex-row">
-            <IconButton onClick={() => resetBoardForNewPuzzle(moveToPreviousPuzzle)} icon="&#xe037;" />
-            <IconButton onClick={() => resetBoardForNewPuzzle(moveToNextPuzzle)} icon="&#xe036;" />
+              <IconButton
+                onClick={() => resetBoardForNewPuzzle(moveToPreviousPuzzle)}
+                icon="&#xe037;"
+              />
+              <IconButton
+                onClick={() => resetBoardForNewPuzzle(moveToNextPuzzle)}
+                icon="&#xe036;"
+              />
             </div>
           </div>
 

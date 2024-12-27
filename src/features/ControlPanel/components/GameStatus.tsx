@@ -11,7 +11,7 @@ const GameStatus: React.FC<GameStatusProps> = ({ status, winner }) => {
       {status && (
         <img
           src={`images/status/${status}${winner ? `_${winner}` : ""}.svg`}
-          width={20}
+          width={30}
           alt=""
         />
       )}
