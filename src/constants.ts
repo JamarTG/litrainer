@@ -71,4 +71,13 @@ export const SOUND_ACTIONS = {
   END: "end",
 };
 
+export const PIECEVALUE = {
+  p: 1,
+  n: 3,
+  b: 3,
+  r: 5,
+  q: 9,
+  k: 0,
+};
+
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };

@@ -8,7 +8,6 @@ const AnalysisSource: React.FC<AnalysisSourceProps> = ({ source }) => {
   return (
     source && (
       <div className="flex">
-        Analysis Source
         {source === "Stockfish" && (
           <img
             src="/images/general/png/stockfish.png"

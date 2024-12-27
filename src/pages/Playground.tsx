@@ -5,7 +5,7 @@ import { useEngine } from "../engine/hooks/useEngine";
 import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
-import { BOARD_DIMENSIONS, moveSquareStyles } from "../constants";
+import { BOARD_DIMENSIONS} from "../constants";
 import { attemptMove } from "../utils/chess";
 import {
   Classification,
