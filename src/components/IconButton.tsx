@@ -2,12 +2,12 @@ import React from "react";
 
 interface IconButtonProps {
   onClick: () => void;
-  icon: string; // Add icon prop
+  icon: string; 
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
   onClick,
-  icon // Destructure icon prop
+  icon 
 }) => {
   return (
     <button onClick={onClick}>

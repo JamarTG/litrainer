@@ -1,11 +1,11 @@
-import { Chess, Move } from "chess.js"; // Adjust the import path as necessary
+import { Chess, Move } from "chess.js"; 
 
 const sounds: { [key: string]: HTMLAudioElement } = {
-  move: new Audio("/sound/move.webm"),
-  capture: new Audio("/sound/capture.webm"),
-  check: new Audio("/sound/check.webm"),
-  castle: new Audio("/sound/castle.webm"),
-  promotion: new Audio("/sound/promotion.webm"),
+  move: new Audio("/sound/move-action/move.webm"),
+  capture: new Audio("/sound/move-action/capture.webm"),
+  check: new Audio("/sound/move-action/check.webm"),
+  castle: new Audio("/sound/move-action/castle.webm"),
+  promotion: new Audio("/sound/move-action/promotion.webm"),
 };
 
 function preloadSounds(): void {
