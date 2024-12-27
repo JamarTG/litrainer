@@ -134,6 +134,11 @@ const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
   const moveObj = game.move(move);
 
+  if (game.inCheck()) {
+    return false;
+  }
+
+
   if (
     moveObj.captured &&
     pieceValues[moveObj.captured] >= pieceValues[moveObj.piece]
@@ -159,6 +164,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
           (moveObj.captured ? pieceValues[moveObj.captured] : 0) >=
           pieceValues[opponentMove.captured]
       ) {
+        console.log("can regain material");
         canRegainMaterial = true;
         break;
       }
