@@ -1,0 +1,88 @@
+const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+  if (isPuzzleSolved) return false;
+
+  if (game.turn() !== puzzle?.userMove.color) {
+    return false;
+  }
+
+  const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
+  if (!movePlayedByUser) return false;
+
+  if (checkKnownOpening(movePlayedByUser)) return true;
+  if (checkKnownBadMove(movePlayedByUser)) return true;
+
+  evaluateMoveQuality(fen, movePlayedByUser);
+
+  playSound(game, movePlayedByUser);
+
+  setFen(game.fen());
+  setMoveSquares({});
+
+  return true;
+};
+
+const checkKnownOpening = (movePlayedByUser: Move) => {
+  const opening = openings.find(
+    (opening) => opening.fen === fen.split(" ")[0]
+  );
+
+  if (opening) {
+    setMoveClassification(MoveClassification.Book);
+    setDestinationSquare(movePlayedByUser.to);
+    setSource("Local");
+    setIsPuzzleSolved(true);
+    return true;
+  }
+
+  return false;
+};
+
+const checkKnownBadMove = (movePlayedByUser: Move) => {
+  if (movePlayedByUser.lan == puzzle?.userMove.lan) {
+    setMoveClassification(puzzle.evaluation.judgment?.name as Classification);
+    setDestinationSquare(movePlayedByUser.to);
+    setSource("LichessApi");
+    setTimeout(() => {
+      game.undo();
+      setFen(game.fen());
+      setDestinationSquare("");
+      setMoveClassification("");
+    }, 1000);
+    return true;
+  }
+
+  return false;
+};
+
+const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
+  setIsLoadingEvaluation(true);
+  await engine
+    ?.evaluateMoveQuality(fen, move.lan, depth)
+    .then((classificationResult: "" | Classification) => {
+      if (classificationResult !== "") {
+        if (
+          classificationResult === MoveClassification.Best ||
+          classificationResult === MoveClassification.Excellent ||
+          classificationResult === MoveClassification.Good ||
+          classificationResult === MoveClassification.Brilliant
+        ) {
+          setIsPuzzleSolved(true);
+        } else {
+          setTimeout(() => {
+            game.undo();
+            setFen(game.fen());
+            setDestinationSquare("");
+            setMoveClassification("");
+          }, 1000);
+        }
+        setMoveClassification(classificationResult);
+        setDestinationSquare(move.to);
+      } else {
+        setMoveClassification("");
+      }
+    })
+    .finally(() => {
+      setIsLoadingEvaluation(false);
+      setSource("Stockfish");
+    });
+};
