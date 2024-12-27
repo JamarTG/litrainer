@@ -17,6 +17,7 @@ import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
 import { openings } from "../data/openings";
+import { Source } from "../utils/source";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -34,9 +35,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [clickSourceSquare, setClickSourceSquare] = useState<string | null>(
-    null
-  );
+  const [clickSourceSquare, setClickSourceSquare] = useState<
+    Move["from"] | null
+  >(null);
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
@@ -96,8 +97,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         const executedMove = game.move(move);
         playSound(game, executedMove as Move);
         setGame(game);
-        const newFen = game.fen();
-        setFen(newFen);
+        setFen(game.fen());
       }, 500);
     };
 
@@ -122,10 +122,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       game.load(fen);
       setFen(fen);
     },
-    [game, fen]
+    [game, setFen]
   );
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+    console.log("isPuzzleSolved", isPuzzleSolved);
     if (isPuzzleSolved) return false;
 
     if (game.turn() !== puzzle?.userMove.color) {
@@ -133,85 +134,127 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     }
 
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
-    let hasLichessAPIEvaluation = false;
-    let isKnownOpening = false;
-
     if (!movePlayedByUser) return false;
 
-    // Check if its a known opening
-    const opening = openings.find(
-      (opening) => opening.fen === fen.split(" ")[0]
-    );
+    const bookMove = checkKnownOpening(game.fen().split(" ")[0]);
 
-    if (opening) {
-      setMoveClassification(MoveClassification.Book);
-      setDestinationSquare(movePlayedByUser.to);
-      isKnownOpening = true;
-      setSource("Local");
-      setIsPuzzleSolved(true);
-    }
+    if (bookMove) {
+      handleEvaluation(
+        MoveClassification.Book,
+        movePlayedByUser.to,
+        "Local",
+        true
+      );
+      // setTimeout(undoMove, 1000);
+    } else {
+      const badMove = checkKnownBadMove(movePlayedByUser);
+      if (!!badMove) {
+        handleEvaluation(
+          puzzle.evaluation.judgment?.name as Classification,
+          movePlayedByUser.to,
+          "LichessApi",
+          false
+        );
+        setTimeout(undoMove, 1000);
+      } else {
+        evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
+          handleEvaluation(
+            classification,
+            movePlayedByUser.to,
+            "Stockfish",
+            isPositiveClassification(classification)
+          );
 
-    // Check if its known bad move
-    if (!isKnownOpening && movePlayedByUser.lan == puzzle?.userMove.lan) {
-      setMoveClassification(puzzle.evaluation.judgment?.name as Classification);
-      setDestinationSquare(movePlayedByUser.to);
-      hasLichessAPIEvaluation = true;
-      setSource("LichessApi");
-      setTimeout(() => {
-        game.undo();
-        setFen(game.fen());
-        setDestinationSquare("");
-        setMoveClassification("");
-      }, 1000);
-    }
-
-    const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
-      setIsLoadingEvaluation(true);
-      await engine
-        ?.evaluateMoveQuality(fen, move.lan, depth)
-        .then((classificationResult: "" | Classification) => {
-          if (classificationResult !== "") {
-            if (
-              classificationResult === MoveClassification.Best ||
-              classificationResult === MoveClassification.Excellent ||
-              classificationResult === MoveClassification.Good ||
-              classificationResult === MoveClassification.Brilliant
-            ) {
-              setIsPuzzleSolved(true);
-            } else {
-              setTimeout(() => {
-                game.undo();
-                setFen(game.fen());
-                setDestinationSquare("");
-                setMoveClassification("");
-              }, 1000);
-            }
-            setMoveClassification(classificationResult);
-            setDestinationSquare(move.to);
-          } else {
-            setMoveClassification("");
-          }
-        })
-        .finally(() => {
-          setIsLoadingEvaluation(false);
-          setSource("Stockfish");
+          !isPositiveClassification(classification) && setTimeout(undoMove, 1000);
         });
-    };
-
-    if (!hasLichessAPIEvaluation && !isKnownOpening) {
-      evaluateMoveQuality(fen, movePlayedByUser);
+      }
     }
 
+    // Play sound and update the board state
     playSound(game, movePlayedByUser);
-
     setFen(game.fen());
     setMoveSquares({});
 
     return true;
   };
 
+  const checkKnownOpening = (fen: string) => {
+    const opening = openings.find(
+      (opening) => opening.fen === fen.split(" ")[0]
+    );
+
+    return !!opening;
+  };
+
+  const checkKnownBadMove = (movePlayedByUser: Move) => {
+    return movePlayedByUser.lan == puzzle?.userMove.lan
+      ? puzzle.evaluation.judgment?.name
+      : "";
+  };
+
+  const undoMove = () => {
+    game.undo();
+    setFen(game.fen());
+    setDestinationSquare("");
+    setMoveClassification("");
+  };
+
+  const isPositiveClassification = (classificationResult: Classification) => {
+    return (
+      classificationResult === MoveClassification.Best ||
+      classificationResult === MoveClassification.Excellent ||
+      classificationResult === MoveClassification.Good ||
+      classificationResult === MoveClassification.Brilliant
+    );
+  };
+
+  const handleEvaluation = (
+    classificationResult: "" | Classification,
+    destinationSquare: Square,
+    source: Source,
+    isPuzzleSolved: boolean
+  ) => {
+  
+    if (classificationResult !== "") {
+      setMoveClassification(classificationResult);
+      setDestinationSquare(destinationSquare);
+      if (isPuzzleSolved) {
+        setIsPuzzleSolved(true);
+      } 
+    } else {
+      setMoveClassification("");
+    }
+    setSource(source);
+
+  };
+
+  const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
+    setIsLoadingEvaluation(true);
+
+    try {
+      const classificationResult = (await engine?.evaluateMoveQuality(
+        fen,
+        move.lan,
+        depth
+      )) as Classification;
+
+      const isSolved = isPositiveClassification(
+        classificationResult as Classification
+      );
+      handleEvaluation(
+        classificationResult as Classification,
+        move.to,
+        "Stockfish",
+        isSolved
+      );
+      return classificationResult;
+    } finally {
+      setIsLoadingEvaluation(false);
+    }
+  };
+
   const handleSquareClick = (clickedSquare: Square) => {
-    if (isPuzzleSolved) return; 
+    if (isPuzzleSolved) return;
     const clickedPiece = game.get(clickedSquare);
     const isValidFirstClick = !clickSourceSquare && clickedPiece;
     const isSecondClick = clickSourceSquare;
@@ -219,22 +262,22 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     if (isValidFirstClick) {
       setClickSourceSquare(clickedSquare);
 
-      const legalMovesFromClickedSquare = game.moves({
-        square: clickedSquare,
-        verbose: true,
-      });
-
-      highlightLegalMoves(legalMovesFromClickedSquare);
+      highlightLegalMoves(
+        game.moves({
+          square: clickedSquare,
+          verbose: true,
+        })
+      );
     } else if (isSecondClick) {
       if (clickedPiece && clickedPiece.color === game.turn()) {
         setClickSourceSquare(clickedSquare);
 
-        const legalMovesFromClickedSquare = game.moves({
-          square: clickedSquare,
-          verbose: true,
-        });
-
-        highlightLegalMoves(legalMovesFromClickedSquare);
+        highlightLegalMoves(
+          game.moves({
+            square: clickedSquare,
+            verbose: true,
+          })
+        );
       } else {
         handlePieceDrop(clickSourceSquare!, clickedSquare);
         unhighlightSquares();
@@ -246,27 +289,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     (legalMoves: Move[]) => {
       if (isPuzzleSolved) return;
 
-      const legalDestinationSquares = legalMoves.map((move) => move.to);
+      const highlightedSquaresStyles = legalMoves.reduce((styles, move) => {
+        const isCaptureMove = move.captured;
 
-      const highlightedSquaresStyles = legalDestinationSquares.reduce(
-        (styles, square) => {
-          const isCaptureMove = legalMoves.some(
-            (move) => move.to === square && move.captured
-          );
-
-          const squareStyle = {
-            background: `radial-gradient(circle, ${
-              isCaptureMove ? "rgba(2,0,0,.2)" : "rgba(0,0,0,.1)"
-            } ${isCaptureMove ? "60%" : "30%"}, transparent 25%)`,
-            borderRadius: "50%",
-            zIndex: 1,
-          };
-
-          styles[square] = squareStyle;
-          return styles;
-        },
-        {} as Record<string, any>
-      );
+        styles[move.to] = {
+          background: `radial-gradient(circle, ${
+            isCaptureMove ? "rgba(2,0,0,.2)" : "rgba(0,0,0,.1)"
+          } ${isCaptureMove ? "60%" : "30%"}, transparent 25%)`,
+          borderRadius: "50%",
+          zIndex: 1,
+        };
+        return styles;
+      }, {} as Record<string, any>);
 
       setMoveSquares(highlightedSquaresStyles);
     },
@@ -290,11 +324,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
           customSquareStyles={getCustomSquareStyles()}
-          arePiecesDraggable={!isPuzzleSolved}
+          // arePiecesDraggable={!isPuzzleSolved}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-
+      Classification : {moveClassification}
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}

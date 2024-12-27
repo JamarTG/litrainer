@@ -1,0 +1,1 @@
+export type Source = "LichessApi" | "Stockfish" | "Local" | null
