@@ -4,6 +4,7 @@ import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
 import { getBasicClassification, isPieceSacrifice } from "../utils/chess";
+import { getWinPercentageFromCp } from "../utils/math";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -142,9 +143,10 @@ export abstract class UciEngine {
   ): Promise<"" | Classification> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
+    let canBeBrilliant = false;
 
     if (!isValidMove) throw new Error("Invalid move");
-  
+
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
 
@@ -154,13 +156,21 @@ export abstract class UciEngine {
       move
     );
 
-    console.log("Basic classification", basicClassification);
+    if (
+      currentPositionEval.lines[0].cp &&
+      getWinPercentageFromCp(currentPositionEval.lines[0].cp) >= 0.35 &&
+      getWinPercentageFromCp(currentPositionEval.lines[0].cp) <= 0.65
+    ) {
+      canBeBrilliant = true;
+    }
 
     if (
       (basicClassification === MoveClassification.Best ||
         basicClassification === MoveClassification.Excellent) &&
-      isPieceSacrifice(fen, move)
+      canBeBrilliant
     ) {
+      isPieceSacrifice(fen, move);
+
       return MoveClassification.Brilliant;
     }
 

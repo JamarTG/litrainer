@@ -18,4 +18,7 @@ Analysis source
 
 Engine Switcher & Depth Changer
 
+Mate or Even Best Move doesn't show at the end because there is no next position
+
+
 
