@@ -5,7 +5,7 @@ import { useEngine } from "../engine/hooks/useEngine";
 import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
-import { BOARD_DIMENSIONS} from "../constants";
+import { BOARD_DIMENSIONS } from "../constants";
 import { attemptMove } from "../utils/chess";
 import {
   Classification,
@@ -30,6 +30,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [moveClassification, setMoveClassification] = useState<
     Classification | ""
   >("");
+  const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean>(false);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
@@ -86,6 +87,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     return () => {
       // Prevents square from being highlighted after the component is unmounted
       setDestinationSquare("");
+      setIsPuzzleSolved(false);
     };
   }, []);
   useEffect(() => {
@@ -124,6 +126,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+    if (isPuzzleSolved) return false;
+
+    if (game.turn() !== puzzle?.userMove.color) {
+      return false;
+    }
+
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     let hasLichessAPIEvaluation = false;
     let isKnownOpening = false;
@@ -131,13 +139,16 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     if (!movePlayedByUser) return false;
 
     // Check if its a known opening
-    const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
+    const opening = openings.find(
+      (opening) => opening.fen === fen.split(" ")[0]
+    );
 
     if (opening) {
       setMoveClassification(MoveClassification.Book);
       setDestinationSquare(movePlayedByUser.to);
       isKnownOpening = true;
       setSource("Local");
+      setIsPuzzleSolved(true);
     }
 
     // Check if its known bad move
@@ -146,6 +157,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setDestinationSquare(movePlayedByUser.to);
       hasLichessAPIEvaluation = true;
       setSource("LichessApi");
+      setTimeout(() => {
+        game.undo();
+        setFen(game.fen());
+        setDestinationSquare("");
+        setMoveClassification("");
+      }, 1000);
     }
 
     const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
@@ -154,6 +171,21 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         ?.evaluateMoveQuality(fen, move.lan, depth)
         .then((classificationResult: "" | Classification) => {
           if (classificationResult !== "") {
+            if (
+              classificationResult === MoveClassification.Best ||
+              classificationResult === MoveClassification.Excellent ||
+              classificationResult === MoveClassification.Good ||
+              classificationResult === MoveClassification.Brilliant
+            ) {
+              setIsPuzzleSolved(true);
+            } else {
+              setTimeout(() => {
+                game.undo();
+                setFen(game.fen());
+                setDestinationSquare("");
+                setMoveClassification("");
+              }, 1000);
+            }
             setMoveClassification(classificationResult);
             setDestinationSquare(move.to);
           } else {
@@ -179,6 +211,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handleSquareClick = (clickedSquare: Square) => {
+    if (isPuzzleSolved) return; 
     const clickedPiece = game.get(clickedSquare);
     const isValidFirstClick = !clickSourceSquare && clickedPiece;
     const isSecondClick = clickSourceSquare;
@@ -211,6 +244,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const highlightLegalMoves = useCallback(
     (legalMoves: Move[]) => {
+      if (isPuzzleSolved) return;
+
       const legalDestinationSquares = legalMoves.map((move) => move.to);
 
       const highlightedSquaresStyles = legalDestinationSquares.reduce(
@@ -243,12 +278,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       <div
         ref={boardRef}
         className="relative flex justify-center items-center"
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: `${boardSize}px`,
-          maxHeight: `${boardSize}px`,
-        }}
+        style={{ maxWidth: `${boardSize}px`, maxHeight: `${boardSize}px` }}
       >
         <Chessboard
           position={fen}
@@ -260,6 +290,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
           customSquareStyles={getCustomSquareStyles()}
+          arePiecesDraggable={!isPuzzleSolved}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
@@ -267,6 +298,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       <PuzzleControlPanel
         game={game}
         puzzle={puzzle}
+        setIsPuzzleSolved={setIsPuzzleSolved}
         source={source}
         setMoveClassification={setMoveClassification}
         moveToNextPuzzle={moveToNextPuzzle}
