@@ -154,6 +154,8 @@ export abstract class UciEngine {
       move
     );
 
+    console.log("Basic classification", basicClassification);
+
     if (
       (basicClassification === MoveClassification.Best ||
         basicClassification === MoveClassification.Excellent) &&
