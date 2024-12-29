@@ -6,6 +6,7 @@ import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS } from "../constants";
+import { PIECEVALUE } from "../constants";
 import {
   attemptMove,
   checkKnownBadMove,
@@ -17,10 +18,11 @@ import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
-import { AnalysisSource, Source } from "../types/eval";
+import { AnalysisSource, Materials, Source } from "../types/eval";
 import { getCustomSquareStyles, getSquareStyle } from "../utils/style";
 import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
 import MoveList from "../features/MoveList/MoveList";
+import RenderMaterial from "../features/ControlPanel/components/RenderMaterial";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -34,6 +36,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [isPuzzleSolved, setSolved] = useState<boolean>(false);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
+  const [material, setMaterial] = useState<Materials>({
+    w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+  });
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<
     Move["from"] | null
@@ -51,7 +57,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
     useChangePuzzle(puzzles, setPuzzle, setUndoneMoves);
 
-  const engine = useEngine(EngineName.Stockfish16_1);
+  const engine = useEngine(EngineName.Stockfish16_1Lite);
+
+  useEffect(() => {
+    const { whiteMaterial, blackMaterial } = getMaterialDiff(game);
+    setMaterial({ w: whiteMaterial, b: blackMaterial });
+  }, [game.fen()]);
 
   useEffect(() => {
     return () => {
@@ -81,6 +92,72 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }
     }
   }, [puzzleIndex, puzzles, setFen]);
+
+  const getMaterialDiff = (game: Chess) => {
+    // Define the Material interface
+    interface Material {
+      w: {
+        p: number; // Pawns
+        n: number; // Knights
+        b: number; // Bishops
+        r: number; // Rooks
+        q: number; // Queens
+      };
+      b: {
+        p: number; // Pawns
+        n: number; // Knights
+        b: number; // Bishops
+        r: number; // Rooks
+        q: number; // Queens
+      };
+    }
+
+    // Initialize the material counts
+    let material: Material = {
+      w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+      b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    };
+
+    // Populate the material counts
+    for (const row of game.board()) {
+      for (const square of row) {
+        if (square) {
+          if (square.color === "w") {
+            material.w[square.type as keyof typeof material.w]++;
+          }
+          if (square.color === "b") {
+            material.b[square.type as keyof typeof material.b]++;
+          }
+        }
+      }
+
+      // Calculate material difference
+      let materialDiff = 0;
+      for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
+        materialDiff +=
+          (material.w[pieceType] - material.b[pieceType]) *
+          PIECEVALUE[pieceType];
+      }
+    }
+
+    const whiteMaterial = {
+      p: Math.max(material.w.p - material.b.p, 0),
+      n: Math.max(material.w.n - material.b.n, 0),
+      b: Math.max(material.w.b - material.b.b, 0),
+      r: Math.max(material.w.r - material.b.r, 0),
+      q: Math.max(material.w.q - material.b.q, 0),
+    };
+
+    const blackMaterial = {
+      p: Math.max(material.b.p - material.w.p, 0),
+      n: Math.max(material.b.n - material.w.n, 0),
+      b: Math.max(material.b.b - material.w.b, 0),
+      r: Math.max(material.b.r - material.w.r, 0),
+      q: Math.max(material.b.q - material.w.q, 0),
+    };
+
+    return { whiteMaterial, blackMaterial };
+  };
 
   const unhighlightSquares = useCallback(() => {
     setClickSourceSquare(null);
@@ -279,13 +356,16 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         className="relative flex flex-col justify-center gap-2"
         style={{ maxWidth: `${boardSize}px`, maxHeight: `${boardSize}px` }}
       >
-        {puzzle?.players.white && (
-          <PlayerInfo
-            player={puzzle.players.white}
-            color={"w"}
-            isWinner={puzzle.winner === "white"}
-          />
-        )}
+        <div className="flex justify-center items-center gap-2">
+          {puzzle?.players.white && (
+            <PlayerInfo
+              player={puzzle.players.white}
+              color={"w"}
+              isWinner={puzzle.winner === "white"}
+            />
+          )}
+          <RenderMaterial material={material} color="w" />
+        </div>
 
         <Chessboard
           position={fen}
@@ -304,13 +384,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           )}
           arePiecesDraggable={!isPuzzleSolved}
         />
-        {puzzle?.players.black && (
-          <PlayerInfo
-            player={puzzle.players.black}
-            color={"b"}
-            isWinner={puzzle.winner === "black"}
-          />
-        )}
+
+        <div className="flex justify-center items-center gap-2">
+          {puzzle?.players.black && (
+            <PlayerInfo
+              player={puzzle.players.black}
+              color={"b"}
+              isWinner={puzzle.winner === "black"}
+            />
+          )}
+
+          <RenderMaterial material={material} color="b" />
+        </div>
 
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
@@ -321,6 +406,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           redoMove={redoMove}
           undoMove={undoMove}
         />
+
         <PuzzleControlPanel
           game={game}
           puzzle={puzzle}

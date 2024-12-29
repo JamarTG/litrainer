@@ -1,14 +1,19 @@
-import React from 'react';
+import React from "react";
 
 interface MoveListProps {
   history: string[];
   undoneMoves: string[];
   redoMove: () => void;
-    undoMove: () => void;
+  undoMove: () => void;
 }
 
-const MoveList: React.FC<MoveListProps> = ({ history, undoneMoves }) => {
-  const combinedHistory = [...history, ...undoneMoves];
+const MoveList: React.FC<MoveListProps> = ({
+  history,
+  undoneMoves,
+  redoMove,
+  undoMove,
+}) => {
+  const combinedHistory = [ ...history, ...undoneMoves] 
   const highlightIndex = history.length - 1;
 
   return (
@@ -18,11 +23,28 @@ const MoveList: React.FC<MoveListProps> = ({ history, undoneMoves }) => {
         {combinedHistory.map((move, index) => (
           <p
             key={index}
-            className={`flex justify-center items-center h-6 w-16 ${index === highlightIndex ? 'bg-red-900 rounded-sm' : ''} `}
+            className={`flex justify-center items-center h-6 w-16 ${
+              index === highlightIndex ? "bg-gray-400 rounded-sm" : ""
+            } `}
           >
-            {index % 2 === 0 ? `${Math.floor(index / 2) + 1}. ${move}` : move}
+            {index % 2 === 0 ? `${Math.floor(index / 2) + 1}. ${move.toString()}` : move.toString()}
           </p>
         ))}
+      </div>
+  
+      <div className="flex space-x-2 mt-2">
+        <button
+          className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-700"
+          onClick={undoMove}
+        >
+           Previous Move
+        </button>
+        <button
+          className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-700"
+          onClick={redoMove}
+        >
+           Next Move
+        </button>
       </div>
     </div>
   );
