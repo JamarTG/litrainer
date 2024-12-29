@@ -1,16 +1,16 @@
-import { Fragment } from "react/jsx-runtime";
+import { Puzzle } from "../../../types/puzzle";
+import { Fragment } from "react";
 
 interface GameStatusProps {
-  status: string;
-  winner: string | null;
+  puzzle: Puzzle;
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ status, winner }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ puzzle }) => {
   return (
     <Fragment>
-      {status && (
+      {puzzle.status && (
         <img
-          src={`images/status/${status}${winner ? `_${winner}` : ""}.svg`}
+          src={`images/status/${puzzle.status}${puzzle.winner ? `_${puzzle.winner}` : ""}.svg`}
           width={30}
           alt=""
         />

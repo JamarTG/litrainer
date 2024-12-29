@@ -1,25 +1,36 @@
 import React from "react";
+import { AnalysisSource as AS } from "../../../types/eval";
+import { Source } from "../../../types/eval";
 
 interface AnalysisSourceProps {
-  source: "LichessApi" | "Stockfish" | "Local" | null;
+  source: Source;
 }
 
 const AnalysisSource: React.FC<AnalysisSourceProps> = ({ source }) => {
   return (
     source && (
       <div className="flex">
-        {source === "Stockfish" && (
-          <img
-            src="/images/general/png/stockfish.png"
-            width={30}
-            alt="Stockfish"
-          />
+        {source === AS.Stockfish && (
+          <div className="flex gap-2 justify-center items-center">
+            <i>Position Analyzed With Stockfish</i>
+            <img
+              src="/images/general/png/stockfish.png"
+              width={30}
+              alt={AS.Stockfish}
+            />
+          </div>
         )}
-        {source === "LichessApi" && (
-          <img src="/images/general/png/lichess.png" width={30} alt="Lichess" />
+        {source === AS.LichessAPI && (
+          <div className="flex gap-2 justify-center items-center">
+            <i>Move Provided By Lichess API</i>
+            <img src="/images/general/png/lichess.png" width={30} alt={AS.LichessAPI} />
+          </div>
         )}
-        {source === "Local" && (
-          <img src="/images/marker/Book.svg" width={30} alt="Local" />
+        {source === AS.Opening && (
+          <div className="flex gap-2 justify-center items-center">
+            <i>Position Retrieved From Opening Database</i>
+            <img src="/images/general/svg/opening.svg" width={30} alt={AS.Opening} />
+          </div>
         )}
       </div>
     )

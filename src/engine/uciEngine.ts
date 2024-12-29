@@ -1,4 +1,4 @@
-import { Classification, MoveClassification } from "../types/move";
+import {MoveClassification } from "../types/move";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
@@ -140,7 +140,7 @@ export abstract class UciEngine {
     fen: string,
     move: string,
     depth: number
-  ): Promise<"" | Classification> {
+  ): Promise<{ classification: MoveClassification; variation: string[] }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
     let canBeBrilliant = false;
@@ -171,9 +171,15 @@ export abstract class UciEngine {
     ) {
       isPieceSacrifice(fen, move);
 
-      return MoveClassification.Brilliant;
+      return {
+        classification: MoveClassification.Brilliant,
+        variation: currentPositionEval.lines[0].pv,
+      };
     }
 
-    return basicClassification;
+    return {
+      classification: basicClassification,
+      variation: currentPositionEval.lines[0].pv,
+    };
   }
 }

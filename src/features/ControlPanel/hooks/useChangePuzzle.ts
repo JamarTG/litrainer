@@ -4,13 +4,14 @@ import { Puzzle, PuzzleIndex } from "../../../types/puzzle";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],
-  setCurrentPuzzle: Dispatch<SetStateAction<Puzzle | null>>
+  setCurrentPuzzle: Dispatch<SetStateAction<Puzzle | null>>,
+  setUndoneMoves: Dispatch<SetStateAction<string[]>>
 ) => {
   const [sessionStarted, setSessionStarted] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState<PuzzleIndex>({ x: 0, y: 0 });
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
 
-  const moveToNextPuzzle = () => {
+  const nextPuzzle = () => {
     if (puzzles.length === 0) return;
 
     if (!sessionStarted) {
@@ -26,9 +27,10 @@ const useChangePuzzle = (
       setPuzzleIndex({ x: puzzleIndex.x + 1, y: 0 });
       setFen(puzzles[puzzleIndex.x + 1][0].fen.previous);
     }
+    setUndoneMoves([]);
   };
 
-  const moveToPreviousPuzzle = () => {
+  const prevPuzzle = () => {
     if (puzzles.length === 0) return;
 
     if (puzzleIndex.y > 0) {
@@ -41,14 +43,15 @@ const useChangePuzzle = (
       setPuzzleIndex({ x: puzzleIndex.x - 1, y: newY });
       setFen(puzzles[puzzleIndex.x - 1][newY].fen.previous);
     }
+    setUndoneMoves([]);
   };
 
   return {
     puzzleIndex,
     fen,
     setFen,
-    moveToNextPuzzle,
-    moveToPreviousPuzzle,
+    nextPuzzle,
+    prevPuzzle,
     sessionStarted,
     setSessionStarted,
   };

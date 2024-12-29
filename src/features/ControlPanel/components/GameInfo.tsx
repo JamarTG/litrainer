@@ -3,31 +3,24 @@ import GameLink from "./GameLink";
 import TimeControl from "./TimeControl";
 import RatedOrCasual from "./RatedOrCasual";
 import TimeControlIcon from "./TimeControlIcon";
+import { Puzzle } from "../../../types/puzzle";
 
 interface GameInfoProps {
-  gameId: string;
-  clock: {
-    initial: number;
-    increment: number;
-  };
-  rated: boolean;
-  timeControl: string;
+  puzzle: Puzzle;
 }
 
 const GameInfo: React.FC<GameInfoProps> = ({
-  gameId,
-  clock,
-  rated,
-  timeControl,
+  puzzle
 }) => {
   return (
     <div className="flex items-center space-x-4 mb-10">
       <div className="flex justify-center items-center gap-1 text-bold ">
-        <TimeControlIcon timeControl={timeControl} />
-        <RatedOrCasual rated={rated} />
-        <TimeControl timeControl={timeControl} clock={clock}/>
+        <TimeControlIcon timeControl={puzzle.timeControl} />
+        <RatedOrCasual rated={puzzle.rated} />
+        <TimeControl timeControl={puzzle.timeControl} clock={puzzle.clock}/>
+      
       </div>
-      <GameLink gameId={gameId} />
+      <GameLink gameId={puzzle.gameId} />
     </div>
   );
 };
