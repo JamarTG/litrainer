@@ -1,8 +1,10 @@
-import { Chess, Square } from "chess.js";
-import { MoveClassification } from "../types/move";
+import { Chess, Move, Square } from "chess.js";
+import { Classification, MoveClassification } from "../types/move";
 import { getWinPercentageFromCp, getWinPercentageFromMate } from "./math";
 import { PositionEval } from "../types/eval";
 import { PIECEVALUE } from "../constants";
+import { openings } from "../data/openings";
+import { Puzzle } from "../types/puzzle";
 
 export const attemptMove = (
   game: Chess,
@@ -74,6 +76,28 @@ export function getEvaluationLossThreshold(
   return Math.max(threshold, 0);
 }
 
+export const isPositiveClassification = (
+  classificationResult: Classification
+) => {
+  return (
+    classificationResult === MoveClassification.Best ||
+    classificationResult === MoveClassification.Excellent ||
+    classificationResult === MoveClassification.Good ||
+    classificationResult === MoveClassification.Brilliant
+  );
+};
+
+export const checkKnownOpening = (fen: string) => {
+  const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
+
+  return !!opening;
+};
+
+export const checkKnownBadMove = (movePlayedByUser: Move,puzzle : Puzzle) => {
+  return movePlayedByUser.lan == puzzle?.userMove.lan
+    ? puzzle.evaluation.judgment?.name
+    : "";
+};
 export const getBasicClassification = (
   lastPositionEval: PositionEval,
   currentPositionEval: PositionEval,
@@ -145,7 +169,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
     .moves({ verbose: true })
     .filter((m) => m.to === pieceSquare && m.color !== game.turn());
 
-  console.log(attackers)
+  console.log(attackers);
   for (const attacker of attackers) {
     if (
       PIECEVALUE[attacker.piece] <

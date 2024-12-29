@@ -1,24 +1,20 @@
 import React from "react";
 import { getGameResultMessage } from "../../../utils/chess";
-import { LichessPlayers } from "../../../types/player";
+import { Puzzle } from "../../../types/puzzle";
 
 interface GameResultMessageProps {
-  status: string;
-  winner?: string;
-  players: LichessPlayers;
+  puzzle: Puzzle;
 }
 
-const GameResultMessage: React.FC<GameResultMessageProps> = ({
-  status,
-  winner,
-  players,
-}) => {
+const GameResultMessage: React.FC<GameResultMessageProps> = ({ puzzle }) => {
   return (
     <p>
       {getGameResultMessage(
-        status,
+        puzzle.status,
         // Undefined if draw, irrelevant since no winner
-        winner == "white" ? players.white.user.name : players.black.user.name
+        puzzle.winner == "white"
+          ? puzzle.players.white.user.name
+          : puzzle.players.black.user.name
       )}
     </p>
   );

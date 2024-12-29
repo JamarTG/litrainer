@@ -7,10 +7,10 @@ const Navbar: React.FC = () => {
       <div className="flex items-center">
         <div className="relative flex pl-6">
           <Link to="/" className="flex items-center p-2 text-xl">
-            <img src="/logo.png" width={30} alt="" className="border-1/2"/>
-            <span className="noto relative text-white z-10 ml-2 text-xl whitespace-nowrap">
-            
-            </span>
+            <img src="/public/images/general/svg/logo.svg" width={50} alt="" className="border-1/2"/>
+            <b className="text-bold noto relative text-white z-10 text-2xl whitespace-nowrap">
+            litrainer
+            </b>
           </Link>
         </div>
       </div>

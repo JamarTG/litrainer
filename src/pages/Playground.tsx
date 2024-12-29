@@ -6,18 +6,21 @@ import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS } from "../constants";
-import { attemptMove } from "../utils/chess";
 import {
-  Classification,
-  ClassificationColors,
-  MoveClassification,
-} from "../types/move";
+  attemptMove,
+  checkKnownBadMove,
+  checkKnownOpening,
+  isPositiveClassification,
+} from "../utils/chess";
+import { Classification, MoveClassification } from "../types/move";
 import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
-import { openings } from "../data/openings";
-import { Source } from "../utils/source";
+import { AnalysisSource, Source } from "../types/eval";
+import { getCustomSquareStyles, getSquareStyle } from "../utils/style";
+import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
+import MoveList from "../features/MoveList/MoveList";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -25,82 +28,49 @@ interface PlayGroundProps {
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [game, setGame] = useState<Chess>(new Chess());
-  const [source, setSource] = useState<
-    "LichessApi" | "Stockfish" | "Local" | null
-  >(null);
-  const [moveClassification, setMoveClassification] = useState<
-    Classification | ""
-  >("");
-  const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean>(false);
+  const [undoneMoves, setUndoneMoves] = useState<string[]>([]);
+  const [source, setSource] = useState<Source>(null);
+  const [classification, setClassification] = useState<Classification | "">("");
+  const [isPuzzleSolved, setSolved] = useState<boolean>(false);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [clickSourceSquare, setClickSourceSquare] = useState<
     Move["from"] | null
   >(null);
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
-    ""
-  );
+  const [completeVariation, setCompleteVariation] = useState<string[]>([]);
+  const [dstSquare, setDstSquare] = useState<Move["to"] | "">("");
   const [moveSquares, setMoveSquares] = useState({});
+
   const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
     BOARD_DIMENSIONS.MIN_SIZE,
     BOARD_DIMENSIONS.MAX_SIZE
   );
 
-  const {
-    puzzleIndex,
-    fen,
-    setFen,
-    moveToNextPuzzle,
-    moveToPreviousPuzzle,
-    sessionStarted,
-  } = useChangePuzzle(puzzles, setPuzzle);
+  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
+    useChangePuzzle(puzzles, setPuzzle, setUndoneMoves);
 
-  const engine = useEngine(EngineName.Stockfish16);
-
-  const getCustomSquareStyles = () => {
-    const styles: Record<string, any> = { ...moveSquares };
-
-    if (destinationSquare) {
-      styles[destinationSquare] = {
-        backgroundImage: `url(images/marker/${moveClassification}.svg)`,
-        backgroundColor:
-          moveClassification && !isLoadingEvaluation
-            ? `${
-                ClassificationColors[
-                  MoveClassification[
-                    moveClassification as keyof typeof MoveClassification
-                  ]
-                ]
-              }`
-            : setDestinationSquare(""),
-        backgroundSize: "30%",
-        backgroundPosition: "top right",
-        backgroundRepeat: "no-repeat",
-      };
-    }
-
-    return styles;
-  };
+  const engine = useEngine(EngineName.Stockfish16_1);
 
   useEffect(() => {
     return () => {
       // Prevents square from being highlighted after the component is unmounted
-      setDestinationSquare("");
-      setIsPuzzleSolved(false);
+      setDstSquare("");
+      setSolved(false);
     };
   }, []);
-  useEffect(() => {
-    const executeComputerMove = (game: Chess, move: string) => {
-      setTimeout(() => {
-        const executedMove = game.move(move);
-        playSound(game, executedMove as Move);
-        setGame(game);
-        setFen(game.fen());
-      }, 500);
-    };
 
+  const executeComputerMove = (game: Chess, move: string) => {
+    setTimeout(() => {
+      const executedMove = game.move(move);
+      playSound(game, executedMove as Move);
+      setGame(game);
+      setFen(game.fen());
+    }, 500);
+  };
+
+  useEffect(() => {
     const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
     setPuzzle(puzzle);
 
@@ -125,8 +95,40 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [game, setFen]
   );
 
+  const handleKnownOpening = (movePlayedByUser: Move) => {
+    const bookMove = checkKnownOpening(game.fen().split(" ")[0]);
+    if (bookMove) {
+      handleEvaluation(
+        MoveClassification.Book,
+        movePlayedByUser.to,
+        AnalysisSource.Opening,
+        true
+      );
+      return true;
+    }
+    return false;
+  };
+
+  const handleKnownBadMove = (movePlayedByUser: Move) => {
+    const badMove = puzzle
+      ? checkKnownBadMove(movePlayedByUser, puzzle)
+      : false;
+    if (badMove) {
+      if (puzzle) {
+        handleEvaluation(
+          puzzle.evaluation.judgment?.name as Classification,
+          movePlayedByUser.to,
+          AnalysisSource.LichessAPI,
+          false
+        );
+      }
+      setTimeout(undoMove, 1000);
+      return true;
+    }
+    return false;
+  };
+
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
-    console.log("isPuzzleSolved", isPuzzleSolved);
     if (isPuzzleSolved) return false;
 
     if (game.turn() !== puzzle?.userMove.color) {
@@ -136,36 +138,26 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     if (!movePlayedByUser) return false;
 
-    const bookMove = checkKnownOpening(game.fen().split(" ")[0]);
+    setUndoneMoves([]);
+    const bookMove = handleKnownOpening(movePlayedByUser);
 
-    if (bookMove) {
-      handleEvaluation(
-        MoveClassification.Book,
-        movePlayedByUser.to,
-        "Local",
-        true
-      );
-      // setTimeout(undoMove, 1000);
-    } else {
-      const badMove = checkKnownBadMove(movePlayedByUser);
-      if (!!badMove) {
-        handleEvaluation(
-          puzzle.evaluation.judgment?.name as Classification,
-          movePlayedByUser.to,
-          "LichessApi",
-          false
-        );
-        setTimeout(undoMove, 1000);
-      } else {
+    if (!bookMove) {
+      const badMove = handleKnownBadMove(movePlayedByUser);
+
+      if (!badMove && !bookMove) {
         evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
           handleEvaluation(
             classification,
             movePlayedByUser.to,
-            "Stockfish",
-            isPositiveClassification(classification)
+            AnalysisSource.Stockfish,
+            isPositiveClassification(classification as Classification)
           );
 
-          !isPositiveClassification(classification) && setTimeout(undoMove, 1000);
+          !isPositiveClassification(classification as Classification) &&
+            setTimeout(() => {
+              undoMove();
+              setUndoneMoves([]);
+            }, 1000);
         });
       }
     }
@@ -178,111 +170,76 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     return true;
   };
 
-  const checkKnownOpening = (fen: string) => {
-    const opening = openings.find(
-      (opening) => opening.fen === fen.split(" ")[0]
-    );
-
-    return !!opening;
-  };
-
-  const checkKnownBadMove = (movePlayedByUser: Move) => {
-    return movePlayedByUser.lan == puzzle?.userMove.lan
-      ? puzzle.evaluation.judgment?.name
-      : "";
-  };
-
   const undoMove = () => {
-    game.undo();
+    if (game.history().length < 3) return;
+    const a = game.undo();
+    setUndoneMoves([a?.san || "", ...undoneMoves]);
     setFen(game.fen());
-    setDestinationSquare("");
-    setMoveClassification("");
+    setDstSquare("");
+    setClassification("");
   };
 
-  const isPositiveClassification = (classificationResult: Classification) => {
-    return (
-      classificationResult === MoveClassification.Best ||
-      classificationResult === MoveClassification.Excellent ||
-      classificationResult === MoveClassification.Good ||
-      classificationResult === MoveClassification.Brilliant
-    );
+  const redoMove = () => {
+    const move = undoneMoves.shift();
+    if (move) {
+      game.move(move);
+      setFen(game.fen());
+      setDstSquare("");
+      setClassification("");
+    }
   };
 
   const handleEvaluation = (
     classificationResult: "" | Classification,
-    destinationSquare: Square,
+    dstSquare: Square,
     source: Source,
     isPuzzleSolved: boolean
   ) => {
-  
     if (classificationResult !== "") {
-      setMoveClassification(classificationResult);
-      setDestinationSquare(destinationSquare);
+      setClassification(classificationResult);
+      setDstSquare(dstSquare);
       if (isPuzzleSolved) {
-        setIsPuzzleSolved(true);
-      } 
+        setSolved(true);
+      }
     } else {
-      setMoveClassification("");
+      setClassification("");
     }
     setSource(source);
-
   };
 
   const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
     setIsLoadingEvaluation(true);
 
     try {
-      const classificationResult = (await engine?.evaluateMoveQuality(
-        fen,
-        move.lan,
-        depth
-      )) as Classification;
-
-      const isSolved = isPositiveClassification(
-        classificationResult as Classification
-      );
-      handleEvaluation(
-        classificationResult as Classification,
-        move.to,
-        "Stockfish",
-        isSolved
-      );
-      return classificationResult;
+      const result = await engine?.evaluateMoveQuality(fen, move.lan, depth);
+      if (result) {
+        const { classification, variation } = result;
+        handleEvaluation(
+          classification,
+          move.to,
+          AnalysisSource.Stockfish,
+          isPositiveClassification(classification)
+        );
+        setCompleteVariation(variation);
+        return classification;
+      }
+      return "";
     } finally {
       setIsLoadingEvaluation(false);
     }
   };
 
-  const handleSquareClick = (clickedSquare: Square) => {
+  const handleSquareClick = (srcSquare: Square) => {
     if (isPuzzleSolved) return;
-    const clickedPiece = game.get(clickedSquare);
-    const isValidFirstClick = !clickSourceSquare && clickedPiece;
-    const isSecondClick = clickSourceSquare;
+    const piece = game.get(srcSquare);
 
-    if (isValidFirstClick) {
-      setClickSourceSquare(clickedSquare);
-
-      highlightLegalMoves(
-        game.moves({
-          square: clickedSquare,
-          verbose: true,
-        })
-      );
-    } else if (isSecondClick) {
-      if (clickedPiece && clickedPiece.color === game.turn()) {
-        setClickSourceSquare(clickedSquare);
-
-        highlightLegalMoves(
-          game.moves({
-            square: clickedSquare,
-            verbose: true,
-          })
-        );
-      } else {
-        handlePieceDrop(clickSourceSquare!, clickedSquare);
-        unhighlightSquares();
-      }
+    if (!!piece && piece.color === game.turn()) {
+      setClickSourceSquare(srcSquare);
+      highlightLegalMoves(game.moves({ square: srcSquare, verbose: true }));
+      return;
     }
+    handlePieceDrop(clickSourceSquare!, srcSquare);
+    unhighlightSquares();
   };
 
   const highlightLegalMoves = useCallback(
@@ -290,15 +247,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       if (isPuzzleSolved) return;
 
       const highlightedSquaresStyles = legalMoves.reduce((styles, move) => {
-        const isCaptureMove = move.captured;
-
-        styles[move.to] = {
-          background: `radial-gradient(circle, ${
-            isCaptureMove ? "rgba(2,0,0,.2)" : "rgba(0,0,0,.1)"
-          } ${isCaptureMove ? "60%" : "30%"}, transparent 25%)`,
-          borderRadius: "50%",
-          zIndex: 1,
-        };
+        styles[move.to] = getSquareStyle(!!move.captured);
         return styles;
       }, {} as Record<string, any>);
 
@@ -307,13 +256,37 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
 
+  const playAllMovesInVariation = () => {
+    const playMove = (index: number) => {
+      if (index < completeVariation.length) {
+        const nextMove = completeVariation[index];
+        setTimeout(() => {
+          executeComputerMove(game, nextMove);
+          playMove(index + 1);
+        }, 500); // Adjust the delay as needed
+      }
+    };
+
+    setMoveSquares({});
+    setDstSquare("");
+    playMove(0);
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
       <div
         ref={boardRef}
-        className="relative flex justify-center items-center"
+        className="relative flex flex-col justify-center gap-2"
         style={{ maxWidth: `${boardSize}px`, maxHeight: `${boardSize}px` }}
       >
+        {puzzle?.players.white && (
+          <PlayerInfo
+            player={puzzle.players.white}
+            color={"w"}
+            isWinner={puzzle.winner === "white"}
+          />
+        )}
+
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -323,23 +296,44 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           onPieceDragEnd={unhighlightSquares}
           boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
           boardWidth={boardSize}
-          customSquareStyles={getCustomSquareStyles()}
-          // arePiecesDraggable={!isPuzzleSolved}
+          customSquareStyles={getCustomSquareStyles(
+            dstSquare,
+            classification,
+            moveSquares,
+            isLoadingEvaluation
+          )}
+          arePiecesDraggable={!isPuzzleSolved}
         />
+        {puzzle?.players.black && (
+          <PlayerInfo
+            player={puzzle.players.black}
+            color={"b"}
+            isWinner={puzzle.winner === "black"}
+          />
+        )}
+
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
-      Classification : {moveClassification}
-      <PuzzleControlPanel
-        game={game}
-        puzzle={puzzle}
-        setIsPuzzleSolved={setIsPuzzleSolved}
-        source={source}
-        setMoveClassification={setMoveClassification}
-        moveToNextPuzzle={moveToNextPuzzle}
-        moveToPreviousPuzzle={moveToPreviousPuzzle}
-        sessionStarted={sessionStarted}
-        unhighlightLegalMoves={unhighlightSquares}
-      />
+      <div className="flex flex-col">
+        <MoveList
+          undoneMoves={undoneMoves}
+          history={game.history({ verbose: true }).map((move) => move.san)}
+          redoMove={redoMove}
+          undoMove={undoMove}
+        />
+        <PuzzleControlPanel
+          game={game}
+          puzzle={puzzle}
+          source={source}
+          nextPuzzle={nextPuzzle}
+          prevPuzzle={prevPuzzle}
+          sessionStarted={sessionStarted}
+          unhighlightLegalMoves={unhighlightSquares}
+          setSolved={setSolved}
+          setClassification={setClassification}
+          playAllMovesInVariation={playAllMovesInVariation}
+        />
+      </div>
     </div>
   );
 };

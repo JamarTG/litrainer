@@ -27,3 +27,14 @@ export interface LichessEvaluation {
   };
 }
 
+export enum AnalysisSource {
+  LichessAPI = "LichessAPI",
+  Stockfish = "Stockfish",
+  Opening = "Opening",
+}
+
+export type Source =
+  | AnalysisSource.LichessAPI
+  | AnalysisSource.Stockfish
+  | AnalysisSource.Opening
+  | null;

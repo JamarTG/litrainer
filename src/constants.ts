@@ -35,9 +35,9 @@ export const customBoardStyles = {
 };
 
 export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 500,
+  MAX_SIZE: 550,
   MIN_SIZE: 300,
-  INITIAL_SIZE: 400,
+  INITIAL_SIZE: 550,
 };
 
 export const DEFAULT_FORM_STATE = {
