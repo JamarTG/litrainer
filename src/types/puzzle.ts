@@ -16,11 +16,12 @@ export interface Puzzle {
   opponentMove: Move;
   clock: LichessClock;
   winner?: "white" | "black";
+  moveNumber: number;
 }
 
 export interface Fen {
-    current: string;
-    previous: string;
+  current: string;
+  previous: string;
 }
 
 export interface PuzzleIndex {

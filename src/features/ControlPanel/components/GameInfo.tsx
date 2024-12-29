@@ -20,7 +20,7 @@ const GameInfo: React.FC<GameInfoProps> = ({
         <TimeControl timeControl={puzzle.timeControl} clock={puzzle.clock}/>
       
       </div>
-      <GameLink gameId={puzzle.gameId} />
+      <GameLink gameId={puzzle.gameId} moveNo={puzzle.moveNumber} />
     </div>
   );
 };

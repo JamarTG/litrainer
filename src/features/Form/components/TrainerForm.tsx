@@ -1,7 +1,14 @@
-import { ChangeEvent, Dispatch,MouseEventHandler, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fields } from "../../../types/form";
+import { timeControlIcons } from "../../../constants";
 
 interface ParamsFormProps {
   formData: Fields;
@@ -14,12 +21,34 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
   setFormData,
   handleSubmit,
 }) => {
+  const [selectedGameTypes, setSelectedGameTypes] = useState<string[]>([
+    "correspondence",
+    "classical",
+    "rapid",
+    "blitz",
+    "bullet",
+  ]);
+
+  const [selectedColor, setSelectedColor] = useState<string>("both");
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: name === "maxNoGames" ? parseInt(value) : value,
     }));
+  };
+
+  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedColor(event.target.value);
+  };
+
+  const handleCheckboxChange = (gameType: string) => {
+    setSelectedGameTypes((prev) =>
+      prev.includes(gameType)
+        ? prev.filter((type) => type !== gameType)
+        : [...prev, gameType]
+    );
   };
 
   return (
@@ -86,6 +115,71 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
             </div>
           </div>
         </div>
+
+        {/* game speeds*/}
+        <div className="flex flex-col space-y-2 mb-4">
+          <div className="flex flex-wrap gap-4">
+            {["correspondence", "classical", "rapid", "blitz", "bullet"].map(
+              (gameType) => (
+                <label key={gameType} className="flex items-center space-x-2 ">
+                  <span
+                    className="icon text-xl hover:text-blue-500 ml-1"
+                    dangerouslySetInnerHTML={{
+                      __html: timeControlIcons[gameType],
+                    }}
+                  />
+
+                  <input
+                    type="checkbox"
+                    value={gameType}
+                    checked={selectedGameTypes.includes(gameType)}
+                    onChange={() => handleCheckboxChange(gameType)}
+                    className="form-checkbox h-5 w-5 text-primary"
+                  />
+                </label>
+              )
+            )}
+          </div>
+        </div>
+
+        {/* player color */}
+
+        <div className="flex gap-4">
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              name="color"
+              value="white"
+              checked={selectedColor === "white"}
+              onChange={handleColorChange}
+              className="form-radio h-5 w-5 text-primary"
+            />
+            <span className="text-gray-700">White</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              name="color"
+              value="black"
+              checked={selectedColor === "black"}
+              onChange={handleColorChange}
+              className="form-radio h-5 w-5 text-primary"
+            />
+            <span className="text-gray-700">Black</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              name="color"
+              value="both"
+              checked={selectedColor === "both"}
+              onChange={handleColorChange}
+              className="form-radio h-5 w-5 text-primary"
+            />
+            <span className="text-gray-700">Both</span>
+          </label>
+        </div>
+
         <button
           onClick={handleSubmit}
           className="w-full bg-primary py-2 rounded hover:bg-primary-dark"
