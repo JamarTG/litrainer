@@ -18,11 +18,12 @@ import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
-import { AnalysisSource,  Materials, Source } from "../types/eval";
+import { AnalysisSource, Materials, Source } from "../types/eval";
 import { getCustomSquareStyles, getSquareStyle } from "../utils/style";
 import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
 import MoveList from "../features/MoveList/MoveList";
 import RenderMaterial from "../features/ControlPanel/components/RenderMaterial";
+import PlayerWithMaterial from "../features/Board/components/PlayerWithMaterial";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -94,7 +95,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, [puzzleIndex, puzzles, setFen]);
 
   const getMaterialDiff = (game: Chess) => {
-
     let material: Materials = {
       w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
       b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
@@ -112,7 +112,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         }
       }
 
-    
       let materialDiff = 0;
       for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
         materialDiff +=
@@ -366,17 +365,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           arePiecesDraggable={!isPuzzleSolved}
         />
 
-        <div className="flex items-center gap-2">
-          {puzzle?.players.black && (
-            <PlayerInfo
-              player={puzzle.players.black}
-              color={"b"}
-              isWinner={puzzle.winner === "black"}
-            />
-          )}
-
-          <RenderMaterial material={material} color="b" />
-        </div>
+        {puzzle && (
+          <PlayerWithMaterial
+            player={puzzle.players.black}
+            color={"b"}
+            isWinner={puzzle.winner === "black"}
+            material={material}
+          />
+        )}
 
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
