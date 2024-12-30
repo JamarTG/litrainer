@@ -18,7 +18,7 @@ import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel
 import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
-import { AnalysisSource, Materials, Source } from "../types/eval";
+import { AnalysisSource,  Materials, Source } from "../types/eval";
 import { getCustomSquareStyles, getSquareStyle } from "../utils/style";
 import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
 import MoveList from "../features/MoveList/MoveList";
@@ -94,31 +94,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, [puzzleIndex, puzzles, setFen]);
 
   const getMaterialDiff = (game: Chess) => {
-    // Define the Material interface
-    interface Material {
-      w: {
-        p: number; // Pawns
-        n: number; // Knights
-        b: number; // Bishops
-        r: number; // Rooks
-        q: number; // Queens
-      };
-      b: {
-        p: number; // Pawns
-        n: number; // Knights
-        b: number; // Bishops
-        r: number; // Rooks
-        q: number; // Queens
-      };
-    }
 
-    // Initialize the material counts
-    let material: Material = {
+    let material: Materials = {
       w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
       b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     };
 
-    // Populate the material counts
     for (const row of game.board()) {
       for (const square of row) {
         if (square) {
@@ -131,7 +112,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         }
       }
 
-      // Calculate material difference
+    
       let materialDiff = 0;
       for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
         materialDiff +=
@@ -356,7 +337,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         className="relative flex flex-col justify-center gap-2"
         style={{ maxWidth: `${boardSize}px`, maxHeight: `${boardSize}px` }}
       >
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex items-center gap-2">
           {puzzle?.players.white && (
             <PlayerInfo
               player={puzzle.players.white}
@@ -385,7 +366,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           arePiecesDraggable={!isPuzzleSolved}
         />
 
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex items-center gap-2">
           {puzzle?.players.black && (
             <PlayerInfo
               player={puzzle.players.black}
