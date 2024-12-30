@@ -1,5 +1,4 @@
-import React from "react";
-import { Materials } from "../../../types/eval";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChessKnight,
@@ -9,10 +8,24 @@ import {
   faChessKing,
   faChessQueen,
 } from "@fortawesome/free-solid-svg-icons";
-import { PIECEVALUE } from "../../../constants";
 
 interface RenderMaterialProps {
-  material: Materials;
+  material: {
+    w: {
+      p: number;
+      n: number;
+      b: number;
+      r: number;
+      q: number;
+    };
+    b: {
+      p: number;
+      n: number;
+      b: number;
+      r: number;
+      q: number;
+    };
+  };
   color: "w" | "b";
 }
 
@@ -39,42 +52,37 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
       material.w.q * 9 +
       material.b.q * 9;
 
-    
-    if (color === "w" && matdiff >= 0) {
-      return matdiff;
-    } else if (color === "w" && matdiff < 0) {
-      return 0;
-    }
-
-    if (color === "b" && matdiff >= 0) {
-      return 0;
-    } else if (color === "b" && matdiff < 0) {
-      return Math.abs(matdiff);
-    }
-    //   If you are white and its negative or 0 return 0 return the value
-    // If you are black and its positive or 0 return 0 else return the absolute value
+    return (color === "w" && matdiff >= 0) || (color === "b" && matdiff < 0)
+      ? Math.abs(matdiff)
+      : 0;
   };
 
+  useEffect(() => {
+    setMaterialCount(getMaterialDiff(color));
+  }, [color, material]);
+
+  const [materialCount, setMaterialCount] = useState<number>(0);
+
   return (
-    <div className="flex gap-2">
+    <div className="flex justify-center items-center gap-2">
       {Object.entries(color === "b" ? material.b : material.w).map(
         ([piece, count]) =>
           count > 0 ? (
             <div key={piece} className="flex gap-1">
               {[...Array(count)].map((_, i) => (
                 <span key={i} className="text-lg font-semibold">
-                  {/* {pieceLetters[piece as keyof typeof pieceLetters]} */}
                   <FontAwesomeIcon
                     icon={pieceIcons[piece as keyof typeof pieceIcons]}
                     size="sm"
+                    color={color === "w" ? "white" : "black"}
                   />
                 </span>
               ))}
             </div>
           ) : null
       )}
-        
-      +{getMaterialDiff(color)}
+
+      {materialCount > 0 ? "+" : ""}{materialCount || ""}
     </div>
   );
 };
