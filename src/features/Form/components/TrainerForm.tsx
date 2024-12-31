@@ -71,7 +71,6 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
             className="w-full p-2 bg-gray-800 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-        {JSON.stringify(formData)}
         <div className="flex flex-col gap-1 mb-4">
           <label>Choose Time Period</label>
           <div className="flex justify-between mb-4">
