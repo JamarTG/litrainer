@@ -16,7 +16,7 @@ interface PlayerInfoProps {
 const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color, isWinner }) => {
   const { user, rating } = player;
   return (
-    <div className="noto player-color flex rounded-md ">
+    <div className="noto player-color flex justify-center items-center flex rounded-md ">
       {isWinner ? <WinnerIcon /> : <PlayerIcon color={color} />}
       <PatronIcon isPatron={user.patron ?? null} />
       <PlayerTitle title={user.title ?? null} />
