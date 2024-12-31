@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Chess } from "chess.js";
 import GameInfo from "./GameInfo";
 import { Puzzle } from "../../../types/puzzle";
@@ -15,13 +15,15 @@ interface ControlPanelProps {
   prevPuzzle: () => void;
   unhighlightLegalMoves: () => void;
   setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
-  setSolved: React.Dispatch<React.SetStateAction<boolean>>;
   sessionStarted: boolean;
   playAllMovesInVariation: () => void;
   puzzle: Puzzle | null;
   game: Chess;
-  isPuzzleSolved: boolean;
+  solved: boolean | null;
+  setSolved : Dispatch<SetStateAction<boolean | null>>;
   source: Source;
+  hasPlayedVariation: boolean,
+  setHasPlayedVariation: Dispatch<SetStateAction<boolean>>;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -32,9 +34,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   unhighlightLegalMoves,
   playAllMovesInVariation,
   setSolved,
-  isPuzzleSolved,
+  solved,
   source,
+  hasPlayedVariation,
+  setHasPlayedVariation,
 }) => {
+  
+
   const isDataAvailable = puzzle !== null;
  
   const resetBoard = (changePuzzle: () => void) => {
@@ -69,11 +75,14 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             <GameStatus puzzle={puzzle} />
             <GameResultMessage />
           </div>
-
-          {isPuzzleSolved != null && (
+         
+          {solved && !hasPlayedVariation && (
             <div className="flex gap-3 mt-5">
               <button
-                onClick={playAllMovesInVariation}
+                onClick={() => {
+                  playAllMovesInVariation()
+                  setHasPlayedVariation(true)
+                }}
                 className="bg-gray-500 hover:bg-gray-700 active:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out transform "
               >
                 Play Variation
