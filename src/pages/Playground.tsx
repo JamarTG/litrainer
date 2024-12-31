@@ -25,6 +25,7 @@ import PlayerWithMaterial from "../features/Board/components/PlayerWithMaterial"
 import { PuzzleContext } from "../context/Puzzle/context";
 import { useEngineContext } from "../context/Engine/Provider";
 import EngineSwitcher from "../features/ControlPanel/components/EngineSwitcher";
+import { useComputerMove } from "../features/Engine/hooks/useComputerMove";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -68,6 +69,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
 
+  const { executeComputerMove } = useComputerMove(setGame, setFen);
+
   useEffect(() => {
     setMaterial(getMaterialDiff(game));
   }, [game.fen()]);
@@ -90,14 +93,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     };
   }, []);
 
-  const executeComputerMove = (game: Chess, move: string) => {
-    setTimeout(() => {
-      const moveObj = game.move(move);
-      playSound(game, moveObj);
-      setGame(game);
-      setFen(game.fen());
-    }, 500);
-  };
 
   useEffect(() => {
     setPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
