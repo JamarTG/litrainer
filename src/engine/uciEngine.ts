@@ -3,7 +3,7 @@ import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
-import { getBasicClassification, isPieceSacrifice } from "../utils/chess";
+import { getBasicClassification } from "../utils/chess";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -21,7 +21,7 @@ export abstract class UciEngine {
     this.worker = new Worker(enginePath);
     this.customEngineInit = customEngineInit;
 
-    console.log(`${engineName} created`);
+    // console.log(`${engineName} created`);
   }
 
   public async init(): Promise<void> {
@@ -29,7 +29,7 @@ export abstract class UciEngine {
     await this.setMultiPv(this.multiPv, true);
     await this.customEngineInit?.();
     this.ready = true;
-    console.log(`${this.engineName} initialized`);
+    // console.log(`${this.engineName} initialized`);
   }
 
   private async setMultiPv(multiPv: number, initCase = false) {
@@ -139,7 +139,7 @@ export abstract class UciEngine {
     fen: string,
     move: string,
     depth: number
-  ): Promise<{ classification: MoveClassification; variation: string[] }> {
+  ): Promise<{ classification: MoveClassification }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
 
@@ -156,20 +156,19 @@ export abstract class UciEngine {
 
     // Account for the required evaluation scores where a brilliant is possible
 
-    if (
-      (basicClassification === MoveClassification.Best ||
-        basicClassification === MoveClassification.Excellent) &&
-      isPieceSacrifice(fen, move)
-    ) {
-      return {
-        classification: MoveClassification.Brilliant,
-        variation: currentPositionEval.lines[0].pv,
-      };
-    }
+    // if (
+    //   (basicClassification === MoveClassification.Best ||
+    //     basicClassification === MoveClassification.Excellent) &&
+    //   isPieceSacrifice(fen, move)
+    // ) {
+    //   return {
+    //     classification: MoveClassification.Brilliant,
+    //     variation: currentPositionEval.lines[0].pv,
+    //   };
+    // }
 
     return {
       classification: basicClassification,
-      variation: currentPositionEval.lines[0].pv,
     };
   }
 }

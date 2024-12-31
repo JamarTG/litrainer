@@ -1,6 +1,5 @@
 import { Chess, Move, Square } from "chess.js";
 import { Classification, MoveClassification } from "../types/move";
-import { getWinPercentageFromCp, getWinPercentageFromMate } from "./math";
 import { Materials, PositionEval } from "../types/eval";
 import { PIECEVALUE } from "../constants";
 import { openings } from "../data/openings";
@@ -16,7 +15,7 @@ export const getSquarePosition = (
 
   const squareSize = boardSize / 8;
 
-  const topOffset = squareSize * 0.5;
+  const topOffset = squareSize * 0.3;
   const rightOffset = squareSize * 0.3;
 
   if (orientation === "white") {
@@ -106,37 +105,34 @@ export const getBasicClassification = (
     return MoveClassification.Best;
   }
 
-  let currentPositionWinPerc = null;
-  let lastPositionWinPerc = null;
+  let currentCp = null;
+  let lastCp = null;
 
   if (!currentPositionEval.lines[0].mate) {
-    currentPositionWinPerc = getWinPercentageFromCp(
-      currentPositionEval.lines[0].cp ?? 0
-    );
+    currentCp = currentPositionEval.lines[0].cp ?? 0;
   } else {
-    currentPositionWinPerc = getWinPercentageFromMate(
-      currentPositionEval.lines[0].mate
-    );
+   
+    
+    currentCp = currentPositionEval.lines[0].mate > 0
+      ? 100000 - currentPositionEval.lines[0].mate * 100
+      : -100000 - currentPositionEval.lines[0].mate * 100;
   }
 
   if (!lastPositionEval.lines[0].mate) {
-    lastPositionWinPerc = getWinPercentageFromCp(
-      lastPositionEval.lines[0].cp ?? 0
-    );
+    lastCp = lastPositionEval.lines[0].cp ?? 0;
   } else {
-    lastPositionWinPerc = getWinPercentageFromMate(
-      lastPositionEval.lines[0].mate
-    );
+   
+    lastCp = lastPositionEval.lines[0].mate > 0
+      ? 100000 - lastPositionEval.lines[0].mate * 100
+      : -100000 - lastPositionEval.lines[0].mate * 100;
   }
 
-  const winPercentageDiff = Math.abs(
-    currentPositionWinPerc - lastPositionWinPerc
-  );
+  const cpDiff = Math.abs(currentCp - lastCp);
 
-  if (winPercentageDiff >= 20) return MoveClassification.Blunder;
-  if (winPercentageDiff >= 10) return MoveClassification.Mistake;
-  if (winPercentageDiff >= 5) return MoveClassification.Inaccuracy;
-  if (winPercentageDiff >= 2) return MoveClassification.Good;
+  if (cpDiff >= 300) return MoveClassification.Blunder;
+  if (cpDiff >= 100) return MoveClassification.Mistake;
+  if (cpDiff >= 50) return MoveClassification.Inaccuracy;
+  if (cpDiff >= 20) return MoveClassification.Good;
   return MoveClassification.Excellent;
 };
 
@@ -171,7 +167,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
     .moves({ verbose: true })
     .filter((m) => m.to === pieceSquare && m.color !== game.turn());
 
-  console.log(attackers);
+  // console.log(attackers);
   for (const attacker of attackers) {
     if (
       PIECEVALUE[attacker.piece] <

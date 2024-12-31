@@ -26,19 +26,6 @@ export interface LichessEvaluation {
     comment: string;
   };
 }
-
-export enum AnalysisSource {
-  LichessAPI = "LichessAPI",
-  Stockfish = "Stockfish",
-  Opening = "Opening",
-}
-
-export type Source =
-  | AnalysisSource.LichessAPI
-  | AnalysisSource.Stockfish
-  | AnalysisSource.Opening
-  | null;
-
 export interface Material {
   p: number;
   n: number;

@@ -1,5 +1,5 @@
 import { EngineName } from "../../../types/engine";
-import { useEngineContext } from "../../../context/Engine/Provider";
+import { useEngineContext } from "../../../context/Engine/EngineContext";
 
 const EngineSwitcher = () => {
   const { setEngineName } = useEngineContext();

@@ -11,7 +11,7 @@ const sounds: { [key: string]: HTMLAudioElement } = {
 function preloadSounds(): void {
   Object.values(sounds).forEach((sound) => {
     sound.addEventListener('canplaythrough', () => {
-      console.log(`${sound.src} is ready to play`);
+      // console.log(`${sound.src} is ready to play`);
     }, { once: true });
     sound.load();
   });
