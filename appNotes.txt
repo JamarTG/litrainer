@@ -7,21 +7,10 @@ Use Local Storage
     - Store Puzzle Index
 
 Move Classification System
-    - Classification System More Consistent with Lichess
-
-Analysis source 
-    - Cache -> Opening Database -> Cloud -> Stockfish
-        - Cache - Always active in local Storage
-        - Opening Database is always there
-        - Cloud is next slowest - Still Requires Classification(Problem) - May Disregard
-        - Stockfish takes the longest and is the last resort
-        - LichessAPI
+    - Improve on Brilliant
 
 Engine Switcher & Depth Changer
 
 Mate or Even Best Move doesn't show at the end because there is no next position
-
-
-Problems
-================================
-fen and game.fen() is being used
+Also handle where all mate is the best move
+Incorporate lichess bestmove  

@@ -1,48 +1,30 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Chess } from "chess.js";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import GameInfo from "./GameInfo";
-import { Puzzle } from "../../../types/puzzle";
 import { Classification } from "../../../types/move";
 import GameResultMessage from "./GameResultMessage";
 import GameStatus from "./GameStatus";
 import IconButton from "../../../components/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
-import AnalysisSource from "./AnalysisSource";
-import { Source } from "../../../types/eval";
+import { PuzzleContext } from "../../../context/Puzzle/PuzzleContext";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
   prevPuzzle: () => void;
   unhighlightLegalMoves: () => void;
   setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
-  sessionStarted: boolean;
-  playAllMovesInVariation: () => void;
-  puzzle: Puzzle | null;
-  game: Chess;
-  solved: boolean | null;
-  setSolved : Dispatch<SetStateAction<boolean | null>>;
-  source: Source;
-  hasPlayedVariation: boolean,
-  setHasPlayedVariation: Dispatch<SetStateAction<boolean>>;
+  setSolved: Dispatch<SetStateAction<boolean | null>>;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
-  puzzle,
   nextPuzzle,
   prevPuzzle,
   setClassification,
   unhighlightLegalMoves,
-  playAllMovesInVariation,
   setSolved,
-  solved,
-  source,
-  hasPlayedVariation,
-  setHasPlayedVariation,
 }) => {
-  
-
+  const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
- 
+
   const resetBoard = (changePuzzle: () => void) => {
     setSolved(false);
     changePuzzle();
@@ -55,8 +37,6 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
       {isDataAvailable && (
         <div className="flex flex-col rounded-lg flex-grow">
           <GameInfo puzzle={puzzle} />
-          <AnalysisSource source={source} />
-
           <div className="flex flex-row">
             <PuzzleInfo puzzle={puzzle} />
             <div className="flex flex-row">
@@ -70,26 +50,10 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               />
             </div>
           </div>
-
           <div className="mt-2  text-white rounded-md text-md flex gap-2">
             <GameStatus puzzle={puzzle} />
             <GameResultMessage />
           </div>
-         
-          {solved && !hasPlayedVariation && (
-            <div className="flex gap-3 mt-5">
-              <button
-                onClick={() => {
-                  playAllMovesInVariation()
-                  setHasPlayedVariation(true)
-                }}
-                className="bg-gray-500 hover:bg-gray-700 active:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out transform "
-              >
-                Play Variation
-              </button>
-              
-            </div>
-          )}
         </div>
       )}
     </div>

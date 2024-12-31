@@ -2,7 +2,7 @@ import { useState, Dispatch, SetStateAction, useContext } from "react";
 import { STARTINGPOSFEN } from "../../../constants";
 import { Puzzle, PuzzleIndex } from "../../../types/puzzle";
 import { Square } from "chess.js";
-import { PuzzleContext } from "../../../context/Puzzle/context";
+import { PuzzleContext } from "../../../context/Puzzle/PuzzleContext";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],

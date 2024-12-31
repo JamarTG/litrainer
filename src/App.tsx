@@ -12,8 +12,8 @@ import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Playground from "./pages/Playground";
 import NotFound from "./pages/NotFound";
-import { PuzzleProvider } from "./context/Puzzle/Provider";
-import { EngineProvider } from "./context/Engine/Provider";
+import { PuzzleProvider } from "./context/Puzzle/PuzzleProvider";
+import { EngineProvider } from "./context/Engine/EngineProvider";
 import { EngineName } from "./types/engine";
 
 const AppContent = () => {
@@ -40,7 +40,7 @@ const AppContent = () => {
 const App = () => {
   return (
     <Router>
-      <EngineProvider initialEngineName={EngineName.Stockfish16_1}>
+      <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
         <PuzzleProvider>
           <AppContent />
         </PuzzleProvider>

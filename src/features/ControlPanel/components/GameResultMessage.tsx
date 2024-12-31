@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { getGameResultMessage } from "../../../utils/chess";
-import { PuzzleContext } from "../../../context/Puzzle/context";
+import { PuzzleContext } from "../../../context/Puzzle/PuzzleContext";
 
 
 

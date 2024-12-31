@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { PuzzleContext } from "./context";
+import { PuzzleContext } from "./PuzzleContext";
 import { Puzzle } from "../../types/puzzle";
 
 export const PuzzleProvider: React.FC<{ children: ReactNode }> = ({
