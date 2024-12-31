@@ -44,7 +44,7 @@ export const getCustomSquareStyles = (
             }`
           : undefined,
       backgroundSize: "30%",
-      opacity: classification ? 0.5 : 1,
+      opacity: classification ? 0.7 : 1,
       backgroundPosition: "top right",
       backgroundRepeat: "no-repeat",
     };

@@ -4,7 +4,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { PuzzleProvider } from "./context/Puzzle/Provider";
+
 import "./App.css";
 
 import About from "./pages/About";
@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Playground from "./pages/Playground";
 import NotFound from "./pages/NotFound";
+import { PuzzleProvider } from "./context/Puzzle/Provider";
 
 const AppContent = () => {
   const location = useLocation();
