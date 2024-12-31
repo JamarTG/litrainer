@@ -58,7 +58,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
-    useChangePuzzle(puzzles, setPuzzle, setUndoneMoves);
+    useChangePuzzle(puzzles, setPuzzle, setUndoneMoves,setDestinationSquare, setSourceSquare);
 
   const engine = useEngine(EngineName.Stockfish16_1Lite);
 

@@ -17,7 +17,7 @@ export const getSquarePosition = (
 
   const squareSize = boardSize / 8;
 
-  const offset = squareSize * 0.2; // 10% of the square size
+  const offset = squareSize * 0.2; 
 
   if (orientation === "white") {
     return {
@@ -162,6 +162,9 @@ export const getGameResultMessage = (status: string, winner?: string) => {
 const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
 
+  // Sacrificing a single pawn is not a sacrifice
+  // Giving up a piece you can't protect anyways is not a sacrifice
+
   // If you were being attacked by a lower value piece its not a sacrifice
   const pieceSquare = move.slice(0, 2);
   const attackers = game
@@ -218,7 +221,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
         ourMove.captured &&
         PIECEVALUE[ourMove.captured] +
           (moveObj.captured ? PIECEVALUE[moveObj.captured] : 0) >=
-          PIECEVALUE[opponentMove.captured] - 2
+          PIECEVALUE[opponentMove.captured] 
       ) {
         canRegainMaterial = true;
         break;
