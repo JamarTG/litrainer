@@ -1,11 +1,15 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import { STARTINGPOSFEN } from "../../../constants";
 import { Puzzle, PuzzleIndex } from "../../../types/puzzle";
+import { Square } from "chess.js";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],
   setCurrentPuzzle: Dispatch<SetStateAction<Puzzle | null>>,
-  setUndoneMoves: Dispatch<SetStateAction<string[]>>
+  setUndoneMoves: Dispatch<SetStateAction<string[]>>,
+  setDstSquare: Dispatch<SetStateAction<Square | "">>,
+  setSrcSquare : Dispatch<SetStateAction<Square | "">>,
+
 ) => {
   const [sessionStarted, setSessionStarted] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState<PuzzleIndex>({ x: 0, y: 0 });
@@ -28,6 +32,8 @@ const useChangePuzzle = (
       setFen(puzzles[puzzleIndex.x + 1][0].fen.previous);
     }
     setUndoneMoves([]);
+    setDstSquare("");
+    setSrcSquare("");
   };
 
   const prevPuzzle = () => {
@@ -44,6 +50,8 @@ const useChangePuzzle = (
       setFen(puzzles[puzzleIndex.x - 1][newY].fen.previous);
     }
     setUndoneMoves([]);
+    setDstSquare("");
+    setSrcSquare("");
   };
 
   return {
