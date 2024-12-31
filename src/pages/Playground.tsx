@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { useEngine } from "../engine/hooks/useEngine";
@@ -24,6 +24,7 @@ import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
 import MoveList from "../features/MoveList/MoveList";
 import RenderMaterial from "../features/ControlPanel/components/RenderMaterial";
 import PlayerWithMaterial from "../features/Board/components/PlayerWithMaterial";
+import { PuzzleContext } from "../context/Puzzle/context";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -38,7 +39,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [material, setMaterial] = useState<Materials>(INITIAL_MATERIAL);
-  const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">(
     ""
   );
@@ -58,9 +58,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
-    useChangePuzzle(puzzles, setPuzzle, setUndoneMoves,setDestinationSquare, setSourceSquare);
+    useChangePuzzle(puzzles,setUndoneMoves,setDestinationSquare, setSourceSquare);
 
   const engine = useEngine(EngineName.Stockfish16_1Lite);
+
+  const {puzzle,setPuzzle} = useContext(PuzzleContext);
 
   useEffect(() => {
     setMaterial(getMaterialDiff(game));
@@ -93,7 +95,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const executeComputerMove = (game: Chess, move: string) => {
     setTimeout(() => {
       const moveObj = game.move(move);
-      // Play the sound for the move
+     
       playSound(game, moveObj);
 
       setGame(game);
