@@ -17,7 +17,7 @@ const GameLink: React.FC<GameLinkProps> = ({ gameId, moveNo }) => {
         <span className="icon text-xl hover:text-blue-500 ml-1">
           &#xe07a;
         </span>
-        <small>View on Lichess {moveNo}</small>
+        <small>View on Lichess</small>
       </a>
     </div>
   );

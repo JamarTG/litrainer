@@ -55,9 +55,9 @@ export const getCustomSquareStyles = (
 
 export const getSquareStyle = (isCaptureMove: boolean) => {
   return {
-    background: `radial-gradient(circle, ${
-      isCaptureMove ? "rgba(15, 245, 130, 0.6)" : "rgba(15, 245, 130, 0.8)"
-    } ${isCaptureMove ? "60%" : "20%"}, transparent 15%)`,
+    background: isCaptureMove
+      ? "radial-gradient(circle, transparent 55%, rgba(0,0,0, 0.2) 35%)"
+      : "radial-gradient(circle, rgba(0,0,0, 0.2) 30%, transparent 35%)",
     borderRadius: "50%",
     zIndex: 1,
   };
