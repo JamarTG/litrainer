@@ -345,9 +345,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           undoMove={undoMove}
         />
 
-        src: {sourceSquare}
-        dst: {destinationSquare}
-
         <PuzzleControlPanel
           game={game}
           puzzle={puzzle}
