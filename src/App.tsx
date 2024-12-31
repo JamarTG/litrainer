@@ -12,7 +12,9 @@ import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Playground from "./pages/Playground";
 import NotFound from "./pages/NotFound";
-import { PuzzleProvider } from "./context/Puzzle/provider";
+import { PuzzleProvider } from "./context/Puzzle/Provider";
+import { EngineProvider } from "./context/Engine/Provider";
+import { EngineName } from "./types/engine";
 
 const AppContent = () => {
   const location = useLocation();
@@ -38,9 +40,11 @@ const AppContent = () => {
 const App = () => {
   return (
     <Router>
-      <PuzzleProvider>
-        <AppContent />
-      </PuzzleProvider>
+      <EngineProvider initialEngineName={EngineName.Stockfish16_1}>
+        <PuzzleProvider>
+          <AppContent />
+        </PuzzleProvider>
+      </EngineProvider>
     </Router>
   );
 };

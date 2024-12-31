@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
-import { useEngine } from "../engine/hooks/useEngine";
-import { EngineName } from "../types/engine";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import { BOARD_DIMENSIONS, INITIAL_MATERIAL } from "../constants";
@@ -25,6 +23,8 @@ import MoveList from "../features/MoveList/MoveList";
 import RenderMaterial from "../features/ControlPanel/components/RenderMaterial";
 import PlayerWithMaterial from "../features/Board/components/PlayerWithMaterial";
 import { PuzzleContext } from "../context/Puzzle/context";
+import { useEngineContext } from "../context/Engine/Provider";
+import EngineSwitcher from "../features/ControlPanel/components/EngineSwitcher";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -64,7 +64,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setSourceSquare
     );
 
-  const engine = useEngine(EngineName.Stockfish16_1Lite);
+  const { engine } = useEngineContext();
 
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
 
@@ -136,8 +136,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
-    
-    
     if (isPuzzleSolved) return false;
 
     if (isNotUserTurn(game, puzzle)) {
@@ -147,8 +145,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     if (!movePlayedByUser) return false;
 
-    setSourceSquare(sourceSquare as Square)
-    setDestinationSquare(targetSquare as Square)
+    setSourceSquare(sourceSquare as Square);
+    setDestinationSquare(targetSquare as Square);
     setUndoneMoves([]);
     const bookMove = handleKnownOpening(movePlayedByUser);
 
@@ -296,7 +294,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
-          animationDuration={60}
+          animationDuration={10}
           onPieceDrop={handlePieceDrop}
           onPieceDragBegin={unhighlightSquares}
           onPieceDragEnd={unhighlightSquares}
@@ -338,6 +336,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           redoMove={redoMove}
           undoMove={undoMove}
         />
+
         <PuzzleControlPanel
           game={game}
           puzzle={puzzle}
@@ -347,9 +346,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           sessionStarted={sessionStarted}
           unhighlightLegalMoves={unhighlightSquares}
           setSolved={setSolved}
+          isPuzzleSolved={isPuzzleSolved}
           setClassification={setClassification}
           playAllMovesInVariation={playAllMovesInVariation}
         />
+        <EngineSwitcher />
       </div>
     </div>
   );

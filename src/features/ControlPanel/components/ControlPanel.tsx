@@ -17,9 +17,10 @@ interface ControlPanelProps {
   setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
   setSolved: React.Dispatch<React.SetStateAction<boolean>>;
   sessionStarted: boolean;
-  playAllMovesInVariation : () => void;
+  playAllMovesInVariation: () => void;
   puzzle: Puzzle | null;
   game: Chess;
+  isPuzzleSolved: boolean;
   source: Source;
 }
 
@@ -31,10 +32,11 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   unhighlightLegalMoves,
   playAllMovesInVariation,
   setSolved,
+  isPuzzleSolved,
   source,
 }) => {
   const isDataAvailable = puzzle !== null;
-
+ 
   const resetBoard = (changePuzzle: () => void) => {
     setSolved(false);
     changePuzzle();
@@ -65,20 +67,21 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
           <div className="mt-2  text-white rounded-md text-md flex gap-2">
             <GameStatus puzzle={puzzle} />
-            <GameResultMessage/>
+            <GameResultMessage />
           </div>
 
+          {isPuzzleSolved != null && (
             <div className="flex gap-3 mt-5">
-                <button onClick={playAllMovesInVariation} className="bg-green-500 hover:bg-green-700 active:bg-green-900 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 active:scale-95">
+              <button
+                onClick={playAllMovesInVariation}
+                className="bg-gray-500 hover:bg-gray-700 active:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out transform "
+              >
                 Play Variation
-                </button>
-                <button className="bg-green-500 hover:bg-green-700 active:bg-green-900 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 active:scale-95">
-                Best Move
-                </button>
-            
+              </button>
+              
             </div>
+          )}
         </div>
-
       )}
     </div>
   );
