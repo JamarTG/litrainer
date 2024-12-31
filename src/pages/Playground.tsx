@@ -136,6 +136,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+    
+    
     if (isPuzzleSolved) return false;
 
     if (isNotUserTurn(game, puzzle)) {
@@ -145,6 +147,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     if (!movePlayedByUser) return false;
 
+    setSourceSquare(sourceSquare as Square)
+    setDestinationSquare(targetSquare as Square)
     setUndoneMoves([]);
     const bookMove = handleKnownOpening(movePlayedByUser);
 

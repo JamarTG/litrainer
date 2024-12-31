@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Playground from "./pages/Playground";
 import NotFound from "./pages/NotFound";
-import { PuzzleProvider } from "./context/Puzzle/Provider";
+import { PuzzleProvider } from "./context/Puzzle/provider";
 
 const AppContent = () => {
   const location = useLocation();
