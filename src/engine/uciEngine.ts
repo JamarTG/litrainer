@@ -4,7 +4,6 @@ import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../utils/parse";
 import { getBasicClassification, isPieceSacrifice } from "../utils/chess";
-import { getWinPercentageFromCp } from "../utils/math";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -143,7 +142,6 @@ export abstract class UciEngine {
   ): Promise<{ classification: MoveClassification; variation: string[] }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
-    let canBeBrilliant = false;
 
     if (!isValidMove) throw new Error("Invalid move");
 
@@ -155,6 +153,8 @@ export abstract class UciEngine {
       currentPositionEval,
       move
     );
+
+    // Account for the required evaluation scores where a brilliant is possible
 
     if (
       (basicClassification === MoveClassification.Best ||

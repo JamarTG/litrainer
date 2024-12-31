@@ -236,8 +236,6 @@ const isPieceSacrifice = (fen: string, move: string) => {
   return false;
 };
 
-export { isPieceSacrifice };
-
 export const getMaterialDiff = (game: Chess) => {
   let material: Materials = {
     w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
@@ -281,3 +279,5 @@ export const getMaterialDiff = (game: Chess) => {
 
   return { w, b };
 };
+
+export { isPieceSacrifice };
