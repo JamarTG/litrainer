@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { PuzzleProvider } from "./context/Puzzle/Provider";
 import "./App.css";
 
 import About from "./pages/About";
@@ -31,7 +37,9 @@ const AppContent = () => {
 const App = () => {
   return (
     <Router>
-      <AppContent />
+      <PuzzleProvider>
+        <AppContent />
+      </PuzzleProvider>
     </Router>
   );
 };
