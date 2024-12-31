@@ -55,7 +55,7 @@ const createPuzzles = (
     chessgame.loadPgn(game.moves);
 
     const history = chessgame.history({ verbose: true });
-  
+
     const gameEvaluations = evaluations[index];
     const OPColor = getOpColor(username, game);
 
@@ -63,7 +63,7 @@ const createPuzzles = (
 
     for (let i = 0; i < gameEvaluations.length; i++) {
       const evaluation = gameEvaluations[i];
-      console.log(game.moves,'these are the moves')
+
       if (evaluation.judgment && OPColor === history[i].color && i > 0) {
         const puzzle: Puzzle = {
           gameId: game.game_id,
@@ -94,7 +94,7 @@ const createPuzzles = (
           fen: {
             current: history[i].before,
             previous: history[i - 1].before || history[i].before,
-          }
+          },
         };
 
         if (game.winner) {

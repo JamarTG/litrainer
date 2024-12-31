@@ -1,10 +1,36 @@
 import { Chess, Move, Square } from "chess.js";
 import { Classification, MoveClassification } from "../types/move";
 import { getWinPercentageFromCp, getWinPercentageFromMate } from "./math";
-import { PositionEval } from "../types/eval";
+import { Materials, PositionEval } from "../types/eval";
 import { PIECEVALUE } from "../constants";
 import { openings } from "../data/openings";
 import { Puzzle } from "../types/puzzle";
+
+
+export const getSquarePosition = (
+  square: string,
+  boardSize: number,
+  orientation: "white" | "black"
+) => {
+  const file = square.charCodeAt(0) - 'a'.charCodeAt(0);
+  const rank = 8 - parseInt(square[1], 10);
+
+  const squareSize = boardSize / 8;
+
+  const offset = squareSize * 0.2; // 10% of the square size
+
+  if (orientation === "white") {
+    return {
+      right: (7 - file) * squareSize - offset,
+      top: rank * squareSize - offset,
+    };
+  } else {
+    return {
+      right: file * squareSize - offset,
+      top: (7 - rank) * squareSize - offset,
+    };
+  }
+};
 
 export const attemptMove = (
   game: Chess,
@@ -45,35 +71,8 @@ export const normalizeCastlingMove = (move: string) => {
   return move;
 };
 
-export function getEvaluationLossThreshold(
-  classif: MoveClassification,
-  prevEval: number
-) {
-  prevEval = Math.abs(prevEval);
-
-  let threshold = 0;
-
-  switch (classif) {
-    case MoveClassification.Best:
-      threshold = 0.0001 * Math.pow(prevEval, 2) + 0.0236 * prevEval - 3.7143;
-      break;
-    case MoveClassification.Excellent:
-      threshold = 0.0002 * Math.pow(prevEval, 2) + 0.1231 * prevEval + 27.5455;
-      break;
-    case MoveClassification.Good:
-      threshold = 0.0002 * Math.pow(prevEval, 2) + 0.2643 * prevEval + 60.5455;
-      break;
-    case MoveClassification.Inaccuracy:
-      threshold = 0.0002 * Math.pow(prevEval, 2) + 0.3624 * prevEval + 108.0909;
-      break;
-    case MoveClassification.Mistake:
-      threshold = 0.0003 * Math.pow(prevEval, 2) + 0.4027 * prevEval + 225.8182;
-      break;
-    default:
-      threshold = Infinity;
-  }
-
-  return Math.max(threshold, 0);
+export const isNotUserTurn = (game: Chess, puzzle: Puzzle | null) => {
+  return game.turn() !== puzzle?.userMove.color;
 }
 
 export const isPositiveClassification = (
@@ -93,7 +92,7 @@ export const checkKnownOpening = (fen: string) => {
   return !!opening;
 };
 
-export const checkKnownBadMove = (movePlayedByUser: Move,puzzle : Puzzle) => {
+export const checkKnownBadMove = (movePlayedByUser: Move, puzzle: Puzzle) => {
   return movePlayedByUser.lan == puzzle?.userMove.lan
     ? puzzle.evaluation.judgment?.name
     : "";
@@ -219,7 +218,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
         ourMove.captured &&
         PIECEVALUE[ourMove.captured] +
           (moveObj.captured ? PIECEVALUE[moveObj.captured] : 0) >=
-          PIECEVALUE[opponentMove.captured] - 1
+          PIECEVALUE[opponentMove.captured] - 2
       ) {
         canRegainMaterial = true;
         break;
@@ -235,3 +234,47 @@ const isPieceSacrifice = (fen: string, move: string) => {
 };
 
 export { isPieceSacrifice };
+
+export const getMaterialDiff = (game: Chess) => {
+  let material: Materials = {
+    w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+  };
+
+  for (const row of game.board()) {
+    for (const square of row) {
+      if (square) {
+        if (square.color === "w") {
+          material.w[square.type as keyof typeof material.w]++;
+        }
+        if (square.color === "b") {
+          material.b[square.type as keyof typeof material.b]++;
+        }
+      }
+    }
+
+    let materialDiff = 0;
+    for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
+      materialDiff +=
+        (material.w[pieceType] - material.b[pieceType]) * PIECEVALUE[pieceType];
+    }
+  }
+
+  const w = {
+    p: Math.max(material.w.p - material.b.p, 0),
+    n: Math.max(material.w.n - material.b.n, 0),
+    b: Math.max(material.w.b - material.b.b, 0),
+    r: Math.max(material.w.r - material.b.r, 0),
+    q: Math.max(material.w.q - material.b.q, 0),
+  };
+
+  const b = {
+    p: Math.max(material.b.p - material.w.p, 0),
+    n: Math.max(material.b.n - material.w.n, 0),
+    b: Math.max(material.b.b - material.w.b, 0),
+    r: Math.max(material.b.r - material.w.r, 0),
+    q: Math.max(material.b.q - material.w.q, 0),
+  };
+
+  return { w, b };
+};

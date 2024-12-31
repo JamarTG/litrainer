@@ -7,15 +7,16 @@ import {
 
 export const getCustomSquareStyles = (
   dstSquare: Square | "",
+  srcSquare: Square | "",
   classification: Classification | "",
   moveSquares: Record<string, any>,
   isLoadingEvaluation: boolean
 ) => {
   const styles: Record<string, any> = { ...moveSquares };
 
-  if (dstSquare) {
+  if (dstSquare && srcSquare) {
     styles[dstSquare] = {
-      backgroundImage: `url(images/marker/${classification}.svg)`,
+
       backgroundColor:
         classification && !isLoadingEvaluation
           ? `${
@@ -26,10 +27,26 @@ export const getCustomSquareStyles = (
               ]
             }`
           : undefined,
-      backgroundSize: "40%",
+      backgroundSize: "30%",
       backgroundPosition: "top right",
       backgroundRepeat: "no-repeat",
-      zIndex: 2
+    };
+    styles[srcSquare] = {
+
+      backgroundColor:
+        classification && !isLoadingEvaluation
+          ? `${
+              ClassificationColors[
+                MoveClassification[
+                  classification as keyof typeof MoveClassification
+                ]
+              ]
+            }`
+          : undefined,
+      backgroundSize: "30%",
+      opacity: classification ? 0.5 : 1,
+      backgroundPosition: "top right",
+      backgroundRepeat: "no-repeat",
     };
   }
 
@@ -39,7 +56,7 @@ export const getCustomSquareStyles = (
 export const getSquareStyle = (isCaptureMove: boolean) => {
   return {
     background: `radial-gradient(circle, ${
-      isCaptureMove ? "rgba(15, 245, 130, 0.6)" : "rgba(15, 206, 196, 0.6)"
+      isCaptureMove ? "rgba(15, 245, 130, 0.6)" : "rgba(15, 245, 130, 0.8)"
     } ${isCaptureMove ? "60%" : "20%"}, transparent 15%)`,
     borderRadius: "50%",
     zIndex: 1,

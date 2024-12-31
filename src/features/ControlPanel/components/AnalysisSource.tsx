@@ -12,7 +12,7 @@ const AnalysisSource: React.FC<AnalysisSourceProps> = ({ source }) => {
       <div className="flex">
         {source === AS.Stockfish && (
           <div className="flex gap-2 justify-center items-center">
-            <i>Position Analyzed With Stockfish</i>
+            <small><i>Position Analyzed With Stockfish</i></small>
             <img
               src="/images/general/png/stockfish.png"
               width={30}
