@@ -15,6 +15,7 @@ Analysis source
         - Opening Database is always there
         - Cloud is next slowest - Still Requires Classification(Problem) - May Disregard
         - Stockfish takes the longest and is the last resort
+        - LichessAPI
 
 Engine Switcher & Depth Changer
 

@@ -102,8 +102,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   useEffect(() => {
-    const puzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null;
-    setPuzzle(puzzle);
+  
+    setPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
 
     if (puzzle) {
       setGameFen(game, puzzle.fen.previous);
