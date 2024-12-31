@@ -6,28 +6,28 @@ import { PIECEVALUE } from "../constants";
 import { openings } from "../data/openings";
 import { Puzzle } from "../types/puzzle";
 
-
 export const getSquarePosition = (
   square: string,
   boardSize: number,
   orientation: "white" | "black"
 ) => {
-  const file = square.charCodeAt(0) - 'a'.charCodeAt(0);
+  const file = square.charCodeAt(0) - "a".charCodeAt(0);
   const rank = 8 - parseInt(square[1], 10);
 
   const squareSize = boardSize / 8;
 
-  const offset = squareSize * 0.2; 
+  const topOffset = squareSize * 0.5;
+  const rightOffset = squareSize * 0.3;
 
   if (orientation === "white") {
     return {
-      right: (7 - file) * squareSize - offset,
-      top: rank * squareSize - offset,
+      right: (7 - file) * squareSize - rightOffset,
+      top: rank * squareSize - topOffset,
     };
   } else {
     return {
-      right: file * squareSize - offset,
-      top: (7 - rank) * squareSize - offset,
+      right: file * squareSize - rightOffset,
+      top: (7 - rank) * squareSize - topOffset,
     };
   }
 };
@@ -73,7 +73,7 @@ export const normalizeCastlingMove = (move: string) => {
 
 export const isNotUserTurn = (game: Chess, puzzle: Puzzle | null) => {
   return game.turn() !== puzzle?.userMove.color;
-}
+};
 
 export const isPositiveClassification = (
   classificationResult: Classification
@@ -221,7 +221,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
         ourMove.captured &&
         PIECEVALUE[ourMove.captured] +
           (moveObj.captured ? PIECEVALUE[moveObj.captured] : 0) >=
-          PIECEVALUE[opponentMove.captured] 
+          PIECEVALUE[opponentMove.captured]
       ) {
         canRegainMaterial = true;
         break;
