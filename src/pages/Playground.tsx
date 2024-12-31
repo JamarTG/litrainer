@@ -45,7 +45,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [completeVariation, setCompleteVariation] = useState<string[]>([]);
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">("");
   const [moveSquares, setMoveSquares] = useState({});
-  const [markerSquare, setMarkerSquare] = useState<string | null>(null);
   const [markerPosition, setMarkerPosition] = useState<{
     right: number;
     top: number;
@@ -68,22 +67,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setMaterial(getMaterialDiff(game));
   }, [game.fen()]);
 
-  useEffect(() => {
-    if (destinationSquare) {
-      setMarkerSquare(destinationSquare);
-    }
-  }, [destinationSquare]);
+  
 
   useEffect(() => {
-    if (markerSquare) {
+    if (destinationSquare) {
       const position = getSquarePosition(
-        markerSquare,
+        destinationSquare,
         boardSize,
         puzzle?.userMove.color === "w" ? "white" : "black"
       );
       setMarkerPosition({ right: position.right, top: position.top });
     }
-  }, [markerSquare, destinationSquare, boardSize]);
+  }, [destinationSquare, boardSize]);
 
   useEffect(() => {
     return () => {
@@ -128,8 +123,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const handleKnownOpening = (movePlayedByUser: Move) => {
-    const bookMove = checkKnownOpening(game.fen().split(" ")[0]);
-    if (bookMove) {
+    if (checkKnownOpening(game.fen().split(" ")[0])) {
       handleEvaluation(
         MoveClassification.Book,
         movePlayedByUser.to,
@@ -207,16 +201,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     source: Source,
     isPuzzleSolved: boolean
   ) => {
-    if (classificationResult !== "") {
-      setClassification(classificationResult);
-      setDestinationSquare(dstSquare);
-      if (isPuzzleSolved) {
-        setSolved(isPuzzleSolved);
-      }
-    } else {
-      setClassification("");
-    }
+    setClassification(classificationResult);
+    setDestinationSquare(dstSquare);
     setSource(source);
+    setSolved(isPuzzleSolved);
   };
 
   const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
@@ -319,7 +307,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           )}
           arePiecesDraggable={!isPuzzleSolved}
         />
-        {markerSquare && destinationSquare && classification && (
+        {destinationSquare && classification && (
           <img
             src={`/images/marker/${classification}.svg`}
             alt=""
@@ -348,7 +336,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         />
 
        dst: {destinationSquare}
-       mrk: {markerSquare}
 
         <PuzzleControlPanel
           game={game}
