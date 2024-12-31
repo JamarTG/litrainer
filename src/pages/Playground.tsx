@@ -83,7 +83,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       );
       setMarkerPosition({ right: position.right, top: position.top });
     }
-  }, [markerSquare, boardSize]);
+  }, [markerSquare, destinationSquare, boardSize]);
 
   useEffect(() => {
     return () => {
@@ -346,6 +346,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           redoMove={redoMove}
           undoMove={undoMove}
         />
+
+       dst: {destinationSquare}
+       mrk: {markerSquare}
 
         <PuzzleControlPanel
           game={game}
