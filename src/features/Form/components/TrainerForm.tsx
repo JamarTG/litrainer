@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, MouseEventHandler, SetStateAction } from "react";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fields } from "../../../types/form";
@@ -21,34 +15,34 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
   setFormData,
   handleSubmit,
 }) => {
-  const [selectedGameTypes, setSelectedGameTypes] = useState<string[]>([
-    "correspondence",
-    "classical",
-    "rapid",
-    "blitz",
-    "bullet",
-  ]);
-
-  const [selectedColor, setSelectedColor] = useState<string>("both");
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevFormData: any) => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: name === "maxNoGames" ? parseInt(value) : value,
     }));
   };
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedColor(event.target.value);
+    const value = event.target.value;
+    if (value === "both" || value === "black" || value === "white") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        color: value,
+      }));
+    }
   };
 
   const handleCheckboxChange = (gameType: string) => {
-    setSelectedGameTypes((prev) =>
-      prev.includes(gameType)
-        ? prev.filter((type) => type !== gameType)
-        : [...prev, gameType]
-    );
+    setFormData((prevFormData) => {
+      const updatedGameTypes = prevFormData.gameTypes.includes(gameType)
+        ? prevFormData.gameTypes.filter((type) => type !== gameType)
+        : [...prevFormData.gameTypes, gameType];
+      return {
+        ...prevFormData,
+        gameTypes: updatedGameTypes,
+      };
+    });
   };
 
   return (
@@ -77,7 +71,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
             className="w-full p-2 bg-gray-800 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-
+        {JSON.stringify(formData)}
         <div className="flex flex-col gap-1 mb-4">
           <label>Choose Time Period</label>
           <div className="flex justify-between mb-4">
@@ -132,7 +126,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
                   <input
                     type="checkbox"
                     value={gameType}
-                    checked={selectedGameTypes.includes(gameType)}
+                    checked={formData.gameTypes.includes(gameType)}
                     onChange={() => handleCheckboxChange(gameType)}
                     className="form-checkbox h-5 w-5 text-primary"
                   />
@@ -143,14 +137,13 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
         </div>
 
         {/* player color */}
-
         <div className="flex gap-4">
           <label className="flex items-center space-x-2">
             <input
               type="radio"
               name="color"
               value="white"
-              checked={selectedColor === "white"}
+              checked={formData.color === "white"}
               onChange={handleColorChange}
               className="form-radio h-5 w-5 text-primary"
             />
@@ -161,7 +154,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
               type="radio"
               name="color"
               value="black"
-              checked={selectedColor === "black"}
+              checked={formData.color === "black"}
               onChange={handleColorChange}
               className="form-radio h-5 w-5 text-primary"
             />
@@ -172,7 +165,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
               type="radio"
               name="color"
               value="both"
-              checked={selectedColor === "both"}
+              checked={formData.color === "both"}
               onChange={handleColorChange}
               className="form-radio h-5 w-5 text-primary"
             />

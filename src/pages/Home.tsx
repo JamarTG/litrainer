@@ -7,16 +7,15 @@ import { Fields } from "../types/form";
 import LoadingScreen from "../features/LoadingScreen/components/LoadingScreen";
 import { LichessGameResponse } from "../types/response";
 
-
 const Home: React.FC = () => {
-  const [formData, setFormData] = useState<Fields>(DEFAULT_FORM_STATE);
+  const [formData, setFormData] = useState<Fields>(DEFAULT_FORM_STATE as Fields);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    const { username, maxNoGames, startDate, endDate } = formData;
+    const { username, maxNoGames, startDate, endDate, gameTypes,color } = formData;
 
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -33,9 +32,17 @@ const Home: React.FC = () => {
     }
 
     setLoading(true);
+    // const gameTypes = [
+    //   "blitz",
+    //   "rapid",
+    //   "classical",
+    //   "bullet",
+    //   "correspondence"
+    // ];
+    // const colors = ["white", "black"];
 
     try {
-      const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
+      const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true&perfType=${gameTypes.join(",")}${color === "black" || color === "white" ? `&color=${color}` : ""}`;
       const response = await fetch(url, {
         headers: {
           Accept: "application/x-ndjson",

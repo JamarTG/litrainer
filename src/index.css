@@ -18,6 +18,15 @@ body {
 }
 
 
+.img {
+    width: 30px;
+
+    position: absolute;
+    z-index: 4;
+    left : 900;
+    top: 500;
+}
+
 .hide-calendar-icon {
     -webkit-appearance: none;
 }

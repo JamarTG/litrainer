@@ -1,4 +1,4 @@
-import {MoveClassification } from "../types/move";
+import { MoveClassification } from "../types/move";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
@@ -157,20 +157,10 @@ export abstract class UciEngine {
     );
 
     if (
-      currentPositionEval.lines[0].cp &&
-      getWinPercentageFromCp(currentPositionEval.lines[0].cp) >= 0.35 &&
-      getWinPercentageFromCp(currentPositionEval.lines[0].cp) <= 0.65
-    ) {
-      canBeBrilliant = true;
-    }
-
-    if (
       (basicClassification === MoveClassification.Best ||
         basicClassification === MoveClassification.Excellent) &&
-      canBeBrilliant
+      isPieceSacrifice(fen, move)
     ) {
-      isPieceSacrifice(fen, move);
-
       return {
         classification: MoveClassification.Brilliant,
         variation: currentPositionEval.lines[0].pv,
