@@ -65,7 +65,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
           <div className="mt-2  text-white rounded-md text-md flex gap-2">
             <GameStatus puzzle={puzzle} />
-            <GameResultMessage puzzle={puzzle} />
+            <GameResultMessage/>
           </div>
 
             <div className="flex gap-3 mt-5">
