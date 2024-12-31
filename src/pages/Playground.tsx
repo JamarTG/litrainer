@@ -39,11 +39,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [material, setMaterial] = useState<Materials>(INITIAL_MATERIAL);
-  const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">(
+  const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">("");
+  const [completeVariation, setCompleteVariation] = useState<string[]>([]);
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
-  const [completeVariation, setCompleteVariation] = useState<string[]>([]);
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">("");
   const [moveSquares, setMoveSquares] = useState({});
   const [markerPosition, setMarkerPosition] = useState<{
     right: number;
@@ -57,26 +57,29 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
-    useChangePuzzle(puzzles,setUndoneMoves,setDestinationSquare, setSourceSquare);
+    useChangePuzzle(
+      puzzles,
+      setUndoneMoves,
+      setDestinationSquare,
+      setSourceSquare
+    );
 
   const engine = useEngine(EngineName.Stockfish16_1Lite);
 
-  const {puzzle,setPuzzle} = useContext(PuzzleContext);
+  const { puzzle, setPuzzle } = useContext(PuzzleContext);
 
   useEffect(() => {
     setMaterial(getMaterialDiff(game));
   }, [game.fen()]);
 
-  
-
   useEffect(() => {
     if (destinationSquare) {
-      const position = getSquarePosition(
+      const { right, top } = getSquarePosition(
         destinationSquare,
         boardSize,
         puzzle?.userMove.color === "w" ? "white" : "black"
       );
-      setMarkerPosition({ right: position.right, top: position.top });
+      setMarkerPosition({ right, top });
     }
   }, [destinationSquare, boardSize]);
 
@@ -90,16 +93,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const executeComputerMove = (game: Chess, move: string) => {
     setTimeout(() => {
       const moveObj = game.move(move);
-     
       playSound(game, moveObj);
-
       setGame(game);
       setFen(game.fen());
     }, 500);
   };
 
   useEffect(() => {
-  
     setPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
 
     if (puzzle) {
@@ -334,9 +334,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           redoMove={redoMove}
           undoMove={undoMove}
         />
-
-       dst: {destinationSquare}
-
         <PuzzleControlPanel
           game={game}
           puzzle={puzzle}
