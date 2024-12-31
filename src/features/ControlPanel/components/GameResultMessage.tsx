@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { getGameResultMessage } from "../../../utils/chess";
-import { Puzzle } from "../../../types/puzzle";
+import { PuzzleContext } from "../../../context/Puzzle/context";
 
-interface GameResultMessageProps {
-  puzzle: Puzzle;
-}
 
-const GameResultMessage: React.FC<GameResultMessageProps> = ({ puzzle }) => {
+
+const GameResultMessage: React.FC = () => {
+  
+  const {puzzle} = useContext(PuzzleContext);
+
   return (
     <p>
-      {getGameResultMessage(
+      {puzzle && getGameResultMessage(
         puzzle.status,
         // Undefined if draw, irrelevant since no winner
         puzzle.winner == "white"

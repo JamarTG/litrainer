@@ -14,7 +14,7 @@ const useChangePuzzle = (
   const [sessionStarted, setSessionStarted] = useState(false);
   const [puzzleIndex, setPuzzleIndex] = useState<PuzzleIndex>({ x: 0, y: 0 });
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
-  const {puzzle,setPuzzle} = useContext(PuzzleContext);
+  const {setPuzzle} = useContext(PuzzleContext);
 
   const nextPuzzle = () => {
     if (puzzles.length === 0) return;
