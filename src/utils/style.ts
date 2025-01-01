@@ -26,7 +26,7 @@ export const getCustomSquareStyles = (
                 ]
               ]
             }`
-          : undefined,
+          : 'grey',
       backgroundSize: "30%",
       backgroundPosition: "top right",
       backgroundRepeat: "no-repeat",
@@ -42,7 +42,7 @@ export const getCustomSquareStyles = (
                 ]
               ]
             }`
-          : undefined,
+          : 'grey',
       backgroundSize: "30%",
       opacity: classification ? 0.7 : 1,
       backgroundPosition: "top right",
