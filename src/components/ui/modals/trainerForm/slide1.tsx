@@ -1,10 +1,12 @@
 import React, { ChangeEvent } from "react";
+import { Fields } from "../../../../types/form";
 
 interface SlideOneProps {
+  formData: Fields;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SlideOne: React.FC<SlideOneProps> = ({ handleInputChange }) => {
+const SlideOne: React.FC<SlideOneProps> = ({ formData, handleInputChange }) => {
   return (
     <div className="grid gap-6 px-4">
       <div className="grid gap-4 ">
@@ -14,7 +16,7 @@ const SlideOne: React.FC<SlideOneProps> = ({ handleInputChange }) => {
           <input
             className="flex  w-full rounded-lg bg-primary  px-3 py-2 text-sm h-[35px]   outline-none text-textwhite caret-accent  border-tertiary border "
             placeholder="John Doe"
-            // value={formData.username}
+            value={formData.username}
             onChange={handleInputChange}
           />
         </div>

@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, MouseEventHandler } from "react";
 import NavigationButtons from "./navbuttons";
 import ProgressIndicator from "./progressIndicator";
 
 interface SwiperProps {
   children: React.ReactNode[];
   className?: string;
+  handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Swiper: React.FC<SwiperProps> = ({ children, className }) => {
+const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -56,7 +57,7 @@ const Swiper: React.FC<SwiperProps> = ({ children, className }) => {
       </div>
 
       <div className=" flex justify-between pt-4 px-4">
-        <ProgressIndicator children={children} currentIndex={currentIndex} />
+        <ProgressIndicator  children={children} currentIndex={currentIndex} handleSubmit={handleSubmit} />
 
         <NavigationButtons
           handlePrev={handlePrev}

@@ -1,20 +1,24 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 interface ProgressIndicatorProps {
   children: React.ReactNode[];
   currentIndex: number;
+   handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
  children,
- currentIndex
+ currentIndex,
+ handleSubmit,
+
 }) => {
   return (
 <div className=" flex justify-center items-center ">
   {/* Progress Indicators */}
   <div className="flex space-x-2">
     {children.map((_, index) => (
-      <div
+      <button
+        onClick={handleSubmit}
         key={index}
         className={`transition-all duration-300 ease-in-out ${
           index === currentIndex
