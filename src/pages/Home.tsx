@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TrainerForm from "../components/ui/modals/trainerForm/TrainerForm";
-import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
-import { extractErrors } from "../utils/processing/extractErrors";
-import { API_BASE_URL } from "../constants";
+import { API_BASE_URL, INITIAL_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
-import LoadingScreen from "../components/loader";
+// import LoadingScreen from "../components/loader";
 import { LichessGameResponse } from "../types/response";
+import createPuzzles, { parseLichessResponse } from "../utils/lichess";
+
 
 const Home: React.FC = () => {
-  const [formData, setFormData] = useState<Fields>({
-    username: "JamariTheGreat",
-    maxNoGames: 10,
-    startDate: "2024-11-01",
-    endDate: "2024-11-30",
-  });
-  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
+  // const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleToggleModal = () => {
@@ -41,8 +36,6 @@ const Home: React.FC = () => {
       return;
     }
 
-    setLoading(true);
-
     try {
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&evals=true&analysed=true`;
       const response = await fetch(url, {
@@ -53,30 +46,27 @@ const Home: React.FC = () => {
 
       if (!response.ok) {
         console.error(`Error ${response.status}: ${response.statusText}`);
-        setLoading(false);
+
         return;
       }
 
-      const parsedPuzzleData = await extractErrors(response);
+      const parsedPuzzleData = await parseLichessResponse(response);
 
       if (!parsedPuzzleData) {
-        setLoading(false);
+        // setLoading(false)
         return;
       }
 
-      const puzzles = combineEvalAndMisplays(
+      const puzzles = createPuzzles(
         username,
-        parsedPuzzleData.misplayInfo as LichessGameResponse[],
-        parsedPuzzleData.moveEvaluations
+        parsedPuzzleData.games as LichessGameResponse[],
+        parsedPuzzleData.evaluations
       );
-      console.log("Result", puzzles);
 
       navigate("/train", { state: { puzzles } });
     } catch (error) {
       console.error("Error fetching games:", error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   return (
