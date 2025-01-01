@@ -17,7 +17,7 @@ const Help = () => {
               </div>
             </div>
             <div className="md:w-1/2 p-3 border-4 border-gray-800">
-              <img src="/analyze.png" alt="analyze-png" />
+              <img src="png/help/analyze.png" alt="analyze-png" />
             </div>
           </div>
 
@@ -30,7 +30,7 @@ const Help = () => {
               </p>
             </div>
             <div className="md:w-1/2 md:order-1 p-3 border-4 border-gray-800">
-              <img src="/computer.png" alt="request-computer-analysis" />
+              <img src="png/help/computer.png" alt="request-computer-analysis" />
             </div>
           </div>
 
