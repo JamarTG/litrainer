@@ -11,4 +11,5 @@ export interface LichessGameResponse {
   status: string;
   variant: string;
   clock: LichessClock;
+  winner?: "white" | "black" ;
 }

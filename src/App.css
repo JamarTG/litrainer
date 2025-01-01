@@ -1,3 +1,4 @@
+
 .feedback-message {
   position: absolute;
   top: 50%;
@@ -21,5 +22,5 @@
 
 .icon {
   font-family: 'LichessIcons';
-  font-size: 16px; /* Adjust as needed */
+  font-size: 16px; 
 }

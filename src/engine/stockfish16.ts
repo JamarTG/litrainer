@@ -1,4 +1,4 @@
-import { EngineName } from "../types/enums";
+import { EngineName } from "../types/engine";
 import { UciEngine } from "./uciEngine";
 import { isMultiThreadSupported, isWasmSupported } from "./shared";
 
