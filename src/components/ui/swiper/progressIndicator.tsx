@@ -23,7 +23,7 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
         className={`transition-all duration-300 ease-in-out ${
           index === currentIndex
             ? 'w-8 h-2 bg-accent rounded-full' // Pill for the active indicator
-            : 'w-2 h-2 bg-tertiary rounded-full' // Dot for inactive indicators
+            : 'w-2 h-2 bg-[#ffffff12]  rounded-full' // Dot for inactive indicators
         }`}
       />
     ))}

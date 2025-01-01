@@ -5,11 +5,15 @@ export default {
     extend: {
       colors: {
         darkBackground: "#1A1A1A", // Changed to a slightly lighter grey
-        accent: "#277F71",  // green
-        primary: "#282828", // blobs
-        secondary: "#2F2E2E",
-        tertiary: "#424242",
+        accent: "#287F71",  // green
+        primary: "#111111", // blobs
+        secondary: "#191919",
+        tertiary: "#2D2D2D",
+        quaternary: "#222222",
+        shadowGray: "#2a2a2a",
+        cloudGray: "#b4b4b4",
         offWhite: "#FAFAFA",
+        muted: "#606060"
       },
     },
   },
