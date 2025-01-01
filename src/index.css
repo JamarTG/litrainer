@@ -1,33 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-:root {
-    --c-body-gradient: rgba(0, 0, 0, 0.5);
-    --c-bg-page: #1a1a1a;
-    --c-bg-zebra: hsl(37, 5%, 19%);
-    --c-bg-box: hsl(37, 7%, 14%);
-}
-
-@font-face {
-    font-family: 'lichess';
-    src: url('/font/lichess.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+@layer base {
+  body {
+    @apply bg-darkBackground m-0 p-0 box-border overflow-x-hidden overflow-y-scroll scroll-smooth;
+  }
 }
 
 
-body {
-    font-family: 'lichess', sans-serif;
-    background:#28282B;
-    color: #bababa;
+
+* {
+  font-family: "Inter", sans-serif;
+  font-weight: 500, 700;
 }
 
 
-.hide-calendar-icon {
+/* .hide-calendar-icon {
     -webkit-appearance: none;
-}
+} */
 
 .hide-calendar-icon::-webkit-inner-spin-button,
 .hide-calendar-icon::-webkit-calendar-picker-indicator {
@@ -54,12 +44,53 @@ body {
     background-color: #555; 
 }
 
-* {
-    scrollbar-width: thin; 
-    scrollbar-color: #888 #2c2c2c; 
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+    transform: translateY(-6px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
 }
 
-body {
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+.fadeIn {
+  animation: fadeIn 0.3s ease-out;
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+
+
+.fadeOut {
+  animation: fadeOut 0.3s ease-in;
+}
+
+
+.swiper{
+  position: unset !important;
+}
+
+.swiper-pagination {
+  position: unset !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important; 
+}
+
+.modal-backdrop {
+  background-color: rgb(0, 0, 0, 0.5);
+}

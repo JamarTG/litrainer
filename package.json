@@ -15,6 +15,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@popperjs/core": "^2.11.8",
     "@tailwindcss/forms": "^0.5.9",
     "axios": "^1.7.8",
     "chess.js": "^1.0.0-beta.8",
@@ -36,9 +37,10 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "postcss": "^8.4.40",
-    "tailwindcss": "^3.4.7",
+    "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.2.2",
-    "vite": "^5.3.4"
+    "vite": "^5.4.11"
   }
 }

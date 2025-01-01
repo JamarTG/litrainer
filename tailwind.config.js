@@ -1,20 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-import forms from "@tailwindcss/forms";
-
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        darkBackground: "#4A4A4A", // Changed to a slightly lighter grey
-        primary: "#1E3A8A",
-        secondary: "#10B981",
-        accent: "#F59E0B",
-      },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        darkBackground: "#1A1A1A", // Changed to a slightly lighter grey
+        accent: "#277F71",  // green
+        primary: "#282828", // blobs
+        secondary: "#2F2E2E",
+        tertiary: "#424242",
+        offWhite: "#FAFAFA",
       },
     },
   },
-  plugins: [forms],
-};
+  plugins: [],
+}
+
