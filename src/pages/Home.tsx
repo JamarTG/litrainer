@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TrainerForm from "../components/home/TrainerForm";
+import TrainerForm from "../components/ui/modals/trainerForm/TrainerForm";
 import combineEvalAndMisplays from "../utils/processing/combineEvalAndMisplays";
 import { extractErrors } from "../utils/processing/extractErrors";
 import { API_BASE_URL } from "../constants";
@@ -8,16 +8,19 @@ import { Fields } from "../types/form";
 import LoadingScreen from "../components/loader";
 import { LichessGameResponse } from "../types/response";
 
-
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Fields>({
     username: "JamariTheGreat",
     maxNoGames: 10,
-    startDate: "2023-01-01",
-    endDate: "2023-12-31",
+    startDate: "2024-11-01",
+    endDate: "2024-11-30",
   });
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -77,11 +80,17 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col text-violet-100 h-full">
-      {loading ? (
-        <LoadingScreen />
-      ) : (
+    <div className="">
+      <button
+        onClick={handleToggleModal}
+        className=" whitespace-nowrap h-fit w-full items-center justify-center rounded-lg  text-white shadow-xs px-[calc(theme(spacing[5])-1px)] py-[calc(theme(spacing[3])-1px)]   cursor-pointer bg-accent transition duration-150 hover:border-accent text-sm "
+      >
+        Submit
+      </button>
+      {isModalOpen && (
         <TrainerForm
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}

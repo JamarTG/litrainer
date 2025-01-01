@@ -215,6 +215,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             destSquare,
             isGoodMove
           )}
+          customLightSquareStyle={{ backgroundColor: "#277F71" }}
+          customDarkSquareStyle={{backgroundColor: "#FAFAFA"}}
         />
         <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
       </div>
