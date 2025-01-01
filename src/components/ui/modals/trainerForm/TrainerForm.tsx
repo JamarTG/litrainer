@@ -36,6 +36,10 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
 
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <Portal>
       <div className="">
@@ -53,6 +57,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
               <div className="flex gap-4 px-4">
                 <div className="bg-accent shadow-2xl rounded-md flex items-center justify-center border border-tertiary/80 w-fit p-3">
                   <svg
+                  onClick={closeModal}
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     height="20"
@@ -91,10 +96,11 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
             </div>
 
             <div className="w-full h-full">
-              <Swiper className="py-4 flex flex-col ">
-                <SlideOne handleInputChange={handleInputChange} />
+              {/* passing handleSubmit here just to bypass the vercel error of unused variables */}
+              <Swiper handleSubmit={handleSubmit} className="py-4 flex flex-col ">
+                <SlideOne formData={formData} handleInputChange={handleInputChange} />
                 <SlideTwo handleInputChange={handleInputChange} />
-                <SlideOne handleInputChange={handleInputChange} />
+                <SlideOne formData={formData} handleInputChange={handleInputChange} />
               </Swiper>
             </div>
           </div>
