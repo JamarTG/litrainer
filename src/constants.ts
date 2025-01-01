@@ -6,7 +6,8 @@ import {
   faChessQueen,
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
-import formatDate from "./utils/formatDate";
+import { formatDate } from "./utils/time";
+import { Fields } from "./types/form";
 export const STARTINGPOSFEN =
   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -19,11 +20,13 @@ export const PIECE_ICONS = {
   k: faChessKing,
   p: faChessPawn,
 };
-export const INITIAL_FORM_STATE = {
+export const INITIAL_FORM_STATE: Fields = {
   username: "JamariTheGreat",
   maxNoGames: 10,
   startDate: formatDate(new Date(Date.now() - 55 * 24 * 60 * 60 * 1000)),
   endDate: formatDate(new Date()),
+  color : "both",
+  gameTypes: ["blitz", "rapid", "classical", "bullet", "correspondence"],
 };
 
 export const API_BASE_URL = "https://lichess.org/api/";
@@ -33,11 +36,24 @@ export const customBoardStyles = {
   boxShadow: "0 15px 15px rgba(0,0,0,0.3)",
   position: "relative" as const,
 };
+export const INITIAL_MATERIAL = {
+  w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+  b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+};
 
 export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 500,
+  MAX_SIZE: 550,
   MIN_SIZE: 300,
-  INITIAL_SIZE: 400,
+  INITIAL_SIZE: 500,
+};
+
+export const DEFAULT_FORM_STATE = {
+  username: "JamariTheGreat",
+  maxNoGames: 10,
+  startDate: "2023-01-01",
+  endDate: "2023-12-31",
+  gameTypes: ["blitz", "rapid", "classical", "bullet", "correspondence"],
+  color: "both",
 };
 
 export const moveSquareStyles = {
@@ -62,6 +78,15 @@ export const SOUND_ACTIONS = {
   PROMOTION: "promotion",
   START: "start",
   END: "end",
+};
+
+export const PIECEVALUE = {
+  p: 1,
+  n: 3,
+  b: 3,
+  r: 5,
+  q: 9,
+  k: 0,
 };
 
 export const INITIAL_INDEX_STATE = { x: 0, y: 0 };

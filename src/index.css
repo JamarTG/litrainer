@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   body {
     @apply bg-darkBackground m-0 p-0 box-border overflow-x-hidden overflow-y-scroll scroll-smooth;

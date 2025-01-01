@@ -15,7 +15,7 @@ const SlideOne: React.FC<SlideOneProps> = ({ formData, handleInputChange }) => {
           <h1 className="text-landingText text-sm text-offWhite">Username</h1>
           <input
             className="flex  w-full rounded-lg bg-primary  px-3 py-2 text-sm h-[35px]   outline-none text-textwhite caret-accent  border-tertiary border "
-            placeholder="John Doe"
+            placeholder="JamariTheGreat"
             value={formData.username}
             onChange={handleInputChange}
           />
