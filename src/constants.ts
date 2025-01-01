@@ -39,9 +39,9 @@ export const INITIAL_MATERIAL = {
 };
 
 export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 650,
+  MAX_SIZE: 550,
   MIN_SIZE: 300,
-  INITIAL_SIZE: 650,
+  INITIAL_SIZE: 500,
 };
 
 export const DEFAULT_FORM_STATE = {
