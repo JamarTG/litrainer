@@ -19,7 +19,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         <button
           onClick={handlePrev}
           disabled={currentIndex === 0}
-          className="bg-secondary  rounded-lg text-sm text-textwhite py-[10px] px-[16px] flex "
+          className="bg-[#ffffff12]  rounded-lg text-sm text-cloudGray h-[32px]  px-3 max-w-fit flex justify-center items-center hover:text-offWhite cursor-pointer transition-all ease-in-out"
         >
           Go back
         </button>
@@ -28,7 +28,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         <button
           onClick={handleNext}
           disabled={currentIndex === length - 1}
-          className="bg-accent rounded-lg text-sm text-textwhite  flex justify-center py-[10px] px-[16px]"
+          className="bg-accent rounded-lg text-sm text-textwhite  flex justify-center items-center h-[32px] px-3 max-w-fit "
         >
           Continue
         </button>

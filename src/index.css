@@ -10,8 +10,8 @@
 
 
 * {
-  font-family: "Inter", sans-serif;
-  font-weight: 500, 700;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 400;
 }
 
 
@@ -92,5 +92,5 @@
 }
 
 .modal-backdrop {
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, .8);
 }
