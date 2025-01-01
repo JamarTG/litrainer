@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-darkBackground m-0 p-0 box-border overflow-x-hidden overflow-y-scroll scroll-smooth;
+
+@layer utilities {
+  .darkBackground {
+    background-color: #D3F1DF;
+  }
+  .primary {
+    background-color: #85A98F;
+  }
+  .accent {
+    background-color: #5A6C57;
   }
 }
 

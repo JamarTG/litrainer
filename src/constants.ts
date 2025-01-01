@@ -26,7 +26,7 @@ export const INITIAL_FORM_STATE: Fields = {
   startDate: formatDate(new Date(Date.now() - 55 * 24 * 60 * 60 * 1000)),
   endDate: formatDate(new Date()),
   color : "both",
-  gameTypes: ["blitz", "rapid", "classical", "bullet", "correspondence"],
+  gameTypes: [],
 };
 
 export const API_BASE_URL = "https://lichess.org/api/";
