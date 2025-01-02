@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Fields } from "../../../../../types/form";
-import TimeControl from "./TimeControls";
+import TimeControl from "./TimeControl"
 import Colors from "./Colors";
 
 interface SlideOneProps {
