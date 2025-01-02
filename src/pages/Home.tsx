@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TrainerForm from "../components/ui/modals/trainerForm/TrainerForm";
+import TrainerForm from "../components/UI/modals/trainerForm/TrainerForm";
 import { API_BASE_URL, INITIAL_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
 // import LoadingScreen from "../components/loader";
