@@ -2,7 +2,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import usePopperDropDown from "../../../../../features/Board/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
-import SortBy from "./Sortby";
+import SortBy from "./sortby";
 import { Fields } from "../../../../../types/form";
 import { formatDate } from "../../../../../utils/time";
 
