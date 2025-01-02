@@ -21,12 +21,12 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
 
   const handleDateSelect = (startDate: Date | null, endDate: Date | null) => {
     setSelectedDates({ startDate, endDate });
-    calendarDropdown.toggleDropdown(); // Close dropdown after selection
+    calendarDropdown.toggleDropdown(); 
   };
 
   const handleSortOptionSelect = (option: string) => {
-    setSortOption(option); // Update the sort option
-    sortbyDropdown.toggleDropdown(); // Close dropdown after selection
+    setSortOption(option);
+    sortbyDropdown.toggleDropdown(); 
   };
 
   const formatDate = (date: Date | null) =>

@@ -87,11 +87,13 @@ const Calendar: React.FC<CalendarProps> = ({ onDateSelect }) => {
     
     for (let i = prevMonthDays; i <= daysInPrevMonth; i++) {
       daysArray.push(
+        <div className="py-[1.5px] w-full flex items-center justify-center">
         <div
           key={`prev-${i}`}
           className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
         >
-          {i}
+           <span className = "my-auto mx-auto">{i}</span>
+        </div>
         </div>
       );
     }
@@ -110,30 +112,37 @@ const Calendar: React.FC<CalendarProps> = ({ onDateSelect }) => {
       const inRange = isWithinRange(date);
 
       daysArray.push(
-        <div
-          key={date}
-          className={`w-7 h-7 flex items-center justify-center rounded-md cursor-pointer ${
-            isSelected
-              ? "bg-accent text-offWhite"
-              : inRange
-              ? "bg-[#ffffff12] text-textWhite"
-              : "hover:bg-tertiary"
-          }`}
-          onClick={() => handleDateClick(date)}
-        >
-          {date}
+
+        <div className="py-[1.5px] w-full flex items-center justify-center">
+          <div
+            key={date}
+            className={`w-7 h-7  flex items-center justify-center text-center rounded-md cursor-pointer ${
+              isSelected
+                ? "bg-accent text-offWhite"
+                : inRange
+                ? "bg-accent/30 text-textWhite"
+                : "hover:bg-tertiary"
+            }`}
+            onClick={() => handleDateClick(date)}
+          >
+            <span className = "my-auto mx-auto">{date}</span>
+          </div>
         </div>
+
+      
       );
     }
 
     const remainingDays = 7 - (daysArray.length % 7);
     for (let i = 1; i <= remainingDays; i++) {
       daysArray.push(
+        <div className="py-[1.5px] w-full flex items-center justify-center">
         <div
           key={`next-${i}`}
-          className="w-7 h-7 flex items-center justify-center rounded-md text-muted cursor-pointer"
+          className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
         >
-          {i}
+           <span className = "my-auto mx-auto">{i}</span>
+        </div>
         </div>
       );
     }

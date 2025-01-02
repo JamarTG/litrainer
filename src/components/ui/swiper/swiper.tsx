@@ -40,7 +40,6 @@ const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) =>
 
   return (
     <div className={`  ${className}`}>
-      {/* Swiper Container */}
       <div
         ref={containerRef}
         className="flex transition-transform duration-300 overflow-hidden w-full"
@@ -57,7 +56,7 @@ const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) =>
       </div>
 
       <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
-        <ProgressIndicator  children={children} currentIndex={currentIndex} />
+        <ProgressIndicator  children={children} currentIndex={currentIndex}  setCurrentIndex={setCurrentIndex}  scrollToSlide={scrollToSlide}/>
 
         <NavigationButtons
           handlePrev={handlePrev}

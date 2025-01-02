@@ -17,7 +17,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 }) => {
   const submitHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (currentIndex === length - 1) {
-      handleSubmit(event); // Pass the event to handleSubmit
+      handleSubmit(event); 
     } else {
       handleNext();
     }
