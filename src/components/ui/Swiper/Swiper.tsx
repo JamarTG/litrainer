@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect, MouseEventHandler } from "react";
-// @ts-ignore
-import NavigationButtons from "./NavButtons";
-// @ts-ignore
+import NavigationButtons from "./Navbuttons";
 import ProgressIndicator from "./ProgressIndicator";
 
 

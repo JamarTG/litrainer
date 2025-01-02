@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import { API_BASE_URL, INITIAL_FORM_STATE } from "../constants";
 import { Fields } from "../types/form";
-// import LoadingScreen from "../components/loader";
 import { LichessGameResponse } from "../types/response";
 import createPuzzles, { parseLichessResponse } from "../utils/lichess";
-import TrainerForm from "../components/ui/Modals/TrainerForm/TrainerForm";
+import TrainerForm from "../components/ui/Modals/TrainerForm";
+
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
