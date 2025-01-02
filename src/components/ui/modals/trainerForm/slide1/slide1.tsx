@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from "react";
 import { Fields } from "../../../../../types/form";
-import Games from "./games";
-import Phases from "./phases";
-import Colors from "./colors";
+import Games from "./TimeControls";
+import Phases from "./Phases";
+import Colors from "./Colors";
+
 
 interface SlideOneProps {
   formData: Fields;
