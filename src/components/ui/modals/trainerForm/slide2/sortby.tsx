@@ -1,10 +1,10 @@
-const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: string) => void }) => {
+const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: "asc" | "desc") => void }) => {
   return (
     <div className="bg-secondary w-[128px] rounded-lg border border-shadowGray px-2 py-2">
       <div className="flex flex-col text-xs text-offWhite space-y-0">
         <button
           className="hover:bg-tertiary hover:rounded-md py-2 px-2 flex gap-x-2"
-          onClick={() => onSortOptionSelect("Ascending")}
+          onClick={() => onSortOptionSelect("asc")}
         >
           <div>
             <svg
@@ -24,7 +24,7 @@ const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: string) =
         </button>
         <button
           className="hover:bg-tertiary hover:rounded-md py-2 px-2 flex gap-x-2"
-          onClick={() => onSortOptionSelect("Descending")}
+          onClick={() => onSortOptionSelect("desc")}
         >
           <div>
             <svg

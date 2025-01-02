@@ -1,19 +1,19 @@
-import React, { ChangeEvent } from "react";
-import Dates from "./dates";
-import usePopperDropDown from "../../../../../features/Board/hooks/usePopperDropDown";
-import ReactDOM from "react-dom";
+import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
+import Dates from "./Dates";
+import { Fields } from "../../../../../types/form";
 
 interface SlideTwoProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  setFormData : Dispatch<SetStateAction<Fields>>;
+  formData: Fields;
 }
 
-const SlideTwo: React.FC<SlideTwoProps> = ({ handleInputChange }) => {
-  const timeDropdown = usePopperDropDown();
-
+const SlideTwo: React.FC<SlideTwoProps> = ({ handleInputChange, formData, setFormData }) => {
+  
   return (
     <div className="grid gap-6 px-4">
       <div className="grid gap-4">
-        <Dates handleInputChange={handleInputChange} />
+        <Dates handleInputChange={handleInputChange} setFormData={setFormData} formData={formData} /> 
       </div>
     </div>
   );

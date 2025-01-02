@@ -1,16 +1,12 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
+import { Fields } from "../../../../../types/form";
 
 interface ColorsProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  formData : Fields
 }
 
-const Colors: React.FC<ColorsProps> = ({ handleInputChange }) => {
-  const [selectedColor, setSelectedColor] = useState<string>("");
-
-  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedColor(e.target.value);
-    handleInputChange(e);
-  };
+const Colors: React.FC<ColorsProps> = ({ handleInputChange , formData }) => {
 
   return (
     <div className="grid gap-2">
@@ -24,14 +20,14 @@ const Colors: React.FC<ColorsProps> = ({ handleInputChange }) => {
             <input
               type="radio"
               name="color"
-              value="White"
-              checked={selectedColor === "White"}
-              onChange={handleRadioChange}
+              value="white"
+              checked={formData.color === "white"}
+              onChange={handleInputChange}
               className="hidden"
             />
 
-            <span className={`text-sm  ${selectedColor === "White" ? "text-offWhite" : "text-muted"}`}>White</span>
-            {selectedColor === "White" ? (
+            <span className={`text-sm  ${formData.color === "white" ? "text-offWhite" : "text-muted"}`}>White</span>
+            {formData.color === "white" ? (
               <svg
                 width="1em"
                 height="1em"
@@ -61,16 +57,16 @@ const Colors: React.FC<ColorsProps> = ({ handleInputChange }) => {
           <label className="flex items-center  justify-between  w-full  cursor-pointer">
             <input
               type="radio"
-              name="phase"
-              value="Black"
-              checked={selectedColor === "Black"}
-              onChange={handleRadioChange}
+              name="color"
+              value="black"
+              checked={formData.color === "black"}
+              onChange={handleInputChange}
               className="hidden"
             />
 
-            <span className={`text-sm  ${selectedColor === "Black" ? "text-offWhite" : "text-muted"}`}>Black</span>
+            <span className={`text-sm  ${formData.color === "black" ? "text-offWhite" : "text-muted"}`}>Black</span>
 
-            {selectedColor === "Black" ? (
+            {formData.color === "black" ? (
               <svg
                 width="1em"
                 height="1em"
@@ -100,15 +96,15 @@ const Colors: React.FC<ColorsProps> = ({ handleInputChange }) => {
           <label className="flex items-center  justify-between  w-full  cursor-pointer">
             <input
               type="radio"
-              name="phase"
-              value="Both"
-              checked={selectedColor === "Both"}
-              onChange={handleRadioChange}
+              name="color"
+              value="both"
+              checked={formData.color === "both"}
+              onChange={handleInputChange}
               className="hidden"
             />
 
-            <span className={`text-sm  ${selectedColor === "Both" ? "text-offWhite" : "text-muted"}`}>Both</span>
-            {selectedColor === "Both" ? (
+            <span className={`text-sm  ${formData.color === "both" ? "text-offWhite" : "text-muted"}`}>Both</span>
+            {formData.color === "both" ? (
               <svg
                 width="1em"
                 height="1em"

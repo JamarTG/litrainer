@@ -6,7 +6,6 @@ import {
   faChessQueen,
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatDate } from "./utils/time";
 import { Fields } from "./types/form";
 export const STARTINGPOSFEN =
   "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -20,13 +19,17 @@ export const PIECE_ICONS = {
   k: faChessKing,
   p: faChessPawn,
 };
+const oneWeekAgo = new Date();
+oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
 export const INITIAL_FORM_STATE: Fields = {
   username: "JamariTheGreat",
   maxNoGames: 10,
-  startDate: formatDate(new Date(Date.now() - 55 * 24 * 60 * 60 * 1000)),
-  endDate: formatDate(new Date()),
-  color : "both",
-  gameTypes: [],
+  startDate: oneWeekAgo.toISOString().split('T')[0],
+  endDate: new Date().toISOString().split('T')[0],
+  color: "both",
+  gameTypes: ["bullet", "blitz", "rapid", "classical", "correspondence"],
+  sort: "desc",
 };
 
 export const API_BASE_URL = "https://lichess.org/api/";

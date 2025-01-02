@@ -1,10 +1,3 @@
-export const formatDate = (date: Date) => {
-  const day = ("0" + date.getDate()).slice(-2);
-  const month = ("0" + (date.getMonth() + 1)).slice(-2);
-  const year = date.getFullYear();
-  return `${year}-${month}-${day}`;
-};
-
 export const formatTime = (seconds: number): string => {
   if (seconds === 30) return "1/2";
   else if (seconds === 15) return "1/4";
@@ -13,4 +6,15 @@ export const formatTime = (seconds: number): string => {
   const remainingSeconds = seconds % 60;
   if (remainingSeconds === 0) return `${minutes}`;
   return `${minutes}${formatTime(remainingSeconds).replace("0.", ".")}`;
+};
+
+export const formatDate = (dateString: string) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  };
+  return date.toLocaleDateString("en-US", options);
 };
