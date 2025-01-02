@@ -1,8 +1,8 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import usePopperDropDown from "../../../../../features/Board/hooks/usePopperDropDown";
 import Calendar from './calendar';
 import ReactDOM from "react-dom";
-import SortBy from './time';
+import SortBy from './sortby';
 
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -13,6 +13,31 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
   const calendarDropdown = usePopperDropDown();
   const sortbyDropdown = usePopperDropDown();
 
+  const [selectedDates, setSelectedDates] = useState<{
+    startDate: Date | null;
+    endDate: Date | null;
+  }>({ startDate: null, endDate: null });
+  const [sortOption, setSortOption] = useState<string>("");
+
+  const handleDateSelect = (startDate: Date | null, endDate: Date | null) => {
+    setSelectedDates({ startDate, endDate });
+    calendarDropdown.toggleDropdown(); // Close dropdown after selection
+  };
+
+  const handleSortOptionSelect = (option: string) => {
+    setSortOption(option); // Update the sort option
+    sortbyDropdown.toggleDropdown(); // Close dropdown after selection
+  };
+
+  const formatDate = (date: Date | null) =>
+    date ? date.toLocaleDateString() : '';
+
+  const displayDate = selectedDates.startDate
+    ? `${formatDate(selectedDates.startDate)}${
+        selectedDates.endDate ? ` - ${formatDate(selectedDates.endDate)}` : ''
+      }`
+    : '';
+  
 
   return (
     <div className="flex gap-x-2">
@@ -22,11 +47,12 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
       <div className="relative w-[250px] flex items-center">
         <input
           className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
-          // value={formData.startDate}
+          value={displayDate}
           onChange={handleInputChange}
           ref={calendarDropdown.triggerRef}
           onClick={calendarDropdown.toggleDropdown}
           placeholder="Date"
+          readOnly 
         />
         <svg
           width="1em"
@@ -52,7 +78,7 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
             ref={calendarDropdown.dropdownRef}
             className={`z-50 shadow-2xl  `}
           >
-            <Calendar />
+            <Calendar onDateSelect={handleDateSelect} />
           </div>,
           document.body
         )}
@@ -63,8 +89,8 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
       <div className="relative  flex items-center">
         <input
           className="flex  w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
-          placeholder="10"
-          // value={formData.maxNoGames}
+          placeholder="Ascending"
+          value={sortOption} 
           onChange={handleInputChange}
           ref={sortbyDropdown.triggerRef}
           onClick={sortbyDropdown.toggleDropdown}
@@ -92,7 +118,7 @@ const Dates: React.FC<DatesProps> = ({ handleInputChange }) => {
             ref={sortbyDropdown.dropdownRef}
             className={`z-50 shadow-2xl  `}
           >
-            <SortBy />
+            <SortBy onSortOptionSelect={handleSortOptionSelect} />
           </div>,
           document.body
         )}

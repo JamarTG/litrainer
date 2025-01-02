@@ -13,6 +13,7 @@ export default {
         shadowGray: "#2a2a2a",
         cloudGray: "#b4b4b4",
         offWhite: "#FAFAFA",
+        shadowWhite: "#F9F9F9",
         muted: "#606060"
       },
     },
