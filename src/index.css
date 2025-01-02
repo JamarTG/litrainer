@@ -2,34 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-:root {
-    --c-body-gradient: rgba(0, 0, 0, 0.5);
-    --c-bg-page: #1a1a1a;
-    --c-bg-zebra: hsl(37, 5%, 19%);
-    --c-bg-box: hsl(37, 7%, 14%);
+@layer utilities {
+  .darkBackground {
+    background-color: #D3F1DF;
+  }
+  .primary {
+    background-color: #85A98F;
+  }
+  .accent {
+    background-color: #5A6C57;
+  }
 }
 
-body {
-    
-    background:#303338;
-    color: #bababa;
+
+
+* {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 400;
 }
 
 
-.img {
-    width: 30px;
-
-    position: absolute;
-    z-index: 4;
-    left : 900;
-    top: 500;
-}
-
-.hide-calendar-icon {
+/* .hide-calendar-icon {
     -webkit-appearance: none;
-}
+} */
 
 .hide-calendar-icon::-webkit-inner-spin-button,
 .hide-calendar-icon::-webkit-calendar-picker-indicator {
@@ -56,12 +52,54 @@ body {
     background-color: #555; 
 }
 
-* {
-    scrollbar-width: thin; 
-    scrollbar-color: #888 #2c2c2c; 
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+    transform: translateY(-6px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
 }
 
-body {
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+.fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+
+
+.fadeOut {
+  animation: fadeOut 0.3s ease-in;
+}
+
+
+.swiper{
+  position: unset !important;
+}
+
+.swiper-pagination {
+  position: unset !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important; 
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, .8);
 }
 
