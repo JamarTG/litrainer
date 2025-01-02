@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useState } from 'react'
 import usePopperDropDown from "../../../../../features/Board/hooks/usePopperDropDown";
-import Calendar from './calendar';
 import ReactDOM from "react-dom";
+import Calendar from './calendar';
 import SortBy from './sortby';
+
 
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
