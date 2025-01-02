@@ -9,12 +9,6 @@ interface GamesProps {
   formData: Fields;
 }
 
-// const handleGameClick = (game: string) => {
-//   setSelectedGames((prev) =>
-//     prev.includes(game) ? prev.filter((g) => g !== game) : [...prev, game]
-//   );
-// };
-
 const Games: React.FC<GamesProps> = ({
   handleInputChange,
   handleGameTypesChange,

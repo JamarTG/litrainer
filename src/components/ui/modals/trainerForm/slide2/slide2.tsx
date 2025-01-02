@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
-import Dates from "./dates";
+import Dates from "./Dates";
 import { Fields } from "../../../../../types/form";
 
 interface SlideTwoProps {
