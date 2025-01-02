@@ -81,8 +81,9 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
             </div>
           ) : null
       )}
-
-      {materialCount > 0 ? "+" : ""}{materialCount || ""}
+     
+      {materialCount > 0 ? "+" : ""}
+      {materialCount || ""}
     </div>
   );
 };

@@ -255,6 +255,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             moveSquares,
             isLoadingEvaluation
           )}
+          customLightSquareStyle={{ backgroundColor: "#277F71" }}
+          customDarkSquareStyle={{backgroundColor: "#FAFAFA"}}
           arePiecesDraggable={!solved}
         />
         {destinationSquare && classification && (
