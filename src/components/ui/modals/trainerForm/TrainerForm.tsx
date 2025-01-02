@@ -6,10 +6,10 @@ import {
   useRef,
 } from "react";
 import { Fields } from "../../../../types/form";
-import Swiper from "../../Swiper/swiper";
-import SlideOne from "./Slide1/slide1";
-import SlideTwo from "./Slide2/slide2";
+import Swiper from "../../Swiper/Swiper";
 import Portal from "../Portal";
+import SlideOne from "./Slide1/Slide1";
+import SlideTwo from "./Slide2/Slide2";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
