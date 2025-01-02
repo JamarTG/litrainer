@@ -1,22 +1,28 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent} from "react";
 import usePopperDropDown from "../../../../../features/Board/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
+import { Fields } from "../../../../../types/form";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleGameTypesChange: (a: string) => void;
+  formData: Fields;
 }
 
-const Games: React.FC<GamesProps> = ({ handleInputChange }) => {
+// const handleGameClick = (game: string) => {
+//   setSelectedGames((prev) =>
+//     prev.includes(game) ? prev.filter((g) => g !== game) : [...prev, game]
+//   );
+// };
+
+const Games: React.FC<GamesProps> = ({
+  handleInputChange,
+  handleGameTypesChange,
+  formData,
+}) => {
   const gamesDropdown = usePopperDropDown();
-  const [selectedGames, setSelectedGames] = useState<string[]>([]);
 
-  const games = ["Blitz", "Classic", "Rapid", "Bullet", "Correspondence"];
-
-  const handleGameClick = (game: string) => {
-    setSelectedGames((prev) =>
-      prev.includes(game) ? prev.filter((g) => g !== game) : [...prev, game]
-    );
-  };
+  const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];
 
   return (
     <div className="grid gap-2">
@@ -26,7 +32,7 @@ const Games: React.FC<GamesProps> = ({ handleInputChange }) => {
         <input
           className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
           placeholder="Select games"
-          value={selectedGames.join(", ")}
+          value={formData.gameTypes.join(", ")}
           onChange={handleInputChange}
           ref={gamesDropdown.triggerRef}
           onClick={gamesDropdown.toggleDropdown}
@@ -57,8 +63,9 @@ const Games: React.FC<GamesProps> = ({ handleInputChange }) => {
                   {games.map((game) => (
                     <button
                       key={game}
+                      name="timeControls"
                       className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
-                      onClick={() => handleGameClick(game)}
+                      onClick={() => handleGameTypesChange(game)}
                     >
                       <div className="flex my-auto gap-x-2">
                         {game === "Bullet" && (
@@ -89,7 +96,7 @@ const Games: React.FC<GamesProps> = ({ handleInputChange }) => {
                           </div>
                         )}
 
-                        {game === "Classic" && (
+                        {game === "Classical" && (
                           <div className="my-auto ">
                             <svg
                               width="1em"
@@ -130,21 +137,36 @@ const Games: React.FC<GamesProps> = ({ handleInputChange }) => {
                             </svg>
                           </div>
                         )}
-
                         <p className="text-sm text-offWhite my-auto">{game}</p>
                       </div>
                       <svg viewBox="0 0 16 16" height="35" width="35">
                         <path
                           d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
                           fill={` ${
-                            selectedGames.includes(game) ? "#287F71" : "#424242"
+                            formData.gameTypes.includes(
+                              game.toLocaleLowerCase() as
+                                | "bullet"
+                                | "blitz"
+                                | "rapid"
+                                | "classical"
+                                | "correspondence"
+                            )
+                              ? "#287F71"
+                              : "#424242"
                           }`}
                         />
                         <path
                           d="M5 4a4 4 0 110 8 4 4 0 010-8z"
                           fill="#ffffff"
                           className={`transition transform 0.3s ease ${
-                            selectedGames.includes(game)
+                            formData.gameTypes.includes(
+                              game.toLocaleLowerCase() as
+                                | "bullet"
+                                | "blitz"
+                                | "rapid"
+                                | "classical"
+                                | "correspondence"
+                            )
                               ? "transform translate-x-[6px]"
                               : ""
                           }`}

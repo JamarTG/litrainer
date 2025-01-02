@@ -6,10 +6,10 @@ import {
   useRef,
 } from "react";
 import { Fields } from "../../../../types/form";
-import Portal from "../portal";
-import Swiper from "../../swiper/swiper";
+import Swiper from "../../Swiper/Swiper";
 import SlideOne from "./Slide1/Slide1";
-import SlideTwo from "./Slide2/slide2";
+import SlideTwo from "./Slide2/Slide2";
+import Portal from "../Portal";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
@@ -45,7 +45,6 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
       <div className="">
         <div
           className="fixed inset-0  flex justify-center items-center z-50  modal-backdrop"
-          // onClick={handleOverlayClickCallback}
         >
           <div
             ref={modalRef}
@@ -84,7 +83,7 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
                     </button>
                   </div>
                   <p className="text-muted text-xs">
-                  Customize your training session with the details below
+                    Customize your training session with the details below
                   </p>
                 </div>
               </div>
@@ -102,8 +101,13 @@ const TrainerForm: React.FC<ParamsFormProps> = ({
                 <SlideOne
                   formData={formData}
                   handleInputChange={handleInputChange}
+                  setFormData={setFormData}
                 />
-                <SlideTwo handleInputChange={handleInputChange} />
+                <SlideTwo
+                  handleInputChange={handleInputChange}
+                  formData={formData}
+                  setFormData={setFormData}
+                />
               </Swiper>
             </div>
           </div>
