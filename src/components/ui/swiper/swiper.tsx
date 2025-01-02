@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect, MouseEventHandler } from "react";
-import ProgressIndicator from "./progressIndicator";
-import NavigationButtons from "./navbuttons";
+// @ts-ignore
+import NavigationButtons from "./NavButtons";
+// @ts-ignore
+import ProgressIndicator from "./ProgressIndicator";
+
+
 
 
 interface SwiperProps {
