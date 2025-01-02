@@ -1,10 +1,11 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 interface NavigationButtonsProps {
   handlePrev: () => void;
   handleNext: () => void;
   currentIndex: number;
   length: number;
+  handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
 const NavigationButtons: React.FC<NavigationButtonsProps> = ({
@@ -12,7 +13,16 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   handleNext,
   currentIndex,
   length,
+  handleSubmit,
 }) => {
+  const submitHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (currentIndex === length - 1) {
+      handleSubmit(event); // Pass the event to handleSubmit
+    } else {
+      handleNext();
+    }
+  };
+
   return (
     <div className={` flex justify-end gap-4 text-offWhite `}>
       <div>
@@ -26,11 +36,10 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       </div>
       <div>
         <button
-          onClick={handleNext}
-          disabled={currentIndex === length - 1}
-          className="bg-accent rounded-lg text-sm text-textwhite  flex justify-center items-center h-[32px] px-3 max-w-fit "
+          onClick={submitHandler}
+          className="bg-accent rounded-lg text-sm text-textwhite  flex justify-center items-center h-[32px] px-3 max-w-fit cursor-pointer"
         >
-          Continue
+          {currentIndex === length - 1 ? <>Submit</> : <>Continue</>}
         </button>
       </div>
     </div>

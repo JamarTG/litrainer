@@ -57,13 +57,14 @@ const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) =>
       </div>
 
       <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
-        <ProgressIndicator  children={children} currentIndex={currentIndex} handleSubmit={handleSubmit} />
+        <ProgressIndicator  children={children} currentIndex={currentIndex} />
 
         <NavigationButtons
           handlePrev={handlePrev}
           handleNext={handleNext}
           currentIndex={currentIndex}
           length={children.length}
+          handleSubmit={handleSubmit}
         />
       </div>
     </div>

@@ -1,8 +1,15 @@
 import { useState } from "react";
 
-const Calendar = () => {
+interface CalendarProps {
+  onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [tempStartDate, setTempStartDate] = useState<Date | null>(null);
+  const [tempEndDate, setTempEndDate] = useState<Date | null>(null);
 
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   const monthNames = [
@@ -41,9 +48,30 @@ const Calendar = () => {
   };
 
   const handleDateClick = (date: number) => {
-    setSelectedDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), date)
+    const clickedDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      date
     );
+
+    if (!tempStartDate || (tempStartDate && tempEndDate)) {
+      setTempStartDate(clickedDate);
+      setTempEndDate(null);
+    } else if (clickedDate < tempStartDate) {
+      setTempStartDate(clickedDate);
+    } else {
+      setTempEndDate(clickedDate);
+    }
+  };
+
+  const isWithinRange = (date: number) => {
+    if (!tempStartDate || !tempEndDate) return false;
+    const current = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      date
+    );
+    return current >= tempStartDate && current <= tempEndDate;
   };
 
   const renderDays = () => {
@@ -55,32 +83,41 @@ const Calendar = () => {
 
     const daysArray = [];
 
-    // Show days from the previous month
     const prevMonthDays = daysInPrevMonth - firstDay + 1;
+    
     for (let i = prevMonthDays; i <= daysInPrevMonth; i++) {
       daysArray.push(
         <div
           key={`prev-${i}`}
-          className="w-7 h-7 flex items-center justify-center rounded-md text-muted cursor-pointer"
-          onClick={() => handleDateClick(i)}
+          className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
         >
           {i}
         </div>
       );
     }
 
-    // Show days from the current month
     for (let date = 1; date <= daysInMonth; date++) {
       const isSelected =
-        selectedDate?.getDate() === date &&
-        selectedDate.getMonth() === month &&
-        selectedDate.getFullYear() === year;
+        (tempStartDate &&
+          tempStartDate.getDate() === date &&
+          tempStartDate.getMonth() === month &&
+          tempStartDate.getFullYear() === year) ||
+        (tempEndDate &&
+          tempEndDate.getDate() === date &&
+          tempEndDate.getMonth() === month &&
+          tempEndDate.getFullYear() === year);
+
+      const inRange = isWithinRange(date);
 
       daysArray.push(
         <div
           key={date}
           className={`w-7 h-7 flex items-center justify-center rounded-md cursor-pointer ${
-            isSelected ? "bg-accent text-offWhite" : "hover:bg-tertiary"
+            isSelected
+              ? "bg-accent text-offWhite"
+              : inRange
+              ? "bg-[#ffffff12] text-textWhite"
+              : "hover:bg-tertiary"
           }`}
           onClick={() => handleDateClick(date)}
         >
@@ -89,14 +126,12 @@ const Calendar = () => {
       );
     }
 
-    // Show days from the upcoming month to fill the grid
     const remainingDays = 7 - (daysArray.length % 7);
     for (let i = 1; i <= remainingDays; i++) {
       daysArray.push(
         <div
           key={`next-${i}`}
           className="w-7 h-7 flex items-center justify-center rounded-md text-muted cursor-pointer"
-          onClick={() => handleDateClick(i)}
         >
           {i}
         </div>
@@ -106,13 +141,23 @@ const Calendar = () => {
     return daysArray;
   };
 
+  const handleApply = () => {
+    setStartDate(tempStartDate);
+    setEndDate(tempEndDate);
+    onDateSelect(tempStartDate, tempEndDate);
+  };
+
+  const handleCancel = () => {
+    setTempStartDate(startDate);
+    setTempEndDate(endDate);
+  };
+
   return (
     <div className="bg-secondary w-[250px] rounded-lg border border-shadowGray px-2 py-2">
-      {/* Header */}
-      <div className="flex justify-between items-center text-offWhite ">
+      <div className="flex justify-between items-center text-offWhite">
         <button
           onClick={handlePrevMonth}
-          className="rounded-md bg-secondary border border-shadowGray h-7 w-7 "
+          className="rounded-md bg-secondary border border-shadowGray h-7 w-7"
         >
           <svg
             viewBox="0 0 512 512"
@@ -132,7 +177,7 @@ const Calendar = () => {
           </svg>
         </button>
 
-        <div className="text-sm py-1">
+        <div className="text-xs py-1">
           {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
         </div>
 
@@ -159,20 +204,34 @@ const Calendar = () => {
         </button>
       </div>
 
-      {/* Days of the Week */}
-      <div className="grid grid-cols-7 py-2 ">
+      <div className="grid grid-cols-7 py-2">
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="flex items-center justify-center text-xs  text-muted w-7"
+            className="flex items-center  justify-center text-xs text-muted w-7"
           >
             {day}
           </div>
         ))}
       </div>
 
-      {/* Dates */}
       <div className="grid grid-cols-7 text-xs text-offWhite ">{renderDays()}</div>
+
+      <div className="flex justify-between items-center text-offWhite pt-2">
+        <button
+          onClick={handleCancel}
+          className="rounded-md bg-secondary text-xs border border-shadowGray h-7 px-3"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={handleApply}
+          className="rounded-md bg-accent border text-xs border-shadowGray h-7 px-3"
+        >
+          Apply
+        </button>
+      </div>
     </div>
   );
 };
