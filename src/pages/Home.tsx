@@ -10,7 +10,6 @@ import TrainerForm from "../components/ui/Modals/TrainerForm/TrainerForm";
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
-  // const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleToggleModal = () => {
