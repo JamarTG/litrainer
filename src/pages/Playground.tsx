@@ -3,7 +3,12 @@ import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
-import { API_BASE_URL, BOARD_DIMENSIONS, INITIAL_FORM_STATE, INITIAL_MATERIAL } from "../constants";
+import {
+  API_BASE_URL,
+  BOARD_DIMENSIONS,
+  INITIAL_FORM_STATE,
+  INITIAL_MATERIAL,
+} from "../constants";
 import {
   attemptMove,
   checkKnownOpening,
@@ -57,7 +62,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
   const navigate = useNavigate();
-  
+
   const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
     BOARD_DIMENSIONS.MIN_SIZE,
@@ -278,10 +283,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       return;
     }
 
-    console.log("formData",formData)
+    console.log("formData", formData);
     try {
-      const gameTypesQuery = gameTypes.map(type => `perfType=${type}`).join("&");
-      
+      const gameTypesQuery = gameTypes
+        .map((type) => `perfType=${type}`)
+        .join("&");
+
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
       const response = await fetch(url, {
         headers: {
