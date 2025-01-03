@@ -55,7 +55,8 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             ) : (
                 <button
                 onClick={() => resetBoard(nextPuzzle)}
-                className="bg-green-500  text-white font-bold w-24 rounded"
+                className="w-auto h-auto flex items-center justify-center rounded-lg text-white shadow-xs px-4 py-2 cursor-pointer bg-accent transition duration-150 hover:bg-accent-dark text-lg"
+
                 >
                 Start
                 </button>
