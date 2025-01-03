@@ -1,22 +1,35 @@
-import React from 'react';
-import PlayerInfo from '../../ControlPanel/components/PlayerInfo';
-import RenderMaterial from '../../ControlPanel/components/RenderMaterial'; 
-import { Materials } from '../../../types/eval';
-import { LichessPlayer } from '../../../types/player';
+import React from "react";
+import PlayerInfo from "../../ControlPanel/components/PlayerInfo";
+import RenderMaterial from "../../ControlPanel/components/RenderMaterial";
+import { Materials } from "../../../types/eval";
+import { Puzzle } from "../../../types/puzzle";
 
 interface PlayerWithMaterialProps {
-  player: LichessPlayer;
-  color: "w" | "b";
-  isWinner: boolean;
-  material: Materials
+  puzzle: Puzzle | null;
+  color: "white" | "black";
+  material: Materials;
 }
 
-const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({ player, color, isWinner, material }) => {
+const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({
+  color,
+  material,
+  puzzle,
+}) => {
   return (
-    <div className="flex items-center gap-2">
-      <PlayerInfo player={player} color={color} isWinner={isWinner} />
-      <RenderMaterial material={material} color={color} />
-    </div>
+    <>
+      {puzzle && (
+        <div className="flex items-center gap-2">
+          <PlayerInfo
+            player={
+              color === "white" ? puzzle.players.white : puzzle.players.black
+            }
+            color={color}
+            isWinner={puzzle.winner == color}
+          />
+          <RenderMaterial material={material} color={color} />
+        </div>
+      )}
+    </>
   );
 };
 

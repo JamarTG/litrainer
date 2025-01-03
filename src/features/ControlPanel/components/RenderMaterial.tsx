@@ -26,7 +26,7 @@ interface RenderMaterialProps {
       q: number;
     };
   };
-  color: "w" | "b";
+  color: "white" | "black";
 }
 
 const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
@@ -39,7 +39,7 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
     k: faChessKing,
   };
 
-  const getMaterialDiff = (color: "w" | "b") => {
+  const getMaterialDiff = (color: "white" | "black") => {
     const matdiff =
       material.w.p -
       material.b.p +
@@ -52,7 +52,7 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
       material.w.q * 9 +
       material.b.q * 9;
 
-    return (color === "w" && matdiff >= 0) || (color === "b" && matdiff < 0)
+    return (color === "white" && matdiff >= 0) || (color === "black" && matdiff < 0)
       ? Math.abs(matdiff)
       : 0;
   };
@@ -65,7 +65,7 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
 
   return (
     <div className="flex justify-center items-center gap-2">
-      {Object.entries(color === "b" ? material.b : material.w).map(
+      {Object.entries(color === "black" ? material.b : material.w).map(
         ([piece, count]) =>
           count > 0 ? (
             <div key={piece} className="flex gap-1">
@@ -74,7 +74,7 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
                   <FontAwesomeIcon
                     icon={pieceIcons[piece as keyof typeof pieceIcons]}
                     size="sm"
-                    color={color === "w" ? "white" : "black"}
+                    color={color === "white" ? "white" : "black"}
                   />
                 </span>
               ))}

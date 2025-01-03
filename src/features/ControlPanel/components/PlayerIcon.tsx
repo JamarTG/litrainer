@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface PlayerIconProps {
-  color: "w" | "b";
+  color: "white" | "black";
 }
 
 const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
@@ -11,7 +11,7 @@ const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
     <div className="rounded-full px-1">
       <FontAwesomeIcon
         icon={faCircle}
-        color={color === "w" ? "#ffffff" : "#000000"}
+        color={color === "white" ? "#ffffff" : "#000000"}
         size="lg"
       />
     </div>
