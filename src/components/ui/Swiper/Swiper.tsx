@@ -3,8 +3,6 @@ import NavigationButtons from "./Navbuttons";
 import ProgressIndicator from "./ProgressIndicator";
 
 
-
-
 interface SwiperProps {
   children: React.ReactNode[];
   className?: string;

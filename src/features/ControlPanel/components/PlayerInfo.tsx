@@ -9,7 +9,7 @@ import PlayerRating from "./PlayerRating";
 
 interface PlayerInfoProps {
   player: LichessPlayer;
-  color: "w" | "b";
+  color: "white" | "black";
   isWinner: boolean;
 }
 

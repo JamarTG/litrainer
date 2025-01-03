@@ -1,9 +1,12 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
-import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
-import { API_BASE_URL, BOARD_DIMENSIONS, INITIAL_FORM_STATE, INITIAL_MATERIAL } from "../constants";
+import {
+  BOARD_DIMENSIONS,
+  INITIAL_FORM_STATE,
+  INITIAL_MATERIAL,
+} from "../constants";
 import {
   attemptMove,
   checkKnownOpening,
@@ -12,14 +15,10 @@ import {
 } from "../utils/chess";
 import { Classification, MoveClassification } from "../types/move";
 import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
-import ResizeHandle from "../features/Board/components/ResizeHandle";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import useResizableBoard from "../features/Board/hooks/useResizableBoard";
 import { Materials } from "../types/eval";
-import { getCustomSquareStyles, getSquareStyle } from "../utils/style";
-import PlayerInfo from "../features/ControlPanel/components/PlayerInfo";
-import RenderMaterial from "../features/ControlPanel/components/RenderMaterial";
-import PlayerWithMaterial from "../features/Board/components/PlayerWithMaterial";
+import { getSquareStyle } from "../utils/style";
 import { PuzzleContext } from "../context/Puzzle/PuzzleContext";
 import { useComputerMove } from "../features/Engine/hooks/useComputerMove";
 import { useMaterialEffect } from "../features/Board/hooks/useMaterialEffect";
@@ -27,10 +26,9 @@ import { useMarkerPositionEffect } from "../features/Board/hooks/useMarkerPositi
 import { useEngineContext } from "../context/Engine/EngineContext";
 import Settings from "../features/Settings/components/Settings";
 import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
-import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
-import createPuzzles, { parseLichessResponse } from "../utils/lichess";
-import { LichessGameResponse } from "../types/response";
+import useHandleSubmit from "../features/Board/hooks/useHandleSubmit";
+import InteractiveChessBoard from "../features/Board/components/InteractiveBoard";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -56,8 +54,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }>({ right: 0, top: 0 });
 
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
-  const navigate = useNavigate();
-  
+
   const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
     BOARD_DIMENSIONS.MIN_SIZE,
@@ -82,6 +79,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     puzzle?.userMove.color as "w" | "b",
     setMarkerPosition
   );
+  const handleSubmit = useHandleSubmit(formData, setFormData);
 
   useEffect(() => {
     return () => {
@@ -230,160 +228,30 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } =
-      formData;
-
-    if (!username) {
-      alert("Please provide a username");
-      return;
-    }
-
-    if (gameTypes.length < 1) {
-      alert("Please select at least one game type");
-      return;
-    }
-
-    if (!maxNoGames) {
-      maxNoGames = 10;
-    }
-
-    if (!sort) {
-      sort = "desc";
-    }
-
-    if (!color) {
-      color = "both";
-    }
-
-    const now = new Date();
-    const lastWeek = new Date();
-    lastWeek.setDate(now.getDate() - 7);
-
-    if (!startDate) {
-      startDate = lastWeek.toISOString().split("T")[0];
-    }
-    if (!endDate) {
-      endDate = now.toISOString().split("T")[0];
-    }
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    end.setHours(23, 59, 59, 999);
-
-    if (start > end) {
-      alert("Start date must be before end date.");
-      return;
-    }
-
-    console.log("formData",formData)
-    try {
-      const gameTypesQuery = gameTypes.map(type => `perfType=${type}`).join("&");
-      
-      const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
-      const response = await fetch(url, {
-        headers: {
-          Accept: "application/x-ndjson",
-        },
-      });
-
-      if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
-
-        return;
-      }
-
-      const parsedPuzzleData = await parseLichessResponse(response);
-
-      if (!parsedPuzzleData) {
-        return;
-      }
-
-      const puzzles = createPuzzles(
-        username,
-        parsedPuzzleData.games as LichessGameResponse[],
-        parsedPuzzleData.evaluations
-      );
-
-      if (puzzles.length === 0) {
-        alert("No games found for the given criteria");
-        return;
-      } else {
-        alert(`Fetched ${puzzles.length} games`);
-      }
-
-      navigate("/train", { state: { puzzles } });
-      window.location.reload();
-    } catch (error) {
-      console.error("Error fetching games:", error);
-    }
-  };
-
   return (
     <div className="bg-gray-700 flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
-      <SubmitButtonWithModal
-        formData={formData}
-        setFormData={setFormData}
-        handleSubmit={handleSubmit}
+      
+      <InteractiveChessBoard
+        boardRef={boardRef}
+        boardSize={boardSize}
+        puzzle={puzzle}
+        markerPosition={markerPosition}
+        destinationSquare={destinationSquare}
+        sourceSquare={sourceSquare}
+        classification={classification}
+        moveSquares={moveSquares}
+        isLoadingEvaluation={isLoadingEvaluation}
+        solved={solved}
+        material={material}
+        fen={fen}
+        handleSquareClick={handleSquareClick}
+        handlePieceDrop={handlePieceDrop}
+        unhighlightSquares={unhighlightSquares}
+        resizeRef={resizeRef}
+        handleMouseDown={handleMouseDown}
       />
-      <div
-        ref={boardRef}
-        className="relative flex flex-col justify-center items-center gap-2"
-        style={{ maxWidth: `${boardSize}px`, maxHeight: `${boardSize}px` }}
-      >
-        <div className="flex items-center justify-center gap-2">
-          {puzzle?.players.white && (
-            <PlayerInfo
-              player={puzzle.players.white}
-              color={"w"}
-              isWinner={puzzle.winner === "white"}
-            />
-          )}
-          <RenderMaterial material={material} color="w" />
-        </div>
-        <Chessboard
-          position={fen}
-          onSquareClick={handleSquareClick}
-          animationDuration={10}
-          onPieceDrop={handlePieceDrop}
-          onPieceDragBegin={unhighlightSquares}
-          onPieceDragEnd={unhighlightSquares}
-          boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
-          boardWidth={boardSize}
-          customSquareStyles={getCustomSquareStyles(
-            destinationSquare,
-            sourceSquare,
-            classification,
-            moveSquares,
-            isLoadingEvaluation
-          )}
-          customLightSquareStyle={{ backgroundColor: "#277F71" }}
-          customDarkSquareStyle={{ backgroundColor: "#FAFAFA" }}
-          arePiecesDraggable={!solved}
-        />
-        {destinationSquare && classification && (
-          <img
-            src={`/images/marker/${classification}.svg`}
-            alt=""
-            width={boardSize / 16}
-            height={boardSize / 16}
-            className="absolute"
-            style={{ right: markerPosition.right, top: markerPosition.top }}
-          />
-        )}
-        {puzzle && (
-          <PlayerWithMaterial
-            player={puzzle.players.black}
-            color={"b"}
-            isWinner={puzzle.winner === "black"}
-            material={material}
-          />
-        )}
-        <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} />
-      </div>
-      <div className="flex flex-col">
+    
+      <div className="flex flex-col justify-center items-center gap-4">
         <Settings />
         <PuzzleControlPanel
           nextPuzzle={nextPuzzle}
@@ -392,6 +260,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           setSolved={setSolved}
           setClassification={setClassification}
         />
+        <SubmitButtonWithModal
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
       </div>
     </div>
   );
