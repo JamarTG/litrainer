@@ -57,11 +57,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
+  
   const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
     BOARD_DIMENSIONS.MIN_SIZE,
