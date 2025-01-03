@@ -5,9 +5,10 @@ export interface Fields {
   endDate: string;
   gameTypes: GameType[];
   color: Color;
-  sort : "asc" | "desc";
+  sort : Sort;
 }
 
+export type Sort = "asc" | "desc";
 
 export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
 
