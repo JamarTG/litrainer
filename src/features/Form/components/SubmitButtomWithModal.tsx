@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import TrainerForm from '../../../components/ui/Modals/TrainerForm';
+import React, { Dispatch, useState } from "react";
+import TrainerForm from "../../../components/ui/Modals/TrainerForm";
+import { Fields } from "../../../types/form";
 interface SubmitButtonWithModalProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  text: string;
+  formData: Fields;
+  setFormData: Dispatch<React.SetStateAction<Fields>>;
   handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
-const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ formData, setFormData, handleSubmit }) => {
+const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({
+  text,
+  formData,
+  setFormData,
+  handleSubmit,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggleModal = () => {
@@ -14,13 +21,7 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ formData,
   };
 
   return (
-    <div>
-      <button
-        onClick={handleToggleModal}
-        className="w-64 whitespace-nowrap h-fit w-full items-center justify-center rounded-lg text-white shadow-xs px-[calc(theme(spacing[5])-1px)] py-[calc(theme(spacing[3])-1px)] cursor-pointer bg-accent transition duration-150 hover:border-accent text-sm"
-      >
-        Fetch New Puzzles
-      </button>
+    <div className="flex flex-col items-center justify-center">
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -30,6 +31,13 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ formData,
           handleSubmit={handleSubmit}
         />
       )}
+
+      <button
+        onClick={handleToggleModal}
+        className="w-auto h-auto flex items-center justify-center rounded-lg text-white shadow-xs px-4 py-2 cursor-pointer bg-accent transition duration-150 hover:bg-accent-dark text-lg"
+      >
+        {text}
+      </button>
     </div>
   );
 };
