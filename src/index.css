@@ -3,35 +3,22 @@
 @tailwind utilities;
 
 
-@layer utilities {
-  .darkBackground {
-    background-color: #D3F1DF;
-  }
-  .primary {
-    background-color: #85A98F;
-  }
-  .accent {
-    background-color: #5A6C57;
-  }
+body {
+  @apply antialiased transition-all duration-700 ease-in-out bg-offWhite text-black;
 }
+
+.dark body {
+  @apply bg-[#111111] text-offWhite; 
+}
+
 
 
 
 * {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 400;
+font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-weight: 400;
 }
 
-
-/* .hide-calendar-icon {
-    -webkit-appearance: none;
-} */
-
-.hide-calendar-icon::-webkit-inner-spin-button,
-.hide-calendar-icon::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-}
 
 ::-webkit-scrollbar {
     width: 12px; 
@@ -87,19 +74,7 @@
 }
 
 
-.swiper{
-  position: unset !important;
-}
-
-.swiper-pagination {
-  position: unset !important;
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
-  margin-left: auto !important;
-  margin-right: auto !important; 
-}
 
 .modal-backdrop {
   background-color: rgba(0, 0, 0, .8);
 }
-
