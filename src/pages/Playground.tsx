@@ -263,6 +263,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           sessionStarted={sessionStarted}
         />
         <SubmitButtonWithModal
+        text="New Session"
         formData={formData}
         setFormData={setFormData}
         handleSubmit={handleSubmit}

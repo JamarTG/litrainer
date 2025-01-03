@@ -6,15 +6,12 @@ import { Fields } from "../types/form";
 import { LichessGameResponse } from "../types/response";
 import createPuzzles, { parseLichessResponse } from "../utils/lichess";
 import TrainerForm from "../components/ui/Modals/TrainerForm";
-
+import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -64,10 +61,12 @@ const Home: React.FC = () => {
       return;
     }
 
-    console.log("sort",sort)
+    console.log("sort", sort);
     try {
-      const gameTypesQuery = gameTypes.map(type => `perfType=${type}`).join("&");
-      
+      const gameTypesQuery = gameTypes
+        .map((type) => `perfType=${type}`)
+        .join("&");
+
       const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
       const response = await fetch(url, {
         headers: {
@@ -107,22 +106,18 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="">
-      <button
-        onClick={handleToggleModal}
-        className=" whitespace-nowrap h-fit w-full items-center justify-center rounded-lg  text-white shadow-xs px-[calc(theme(spacing[5])-1px)] py-[calc(theme(spacing[3])-1px)]   cursor-pointer bg-accent transition duration-150 hover:border-accent text-sm "
-      >
-        Submit
-      </button>
-      {isModalOpen && (
-        <TrainerForm
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          formData={formData}
-          setFormData={setFormData}
-          handleSubmit={handleSubmit}
-        />
-      )}
+    <div className="bg-gray-700 flex flex-col justify-center min-h-screen p-4 gap-3 items-center">
+      <div className="w-1/2 text-white text-xl p-4 text-center">
+        This application is still under construction. Some functionalities have
+        not been implement. Use the default parameters on the button above to
+        access the Playground.
+      </div>
+      <SubmitButtonWithModal
+        text="Try the Trainer ❤️"
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

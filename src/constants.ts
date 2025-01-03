@@ -19,13 +19,13 @@ export const PIECE_ICONS = {
   k: faChessKing,
   p: faChessPawn,
 };
-const oneWeekAgo = new Date();
-oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
 export const INITIAL_FORM_STATE: Fields = {
   username: "JamariTheGreat",
   maxNoGames: 10,
-  startDate: oneWeekAgo.toISOString().split('T')[0],
+  startDate: oneYearAgo.toISOString().split('T')[0],
   endDate: new Date().toISOString().split('T')[0],
   color: "both",
   gameTypes: ["bullet", "blitz", "rapid", "classical", "correspondence"],
