@@ -3,7 +3,7 @@ import { Chessboard } from "react-chessboard";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
-import { BOARD_DIMENSIONS, INITIAL_MATERIAL } from "../constants";
+import { API_BASE_URL, BOARD_DIMENSIONS, INITIAL_FORM_STATE, INITIAL_MATERIAL } from "../constants";
 import {
   attemptMove,
   checkKnownOpening,
@@ -26,6 +26,11 @@ import { useMaterialEffect } from "../features/Board/hooks/useMaterialEffect";
 import { useMarkerPositionEffect } from "../features/Board/hooks/useMarkerPositionEffect";
 import { useEngineContext } from "../context/Engine/EngineContext";
 import Settings from "../features/Settings/components/Settings";
+import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
+import { useNavigate } from "react-router-dom";
+import { Fields } from "../types/form";
+import createPuzzles, { parseLichessResponse } from "../utils/lichess";
+import { LichessGameResponse } from "../types/response";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -49,6 +54,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     right: number;
     top: number;
   }>({ right: 0, top: 0 });
+
+  const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
@@ -222,8 +234,104 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
 
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } =
+      formData;
+
+    if (!username) {
+      alert("Please provide a username");
+      return;
+    }
+
+    if (gameTypes.length < 1) {
+      alert("Please select at least one game type");
+      return;
+    }
+
+    if (!maxNoGames) {
+      maxNoGames = 10;
+    }
+
+    if (!sort) {
+      sort = "desc";
+    }
+
+    if (!color) {
+      color = "both";
+    }
+
+    const now = new Date();
+    const lastWeek = new Date();
+    lastWeek.setDate(now.getDate() - 7);
+
+    if (!startDate) {
+      startDate = lastWeek.toISOString().split("T")[0];
+    }
+    if (!endDate) {
+      endDate = now.toISOString().split("T")[0];
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    if (start > end) {
+      alert("Start date must be before end date.");
+      return;
+    }
+
+    console.log("formData",formData)
+    try {
+      const gameTypesQuery = gameTypes.map(type => `perfType=${type}`).join("&");
+      
+      const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
+      const response = await fetch(url, {
+        headers: {
+          Accept: "application/x-ndjson",
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`Error ${response.status}: ${response.statusText}`);
+
+        return;
+      }
+
+      const parsedPuzzleData = await parseLichessResponse(response);
+
+      if (!parsedPuzzleData) {
+        return;
+      }
+
+      const puzzles = createPuzzles(
+        username,
+        parsedPuzzleData.games as LichessGameResponse[],
+        parsedPuzzleData.evaluations
+      );
+
+      if (puzzles.length === 0) {
+        alert("No games found for the given criteria");
+        return;
+      } else {
+        alert(`Fetched ${puzzles.length} games`);
+      }
+
+      navigate("/train", { state: { puzzles } });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error fetching games:", error);
+    }
+  };
+
   return (
     <div className="bg-gray-700 flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
+      <SubmitButtonWithModal
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
       <div
         ref={boardRef}
         className="relative flex flex-col justify-center items-center gap-2"
@@ -256,7 +364,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             isLoadingEvaluation
           )}
           customLightSquareStyle={{ backgroundColor: "#277F71" }}
-          customDarkSquareStyle={{backgroundColor: "#FAFAFA"}}
+          customDarkSquareStyle={{ backgroundColor: "#FAFAFA" }}
           arePiecesDraggable={!solved}
         />
         {destinationSquare && classification && (
