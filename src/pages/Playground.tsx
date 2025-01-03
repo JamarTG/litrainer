@@ -61,11 +61,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     BOARD_DIMENSIONS.MAX_SIZE
   );
 
-  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle } = useChangePuzzle(
+  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle,sessionStarted } = useChangePuzzle(
     puzzles,
     setUndoneMoves,
     setDestinationSquare,
     setSourceSquare
+  
   );
 
   const { engine } = useEngineContext();
@@ -259,6 +260,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           unhighlightLegalMoves={unhighlightSquares}
           setSolved={setSolved}
           setClassification={setClassification}
+          sessionStarted={sessionStarted}
         />
         <SubmitButtonWithModal
         formData={formData}
