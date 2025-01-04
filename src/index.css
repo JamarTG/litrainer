@@ -3,15 +3,9 @@
 @tailwind utilities;
 
 
-body {
-  @apply antialiased transition-all duration-700 ease-in-out bg-offWhite text-black;
-}
-
 .dark body {
   @apply bg-[#111111] text-offWhite; 
 }
-
-
 
 
 * {
