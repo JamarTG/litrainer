@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 
 body {
   @apply antialiased transition-all duration-700 ease-in-out bg-offWhite text-black;
@@ -9,7 +9,7 @@ body {
 
 .dark body {
   @apply bg-[#111111] text-offWhite; 
-}
+} */
 
 
 
@@ -77,4 +77,14 @@ font-weight: 400;
 
 .modal-backdrop {
   background-color: rgba(0, 0, 0, .8);
+}
+
+@font-face {
+  font-family: 'LichessIcons';
+  src: url('/public/font/lichess.woff2') format('woff2');
+
+}
+
+.icon {
+  font-family: 'LichessIcons';
 }
