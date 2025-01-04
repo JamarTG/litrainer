@@ -11,7 +11,7 @@ import {
 import { Classification, MoveClassification } from "../types/move";
 import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
-import { getSquareStyle } from "../utils/style";
+import { getHighlightedLegalMoves } from "../utils/style";
 import { PuzzleContext } from "../context/Puzzle/PuzzleContext";
 import { useComputerMove } from "../features/Engine/hooks/useComputerMove";
 import { useEngineContext } from "../context/Engine/EngineContext";
@@ -53,15 +53,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, []);
 
   useEffect(() => {
-    setPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
+    const currentPuzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y];
+    if (!currentPuzzle) return;
 
-    if (puzzle) {
-      game.load(fen);
-      setFen(puzzle.fen.previous);
+    setPuzzle(currentPuzzle);
+    game.load(fen);
+    setFen(currentPuzzle.fen.previous);
 
-      if (puzzle.opponentMove?.lan) {
-        executeComputerMove(game, puzzle.opponentMove.lan);
-      }
+    if (currentPuzzle.opponentMove?.lan) {
+      executeComputerMove(game, currentPuzzle.opponentMove.lan);
     }
   }, [puzzleIndex, puzzles, setFen]);
 
@@ -69,15 +69,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setMoveSquares({});
   }, []);
 
-  const handleKnownOpening = (movePlayedByUser: Move) => {
-    if (checkKnownOpening(game.fen().split(" ")[0])) {
-      handleEvaluation(MoveClassification.Book, movePlayedByUser.to, true);
+  const isInOpeningBook = (movePlayedByUser: Move) => {
+    const fenPosition = game.fen().split(" ")[0];
+    const isMoveAccepted = true;
+
+    if (checkKnownOpening(fenPosition)) {
+      handleEvaluation(MoveClassification.Book, movePlayedByUser.to, isMoveAccepted);
       return true;
     }
+
     return false;
   };
 
-  const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
+  const makeMove = (sourceSquare: string, targetSquare: string) => {
     if (solved) return false;
 
     if (isNotUserTurn(game, puzzle)) {
@@ -85,17 +89,21 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     }
 
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
-    if (!movePlayedByUser) return false;
+    const isMoveInvalid = !movePlayedByUser;
+
+    if (isMoveInvalid) return false;
 
     setSourceSquare(sourceSquare as Square);
     setDestinationSquare(targetSquare as Square);
-    const bookMove = handleKnownOpening(movePlayedByUser);
 
-    if (!bookMove) {
+    if (!isInOpeningBook(movePlayedByUser)) {
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
+        const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
+        const sameJudgement = puzzle?.evaluation.judgment?.name;
+        
         handleEvaluation(
-          movePlayedByUser.lan === puzzle?.userMove.lan
-            ? (puzzle.evaluation.judgment?.name as Classification)
+          isSameMistake
+            ? (sameJudgement as Classification)
             : classification,
           movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
@@ -152,18 +160,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       highlightLegalMoves(game.moves({ square: srcSquare, verbose: true }));
       return;
     }
-    handlePieceDrop(sourceSquare!, srcSquare);
+    makeMove(sourceSquare!, srcSquare);
     unhighlightLegalMoves();
   };
 
   const highlightLegalMoves = useCallback(
     (legalMoves: Move[]) => {
       if (solved) return;
-
-      const highlightedSquaresStyles = legalMoves.reduce((styles, move) => {
-        styles[move.to] = getSquareStyle(!!move.captured);
-        return styles;
-      }, {} as Record<string, any>);
+      
+      const highlightedSquaresStyles = getHighlightedLegalMoves(legalMoves);
 
       setMoveSquares(highlightedSquaresStyles);
     },
@@ -183,7 +188,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         solved={solved}
         fen={fen}
         handleSquareClick={handleSquareClick}
-        handlePieceDrop={handlePieceDrop}
+        makeMove={makeMove}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
       <div className="flex flex-col justify-center items-center gap-4">
