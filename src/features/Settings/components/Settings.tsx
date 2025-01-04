@@ -14,7 +14,7 @@ const Settings = () => {
   return (
     <>
       <button onClick={toggleModal} type="button">
-        <FontAwesomeIcon icon={faGear} />
+        <FontAwesomeIcon color="white" icon={faGear} />
       </button>
 
       {isOpen && (

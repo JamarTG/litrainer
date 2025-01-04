@@ -12,7 +12,7 @@ const ResizeHandle: React.FC<ResizeHandleProps> = ({ resizeRef, handleMouseDown 
     <div
       ref={resizeRef}
       onMouseDown={handleMouseDown}
-      className="absolute bottom-[-15px] right-[-20px] w-5 h-5 cursor-se-resize"
+      className="absolute bottom-[-15px] right-[-20px] w-5 h-5 cursor-se-resize text-white"
     >
       <FontAwesomeIcon
         icon={faUpRightAndDownLeftFromCenter}

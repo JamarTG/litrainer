@@ -230,7 +230,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   return (
-    <div className="bg-gray-700 flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
+    <div className="bg-gray-700 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
       
       <InteractiveChessBoard
         boardRef={boardRef}
