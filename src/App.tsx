@@ -3,6 +3,7 @@ import { EngineProvider } from "./context/Engine/EngineProvider";
 import { EngineName } from "./types/engine";
 import { PuzzleProvider } from "./context/Puzzle/PuzzleProvider";
 import Router from "./routes/router";
+import "./App.css"
 
 const App = () => {
   return (

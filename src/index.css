@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
+
 
 body {
   @apply antialiased transition-all duration-700 ease-in-out bg-offWhite text-black;
@@ -9,7 +9,7 @@ body {
 
 .dark body {
   @apply bg-[#111111] text-offWhite; 
-} */
+}
 
 
 
@@ -87,4 +87,5 @@ font-weight: 400;
 
 .icon {
   font-family: 'LichessIcons';
+  font-size: 25px;
 }
