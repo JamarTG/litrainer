@@ -1,4 +1,4 @@
-import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
+import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 
 const Home: React.FC = () => {
   return (

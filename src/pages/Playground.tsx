@@ -9,16 +9,15 @@ import {
   isNotUserTurn,
 } from "../utils/chess";
 import { Classification, MoveClassification } from "../types/move";
-import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
-import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
 import { getHighlightedLegalMoves } from "../utils/style";
-import { PuzzleContext } from "../context/Puzzle/PuzzleContext";
-import { useComputerMove } from "../features/Engine/hooks/useComputerMove";
-import { useEngineContext } from "../context/Engine/EngineContext";
-
-import Settings from "../features/Settings/components/Settings";
-import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
-import InteractiveChessBoard from "../features/Board/components/InteractiveBoard";
+import { useComputerMove } from "../hooks/useComputerMove";
+import useChangePuzzle from "../hooks/useChangePuzzle";
+import InteractiveChessBoard from "../components/Board/InteractiveBoard";
+import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
+import Settings from "../components/Settings/Settings";
+import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
+import { useEngineContext } from "../context/EngineContext";
+import { PuzzleContext } from "../context/PuzzleContext";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -27,7 +26,7 @@ interface PlayGroundProps {
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [game, setGame] = useState<Chess>(new Chess());
   const [classification, setClassification] = useState<Classification | "">("");
-  const [solved, setSolved] = useState<boolean | null>(null);
+  const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean | null>(null);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">("");
@@ -38,7 +37,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
     useChangePuzzle(puzzles, setDestinationSquare, setSourceSquare);
-
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
   const { executeComputerMove } = useComputerMove(setGame, setFen);
@@ -46,7 +44,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   useEffect(() => {
     return () => {
       setDestinationSquare("");
-      setSolved(null);
+      setIsPuzzleSolved(null);
     };
   }, []);
 
@@ -80,7 +78,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handleMoveAttempt = (sourceSquare: string, targetSquare: string) => {
-    if (solved) return false;
+    if (isPuzzleSolved) return false;
 
     if (isNotUserTurn(game, puzzle)) {
       return false;
@@ -123,7 +121,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   ) => {
     setClassification(classificationResult);
     setDestinationSquare(dstSquare);
-    setSolved(solved);
+    setIsPuzzleSolved(solved);
   };
 
   const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
@@ -150,7 +148,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handleSquareClick = (srcSquare: Square) => {
-    if (solved) return;
+    if (isPuzzleSolved) return;
     const piece = game.get(srcSquare);
 
     if (!!piece && piece.color === game.turn()) {
@@ -164,10 +162,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const highlightLegalMoves = useCallback(
     (legalMoves: Move[]) => {
-      if (solved) return;
-      
+      if (isPuzzleSolved) return;
       const highlightedSquaresStyles = getHighlightedLegalMoves(legalMoves);
-
       setMoveSquares(highlightedSquaresStyles);
     },
     [setMoveSquares]
@@ -177,14 +173,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     <div className="bg-gray-700 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
       <InteractiveChessBoard
         game={game}
-        puzzle={puzzle}
-        destinationSquare={destinationSquare}
         sourceSquare={sourceSquare}
+        destinationSquare={destinationSquare}
         classification={classification}
         moveSquares={moveSquares}
         isLoadingEvaluation={isLoadingEvaluation}
-        solved={solved}
-        fen={fen}
+        HasSessionStarted={sessionStarted}
+        solved={isPuzzleSolved}
         handleSquareClick={handleSquareClick}
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
@@ -195,7 +190,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
           unhighlightLegalMoves={unhighlightLegalMoves}
-          setSolved={setSolved}
+          setIsPuzzleSolved={setIsPuzzleSolved}
           setClassification={setClassification}
           sessionStarted={sessionStarted}
         />
