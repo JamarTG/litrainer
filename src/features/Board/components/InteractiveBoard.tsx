@@ -24,7 +24,7 @@ interface BoardComponentProps {
   solved: boolean | null;
   fen: string;
   handleSquareClick: (srcSquare: Square) => void;
-  handlePieceDrop: (
+  makeMove: (
     sourceSquare: Square,
     targetSquare: Square,
     piece: string
@@ -44,7 +44,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
 
   fen,
   handleSquareClick,
-  handlePieceDrop,
+  makeMove,
   unhighlightLegalMoves,
 }) => {
   const [markerPosition, setMarkerPosition] = useState<{
@@ -80,7 +80,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         position={fen}
         onSquareClick={handleSquareClick}
         animationDuration={10}
-        onPieceDrop={handlePieceDrop}
+        onPieceDrop={makeMove}
         onPieceDragBegin={unhighlightLegalMoves}
         onPieceDragEnd={unhighlightLegalMoves}
         boardOrientation={puzzle?.userMove.color == "w" ? "white" : "black"}
