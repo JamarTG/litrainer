@@ -30,14 +30,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [solved, setSolved] = useState<boolean | null>(null);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
-
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">("");
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
-
   const [moveSquares, setMoveSquares] = useState({});
-
+  
   const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
     useChangePuzzle(puzzles, setDestinationSquare, setSourceSquare);
 
@@ -81,7 +79,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     return false;
   };
 
-  const makeMove = (sourceSquare: string, targetSquare: string) => {
+  const handleMoveAttempt = (sourceSquare: string, targetSquare: string) => {
     if (solved) return false;
 
     if (isNotUserTurn(game, puzzle)) {
@@ -160,7 +158,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       highlightLegalMoves(game.moves({ square: srcSquare, verbose: true }));
       return;
     }
-    makeMove(sourceSquare!, srcSquare);
+    handleMoveAttempt(sourceSquare!, srcSquare);
     unhighlightLegalMoves();
   };
 
@@ -188,7 +186,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         solved={solved}
         fen={fen}
         handleSquareClick={handleSquareClick}
-        makeMove={makeMove}
+        handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
       <div className="flex flex-col justify-center items-center gap-4">
