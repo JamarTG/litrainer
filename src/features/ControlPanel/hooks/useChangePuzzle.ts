@@ -6,7 +6,6 @@ import { PuzzleContext } from "../../../context/Puzzle/PuzzleContext";
 
 const useChangePuzzle = (
   puzzles: Puzzle[][],
-  setUndoneMoves: Dispatch<SetStateAction<string[]>>,
   setDstSquare: Dispatch<SetStateAction<Square | "">>,
   setSrcSquare : Dispatch<SetStateAction<Square | "">>,
 
@@ -37,7 +36,6 @@ const useChangePuzzle = (
       setPuzzleIndex({ x: puzzleIndex.x + 1, y: 0 });
       setFen(puzzles[puzzleIndex.x + 1][0].fen.previous);
     }
-    setUndoneMoves([]);
     setDstSquare("");
     setSrcSquare("");
   };
@@ -55,7 +53,7 @@ const useChangePuzzle = (
       setPuzzleIndex({ x: puzzleIndex.x - 1, y: newY });
       setFen(puzzles[puzzleIndex.x - 1][newY].fen.previous);
     }
-    setUndoneMoves([]);
+
     setDstSquare("");
     setSrcSquare("");
   };

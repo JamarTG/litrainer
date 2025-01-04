@@ -3,11 +3,6 @@ import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../utils/sound";
 import {
-  BOARD_DIMENSIONS,
-  INITIAL_FORM_STATE,
-  INITIAL_MATERIAL,
-} from "../constants";
-import {
   attemptMove,
   checkKnownOpening,
   isPositiveClassification,
@@ -16,18 +11,13 @@ import {
 import { Classification, MoveClassification } from "../types/move";
 import PuzzleControlPanel from "../features/ControlPanel/components/ControlPanel";
 import useChangePuzzle from "../features/ControlPanel/hooks/useChangePuzzle";
-import useResizableBoard from "../features/Board/hooks/useResizableBoard";
-import { Materials } from "../types/eval";
 import { getSquareStyle } from "../utils/style";
 import { PuzzleContext } from "../context/Puzzle/PuzzleContext";
 import { useComputerMove } from "../features/Engine/hooks/useComputerMove";
-import { useMaterialEffect } from "../features/Board/hooks/useMaterialEffect";
-import { useMarkerPositionEffect } from "../features/Board/hooks/useMarkerPositionEffect";
 import { useEngineContext } from "../context/Engine/EngineContext";
+
 import Settings from "../features/Settings/components/Settings";
 import SubmitButtonWithModal from "../features/Form/components/SubmitButtomWithModal";
-import { Fields } from "../types/form";
-import useHandleSubmit from "../features/Board/hooks/useHandleSubmit";
 import InteractiveChessBoard from "../features/Board/components/InteractiveBoard";
 
 interface PlayGroundProps {
@@ -36,51 +26,24 @@ interface PlayGroundProps {
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [game, setGame] = useState<Chess>(new Chess());
-  const [undoneMoves, setUndoneMoves] = useState<string[]>([]);
   const [classification, setClassification] = useState<Classification | "">("");
   const [solved, setSolved] = useState<boolean | null>(null);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
-  const [material, setMaterial] = useState<Materials>(INITIAL_MATERIAL);
+
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">("");
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
 
   const [moveSquares, setMoveSquares] = useState({});
-  const [markerPosition, setMarkerPosition] = useState<{
-    right: number;
-    top: number;
-  }>({ right: 0, top: 0 });
 
-  const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
-
-  const { boardSize, boardRef, resizeRef, handleMouseDown } = useResizableBoard(
-    BOARD_DIMENSIONS.INITIAL_SIZE,
-    BOARD_DIMENSIONS.MIN_SIZE,
-    BOARD_DIMENSIONS.MAX_SIZE
-  );
-
-  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle,sessionStarted } = useChangePuzzle(
-    puzzles,
-    setUndoneMoves,
-    setDestinationSquare,
-    setSourceSquare
-  
-  );
+  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
+    useChangePuzzle(puzzles, setDestinationSquare, setSourceSquare);
 
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
   const { executeComputerMove } = useComputerMove(setGame, setFen);
-
-  useMaterialEffect(game, setMaterial);
-  useMarkerPositionEffect(
-    destinationSquare,
-    boardSize,
-    puzzle?.userMove.color as "w" | "b",
-    setMarkerPosition
-  );
-  const handleSubmit = useHandleSubmit(formData, setFormData);
 
   useEffect(() => {
     return () => {
@@ -93,24 +56,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setPuzzle(puzzles[puzzleIndex.x]?.[puzzleIndex.y] || null);
 
     if (puzzle) {
-      setGameFen(game, puzzle.fen.previous);
+      game.load(fen);
+      setFen(puzzle.fen.previous);
+
       if (puzzle.opponentMove?.lan) {
         executeComputerMove(game, puzzle.opponentMove.lan);
       }
     }
   }, [puzzleIndex, puzzles, setFen]);
 
-  const unhighlightSquares = useCallback(() => {
+  const unhighlightLegalMoves = useCallback(() => {
     setMoveSquares({});
   }, []);
-
-  const setGameFen = useCallback(
-    (game: Chess, fen: string) => {
-      game.load(fen);
-      setFen(fen);
-    },
-    [game, setFen]
-  );
 
   const handleKnownOpening = (movePlayedByUser: Move) => {
     if (checkKnownOpening(game.fen().split(" ")[0])) {
@@ -132,7 +89,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     setSourceSquare(sourceSquare as Square);
     setDestinationSquare(targetSquare as Square);
-    setUndoneMoves([]);
     const bookMove = handleKnownOpening(movePlayedByUser);
 
     if (!bookMove) {
@@ -144,31 +100,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
         );
-
-        if (!isPositiveClassification(classification as Classification)) {
-          setTimeout(() => {
-            undoMove();
-            setUndoneMoves([]);
-          }, 1000);
-        }
       });
     }
 
-    // Play sound and update the board state
     playSound(game, movePlayedByUser);
     setFen(game.fen());
     setMoveSquares({});
 
     return true;
-  };
-
-  const undoMove = () => {
-    if (game.history().length < 3) return;
-    const a = game.undo();
-    setUndoneMoves([a?.san || "", ...undoneMoves]);
-    setFen(game.fen());
-    setDestinationSquare("");
-    setClassification("");
   };
 
   const handleEvaluation = (
@@ -183,19 +122,21 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
     setIsLoadingEvaluation(true);
-
     try {
-      const result = await engine?.evaluateMoveQuality(fen, move.lan, depth);
-      if (result) {
-        const { classification } = result;
-        handleEvaluation(
-          classification,
-          move.to,
-          isPositiveClassification(classification)
-        );
-
-        return classification;
+      if (!engine?.isReady()) {
+        throw new Error("Engine is not initialized");
       }
+
+      const result = await engine.evaluateMoveQuality(fen, move.lan, depth);
+      handleEvaluation(
+        result.classification,
+        move.to,
+        isPositiveClassification(result.classification)
+      );
+
+      return result.classification ?? "";
+    } catch (error) {
+      console.error("Error evaluating move quality:", error);
       return "";
     } finally {
       setIsLoadingEvaluation(false);
@@ -212,7 +153,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       return;
     }
     handlePieceDrop(sourceSquare!, srcSquare);
-    unhighlightSquares();
+    unhighlightLegalMoves();
   };
 
   const highlightLegalMoves = useCallback(
@@ -231,43 +172,31 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   return (
     <div className="bg-gray-700 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
-      
       <InteractiveChessBoard
-        boardRef={boardRef}
-        boardSize={boardSize}
+        game={game}
         puzzle={puzzle}
-        markerPosition={markerPosition}
         destinationSquare={destinationSquare}
         sourceSquare={sourceSquare}
         classification={classification}
         moveSquares={moveSquares}
         isLoadingEvaluation={isLoadingEvaluation}
         solved={solved}
-        material={material}
         fen={fen}
         handleSquareClick={handleSquareClick}
         handlePieceDrop={handlePieceDrop}
-        unhighlightSquares={unhighlightSquares}
-        resizeRef={resizeRef}
-        handleMouseDown={handleMouseDown}
+        unhighlightLegalMoves={unhighlightLegalMoves}
       />
-    
       <div className="flex flex-col justify-center items-center gap-4">
         <Settings />
         <PuzzleControlPanel
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
-          unhighlightLegalMoves={unhighlightSquares}
+          unhighlightLegalMoves={unhighlightLegalMoves}
           setSolved={setSolved}
           setClassification={setClassification}
           sessionStarted={sessionStarted}
         />
-        <SubmitButtonWithModal
-        text="New Session"
-        formData={formData}
-        setFormData={setFormData}
-        handleSubmit={handleSubmit}
-      />
+        <SubmitButtonWithModal text="New Session" />
       </div>
     </div>
   );
