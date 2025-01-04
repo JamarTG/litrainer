@@ -69,3 +69,6 @@ export const getSquareStyle = (isCaptureMove: boolean) => {
     zIndex: 1,
   };
 };
+
+export const getColorLongForm = (color: "w" | "b") =>
+  color === "w" ? "white" : "black";
