@@ -1,21 +1,21 @@
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
 import TrainerForm from "../../../components/ui/Modals/TrainerForm";
 import { Fields } from "../../../types/form";
+import { INITIAL_FORM_STATE } from "../../../constants";
+import useHandleSubmit from "../../Board/hooks/useHandleSubmit";
 interface SubmitButtonWithModalProps {
   text: string;
-  formData: Fields;
-  setFormData: Dispatch<React.SetStateAction<Fields>>;
-  handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
 const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({
-  text,
-  formData,
-  setFormData,
-  handleSubmit,
+  text
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
 
+
+  const handleSubmit = useHandleSubmit(formData, setFormData);
+  
   const handleToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
