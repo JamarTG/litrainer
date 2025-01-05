@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
-import IconButton from "../General/Buttons/IconButton";
+import IconButton from "../Universal/Buttons/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 
