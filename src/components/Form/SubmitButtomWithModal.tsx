@@ -13,7 +13,6 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
 
-
   const handleSubmit = useHandleSubmit(formData);
   
   const handleToggleModal = () => {
