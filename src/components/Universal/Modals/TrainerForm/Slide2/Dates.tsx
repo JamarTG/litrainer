@@ -2,10 +2,9 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields } from "../../../../../types/form";
-import { formatDate } from "../../../../../utils/time";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
-
+import { formatDate } from "../../../../../utils/time";
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setFormData: Dispatch<SetStateAction<Fields>>;
