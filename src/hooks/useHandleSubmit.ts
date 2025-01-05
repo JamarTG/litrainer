@@ -64,11 +64,11 @@ const useHandleSubmit = (formData: Fields) => {
       url.searchParams.append("since", since);
       url.searchParams.append("until", until);
       url.searchParams.append("max", maxNoGames.toString());
-      url.searchParams.append("sort", sort == "asc" ? "dateAsc" : "dateDesc");
+      url.searchParams.append("sort", "dateDesc");
       url.searchParams.append("color", color);
-      gameTypes.forEach((type: string) =>
-        url.searchParams.append("perfType", type)
-      );
+      // gameTypes.forEach((type: string) =>
+      //   url.searchParams.append("perfType", type)
+      // );
       url.searchParams.append("evals", "true");
       url.searchParams.append("analysed", "true");
 
@@ -101,11 +101,11 @@ const useHandleSubmit = (formData: Fields) => {
         return;
       } else {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
-        // alert(`Fetched ${puzzles.length} games`);
+        alert(`Fetched ${puzzles.length} games`);
       }
       
       navigate("/train", { state: { puzzles } });
-      // window.location.reload();
+ 
     } catch (error) {
       alert(`Error fetching games for ${username}`);
     }

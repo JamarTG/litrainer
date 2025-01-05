@@ -15,7 +15,6 @@ import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
 import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
-import DepthSlider from "../components/Engine/DepthSlider";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
