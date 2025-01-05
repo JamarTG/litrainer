@@ -1,8 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
-import { INITIAL_FORM_STATE } from "../../../../../constants";
 import GameSpeedIcon from "../../../../ControlPanel/GameSpeedIcon";
 
 interface GamesProps {

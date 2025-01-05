@@ -18,6 +18,7 @@ import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
+import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -59,8 +60,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     if (!currentPuzzle) return;
   
     setPuzzle(currentPuzzle);
-    setFen(currentPuzzle.fen.previous); // Set the FEN to the first puzzle's position
+    setFen(currentPuzzle.fen.previous); 
     game.load(currentPuzzle.fen.previous);
+    setClassification("");
+    setIsPuzzleSolved(false);
+    setSourceSquare("");
+    setDestinationSquare("" as Square | "");
   
     if (currentPuzzle.opponentMove?.lan) {
       executeComputerMove(game, currentPuzzle.opponentMove.lan);
@@ -193,7 +198,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
       <div className="h-96 flex flex-col justify-center items-center gap-4">
-        <Settings />
+        <Settings /><SubmitButtonWithModal text="New Set" />
         <PuzzleControlPanel
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
@@ -201,7 +206,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           setIsPuzzleSolved={setIsPuzzleSolved}
           setClassification={setClassification}
         />
-        {/* <SubmitButtonWithModal text="New Session" /> */}
+        
       </div>
     </div>
   );
