@@ -8,22 +8,27 @@ import {
   getTimeRange,
   setDefaultColor,
   setDefaultMaxNoGames,
+  setDefaultSort,
   validateDates,
 } from "../utils/validation";
 import { Fields, Color } from "../types/form";
 
-const useHandleSubmit = (
-  formData: Fields,
- 
-) => {
+const useHandleSubmit = (formData: Fields) => {
   const navigate = useNavigate();
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { username, maxNoGames, startDate, endDate, gameTypes, color: colorString, sort } =
-      formData;
+    let {
+      username,
+      maxNoGames,
+      startDate,
+      endDate,
+      gameTypes,
+      color: colorString,
+      sort,
+    } = formData;
 
-      console.log(formData, "formData");
+    console.log(formData, "formData");
     let color: Color;
 
     if (!checkUserExists(username)) {
@@ -38,7 +43,7 @@ const useHandleSubmit = (
 
     maxNoGames = setDefaultMaxNoGames(maxNoGames);
     color = setDefaultColor(colorString);
-   
+    sort = setDefaultSort(sort);
 
     const {
       valid,
@@ -59,7 +64,7 @@ const useHandleSubmit = (
       url.searchParams.append("since", since);
       url.searchParams.append("until", until);
       url.searchParams.append("max", maxNoGames.toString());
-      url.searchParams.append("sort", "dateAsc");
+      url.searchParams.append("sort", sort == "asc" ? "dateAsc" : "dateDesc");
       url.searchParams.append("color", color);
       gameTypes.forEach((type: string) =>
         url.searchParams.append("perfType", type)
