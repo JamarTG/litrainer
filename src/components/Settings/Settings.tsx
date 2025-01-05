@@ -3,6 +3,7 @@ import EngineSwitcher from "../Engine/EngineSwitcher";
 import AutoSkip from "./AutoSkip";
 import { faGear } from "@fortawesome/free-solid-svg-icons/faGear";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DepthSlider from "../Engine/DepthSlider";
 
 const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,16 +55,23 @@ const Settings = () => {
               </div>
               <div className="flex flex-col gap-4 p-6">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <p className="text-md font-medium text-gray-700 dark:text-gray-300">
                     Set Engine
                   </p>
                   <EngineSwitcher />
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <p className="text-md font-medium text-gray-700 dark:text-gray-300">
                     Autoskip
                   </p>
                   <AutoSkip />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <p className="text-md font-medium text-gray-700 dark:text-gray-300">
+                    Depth
+                  </p>
+                  <DepthSlider />
                 </div>
               </div>
             </div>

@@ -15,6 +15,7 @@ import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
 import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
+import DepthSlider from "../components/Engine/DepthSlider";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
@@ -198,7 +199,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
       <div className="h-96 flex flex-col justify-center items-center gap-4">
-        <Settings /><SubmitButtonWithModal text="New Set" />
+        <Settings />
+        
+        <SubmitButtonWithModal text="New Set" />
         <PuzzleControlPanel
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
