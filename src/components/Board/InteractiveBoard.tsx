@@ -95,8 +95,8 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
           )}
           boardWidth={boardSize}
           customSquareStyles={customSquareStyles}
-          customLightSquareStyle={{ backgroundColor: "#277F71" }}
-          customDarkSquareStyle={{ backgroundColor: "#FAFAFA" }}
+          customLightSquareStyle={{ backgroundColor: "#FAFAFA" }}
+          customDarkSquareStyle={{ backgroundColor: "#277F71" }}
           arePiecesDraggable={!solved}
         />
    

@@ -193,7 +193,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-      <div className="flex flex-col justify-center items-center gap-4">
+      <div className="h-96 flex flex-col justify-center items-center gap-4">
         <Settings />
         <PuzzleControlPanel
           nextPuzzle={nextPuzzle}

@@ -17,13 +17,13 @@ const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({
   return (
     <>
       {puzzle && (
-        <div className="flex items-center gap-2">
+        <div className="h-8 flex gap-2">
           <PlayerInfo
             player={
               color === "white" ? puzzle.players.white : puzzle.players.black
             }
             color={color}
-            isWinner={puzzle.winner == color}
+        
           />
           <RenderMaterial material={material} color={color} />
         </div>

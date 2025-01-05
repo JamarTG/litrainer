@@ -33,32 +33,30 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   };
 
   return (
-    <div className="ml-4 flex gap-5  px-4 rounded-md">
+    <div className="p-4 w-96">
       {isDataAvailable && (
-        <div className="flex flex-col rounded-lg flex-grow">
+        <>
           <GameInfo puzzle={puzzle} />
-          <div className="flex flex-row">
+          <div className="flex mt-4">
             <PuzzleInfo puzzle={puzzle} />
-       
-              <div className="flex flex-row">
-                <IconButton
-                  onClick={() => resetBoard(prevPuzzle)}
-                  icon="&#xe037;"
-                />
-                <IconButton
-                  onClick={() => resetBoard(nextPuzzle)}
-                  icon="&#xe036;"
-                />
-              </div>        
+            <div className="flex justify-between mt-4">
+              <IconButton
+                onClick={() => resetBoard(prevPuzzle)}
+                icon="&#xe037;"
+                // className="text-indigo-500 hover:text-indigo-700"
+              />
+              <IconButton
+                onClick={() => resetBoard(nextPuzzle)}
+                icon="&#xe036;"
+                // className="text-indigo-500 hover:text-indigo-700"
+              />
+            </div>
           </div>
-          <div className="mt-2  text-white rounded-md text-md flex gap-2">
-            <GameStatus puzzle={puzzle} />
-            <GameResultMessage />
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
+  
 };
 
 export default PuzzleControlPanel;
