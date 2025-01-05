@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 const useResizableBoard = (
   initialSize: number = 500,
   minSize: number = 200,
-  maxSize: number = 800 // Adjusted maxSize to 800
+  maxSize: number = 800 
 ) => {
   const [boardSize, setBoardSize] = useState<number>(initialSize);
   const boardRef = useRef<HTMLDivElement>(null);

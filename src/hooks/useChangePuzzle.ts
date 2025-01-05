@@ -11,13 +11,10 @@ const useChangePuzzle = (
   
 ) => {
   const [puzzleIndex, setPuzzleIndex] = useState<PuzzleIndex>({ x: 0, y: 0 });
-  
   const { setPuzzle } = useContext(PuzzleContext);
 
   const nextPuzzle = () => {
-
     if (puzzles.length === 0) return;
-
     if (puzzleIndex.y + 1 < puzzles[puzzleIndex.x]?.length) {
       setPuzzle(puzzles[puzzleIndex.x][puzzleIndex.y + 1]);
       setPuzzleIndex({ x: puzzleIndex.x, y: puzzleIndex.y + 1 });
@@ -33,7 +30,6 @@ const useChangePuzzle = (
 
   const prevPuzzle = () => {
     if (puzzles.length === 0) return;
-
     if (puzzleIndex.y - 1 >= 0) {
       setPuzzle(puzzles[puzzleIndex.x][puzzleIndex.y - 1]);
       setPuzzleIndex({ x: puzzleIndex.x, y: puzzleIndex.y - 1 });
