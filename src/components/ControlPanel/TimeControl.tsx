@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { formatTime } from "../../utils/time";
 
 interface TimeControlProps {

@@ -3,7 +3,7 @@ import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
 import { INITIAL_FORM_STATE } from "../../../../../constants";
-import GameSpeedIcon from "../../../../../speed/GameSpeedIcon";
+import GameSpeedIcon from "../../../../ControlPanel/GameSpeedIcon";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +19,7 @@ const Games: React.FC<GamesProps> = ({
   const gamesDropdown = usePopperDropDown();
 
   const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];
-  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  const [formData, _] = useState(INITIAL_FORM_STATE);
 
   return (
     <div className="grid gap-2">
