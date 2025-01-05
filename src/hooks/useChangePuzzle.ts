@@ -7,7 +7,6 @@ const useChangePuzzle = (
   puzzles: Puzzle[][],
   setDstSquare: Dispatch<SetStateAction<Square | "">>,
   setSrcSquare: Dispatch<SetStateAction<Square | "">>,
-  fen: string,
   setFen: Dispatch<SetStateAction<string>>
   
 ) => {

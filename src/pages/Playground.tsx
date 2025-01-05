@@ -44,7 +44,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     puzzles,
     setDestinationSquare,
     setSourceSquare,
-    fen,
     setFen
   );
 
