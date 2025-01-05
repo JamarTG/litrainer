@@ -2,15 +2,29 @@ import { useNavigate } from "react-router-dom";
 import createPuzzles, { parseLichessResponse } from "../utils/lichess";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
-import { atLeastOneGameType, checkUserExists, getTimeRange, setDefaultColor, setDefaultMaxNoGames, setDefaultSort, validateDates } from "../utils/validation";
+import {
+  atLeastOneGameType,
+  checkUserExists,
+  getTimeRange,
+  setDefaultColor,
+  setDefaultMaxNoGames,
+  validateDates,
+} from "../utils/validation";
+import { Fields, Color } from "../types/form";
 
-const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
+const useHandleSubmit = (
+  formData: Fields,
+ 
+) => {
   const navigate = useNavigate();
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } =
+    let { username, maxNoGames, startDate, endDate, gameTypes, color: colorString, sort } =
       formData;
+
+      console.log(formData, "formData");
+    let color: Color;
 
     if (!checkUserExists(username)) {
       alert("User Not Found");
@@ -23,8 +37,8 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
     }
 
     maxNoGames = setDefaultMaxNoGames(maxNoGames);
-    sort = setDefaultSort(sort);
-    color = setDefaultColor(color);
+    color = setDefaultColor(colorString);
+   
 
     const {
       valid,
@@ -38,7 +52,6 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
     }
 
     const { since, until } = getTimeRange(validatedStartDate, validatedEndDate);
-   
 
     try {
       const url = new URL(`https://lichess.org/api/games/user/${username}`);
@@ -86,7 +99,6 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
         alert(`Fetched ${puzzles.length} games`);
       }
 
-      setFormData({});
       navigate("/train", { state: { puzzles } });
     } catch (error) {
       console.error("Error fetching games:", error);

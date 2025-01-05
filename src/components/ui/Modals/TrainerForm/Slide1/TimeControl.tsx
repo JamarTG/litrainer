@@ -1,7 +1,8 @@
-import { ChangeEvent} from "react";
+import { ChangeEvent, useState} from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields } from "../../../../../types/form";
+import { INITIAL_FORM_STATE } from "../../../../../constants";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -12,21 +13,22 @@ interface GamesProps {
 const Games: React.FC<GamesProps> = ({
   handleInputChange,
   handleGameTypesChange,
-  formData,
+  // formData,
 }) => {
   const gamesDropdown = usePopperDropDown();
 
   const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
   return (
     <div className="grid gap-2">
       <h1 className="text-landingText text-sm text-offWhite">Time controls</h1>
-
+  
       <div className="relative w-full flex items-center">
         <input
           className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
           placeholder="Select games"
-          value={formData.gameTypes.join(", ")}
+          value={formData.gameTypes.join(",")}
           onChange={handleInputChange}
           ref={gamesDropdown.triggerRef}
           onClick={gamesDropdown.toggleDropdown}

@@ -1,3 +1,5 @@
+import { Color, Sort } from "../types/form";
+
 export const validateDates = (startDate: string, endDate: string) => {
   const now = new Date();
   const lastWeek = new Date();
@@ -48,11 +50,11 @@ export const setDefaultMaxNoGames = (maxNoGames: number) => {
   return maxNoGames || 10;
 };
 
-export const setDefaultSort = (sort: string) => {
+export const setDefaultSort = (sort: Sort) => {
   return sort || "desc";
 };
 
-export const setDefaultColor = (color: string) => {
+export const setDefaultColor = (color: Color): Color => {
   return color || "both";
 };
 
