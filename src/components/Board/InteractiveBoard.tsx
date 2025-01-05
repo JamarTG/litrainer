@@ -18,7 +18,6 @@ interface BoardComponentProps {
   destinationSquare: Move["to"] | "";
   sourceSquare: Move["from"] | "";
   classification: Classification | "";
-  HasSessionStarted: boolean;
   moveSquares: Record<string, string>;
   isLoadingEvaluation: boolean;
   solved: boolean | null;
@@ -39,7 +38,6 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   moveSquares,
   isLoadingEvaluation,
   solved,
-  HasSessionStarted,
   handleSquareClick,
   handleMoveAttempt,
   unhighlightLegalMoves,
@@ -60,7 +58,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   );
 
   const {puzzle} = useContext(PuzzleContext);
-  
+
   useMaterialEffect(game, setMaterial);
   useMarkerPositionEffect(
     destinationSquare,
@@ -99,7 +97,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
           customSquareStyles={customSquareStyles}
           customLightSquareStyle={{ backgroundColor: "#277F71" }}
           customDarkSquareStyle={{ backgroundColor: "#FAFAFA" }}
-          arePiecesDraggable={!solved || !HasSessionStarted}
+          arePiecesDraggable={!solved}
         />
    
         <Marker

@@ -11,7 +11,6 @@ interface ControlPanelProps {
   nextPuzzle: () => void;
   prevPuzzle: () => void;
   unhighlightLegalMoves: () => void;
-  sessionStarted: boolean;
   setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
 }
@@ -22,7 +21,6 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setClassification,
   unhighlightLegalMoves,
   setIsPuzzleSolved,
-  sessionStarted,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -41,7 +39,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           <GameInfo puzzle={puzzle} />
           <div className="flex flex-row">
             <PuzzleInfo puzzle={puzzle} />
-            {sessionStarted ? (
+       
               <div className="flex flex-row">
                 <IconButton
                   onClick={() => resetBoard(prevPuzzle)}
@@ -51,15 +49,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
                   onClick={() => resetBoard(nextPuzzle)}
                   icon="&#xe036;"
                 />
-              </div>
-            ) : (
-              <button
-                onClick={() => resetBoard(nextPuzzle)}
-                className="w-auto h-auto flex items-center justify-center rounded-lg text-white shadow-xs px-4 py-2 cursor-pointer bg-accent transition duration-150 hover:bg-accent-dark text-lg"
-              >
-                Start
-              </button>
-            )}
+              </div>        
           </div>
           <div className="mt-2  text-white rounded-md text-md flex gap-2">
             <GameStatus puzzle={puzzle} />

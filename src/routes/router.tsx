@@ -5,12 +5,11 @@ import Help from "../pages/Help";
 import Playground from "../pages/Playground";
 import NotFound from "../pages/NotFound";
 import Paths from "./paths";
-import React from "react";
 // import Test from "../pages/landing/test";
 
 export default function Router() {
   const location = useLocation();
-  const { puzzles } = location.state || { puzzles: [] };
+  const { puzzles } = location.state || { puzzles: JSON.parse(localStorage.getItem("puzzles") || "[]") };
 
   return (
     <>

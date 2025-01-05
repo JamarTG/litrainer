@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import TrainerForm from "../UI/Modals/TrainerForm";
 import { Fields } from "../../types/form";
 import { INITIAL_FORM_STATE } from "../../constants";

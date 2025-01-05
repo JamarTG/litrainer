@@ -18,6 +18,7 @@ import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
+import { STARTINGPOSFEN } from "../constants";
 
 interface PlayGroundProps {
   puzzles: Puzzle[][];
@@ -34,13 +35,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     ""
   );
   const [moveSquares, setMoveSquares] = useState({});
-  
-  const { puzzleIndex, fen, setFen, nextPuzzle, prevPuzzle, sessionStarted } =
-    useChangePuzzle(puzzles, setDestinationSquare, setSourceSquare);
+  const [fen, setFen] = useState<string>(STARTINGPOSFEN);
+
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
-  const { executeComputerMove } = useComputerMove(setGame, setFen);
 
+  const { puzzleIndex, nextPuzzle, prevPuzzle } = useChangePuzzle(
+    puzzles,
+    setDestinationSquare,
+    setSourceSquare,
+    fen,
+    setFen
+  );
+
+  const { executeComputerMove } = useComputerMove(setGame, setFen);
   useEffect(() => {
     return () => {
       setDestinationSquare("");
@@ -70,7 +78,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const isMoveAccepted = true;
 
     if (checkKnownOpening(fenPosition)) {
-      handleEvaluation(MoveClassification.Book, movePlayedByUser.to, isMoveAccepted);
+      handleEvaluation(
+        MoveClassification.Book,
+        movePlayedByUser.to,
+        isMoveAccepted
+      );
       return true;
     }
 
@@ -96,11 +108,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
-        
+
         handleEvaluation(
-          isSameMistake
-            ? (sameJudgement as Classification)
-            : classification,
+          isSameMistake ? (sameJudgement as Classification) : classification,
           movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
         );
@@ -178,7 +188,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         classification={classification}
         moveSquares={moveSquares}
         isLoadingEvaluation={isLoadingEvaluation}
-        HasSessionStarted={sessionStarted}
         solved={isPuzzleSolved}
         handleSquareClick={handleSquareClick}
         handleMoveAttempt={handleMoveAttempt}
@@ -192,7 +201,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           unhighlightLegalMoves={unhighlightLegalMoves}
           setIsPuzzleSolved={setIsPuzzleSolved}
           setClassification={setClassification}
-          sessionStarted={sessionStarted}
         />
         <SubmitButtonWithModal text="New Session" />
       </div>
