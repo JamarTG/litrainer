@@ -103,8 +103,9 @@ const useHandleSubmit = (formData: Fields) => {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
         alert(`Fetched ${puzzles.length} games`);
       }
-
+      
       navigate("/train", { state: { puzzles } });
+      window.location.reload();
     } catch (error) {
       console.error("Error fetching games:", error);
     }
