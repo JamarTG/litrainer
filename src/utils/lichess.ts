@@ -2,6 +2,7 @@ import { Chess } from "chess.js";
 import { LichessEvaluation } from "../types/eval";
 import { LichessGameResponse } from "../types/response";
 import { Puzzle } from "../types/puzzle";
+import { GameType } from "../types/form";
 
 export const parseLichessResponse = async (response: Response) => {
   if (!response.body) {
@@ -69,7 +70,7 @@ const createPuzzles = (
           gameId: game.game_id,
           players: game.players,
           variant: game.variant,
-          timeControl: game.perf,
+          timeControl: game.perf as GameType,
           status: game.status,
           rated: game.rated,
           clock: game.clock,
