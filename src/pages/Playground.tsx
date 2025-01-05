@@ -56,17 +56,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, []);
 
   useEffect(() => {
-    const currentPuzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y];
+    const currentPuzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || puzzles[0][0]; // Default to the first puzzle
     if (!currentPuzzle) return;
-
+  
     setPuzzle(currentPuzzle);
-    game.load(fen);
-    setFen(currentPuzzle.fen.previous);
-
+    setFen(currentPuzzle.fen.previous); // Set the FEN to the first puzzle's position
+    game.load(currentPuzzle.fen.previous);
+  
     if (currentPuzzle.opponentMove?.lan) {
       executeComputerMove(game, currentPuzzle.opponentMove.lan);
     }
   }, [puzzleIndex, puzzles, setFen]);
+  
 
   const unhighlightLegalMoves = useCallback(() => {
     setMoveSquares({});
