@@ -66,9 +66,7 @@ const useHandleSubmit = (formData: Fields) => {
       url.searchParams.append("max", maxNoGames.toString());
       url.searchParams.append("sort", "dateDesc");
       url.searchParams.append("color", color);
-      // gameTypes.forEach((type: string) =>
-      //   url.searchParams.append("perfType", type)
-      // );
+      url.searchParams.append("perfType", gameTypes.join(","));
       url.searchParams.append("evals", "true");
       url.searchParams.append("analysed", "true");
 
