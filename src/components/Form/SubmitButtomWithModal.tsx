@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TrainerForm from "../UI/Modals/TrainerForm";
+import TrainerForm from "../General/Modals/TrainerForm";
 import { Fields } from "../../types/form";
 import { INITIAL_FORM_STATE } from "../../constants";
 import useHandleSubmit from "../../hooks/useHandleSubmit";

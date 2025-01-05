@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, MouseEventHandler } from "react";
-import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
+import ProgressIndicator from "./ProgressIndicator";
 
 
 interface SwiperProps {
@@ -25,7 +25,7 @@ const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) =>
 
   useEffect(() => {
     const handleResize = () => {
-      scrollToSlide(currentIndex); // Re-align the slides on resize
+      scrollToSlide(currentIndex); 
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
