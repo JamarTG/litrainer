@@ -86,7 +86,6 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         <Chessboard
           position={game.fen()}
           onSquareClick={handleSquareClick}
-          animationDuration={10}
           onPieceDrop={handleMoveAttempt}
           onPieceDragBegin={unhighlightLegalMoves}
           onPieceDragEnd={unhighlightLegalMoves}

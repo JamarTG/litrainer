@@ -6,10 +6,11 @@ import {
     useRef,
   } from "react";
 import { Fields } from "../../../types/form";
-import SlideOne from "./TrainerForm/Slide1/Slide1";
 import Swiper from "../Swiper/Swiper";
+import SlideOne from "./TrainerForm/Slide1/Slide1";
 import SlideTwo from "./TrainerForm/Slide2/Slide2";
 import Portal from "./Portal";
+
 
   
   interface ParamsFormProps {

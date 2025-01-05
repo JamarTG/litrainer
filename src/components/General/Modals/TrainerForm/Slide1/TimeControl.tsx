@@ -14,12 +14,11 @@ interface GamesProps {
 const Games: React.FC<GamesProps> = ({
   handleInputChange,
   handleGameTypesChange,
-  // formData,
+  formData,
 }) => {
   const gamesDropdown = usePopperDropDown();
 
   const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];
-  const [formData, _] = useState(INITIAL_FORM_STATE);
 
   return (
     <div className="grid gap-2">
@@ -66,7 +65,7 @@ const Games: React.FC<GamesProps> = ({
                     >
                       <div className="flex my-auto gap-x-2">
                         <GameSpeedIcon speed={game.toLocaleLowerCase() as GameType} />
-                        
+                  
                       </div>
                       <svg viewBox="0 0 16 16" height="35" width="35">
                         <path
