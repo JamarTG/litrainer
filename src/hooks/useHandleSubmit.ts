@@ -3,12 +3,8 @@ import createPuzzles, { parseLichessResponse } from '../utils/lichess';
 import { LichessGameResponse } from '../types/response';
 
 
-
-const API_BASE_URL = 'https://lichess.org/api/'; // Adjust the base URL as needed
-
 const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
   const navigate = useNavigate();
-
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -61,7 +57,7 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
         .map((type: string) => `perfType=${type}`)
         .join("&");
 
-      const url = `${API_BASE_URL}games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
+      const url = `https://lichess.org/api/games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
       const response = await fetch(url, {
         headers: {
           Accept: "application/x-ndjson",
@@ -89,6 +85,7 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
         alert("No games found for the given criteria");
         return;
       } else {
+        localStorage.setItem("puzzles", JSON.stringify(puzzles));
         alert(`Fetched ${puzzles.length} games`);
       }
 
