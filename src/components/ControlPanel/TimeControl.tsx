@@ -9,19 +9,17 @@ interface TimeControlProps {
   };
 }
 
-const TimeControl: React.FC<TimeControlProps> = ({ timeControl, clock }) => {
+const TimeControl: React.FC<TimeControlProps> = ({ clock }) => {
   return (
-    <Fragment>
-      <p>{"• " + timeControl.toLocaleUpperCase()}</p>
-      <p>
-        {clock && (
-          <>
-            {"• " + formatTime(clock.initial)}+{formatTime(clock.increment)}
-          </>
-        )}
+  <div className="space-y-2">
+    {clock && (
+      <p className="text-sm">
+        {formatTime(clock.initial)}+{formatTime(clock.increment)}
       </p>
-    </Fragment>
-  );
+    )}
+  </div>
+);
+
 };
 
 export default TimeControl;

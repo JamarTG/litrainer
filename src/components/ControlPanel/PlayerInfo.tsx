@@ -9,14 +9,13 @@ import PlayerRating from "./PlayerRating";
 interface PlayerInfoProps {
   player: LichessPlayer;
   color: "white" | "black";
-  isWinner: boolean;
 }
 
-const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color, isWinner }) => {
+const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color }) => {
   const { user, rating } = player;
   return (
     <div className="noto player-color flex justify-center items-center flex rounded-md ">
-      {isWinner ? <WinnerIcon /> : <PlayerIcon color={color} />}
+      <PlayerIcon color={color} />
       <PatronIcon isPatron={user.patron ?? null} />
       <PlayerTitle title={user.title ?? null} />
       <PlayerName name={user.name} />

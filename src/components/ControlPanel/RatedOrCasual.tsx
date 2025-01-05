@@ -4,7 +4,7 @@ interface RatedOrCasualProps {
 
 const RatedOrCasual: React.FC<RatedOrCasualProps> = ({rated}) => {
   return (
-    <p>{(rated ? "Rated" : "Casual").toLocaleUpperCase()}</p>
+    <p className="w-16 bg-blue-900">{(rated ? "Rated" : "Casual").toLocaleUpperCase()}</p>
   )
 }
 

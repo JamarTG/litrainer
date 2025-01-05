@@ -101,13 +101,13 @@ const useHandleSubmit = (formData: Fields) => {
         return;
       } else {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
-        alert(`Fetched ${puzzles.length} games`);
+        // alert(`Fetched ${puzzles.length} games`);
       }
       
       navigate("/train", { state: { puzzles } });
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
-      console.error("Error fetching games:", error);
+      alert(`Error fetching games for ${username}`);
     }
   };
 
