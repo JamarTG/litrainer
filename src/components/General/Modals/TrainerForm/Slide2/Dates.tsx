@@ -114,7 +114,7 @@ const Dates: React.FC<DatesProps> = ({
       </div>
 
       <div className=" grid gap-2 w-[128px] ">
-        <h1 className="text-landingText text-sm text-offWhite">Sort by</h1>
+        <h1 className="text-landingText text-sm text-offWhite">Order Games</h1>
         <div className="relative  flex items-center">
           <input
             className="flex  w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
