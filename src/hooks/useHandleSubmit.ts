@@ -1,63 +1,59 @@
-import { useNavigate } from 'react-router-dom';
-import createPuzzles, { parseLichessResponse } from '../utils/lichess';
-import { LichessGameResponse } from '../types/response';
-
+import { useNavigate } from "react-router-dom";
+import createPuzzles, { parseLichessResponse } from "../utils/lichess";
+import { LichessGameResponse } from "../types/response";
+import { LichessEvaluation } from "../types/eval";
+import { atLeastOneGameType, checkUserExists, getTimeRange, setDefaultColor, setDefaultMaxNoGames, setDefaultSort, validateDates } from "../utils/validation";
 
 const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
   const navigate = useNavigate();
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } = formData;
+    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } =
+      formData;
 
-    if (!username) {
-      alert("Please provide a username");
+    if (!checkUserExists(username)) {
+      alert("User Not Found");
       return;
     }
 
-    if (gameTypes.length < 1) {
-      alert("Please select at least one game type");
+    if (!atLeastOneGameType(gameTypes)) {
+      alert("Game Type Not Selected");
       return;
     }
 
-    if (!maxNoGames) {
-      maxNoGames = 10;
-    }
+    maxNoGames = setDefaultMaxNoGames(maxNoGames);
+    sort = setDefaultSort(sort);
+    color = setDefaultColor(color);
 
-    if (!sort) {
-      sort = "desc";
-    }
+    const {
+      valid,
+      startDate: validatedStartDate,
+      endDate: validatedEndDate,
+    } = validateDates(startDate, endDate);
 
-    if (!color) {
-      color = "both";
-    }
-
-    const now = new Date();
-    const lastWeek = new Date();
-    lastWeek.setDate(now.getDate() - 7);
-
-    if (!startDate) {
-      startDate = lastWeek.toISOString().split("T")[0];
-    }
-    if (!endDate) {
-      endDate = now.toISOString().split("T")[0];
-    }
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    end.setHours(23, 59, 59, 999);
-
-    if (start > end) {
-      alert("Start date must be before end date.");
+    if (!valid) {
+      alert("Invalid Dates");
       return;
     }
+
+    const { since, until } = getTimeRange(validatedStartDate, validatedEndDate);
+   
 
     try {
-      const gameTypesQuery = gameTypes
-        .map((type: string) => `perfType=${type}`)
-        .join("&");
+      const url = new URL(`https://lichess.org/api/games/user/${username}`);
 
-      const url = `https://lichess.org/api/games/user/${username}?since=${start.getTime()}&until=${end.getTime()}&max=${maxNoGames}&sort=dateAsc&color=${color}&${gameTypesQuery}&evals=true&analysed=true`;
+      url.searchParams.append("since", since);
+      url.searchParams.append("until", until);
+      url.searchParams.append("max", maxNoGames.toString());
+      url.searchParams.append("sort", "dateAsc");
+      url.searchParams.append("color", color);
+      gameTypes.forEach((type: string) =>
+        url.searchParams.append("perfType", type)
+      );
+      url.searchParams.append("evals", "true");
+      url.searchParams.append("analysed", "true");
+
       const response = await fetch(url, {
         headers: {
           Accept: "application/x-ndjson",
@@ -72,26 +68,26 @@ const useHandleSubmit = (formData: any, setFormData: (data: any) => void) => {
       const parsedPuzzleData = await parseLichessResponse(response);
 
       if (!parsedPuzzleData) {
+        alert("No games found for the given criteria");
         return;
       }
 
       const puzzles = createPuzzles(
         username,
         parsedPuzzleData.games as LichessGameResponse[],
-        parsedPuzzleData.evaluations
+        parsedPuzzleData.evaluations as LichessEvaluation[][]
       );
 
       if (puzzles.length === 0) {
-        alert("No games found for the given criteria");
+        alert("Unable to create puzzles from data");
         return;
       } else {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
         alert(`Fetched ${puzzles.length} games`);
       }
 
-      setFormData({}); // Reset form data
+      setFormData({});
       navigate("/train", { state: { puzzles } });
-      window.location.reload();
     } catch (error) {
       console.error("Error fetching games:", error);
     }
