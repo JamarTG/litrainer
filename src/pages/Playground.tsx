@@ -13,7 +13,6 @@ import { getHighlightedLegalMoves } from "../utils/style";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
-import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
@@ -202,7 +201,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           setIsPuzzleSolved={setIsPuzzleSolved}
           setClassification={setClassification}
         />
-        <SubmitButtonWithModal text="New Session" />
+        {/* <SubmitButtonWithModal text="New Session" /> */}
       </div>
     </div>
   );

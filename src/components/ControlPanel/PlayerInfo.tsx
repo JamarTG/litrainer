@@ -1,6 +1,5 @@
 import { LichessPlayer } from "../../types/player";
 import PlayerIcon from "./PlayerIcon";
-import WinnerIcon from "./WinnerIcon";
 import PatronIcon from "./PatronIcon";
 import PlayerTitle from "./PlayerTitle";
 import PlayerName from "./PlayerName";

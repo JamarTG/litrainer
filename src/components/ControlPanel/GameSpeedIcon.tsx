@@ -1,5 +1,5 @@
 import React from "react";
-import { GameType } from "../types/form";
+import { GameType } from "../../types/form";
 
 interface GameSpeedIconProps {
   speed: GameType;
@@ -7,15 +7,14 @@ interface GameSpeedIconProps {
 
 const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
   return (
-    <div className="flex my-auto gap-x-2">
+    <div className="flex">
       {speed === "bullet" && (
         <div className="my-auto ">
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            width={"1em"}
+            width={"2em"}
             className="mx-auto text-accent"
           >
             <path d="M21 12c0 2.86-2.72 6.62-15.94 6.97-1.13.03-2.06-.88-2.06-2V7.03c0-1.13.94-2.03 2.06-2C18.28 5.38 21 9.15 21 12Z"></path>
@@ -26,22 +25,20 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
       {speed === "blitz" && (
         <div className="my-auto ">
           <svg
-            width="1em"
-            height="1em"
+            width="2em"
+            height="2em"
             fill="currentColor"
             viewBox="0 0 16 16"
             className="mx-auto text-accent"
-          >
-            <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />
-          </svg>
+          ></svg>
         </div>
       )}
 
       {speed === "classical" && (
         <div className="my-auto ">
           <svg
-            width="1em"
-            height="1em"
+            width="2em"
+            height="2em"
             fill="currentColor"
             viewBox="0 0 24 24"
             className="mx-auto text-accent"
@@ -54,8 +51,8 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
       {speed === "rapid" && (
         <div className="my-auto ">
           <svg
-            width="1em"
-            height="1em"
+            width="2em"
+            height="2em"
             fill="currentColor"
             viewBox="0 0 24 24"
             className="max-auto text-accent"
@@ -68,8 +65,8 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
       {speed === "correspondence" && (
         <div className="my-auto ">
           <svg
-            width="1em"
-            height="1em"
+            width="2em"
+            height="2em"
             fill="currentColor"
             viewBox="0 0 24 24"
             className="max-auto text-accent"
@@ -78,7 +75,6 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
           </svg>
         </div>
       )}
-      <p className="text-sm text-offWhite my-auto">{speed}</p>
     </div>
   );
 };

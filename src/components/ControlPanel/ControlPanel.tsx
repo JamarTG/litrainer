@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
-import GameResultMessage from "./GameResultMessage";
-import GameStatus from "./GameStatus";
 import IconButton from "../UI/Buttons/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
@@ -42,13 +40,12 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
             <div className="flex justify-between mt-4">
               <IconButton
                 onClick={() => resetBoard(prevPuzzle)}
-                icon="&#xe037;"
-                // className="text-indigo-500 hover:text-indigo-700"
+                direction="left"
+                
               />
               <IconButton
                 onClick={() => resetBoard(nextPuzzle)}
-                icon="&#xe036;"
-                // className="text-indigo-500 hover:text-indigo-700"
+                direction="right"
               />
             </div>
           </div>
