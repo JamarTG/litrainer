@@ -85,6 +85,16 @@ export const isPositiveClassification = (
   );
 };
 
+export const isNegativeClassification = (
+  classificationResult: Classification | ""
+) => {
+  return (
+    classificationResult === MoveClassification.Blunder ||
+    classificationResult === MoveClassification.Mistake ||
+    classificationResult === MoveClassification.Inaccuracy
+  );
+}
+
 export const checkKnownOpening = (fen: string) => {
   const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
 

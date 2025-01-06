@@ -51,7 +51,7 @@ const createPuzzles = (
 ) => {
   const standardGames = getOnlyStandardGames(games);
 
-  const result = standardGames.map((game, index) => {
+  const result = standardGames.flatMap((game, index) => {
     const chessgame = new Chess();
     chessgame.loadPgn(game.moves);
 
@@ -109,7 +109,7 @@ const createPuzzles = (
     return res;
   });
 
-  return result;
+  return result.flat();
 };
 
 const getOnlyStandardGames = (games: LichessGameResponse[]) => {

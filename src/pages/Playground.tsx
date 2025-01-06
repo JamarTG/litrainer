@@ -8,7 +8,11 @@ import {
   isPositiveClassification,
   isNotUserTurn,
 } from "../utils/chess";
-import { Classification, MoveClassification } from "../types/move";
+import {
+  Classification,
+  ClassificationMessage,
+  MoveClassification,
+} from "../types/move";
 import { getHighlightedLegalMoves } from "../utils/style";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -19,12 +23,15 @@ import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
+import History from "../components/Puzzle/History"; // Import the History component
 
 interface PlayGroundProps {
-  puzzles: Puzzle[][];
+  puzzles: Puzzle[];
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
+  const initialHistory: (Classification | "")[] = puzzles.map(() => "");
+
   const [game, setGame] = useState<Chess>(new Chess());
   const [classification, setClassification] = useState<Classification | "">("");
   const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean | null>(null);
@@ -34,20 +41,36 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
+  const [history, setHistory] = useState<(Classification | "")[]>(initialHistory);
   const [moveSquares, setMoveSquares] = useState({});
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
 
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
+  const [moveFeedback, setMoveFeedback] = useState<{
+    best: string;
+    played: string;
+  }>({ best: "", played: "" });
 
   const { puzzleIndex, nextPuzzle, prevPuzzle } = useChangePuzzle(
     puzzles,
     setDestinationSquare,
     setSourceSquare,
-    setFen
+    setFen,
+    setMoveFeedback
   );
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
+
+
+  useEffect(() => {
+
+    const updatedHistory = [...history];
+    updatedHistory[puzzleIndex] = classification;
+    console.log(updatedHistory)
+    setHistory(updatedHistory);
+  }, [classification]);
+
   useEffect(() => {
     return () => {
       setDestinationSquare("");
@@ -56,22 +79,21 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   }, []);
 
   useEffect(() => {
-    const currentPuzzle = puzzles[puzzleIndex.x]?.[puzzleIndex.y] || puzzles[0][0]; // Default to the first puzzle
+    const currentPuzzle = puzzles[puzzleIndex] || puzzles[0]; // Default to the first puzzle
     if (!currentPuzzle) return;
-  
+
     setPuzzle(currentPuzzle);
-    setFen(currentPuzzle.fen.previous); 
+    setFen(currentPuzzle.fen.previous);
     game.load(currentPuzzle.fen.previous);
     setClassification("");
     setIsPuzzleSolved(false);
     setSourceSquare("");
     setDestinationSquare("" as Square | "");
-  
+
     if (currentPuzzle.opponentMove?.lan) {
       executeComputerMove(game, currentPuzzle.opponentMove.lan);
     }
   }, [puzzleIndex, puzzles, setFen]);
-  
 
   const unhighlightLegalMoves = useCallback(() => {
     setMoveSquares({});
@@ -146,6 +168,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }
 
       const result = await engine.evaluateMoveQuality(fen, move.lan, depth);
+
+      if (result.classification === MoveClassification.Best) {
+        setMoveFeedback({ best: `${move.san} is the best move`, played: "" });
+      } else {
+        setMoveFeedback({
+          best: `${result.bestMove} is the best move`,
+          played: `${move.san} ${
+            ClassificationMessage[result.classification]
+          } `,
+        });
+      }
+
       handleEvaluation(
         result.classification,
         move.to,
@@ -197,16 +231,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-      <div className="h-96 flex flex-col justify-center items-center gap-4">
+      <div className="h-96 flex flex-col  gap-4">
         <Settings />
-        
         <SubmitButtonWithModal text="New Set" />
         <PuzzleControlPanel
+          classification={classification}
+          feedback={moveFeedback}
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
           unhighlightLegalMoves={unhighlightLegalMoves}
           setIsPuzzleSolved={setIsPuzzleSolved}
           setClassification={setClassification}
+          history={history}
         />
         
       </div>

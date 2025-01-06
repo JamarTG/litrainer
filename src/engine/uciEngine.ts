@@ -139,7 +139,7 @@ export abstract class UciEngine {
     fen: string,
     move: string,
     depth: number
-  ): Promise<{ classification: MoveClassification }> {
+  ): Promise<{ classification: MoveClassification, bestMove: string }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
 
@@ -154,21 +154,9 @@ export abstract class UciEngine {
       move
     );
 
-    // Account for the required evaluation scores where a brilliant is possible
-
-    // if (
-    //   (basicClassification === MoveClassification.Best ||
-    //     basicClassification === MoveClassification.Excellent) &&
-    //   isPieceSacrifice(fen, move)
-    // ) {
-    //   return {
-    //     classification: MoveClassification.Brilliant,
-    //     variation: currentPositionEval.lines[0].pv,
-    //   };
-    // }
-
     return {
       classification: basicClassification,
+      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san // Convert the best move to SAN
     };
   }
 }
