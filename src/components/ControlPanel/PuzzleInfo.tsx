@@ -1,21 +1,59 @@
+import { Classification } from "../../types/move";
 import { Puzzle } from "../../types/puzzle";
 
 interface PuzzleInfoProps {
-  puzzle: Puzzle
+  puzzle: Puzzle;
+  feedback: { best: string; played: string };
+  classification: Classification | "";
 }
 
-const PuzzleInfo: React.FC<PuzzleInfoProps> = ({ puzzle }) => {
+const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
+  puzzle,
+  feedback,
+  classification,
+}) => {
   return (
     <div className="flex gap-2 w-full">
-      <img
-        src={`/images/marker/${puzzle.evaluation.judgment?.name}.svg`}
-        alt={puzzle.evaluation.judgment?.name}
-        width={40}
-      />
+      {!(feedback && classification) && (
+        <img
+          src={`/images/marker/${puzzle.evaluation.judgment?.name}.svg`}
+          alt={puzzle.evaluation.judgment?.name}
+          width={40}
+        />
+      )}
       <p className="text-lg flex flex-col">
-        <p>{puzzle.userMove.san} was played here.</p>
+        {feedback && classification ? (
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col">
+              {classification != "Best" && (
+                <div className="flex gap-2">
+                  <img
+                    src={`/images/marker/${classification}.svg`}
+                    alt={classification}
+                    width={20}
+                  />
+                  <p>{feedback.played}</p>
+                </div>
+              )}
+              <div className="flex gap-2">
+                <img
+                  src={`/images/marker/Best.svg`}
+                  alt={puzzle.evaluation.judgment?.name}
+                  width={20}
+                />
+                <p>{feedback.best}</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>
+             <p>{puzzle.userMove.san} was played here.</p>
+             <small>Find a better move</small>
+          </div>
+         
+        )}
 
-        <small>Find a better move</small>
+        
       </p>
     </div>
   );

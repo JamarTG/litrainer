@@ -101,6 +101,8 @@ const useHandleSubmit = (formData: Fields) => {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
         alert(`Fetched ${puzzles.length} games`);
       }
+
+      console.log(puzzles, "puzzles");
       
       navigate("/train", { state: { puzzles } });
  

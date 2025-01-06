@@ -20,12 +20,8 @@ export interface Puzzle {
   moveNumber: number;
 }
 
+
 export interface Fen {
   current: string;
   previous: string;
-}
-
-export interface PuzzleIndex {
-  x: number;
-  y: number;
 }

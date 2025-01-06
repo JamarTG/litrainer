@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useContext } from "react";
+import History from "../Puzzle/History";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import IconButton from "../Universal/Buttons/IconButton";
@@ -11,6 +12,9 @@ interface ControlPanelProps {
   unhighlightLegalMoves: () => void;
   setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
+  feedback: { best: string; played: string };
+  classification: Classification | "";
+  history: (Classification | "")[];
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -19,6 +23,9 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setClassification,
   unhighlightLegalMoves,
   setIsPuzzleSolved,
+  feedback,
+  classification,
+  history,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -35,25 +42,24 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
       {isDataAvailable && (
         <>
           <GameInfo puzzle={puzzle} />
-          <div className="flex mt-4">
-            <PuzzleInfo puzzle={puzzle} />
-            <div className="flex justify-between mt-4">
-              <IconButton
-                onClick={() => resetBoard(prevPuzzle)}
-                direction="left"
-                
-              />
-              <IconButton
-                onClick={() => resetBoard(nextPuzzle)}
-                direction="right"
-              />
-            </div>
+          <div className="flex mt-4 h-16">
+            <PuzzleInfo puzzle={puzzle} feedback={feedback} classification={classification} />
           </div>
+          <div className="flex justify-between mt-4">
+            <IconButton
+              onClick={() => resetBoard(prevPuzzle)}
+              direction="left"
+            />
+            <IconButton
+              onClick={() => resetBoard(nextPuzzle)}
+              direction="right"
+            />
+          </div>
+          <History history={history} />
         </>
       )}
     </div>
   );
-  
 };
 
 export default PuzzleControlPanel;
