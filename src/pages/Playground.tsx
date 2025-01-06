@@ -23,7 +23,6 @@ import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
-import History from "../components/Puzzle/History"; // Import the History component
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
