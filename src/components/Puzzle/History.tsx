@@ -7,14 +7,14 @@ interface HistoryProps {
 const History: React.FC<HistoryProps> = ({ history }) => {
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">History</h2>
-      <div className="grid grid-cols-10 gap-1">
+      <h2 className="text-xl font-bold mb-3">History</h2>
+      <div className="grid grid-cols-10">
         {history.map((item, index) => (
           <div key={index}>
             <img
               src={`/images/marker/${item || "Blank"}.svg`}
               alt={item}
-              width={20}
+              width={15}
             />
           </div>
         ))}
