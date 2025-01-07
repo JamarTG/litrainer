@@ -51,18 +51,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     played: string;
   }>({ best: "", played: "" });
 
-  const { puzzleIndex, nextPuzzle, prevPuzzle } = useChangePuzzle(
+  const { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle } = useChangePuzzle(
     puzzles,
     setDestinationSquare,
     setSourceSquare,
     setFen,
-    setMoveFeedback
+    setMoveFeedback,
+    setClassification,
+    setIsPuzzleSolved
   );
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
 
   useEffect(() => {
-    // If classification has nothing and a value is already in history, return
     if (history[puzzleIndex] && classification === "") return;
 
     setHistory({ ...history, [puzzleIndex]: classification });
@@ -224,6 +225,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <Settings />
         <SubmitButtonWithModal text="New Set" />
         <PuzzleControlPanel
+          jumpToPuzzle={jumpToPuzzle}
           classification={classification}
           puzzleIndex={puzzleIndex ?? 0}
           feedback={moveFeedback}
