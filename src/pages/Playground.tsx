@@ -40,7 +40,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
     ""
   );
-  const [history, setHistory] = useState<(Classification | "")[]>([]);
+  const [history, setHistory] = useState<Record<number, string>>({});
   const [moveSquares, setMoveSquares] = useState({});
   const [fen, setFen] = useState<string>(STARTINGPOSFEN);
 
@@ -61,22 +61,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
 
+  useEffect(() => {
+    // If classification has nothing and a value is already in history, return
+    if (history[puzzleIndex] && classification === "") return;
+
+    setHistory({ ...history, [puzzleIndex]: classification });
+  }, [classification, puzzleIndex]);
 
   useEffect(() => {
-    const updatedHistory = [...history];
-    updatedHistory[puzzleIndex] = classification;
-    setHistory(updatedHistory);
-  }, [nextPuzzle]);
-
-  useEffect(() => {
-    return () => {
-      setDestinationSquare("");
-      setIsPuzzleSolved(null);
-    };
-  }, []);
-
-  useEffect(() => {
-    const currentPuzzle = puzzles[puzzleIndex] || puzzles[0]; // Default to the first puzzle
+    const currentPuzzle = puzzles[puzzleIndex] || puzzles[0];
     if (!currentPuzzle) return;
 
     setPuzzle(currentPuzzle);
@@ -213,7 +206,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
-
   return (
     <div className="bg-gray-700 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
       <InteractiveChessBoard
@@ -233,6 +225,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <SubmitButtonWithModal text="New Set" />
         <PuzzleControlPanel
           classification={classification}
+          puzzleIndex={puzzleIndex ?? 0}
           feedback={moveFeedback}
           nextPuzzle={nextPuzzle}
           prevPuzzle={prevPuzzle}
@@ -241,7 +234,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           setClassification={setClassification}
           history={history}
         />
-        
       </div>
     </div>
   );

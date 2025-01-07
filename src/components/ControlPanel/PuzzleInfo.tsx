@@ -16,7 +16,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
     <div className="flex gap-2 w-full">
       {!(feedback && classification) && (
         <img
-          src={`/images/marker/${puzzle.evaluation.judgment?.name}.svg`}
+          src={`/assets/evals/${puzzle.evaluation.judgment?.name}.svg`}
           alt={puzzle.evaluation.judgment?.name}
           width={40}
         />
@@ -28,7 +28,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
               {classification != "Best" && (
                 <div className="flex gap-2">
                   <img
-                    src={`/images/marker/${classification}.svg`}
+                    src={`/assets/evals/${classification}.svg`}
                     alt={classification}
                     width={20}
                   />
@@ -37,7 +37,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
               )}
               <div className="flex gap-2">
                 <img
-                  src={`/images/marker/Best.svg`}
+                  src={`/assets/evals/Best.svg`}
                   alt={puzzle.evaluation.judgment?.name}
                   width={20}
                 />

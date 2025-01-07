@@ -99,7 +99,7 @@ const useHandleSubmit = (formData: Fields) => {
         return;
       } else {
         localStorage.setItem("puzzles", JSON.stringify(puzzles));
-        alert(`Fetched ${puzzles.length} games`);
+        alert(`Fetched ${puzzles.length} puzzles`);
       }
 
       console.log(puzzles, "puzzles");
