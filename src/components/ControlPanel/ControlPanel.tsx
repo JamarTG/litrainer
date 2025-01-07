@@ -16,6 +16,7 @@ interface ControlPanelProps {
   classification: Classification | "";
   history: Record<number, string>;
   puzzleIndex: number;
+  jumpToPuzzle: (index: number) => void;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -27,7 +28,8 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   feedback,
   classification,
   history,
-  puzzleIndex
+  puzzleIndex,
+  jumpToPuzzle
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -57,7 +59,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               direction="right"
             />
           </div>
-          <History puzzleIndex={puzzleIndex} history={history} />
+          <History jumpToPuzzle={jumpToPuzzle} puzzleIndex={puzzleIndex} history={history} />
         </>
       )}
     </div>
