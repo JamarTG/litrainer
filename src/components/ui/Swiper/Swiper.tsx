@@ -2,9 +2,6 @@ import React, { useRef, useState, useEffect, MouseEventHandler } from "react";
 import NavigationButtons from "./Navbuttons";
 import ProgressIndicator from "./ProgressIndicator";
 
-
-
-
 interface SwiperProps {
   children: React.ReactNode[];
   className?: string;
