@@ -18,7 +18,7 @@ const Marker: React.FC<MarkerProps> = ({
     <>
       {destinationSquare && classification && (
         <img
-          src={`/images/marker/${classification}.svg`}
+          src={`/assets/evals/${classification}.svg`}
           alt=""
           width={boardSize / 16}
           height={boardSize / 16}
