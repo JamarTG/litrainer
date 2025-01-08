@@ -5,6 +5,8 @@ import { Classification } from "../../types/move";
 import IconButton from "../Universal/Buttons/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedo } from "@fortawesome/free-solid-svg-icons/faRedo";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -49,11 +51,12 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           <div className="flex mt-4 h-16">
             <PuzzleInfo puzzle={puzzle} feedback={feedback} classification={classification} />
           </div>
-          <div className="flex justify-between mt-4">
+          <div className="flex justify-center gap-16">
             <IconButton
               onClick={() => resetBoard(prevPuzzle)}
               direction="left"
             />
+            <FontAwesomeIcon size="xl" icon={faRedo} />
             <IconButton
               onClick={() => resetBoard(nextPuzzle)}
               direction="right"

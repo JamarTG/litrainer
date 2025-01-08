@@ -12,7 +12,7 @@ const GameInfo: React.FC<GameInfoProps> = ({ puzzle }) => {
   return (
     <div className="text-md flex justify-between items-center">
       <div className="flex gap-5 items-center">
-      <div className="mr-4 text-white">
+      <div className="mr-4">
         <GameSpeedIcon speed={puzzle.timeControl} />
       </div>
       <RatedOrCasual rated={puzzle.rated} />

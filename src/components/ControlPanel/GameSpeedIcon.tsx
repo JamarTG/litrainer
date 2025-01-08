@@ -7,13 +7,13 @@ interface GameSpeedIconProps {
 
 const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({ speed }) => {
   return (
-    <div className="flex gap-2 text-white">
+    <div className="flex gap-2">
       {speed === "bullet" && (
         <div className="my-auto ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="currentColor"
+            fill="#4d4d4d"
             width={"1em"}
             className="mx-auto text-accent"
           >
