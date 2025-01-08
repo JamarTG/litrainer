@@ -8,19 +8,19 @@ interface SubmitButtonWithModalProps {
 }
 
 const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({
-  text
+  text,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
 
   const handleSubmit = useHandleSubmit(formData);
-  
+
   const handleToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="">
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -33,9 +33,9 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({
 
       <button
         onClick={handleToggleModal}
-        className="w-auto h-auto flex items-center justify-center rounded-lg text-white shadow-xs px-4 py-2 cursor-pointer bg-accent transition duration-150 hover:bg-accent-dark text-lg"
+        className="relative inline-flex whitespace-nowrap h-fit w-[45%] sm:w-[35%] items-center justify-center rounded-lg text-white shadow-xs px-[calc(theme(spacing[5])-1px)] py-[calc(theme(spacing[3])-1px)]  bg-accent cursor-pointer   transition duration-150 arrow-button  "
       >
-        {text}
+        <div className="inline-flex items-center font-bold  ">{text}</div>
       </button>
     </div>
   );
