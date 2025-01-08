@@ -18,7 +18,7 @@ Incorporate lichess bestmove
 
 
         {/* <span className="icon text-2xl">&#xe001;</span> - Link */}
-        {/* <span className="icon text-2xl">&#xe00b;</span> - Start Game */}
+        {/* <span className="icon text-2xl">&#xe00b;</span> - Start Session */}
         {/* <span className="icon text-2xl">&#xe011;</span>  - Online Offline Indicator     */}
         {/* <span className="icon text-2xl">&#xe012;</span> - New Game  */}
         {/* <span className="icon text-2xl">&#xe020;</span>  - Flip Board */}
@@ -34,7 +34,7 @@ Incorporate lichess bestmove
         {/* <span className="icon text-2xl">&#xe041;</span> - Message Creator - 41 - 43 for email*/}
         {/* <span className="icon text-2xl">&#xe049;</span> - Cheating Indicator */}
         {/* <span className="icon text-2xl">&#xe04a;</span> - Both Color Indicator */}
-        {/* <span className="icon text-2xl">&#xe04e;</span>  - Winning on Clock Indicator*/}
+        {/* <span className="icon text-2xl">&#xe04e;</span> - Winning on Clock Indicator*/}
         {/* <span className="icon text-2xl">&#xe050;</span> - Player Indicator */}
         {/* <span className="icon text-2xl">&#xe054;</span> - See the solution */}
         {/* <span className="icon text-2xl">&#xe059;</span> - If I do decide to include ultra bullet */}

@@ -6,8 +6,6 @@ import useHandleSubmit from "../../hooks/useHandleSubmit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
 
-
-
 const SubmitButtonWithModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
@@ -33,8 +31,7 @@ const SubmitButtonWithModal = () => {
       <button
         onClick={handleToggleModal}
       >
-        <FontAwesomeIcon size="xl" icon={faPuzzlePiece} />
-      
+        <span className="icon text-2xl">&#xe012;</span>
       </button>
     </div>
   );
