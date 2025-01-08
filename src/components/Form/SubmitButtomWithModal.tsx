@@ -29,7 +29,8 @@ const SubmitButtonWithModal = () => {
       <button
         onClick={handleToggleModal}
       >
-        <span className="icon text-2xl">&#xe012;</span>
+        <span className="icon text-2xl">&#xe02d;</span>
+        
       </button>
     </div>
   );
