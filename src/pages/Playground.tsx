@@ -23,7 +23,8 @@ import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
-import Help from "../components/Help/Help";
+import { ThemeContext } from "../context/ThemeContext";
+import ThemeChanger from "../components/ThemeChanger";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -47,6 +48,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const [moveFeedback, setMoveFeedback] = useState<{
     best: string;
     played: string;
@@ -208,9 +211,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
+
   return (
     <div
-      style={{ backgroundColor: "#e4e4e4", color: "#4d4d4d" }}
+      style={{
+        backgroundColor: theme === "light" ? "#e4e4e4" : "#363434",
+        color: theme === "light" ? "#4d4d4d" : "white",
+      }}
       className="text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
     >
       {/* #363434 Dark Theme Color */}
@@ -226,25 +233,34 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-      <div className="h-96 flex flex-col gap-4">
-        <div className="flex gap-8 justify-center items-center">
-          <SubmitButtonWithModal />
-          <Settings />
-        </div>
+      {puzzles.length !== 0 ? (
+        <div className="h-96 flex flex-col gap-4">
+          <div className="flex gap-8 justify-center items-center">
+            <SubmitButtonWithModal />
+            <Settings />
+            <ThemeChanger />
+          </div>
 
-        <PuzzleControlPanel
-          jumpToPuzzle={jumpToPuzzle}
-          classification={classification}
-          puzzleIndex={puzzleIndex ?? 0}
-          feedback={moveFeedback}
-          nextPuzzle={nextPuzzle}
-          prevPuzzle={prevPuzzle}
-          unhighlightLegalMoves={unhighlightLegalMoves}
-          setIsPuzzleSolved={setIsPuzzleSolved}
-          setClassification={setClassification}
-          history={history}
-        />
-      </div>
+          <PuzzleControlPanel
+            jumpToPuzzle={jumpToPuzzle}
+            classification={classification}
+            puzzleIndex={puzzleIndex ?? 0}
+            feedback={moveFeedback}
+            nextPuzzle={nextPuzzle}
+            prevPuzzle={prevPuzzle}
+            unhighlightLegalMoves={unhighlightLegalMoves}
+            setIsPuzzleSolved={setIsPuzzleSolved}
+            setClassification={setClassification}
+            history={history}
+          />
+        </div>
+      ) : (
+        <div className="h-96 flex flex-col gap-4 justify-center items-center">
+          <small>No Games Found on Specified Parameters</small>
+
+          <SubmitButtonWithModal />
+        </div>
+      )}
     </div>
   );
 };
