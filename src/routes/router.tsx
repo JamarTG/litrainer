@@ -5,7 +5,8 @@ import Help from "../pages/Help";
 import Playground from "../pages/Playground";
 import NotFound from "../pages/NotFound";
 import Paths from "./paths";
-import Test from "../pages/landing/test";
+import Test from "../pages/landing/Landing";
+import Landing from "../pages/landing/Landing";
 
 export default function Router() {
   const location = useLocation();
@@ -14,11 +15,11 @@ export default function Router() {
   return (
     <>
       <Routes>
-        <Route path={Paths.HOME} element={<Home />} />
+        <Route path={Paths.HOME} element={<Landing />} />
         <Route path={Paths.ABOUT} element={<About />} />
         <Route path={Paths.HELP} element={<Help />} />
         <Route path={Paths.TRAIN} element={<Playground puzzles={puzzles} />} />
-        <Route path={Paths.TEST} element={<Test />} />
+        {/* <Route path={Paths.TEST} element={<Landing />} /> */}
         <Route path="" element={<NotFound />} />
       </Routes>
     </>
