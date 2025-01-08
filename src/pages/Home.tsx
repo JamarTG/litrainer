@@ -11,6 +11,8 @@ const Home: React.FC = () => {
       </div>
       <SubmitButtonWithModal text="Try the Trainer ❤️" />
     </div>
+
+
   );
 };
 
