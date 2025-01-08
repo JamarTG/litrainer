@@ -61,12 +61,3 @@
   background-color: rgba(0, 0, 0, .8);
 }
 
-@font-face {
-  font-family: 'LichessIcons';
-  src: url('/public/font/lichess.woff2') format('woff2');
-}
-
-.icon {
-  font-family: 'LichessIcons';
-  font-size: 25px;
-}
