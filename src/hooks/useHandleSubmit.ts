@@ -104,7 +104,7 @@ const useHandleSubmit = (formData: Fields) => {
 
       console.log(puzzles, "puzzles");
       
-      navigate("/train", { state: { puzzles } });
+      navigate("/", { state: { puzzles } });
  
     } catch (error) {
       alert(`Error fetching games for ${username}`);

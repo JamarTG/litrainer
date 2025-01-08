@@ -23,6 +23,9 @@ import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
+import Help from "../components/Help/Help";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChessBoard, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -208,7 +211,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
   return (
-    <div className="bg-gray-700 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center">
+    <div
+      style={{ backgroundColor: "#e4e4e4", color: "#4d4d4d" }}
+      className="text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
+    >
+      {/* #363434 Dark Theme Color */}
       <InteractiveChessBoard
         game={game}
         sourceSquare={sourceSquare}
@@ -221,9 +228,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-      <div className="h-96 flex flex-col  gap-4">
-        <Settings />
-        <SubmitButtonWithModal text="New Set" />
+      <div className="h-96 flex flex-col gap-4">
+        <div className="flex gap-8 justify-center items-center">
+          <SubmitButtonWithModal />
+          <Settings />
+          <Help />
+        </div>
+
         <PuzzleControlPanel
           jumpToPuzzle={jumpToPuzzle}
           classification={classification}

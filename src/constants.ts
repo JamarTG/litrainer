@@ -36,7 +36,7 @@ export const INITIAL_MATERIAL = {
 
 // Board-related constants
 export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 550,
+  MAX_SIZE: 500,
   MIN_SIZE: 300,
   INITIAL_SIZE: 500,
 };
