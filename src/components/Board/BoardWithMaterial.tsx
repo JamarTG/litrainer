@@ -12,7 +12,7 @@ interface BoardWithPlayersProps {
 const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({material, children }) => {
   const {puzzle} = useContext(PuzzleContext);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
       <PlayerWithMaterial puzzle={puzzle} color="black" material={material} />
       {children}
       <PlayerWithMaterial puzzle={puzzle} color="white" material={material} />
