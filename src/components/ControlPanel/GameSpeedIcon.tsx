@@ -3,12 +3,10 @@ import { GameType } from "../../types/form";
 
 interface GameSpeedIconProps {
   speed: GameType;
-  fill?: string;
 }
 
 const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({
-  speed,
-  fill = "#4d4d4d",
+  speed
 }) => {
   return (
     <div className="flex justify-center items-center gap-2">
