@@ -31,7 +31,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   classification,
   history,
   puzzleIndex,
-  jumpToPuzzle
+  jumpToPuzzle,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -49,20 +49,28 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
         <>
           <GameInfo puzzle={puzzle} />
           <div className="flex mt-4 h-16">
-            <PuzzleInfo puzzle={puzzle} feedback={feedback} classification={classification} />
+            <PuzzleInfo
+              puzzle={puzzle}
+              feedback={feedback}
+              classification={classification}
+            />
           </div>
           <div className="flex justify-center gap-16">
-            <IconButton
-              onClick={() => resetBoard(prevPuzzle)}
-              direction="left"
-            />
-            <FontAwesomeIcon size="xl" icon={faRedo} />
-            <IconButton
-              onClick={() => resetBoard(nextPuzzle)}
-              direction="right"
-            />
+            <button onClick={() => resetBoard(prevPuzzle)}>
+              <span className="icon text-2xl">&#xe037;</span>
+            </button>
+            <button>
+              <span className="icon text-2xl">&#xe078;</span>
+            </button>
+            <button onClick={() => resetBoard(nextPuzzle)}>
+              <span className="icon text-2xl">&#xe036;</span>
+            </button>
           </div>
-          <History jumpToPuzzle={jumpToPuzzle} puzzleIndex={puzzleIndex} history={history} />
+          <History
+            jumpToPuzzle={jumpToPuzzle}
+            puzzleIndex={puzzleIndex}
+            history={history}
+          />
         </>
       )}
     </div>

@@ -24,8 +24,6 @@ import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTINGPOSFEN } from "../constants";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import Help from "../components/Help/Help";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChessBoard, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
