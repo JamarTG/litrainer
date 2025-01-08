@@ -3,8 +3,6 @@ import TrainerForm from "../Universal/Modals/TrainerForm";
 import { Fields } from "../../types/form";
 import { INITIAL_FORM_STATE } from "../../constants";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
 
 const SubmitButtonWithModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
