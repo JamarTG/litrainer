@@ -230,7 +230,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <div className="flex gap-8 justify-center items-center">
           <SubmitButtonWithModal />
           <Settings />
-          <Help />
         </div>
 
         <PuzzleControlPanel

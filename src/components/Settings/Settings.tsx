@@ -1,11 +1,7 @@
 import { useState } from "react";
 import EngineSwitcher from "../Engine/EngineSwitcher";
 import AutoSkip from "./AutoSkip";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DepthSlider from "../Engine/DepthSlider";
-import {
-  faRobot
-} from "@fortawesome/free-solid-svg-icons";
 
 const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +13,7 @@ const Settings = () => {
   return (
     <>
       <button onClick={toggleModal} type="button">
-        <FontAwesomeIcon size="xl" icon={faRobot} title="Engine" />
+        <span className="icon text-2xl">&#xe04c;</span>
       </button>
 
       {isOpen && (

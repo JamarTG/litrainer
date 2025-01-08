@@ -2,11 +2,8 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import History from "../Puzzle/History";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
-import IconButton from "../Universal/Buttons/IconButton";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRedo } from "@fortawesome/free-solid-svg-icons/faRedo";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
