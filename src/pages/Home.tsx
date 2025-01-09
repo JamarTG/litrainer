@@ -9,7 +9,7 @@ const Home: React.FC = () => {
         modal to access and try the Playground. Use your Lichess username if you
         have one
       </div>
-      <SubmitButtonWithModal text="Try the Trainer ❤️" />
+      <SubmitButtonWithModal  />
     </div>
 
 
