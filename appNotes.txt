@@ -1,7 +1,6 @@
-Implement Theme and Theme Switcher
-    - Make Application Themed
-    - Implement Dark/Light Mode
-
+Need to tell how long ago it was played
+Page When Offline
+Sound is Broken
 Use Local Storage 
     - Store Puzzles
     - Store Puzzle Index
@@ -13,7 +12,8 @@ Engine Switcher & Depth Changer
 
 Mate or Even Best Move doesn't show at the end because there is no next position
 Also handle where all mate is the best move
-Incorporate lichess bestmove  
+
+
 
 
 

@@ -48,7 +48,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme} = useContext(ThemeContext);
 
   const [moveFeedback, setMoveFeedback] = useState<{
     best: string;
@@ -220,7 +220,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       }}
       className="text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
     >
-      {/* #363434 Dark Theme Color */}
       <InteractiveChessBoard
         game={game}
         sourceSquare={sourceSquare}
