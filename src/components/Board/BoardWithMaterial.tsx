@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Materials } from "../../types/eval";
 import PlayerWithMaterial from "./PlayerWithMaterial";
 import { PuzzleContext } from "../../context/PuzzleContext";
-import { ThemeContext } from "../../context/ThemeContext";
 
 interface BoardWithPlayersProps {
   material: Materials;
