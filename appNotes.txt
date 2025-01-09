@@ -1,6 +1,6 @@
 Need to tell how long ago it was played
 Page When Offline
-Sound is Broken
+Sound is Broken (Incomplete)
 Use Local Storage 
     - Store Puzzles
     - Store Puzzle Index
