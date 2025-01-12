@@ -38,7 +38,7 @@ function playSound(chess: Chess, move: Move): void {
   }
 
   const sound = sounds[soundKey];
-  console.log(sound)
+
   if (sound) {
     sound.currentTime = 0;
     sound.play().catch(error => console.error(`Failed to play sound: ${error}`));

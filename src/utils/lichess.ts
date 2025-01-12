@@ -41,6 +41,7 @@ export const parseLichessResponse = async (response: Response) => {
     };
   });
 
+  console.log(parsedGames);
   return { evaluations, games: parsedGames };
 };
 
