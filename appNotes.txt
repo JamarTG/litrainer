@@ -12,8 +12,6 @@ Engine Switcher & Depth Changer
 
 Mate or Even Best Move doesn't show at the end because there is no next position
 Also handle where all mate is the best move
-
-AccountForProvisional Rating and Rating Difference, Player Analysis
 Message Creator on Lichess
 Linkedin
 Github

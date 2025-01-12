@@ -5,13 +5,17 @@ interface PlayerRatingDiffProps {
 }
 
 const PlayerRatingDiff: React.FC<PlayerRatingDiffProps> = ({ ratingDiff }) => {
+  let color = "gray";
+
+  if (ratingDiff > 0) {
+    color = "green";
+  } else if (ratingDiff < 0) {
+    color = "red";
+  }
+
   return (
-    <div className="ml-1">
-      {ratingDiff > 0 ? (
-        <span className="icon text-sm text-green-500">&#xe02c;</span>
-      ) : (
-        <span className="icon text-sm text-red-500">&#xe02b;</span>
-      )}
+    <div className={`ml-1 text-${color}-500`}>
+      {ratingDiff > 0 ? "+" : "-"}
       {Math.abs(ratingDiff)}
     </div>
   );
