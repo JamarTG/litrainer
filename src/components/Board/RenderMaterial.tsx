@@ -29,7 +29,6 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
                   <FontAwesomeIcon
                     icon={PIECE_ICONS[piece as keyof typeof PIECE_ICONS]}
                     size="sm"
-                    color={color === "white" ? "white" : "black"}
                   />
                 </span>
               ))}
