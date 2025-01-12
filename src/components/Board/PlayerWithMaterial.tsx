@@ -1,5 +1,5 @@
-import PlayerInfo from "../ControlPanel/PlayerInfo";
-import RenderMaterial from "../ControlPanel/RenderMaterial";
+import PlayerInfo from "./PlayerInfo";
+import RenderMaterial from "./RenderMaterial";
 import { Materials } from "../../types/eval";
 import { Puzzle } from "../../types/puzzle";
 

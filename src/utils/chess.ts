@@ -286,4 +286,23 @@ export const getMaterialDiff = (game: Chess) => {
   return { w, b };
 };
 
+export const getMaterialCount = (material : Materials, color: "white" | "black") => {
+    const matdiff =
+      material.w.p -
+      material.b.p +
+      material.w.b * 3 -
+      material.b.b * 3 +
+      material.w.n * 3 -
+      material.b.n * 3 +
+      material.w.r * 5 -
+      material.b.r * 5 +
+      material.w.q * 9 +
+      material.b.q * 9;
+
+    return (color === "white" && matdiff >= 0) ||
+      (color === "black" && matdiff < 0)
+      ? Math.abs(matdiff)
+      : 0;
+  };
+
 export { isPieceSacrifice };
