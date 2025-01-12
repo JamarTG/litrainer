@@ -11,14 +11,14 @@ interface PlayerInfoProps {
 }
 
 const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color }) => {
-  const { user, rating } = player;
+  const { user, rating} = player;
   return (
     <div className="noto player-color flex justify-center items-center flex rounded-md ">
       <PlayerIcon color={color} />
       <PatronIcon isPatron={user.patron ?? null} />
       <PlayerTitle title={user.title ?? null} />
       <PlayerName name={user.name} />
-      <PlayerRating rating={rating} />
+      <PlayerRating rating={rating} provisional={player.provisional ?? false} />
     </div>
   );
 };
