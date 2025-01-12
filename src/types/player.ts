@@ -5,7 +5,9 @@ export interface LichessPlayers {
 
 export interface LichessPlayer {
   rating: number;
+  ratingDiff: number;
   user: LichessUserMetaData;
+  provisional?: boolean;
 }
 
 interface LichessUserMetaData {
