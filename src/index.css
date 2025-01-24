@@ -2,24 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body {
-  @apply antialiased transition-all duration-700 ease-in-out bg-[#111111] text-offWhite;
-}
-
-.dark body {
-  @apply bg-[#111111] text-offWhite; 
-}
-
-
-
-
-* {
-font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-font-weight: 400;
-}
-
-
 ::-webkit-scrollbar {
     width: 12px; 
 }
@@ -78,3 +60,4 @@ font-weight: 400;
 .modal-backdrop {
   background-color: rgba(0, 0, 0, .8);
 }
+

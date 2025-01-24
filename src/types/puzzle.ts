@@ -1,5 +1,6 @@
 import { LichessClock } from "./clock";
 import { LichessEvaluation } from "./eval";
+import { GameType } from "./form";
 import { Move } from "./move";
 import { LichessPlayers } from "./player";
 
@@ -8,7 +9,7 @@ export interface Puzzle {
   fen: Fen;
   players: LichessPlayers;
   gameId: string;
-  timeControl: string;
+  timeControl: GameType;
   rated: boolean;
   status: string;
   variant: string;
@@ -19,12 +20,8 @@ export interface Puzzle {
   moveNumber: number;
 }
 
+
 export interface Fen {
   current: string;
   previous: string;
-}
-
-export interface PuzzleIndex {
-  x: number;
-  y: number;
 }

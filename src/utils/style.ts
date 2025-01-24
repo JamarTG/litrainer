@@ -1,4 +1,4 @@
-import { Square } from "chess.js";
+import { Move, Square } from "chess.js";
 import {
   Classification,
   ClassificationColors,
@@ -53,6 +53,13 @@ export const getCustomSquareStyles = (
   return styles;
 };
 
+export const getHighlightedLegalMoves = (legalMoves: Move[]) => {
+  return legalMoves.reduce((styles, move) => {
+    styles[move.to] = getSquareStyle(!!move.captured);
+    return styles;
+  }, {} as Record<string, any>);
+};
+
 export const getSquareStyle = (isCaptureMove: boolean) => {
   return {
     background: isCaptureMove
@@ -62,3 +69,6 @@ export const getSquareStyle = (isCaptureMove: boolean) => {
     zIndex: 1,
   };
 };
+
+export const getColorLongForm = (color: "w" | "b") =>
+  color === "w" ? "white" : "black";

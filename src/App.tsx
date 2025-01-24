@@ -1,15 +1,19 @@
 import { BrowserRouter } from "react-router-dom";
-import { EngineProvider } from "./context/Engine/EngineProvider";
 import { EngineName } from "./types/engine";
-import { PuzzleProvider } from "./context/Puzzle/PuzzleProvider";
 import Router from "./routes/router";
+import "./App.css";
+import { EngineProvider } from "./context/EngineContext";
+import { PuzzleProvider } from "./context/PuzzleContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
         <PuzzleProvider>
-          <Router />
+          <ThemeProvider>
+            <Router />
+          </ThemeProvider>
         </PuzzleProvider>
       </EngineProvider>
     </BrowserRouter>

@@ -1,11 +1,14 @@
 import { Chess, Move } from "chess.js"; 
 
 const sounds: { [key: string]: HTMLAudioElement } = {
-  move: new Audio("/sound/move-action/move.webm"),
-  capture: new Audio("/sound/move-action/capture.webm"),
-  check: new Audio("/sound/move-action/check.webm"),
-  castle: new Audio("/sound/move-action/castle.webm"),
-  promotion: new Audio("/sound/move-action/promotion.webm"),
+  move: new Audio("assets/sound/move.mp3"),
+  capture: new Audio("assets/sound/capture.webm"),
+  check: new Audio("assets/sound/check.webm"),
+  castle: new Audio("assets/sound/castle.webm"),
+  promotion: new Audio("assets/sound/promotion.webm"),
+  checkmate: new Audio("assets/sound/checkmate.webm"), 
+  // correct solve
+  // incorrect solve
 };
 
 function preloadSounds(): void {
@@ -20,7 +23,9 @@ function preloadSounds(): void {
 function playSound(chess: Chess, move: Move): void {
   let soundKey: string;
 
-  if (move.captured) {
+  if (chess.isCheckmate()) {
+    soundKey = "checkmate";
+  } else if (move.captured) {
     soundKey = "capture";
   } else if (move.flags.includes("k") || move.flags.includes("q")) {
     soundKey = "castle";
@@ -33,6 +38,7 @@ function playSound(chess: Chess, move: Move): void {
   }
 
   const sound = sounds[soundKey];
+  console.log(sound)
   if (sound) {
     sound.currentTime = 0;
     sound.play().catch(error => console.error(`Failed to play sound: ${error}`));
