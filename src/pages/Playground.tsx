@@ -219,7 +219,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         backgroundColor: theme === "light" ? "#e4e4e4" : "#363434",
         color: theme === "light" ? "#4d4d4d" : "white",
       }}
-      className="text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
+      className="bg-red-500 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
     >
       <InteractiveChessBoard
         game={game}

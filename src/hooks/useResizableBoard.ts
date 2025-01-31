@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 const useResizableBoard = (
   initialSize: number = 500,
   minSize: number = 200,
-  maxSize: number = 800 
+  maxSize: number = 800
 ) => {
   const [boardSize, setBoardSize] = useState<number>(initialSize);
   const boardRef = useRef<HTMLDivElement>(null);
@@ -12,17 +12,26 @@ const useResizableBoard = (
 
   const handleResize = useCallback(() => {
     if (!isResizing.current) {
-      const newSize = Math.max(
-        minSize,
-        Math.min(maxSize, Math.min(window.innerWidth - 100, window.innerHeight - 100))
-      );
-      setBoardSize(newSize);
+      // Calculate the maximum possible size based on the viewport dimensions
+      const maxViewportSize = Math.min(window.innerWidth, window.innerHeight);
+
+      // Add a small margin (e.g., 20px) to prevent the board from touching the edges
+      const margin = 20;
+      const maxBoardSize = maxViewportSize - margin * 2;
+
+      // On smaller screens, set the board size to the maximum possible size
+      if (maxBoardSize < maxSize) {
+        setBoardSize(Math.max(minSize, maxBoardSize));
+      } else {
+        // On larger screens, respect the initial size and constraints
+        setBoardSize(Math.max(minSize, Math.min(maxSize, initialSize)));
+      }
     }
-  }, [minSize, maxSize]);
+  }, [minSize, maxSize, initialSize]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-    handleResize();
+    handleResize(); // Initial resize
 
     return () => {
       window.removeEventListener('resize', handleResize);

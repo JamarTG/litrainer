@@ -10,7 +10,6 @@ import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
 import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
 import { PuzzleContext } from "../../context/PuzzleContext";
-
 import { BOARD_DIMENSIONS } from "../../constants/board";
 import { INITIAL_PIECE_COUNTS } from "../../constants/piece";
 
@@ -50,15 +49,13 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
     top: number;
   }>({ right: 0, top: 0 });
 
-  
-
   const { boardSize, boardRef } = useResizableBoard(
     BOARD_DIMENSIONS.INITIAL_SIZE,
     BOARD_DIMENSIONS.MIN_SIZE,
     BOARD_DIMENSIONS.MAX_SIZE
   );
 
-  const {puzzle} = useContext(PuzzleContext);
+  const { puzzle } = useContext(PuzzleContext);
 
   useMaterialEffect(game, setMaterial);
   useMarkerPositionEffect(
@@ -81,9 +78,8 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
       <div
         ref={boardRef}
         className="relative flex flex-col justify-center items-center gap-2"
-        style={{ maxWidth: boardSize, maxHeight: boardSize}}
+        style={{ maxWidth: boardSize, maxHeight: boardSize }}
       >
-      
         <Chessboard
           position={game.fen()}
           onSquareClick={handleSquareClick}
@@ -95,18 +91,15 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
           )}
           boardWidth={boardSize}
           customSquareStyles={customSquareStyles}
-          // customLightSquareStyle={{ backgroundColor: "#FAFAFA" }}
-          // customDarkSquareStyle={{ backgroundColor: "#277F71" }}
           arePiecesDraggable={!solved}
         />
-   
+
         <Marker
           classification={classification}
           markerPosition={markerPosition}
           boardSize={boardSize}
           destinationSquare={destinationSquare}
         />
-        {/* <ResizeHandle resizeRef={resizeRef} handleMouseDown={handleMouseDown} /> */}
       </div>
     </BoardWithPlayers>
   );
