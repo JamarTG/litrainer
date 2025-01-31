@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PIECE_ICONS } from "../../constants";
+import { PIECE_ICONS } from "../../constants/piece";
 import { Materials } from "../../types/eval";
 import { getMaterialCount } from "../../utils/chess";
 

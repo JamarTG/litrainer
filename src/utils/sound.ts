@@ -6,45 +6,33 @@ const sounds: { [key: string]: HTMLAudioElement } = {
   check: new Audio("assets/sound/check.webm"),
   castle: new Audio("assets/sound/castle.webm"),
   promotion: new Audio("assets/sound/promotion.webm"),
-  checkmate: new Audio("assets/sound/checkmate.webm"), 
-  // correct solve
-  // incorrect solve
+  checkmate: new Audio("assets/sound/checkmate.webm"),
 };
 
 function preloadSounds(): void {
   Object.values(sounds).forEach((sound) => {
-    sound.addEventListener('canplaythrough', () => {
-      // console.log(`${sound.src} is ready to play`);
-    }, { once: true });
+    sound.addEventListener('canplaythrough', () => {}, { once: true });
     sound.load();
   });
 }
 
 function playSound(chess: Chess, move: Move): void {
-  let soundKey: string;
-
-  if (chess.isCheckmate()) {
-    soundKey = "checkmate";
-  } else if (move.captured) {
-    soundKey = "capture";
-  } else if (move.flags.includes("k") || move.flags.includes("q")) {
-    soundKey = "castle";
-  } else if (move.promotion) {
-    soundKey = "promotion";
-  } else if (chess.isCheck()) {
-    soundKey = "check";
-  } else {
-    soundKey = "move";
-  }
-
-  const sound = sounds[soundKey];
+  const moveType = getMoveType(chess, move);
+  const sound = sounds[moveType];
 
   if (sound) {
     sound.currentTime = 0;
     sound.play().catch(error => console.error(`Failed to play sound: ${error}`));
-  } else {
-    console.error(`Sound ${soundKey} not found`);
   }
+}
+
+function getMoveType(chess: Chess, move: Move): keyof typeof sounds {
+  if (chess.isCheckmate()) return "checkmate";
+  if (move.captured) return "capture";
+  if (move.flags.includes("k") || move.flags.includes("q")) return "castle";
+  if (move.promotion) return "promotion";
+  if (chess.isCheck()) return "check";
+  return "move";
 }
 
 preloadSounds();

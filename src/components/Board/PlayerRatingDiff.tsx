@@ -1,22 +1,28 @@
 import React from "react";
 
 interface PlayerRatingDiffProps {
-  ratingDiff: number;
+  ratingDiff: number | null | undefined;
 }
 
 const PlayerRatingDiff: React.FC<PlayerRatingDiffProps> = ({ ratingDiff }) => {
   let color = "gray";
+  let displayText = "";
 
-  if (ratingDiff > 0) {
-    color = "green";
-  } else if (ratingDiff < 0) {
-    color = "red";
+  if (ratingDiff !== null && ratingDiff !== undefined) {
+    if (ratingDiff > 0) {
+      color = "green";
+      displayText = `+${ratingDiff}`;
+    } else if (ratingDiff < 0) {
+      color = "red";
+      displayText = `${ratingDiff}`;
+    } else {
+      displayText = `${ratingDiff}`;
+    }
   }
 
   return (
     <div className={`ml-1 text-${color}-500`}>
-      {ratingDiff > 0 ? "+" : "-"}
-      {Math.abs(ratingDiff)}
+      {displayText}
     </div>
   );
 };

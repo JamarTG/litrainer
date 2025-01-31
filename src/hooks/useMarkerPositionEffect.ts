@@ -4,7 +4,7 @@ import { getSquarePosition } from "../utils/chess";
 import { getColorLongForm } from "../utils/style";
 
 export const useMarkerPositionEffect = (
-  destinationSquare: Square | "",
+  destinationSquare: Square | null,
   boardSize: number,
   puzzleColor: "w" | "b" | undefined,
   setMarkerPosition: (position: { right: number; top: number }) => void

@@ -21,7 +21,7 @@ import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
-import { STARTINGPOSFEN } from "../constants";
+import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
@@ -34,25 +34,27 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   // const initialHistory: (Classification | "")[] = puzzles.map(() => "");
 
   const [game, setGame] = useState<Chess>(new Chess());
-  const [classification, setClassification] = useState<Classification | "">("");
+  const [classification, setClassification] = useState<Classification | null>(
+    null
+  );
   const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean | null>(null);
   const [isLoadingEvaluation, setIsLoadingEvaluation] =
     useState<boolean>(false);
-  const [sourceSquare, setSourceSquare] = useState<Move["from"] | "">("");
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | "">(
-    ""
+  const [sourceSquare, setSourceSquare] = useState<Move["from"] | null>(null);
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(
+    null
   );
-  const [history, setHistory] = useState<Record<number, string>>({});
+  const [history, setHistory] = useState<Record<number, string | null>>({});
   const [moveSquares, setMoveSquares] = useState({});
-  const [fen, setFen] = useState<string>(STARTINGPOSFEN);
+  const [fen, setFen] = useState<string>(STARTING_POS_FEN);
 
   const { engine } = useEngineContext();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
-  const { theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const [moveFeedback, setMoveFeedback] = useState<{
-    best: string;
-    played: string;
+    best: string | null;
+    played: string | null;
   }>({ best: "", played: "" });
 
   const { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle } = useChangePuzzle(
@@ -68,7 +70,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const { executeComputerMove } = useComputerMove(setGame, setFen);
 
   useEffect(() => {
-    if (history[puzzleIndex] && classification === "") return;
+    if (history[puzzleIndex] && classification === null) return;
 
     setHistory({ ...history, [puzzleIndex]: classification });
   }, [classification, puzzleIndex]);
@@ -80,10 +82,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setPuzzle(currentPuzzle);
     setFen(currentPuzzle.fen.previous);
     game.load(currentPuzzle.fen.previous);
-    setClassification("");
+    setClassification(null);
     setIsPuzzleSolved(false);
-    setSourceSquare("");
-    setDestinationSquare("" as Square | "");
+    setSourceSquare(null);
+    setDestinationSquare(null as Square | null);
 
     if (currentPuzzle.opponentMove?.lan) {
       executeComputerMove(game, currentPuzzle.opponentMove.lan);
@@ -129,7 +131,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
-
         handleEvaluation(
           isSameMistake ? (sameJudgement as Classification) : classification,
           movePlayedByUser.to,
@@ -146,7 +147,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handleEvaluation = (
-    classificationResult: "" | Classification,
+    classificationResult: Classification | null,
     dstSquare: Square,
     solved: boolean
   ) => {
@@ -181,10 +182,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         isPositiveClassification(result.classification)
       );
 
-      return result.classification ?? "";
+      return result.classification;
     } catch (error) {
       console.error("Error evaluating move quality:", error);
-      return "";
+      return null;
     } finally {
       setIsLoadingEvaluation(false);
     }

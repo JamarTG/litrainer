@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useContext } from "react";
-import History from "../Puzzle/History";
+// import History from "../Puzzle/History";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
@@ -9,11 +9,11 @@ interface ControlPanelProps {
   nextPuzzle: () => void;
   prevPuzzle: () => void;
   unhighlightLegalMoves: () => void;
-  setClassification: React.Dispatch<React.SetStateAction<"" | Classification>>;
+  setClassification: React.Dispatch<React.SetStateAction<Classification | null>>;
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
-  feedback: { best: string; played: string };
-  classification: Classification | "";
-  history: Record<number, string>;
+  feedback: { best: string | null; played: string | null };
+  classification: Classification | null;
+  history: Record<number, string | null>;
   puzzleIndex: number;
   jumpToPuzzle: (index: number) => void;
 }
@@ -26,16 +26,16 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setIsPuzzleSolved,
   feedback,
   classification,
-  history,
-  puzzleIndex,
-  jumpToPuzzle,
+  // history,
+  // puzzleIndex,
+  // jumpToPuzzle,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
 
   const resetBoard = (changePuzzle: () => void) => {
     changePuzzle();
-    setClassification("");
+    setClassification(null);
     unhighlightLegalMoves();
     setIsPuzzleSolved(false);
   };
@@ -63,11 +63,11 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               <span className="icon text-2xl">&#xe036;</span>
             </button>
           </div>
-          <History
+          {/* <History
             jumpToPuzzle={jumpToPuzzle}
             puzzleIndex={puzzleIndex}
             history={history}
-          />
+          /> */}
         </>
       )}
     </div>

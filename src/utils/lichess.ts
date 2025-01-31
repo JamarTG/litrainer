@@ -5,6 +5,7 @@ import { Puzzle } from "../types/puzzle";
 import { GameType } from "../types/form";
 
 export const parseLichessResponse = async (response: Response) => {
+  
   if (!response.body) {
     return;
   }
