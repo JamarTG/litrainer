@@ -11,6 +11,22 @@
     border-radius: 10px;
 }
 
+
+@keyframes fadeGrowShrink {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 10px; 

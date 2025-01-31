@@ -4,6 +4,7 @@ import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
+import EngineDepthControl from "./EngineDepthAdjuster";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -63,6 +64,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               <span className="icon text-2xl">&#xe036;</span>
             </button>
           </div>
+          <EngineDepthControl />
           {/* <History
             jumpToPuzzle={jumpToPuzzle}
             puzzleIndex={puzzleIndex}
