@@ -19,15 +19,10 @@ const useResizableBoard = (
       const margin = 20;
       const maxBoardSize = maxViewportSize - margin * 2;
 
-      // On smaller screens, set the board size to the maximum possible size
-      if (maxBoardSize < maxSize) {
-        setBoardSize(Math.max(minSize, maxBoardSize));
-      } else {
-        // On larger screens, respect the initial size and constraints
-        setBoardSize(Math.max(minSize, Math.min(maxSize, initialSize)));
-      }
+      // Set the board size to the smaller of maxSize or the available viewport space
+      setBoardSize(Math.max(minSize, Math.min(maxSize, maxBoardSize)));
     }
-  }, [minSize, maxSize, initialSize]);
+  }, [minSize, maxSize]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);

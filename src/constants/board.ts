@@ -1,5 +1,5 @@
 export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 500,
+  MAX_SIZE: 600,
   MIN_SIZE: 30,
   INITIAL_SIZE: 500,
 };
