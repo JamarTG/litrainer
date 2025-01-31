@@ -1,6 +1,6 @@
 import { Fields } from "../types/form";
 
-export const checkUserExists = async (username: Fields["username"]): Promise<boolean> => {
+export const userExists = async (username: Fields["username"]): Promise<boolean> => {
   try {
     const response = await fetch(`https://lichess.org/api/user/${username}`);
     if (!response.ok) {
