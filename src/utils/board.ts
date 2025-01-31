@@ -1,4 +1,4 @@
-import { BOARD_DIMENSIONS } from "../constants";
+import { BOARD_DIMENSIONS } from "../constants/board";
 
 export const calculateBoardSize = (
   windowWidth: number,

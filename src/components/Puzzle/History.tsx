@@ -1,5 +1,5 @@
 interface HistoryProps {
-  history: Record<number, string>;
+  history: Record<number, string | null>;
   puzzleIndex: number;
   jumpToPuzzle: (index: number) => void;
 }
@@ -16,7 +16,7 @@ const History: React.FC<HistoryProps> = ({ history, jumpToPuzzle }) => {
           >
             <img
               src={`/assets/evals/${value || "Blank"}.svg`}
-              alt={value}
+              alt={value || "Blank"}
               width={20}
             />
           </button>

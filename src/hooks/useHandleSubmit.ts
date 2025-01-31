@@ -2,16 +2,12 @@ import { useNavigate } from "react-router-dom";
 import createPuzzles, { parseLichessResponse } from "../utils/lichess";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
-import {
-  atLeastOneGameType,
-  checkUserExists,
-  getTimeRange,
-  setDefaultColor,
-  setDefaultMaxNoGames,
-  setDefaultSort,
-  validateDates,
-} from "../utils/validation";
+
 import { Fields, Color } from "../types/form";
+import { atLeastOneGameType, validateDates } from "../utils/validation";
+import { checkUserExists } from "../utils/user";
+import { setDefaultColor, setDefaultMaxNoGames, setDefaultSort } from "../utils/default";
+import { convertDatesToTimestamps } from "../utils/time";
 
 const useHandleSubmit = (formData: Fields) => {
   const navigate = useNavigate();
@@ -56,7 +52,7 @@ const useHandleSubmit = (formData: Fields) => {
       return;
     }
 
-    const { since, until } = getTimeRange(validatedStartDate, validatedEndDate);
+    const { since, until } = convertDatesToTimestamps(validatedStartDate, validatedEndDate);
 
     try {
       const url = new URL(`https://lichess.org/api/games/user/${username}`);

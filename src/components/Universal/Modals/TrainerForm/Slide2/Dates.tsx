@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Fields } from "../../../../../types/form";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
-import { formatDate } from "../../../../../utils/time";
+import { convertDateToReadableFormat } from "../../../../../utils/time";
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setFormData: Dispatch<SetStateAction<Fields>>;
@@ -48,7 +48,7 @@ const Dates: React.FC<DatesProps> = ({
         <div className="relative w-[250px] flex items-center justify-center ">
           <input
             className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
-            value={formatDate(formData.startDate)}
+            value={convertDateToReadableFormat(formData.startDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
             onClick={calendarDropdown.toggleDropdown}
@@ -75,7 +75,7 @@ const Dates: React.FC<DatesProps> = ({
         <div className="relative w-[250px] flex items-center mt-2">
           <input
             className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
-            value={formatDate(formData.endDate)}
+            value={convertDateToReadableFormat(formData.endDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
             onClick={calendarDropdown.toggleDropdown}

@@ -1,7 +1,7 @@
 import { Chess, Move, Square } from "chess.js";
 import { Classification, MoveClassification } from "../types/move";
 import { Materials, PositionEval } from "../types/eval";
-import { PIECEVALUE } from "../constants";
+import { PIECE_VALUE } from "../constants/piece";
 import { openings } from "../data/openings";
 import { Puzzle } from "../types/puzzle";
 
@@ -93,7 +93,7 @@ export const isNegativeClassification = (
     classificationResult === MoveClassification.Mistake ||
     classificationResult === MoveClassification.Inaccuracy
   );
-}
+};
 
 export const checkKnownOpening = (fen: string) => {
   const opening = openings.find((opening) => opening.fen === fen.split(" ")[0]);
@@ -121,20 +121,19 @@ export const getBasicClassification = (
   if (!currentPositionEval.lines[0].mate) {
     currentCp = currentPositionEval.lines[0].cp ?? 0;
   } else {
-   
-    
-    currentCp = currentPositionEval.lines[0].mate > 0
-      ? 100000 - currentPositionEval.lines[0].mate * 100
-      : -100000 - currentPositionEval.lines[0].mate * 100;
+    currentCp =
+      currentPositionEval.lines[0].mate > 0
+        ? 100000 - currentPositionEval.lines[0].mate * 100
+        : -100000 - currentPositionEval.lines[0].mate * 100;
   }
 
   if (!lastPositionEval.lines[0].mate) {
     lastCp = lastPositionEval.lines[0].cp ?? 0;
   } else {
-   
-    lastCp = lastPositionEval.lines[0].mate > 0
-      ? 100000 - lastPositionEval.lines[0].mate * 100
-      : -100000 - lastPositionEval.lines[0].mate * 100;
+    lastCp =
+      lastPositionEval.lines[0].mate > 0
+        ? 100000 - lastPositionEval.lines[0].mate * 100
+        : -100000 - lastPositionEval.lines[0].mate * 100;
   }
 
   const cpDiff = Math.abs(currentCp - lastCp);
@@ -168,26 +167,20 @@ export const getGameResultMessage = (status: string, winner?: string) => {
 const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
 
-  // Sacrificing a single pawn is not a sacrifice
-  // Giving up a piece you can't protect anyways is not a sacrifice
-
-  // If you were being attacked by a lower value piece its not a sacrifice
   const pieceSquare = move.slice(0, 2);
   const attackers = game
     .moves({ verbose: true })
     .filter((m) => m.to === pieceSquare && m.color !== game.turn());
 
-  // console.log(attackers);
   for (const attacker of attackers) {
     if (
-      PIECEVALUE[attacker.piece] <
-      PIECEVALUE[game.get(pieceSquare as Square)?.type ?? ""]
+      PIECE_VALUE[attacker.piece] <
+      PIECE_VALUE[game.get(pieceSquare as Square)?.type ?? ""]
     ) {
       return false;
     }
   }
 
-  //if the piece was being attacked with no defenders you are probably in a double attack
   const protectors = game
     .moves({ verbose: true })
     .filter((m) => m.to === pieceSquare && m.color === game.turn());
@@ -196,17 +189,14 @@ const isPieceSacrifice = (fen: string, move: string) => {
     return false;
   }
 
-  // If the king was in check it has to move..not brilliant
   if (game.inCheck()) {
     return false;
   }
 
   const moveObj = game.move(move);
-
-  // if the piece that moved was attacked before it moves. the move was to get rid of a greater threat and is not a sacrifice
   if (
     moveObj.captured &&
-    PIECEVALUE[moveObj.captured] >= PIECEVALUE[moveObj.piece]
+    PIECE_VALUE[moveObj.captured] >= PIECE_VALUE[moveObj.piece]
   ) {
     return false;
   }
@@ -225,9 +215,9 @@ const isPieceSacrifice = (fen: string, move: string) => {
     for (const ourMove of ourMoves) {
       if (
         ourMove.captured &&
-        PIECEVALUE[ourMove.captured] +
-          (moveObj.captured ? PIECEVALUE[moveObj.captured] : 0) >=
-          PIECEVALUE[opponentMove.captured]
+        PIECE_VALUE[ourMove.captured] +
+          (moveObj.captured ? PIECE_VALUE[moveObj.captured] : 0) >=
+          PIECE_VALUE[opponentMove.captured]
       ) {
         canRegainMaterial = true;
         break;
@@ -263,7 +253,7 @@ export const getMaterialDiff = (game: Chess) => {
     let materialDiff = 0;
     for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
       materialDiff +=
-        (material.w[pieceType] - material.b[pieceType]) * PIECEVALUE[pieceType];
+        (material.w[pieceType] - material.b[pieceType]) * PIECE_VALUE[pieceType];
     }
   }
 
@@ -286,23 +276,26 @@ export const getMaterialDiff = (game: Chess) => {
   return { w, b };
 };
 
-export const getMaterialCount = (material : Materials, color: "white" | "black") => {
-    const matdiff =
-      material.w.p -
-      material.b.p +
-      material.w.b * 3 -
-      material.b.b * 3 +
-      material.w.n * 3 -
-      material.b.n * 3 +
-      material.w.r * 5 -
-      material.b.r * 5 +
-      material.w.q * 9 +
-      material.b.q * 9;
+export const getMaterialCount = (
+  material: Materials,
+  color: "white" | "black"
+) => {
+  const matdiff =
+    material.w.p -
+    material.b.p +
+    material.w.b * 3 -
+    material.b.b * 3 +
+    material.w.n * 3 -
+    material.b.n * 3 +
+    material.w.r * 5 -
+    material.b.r * 5 +
+    material.w.q * 9 +
+    material.b.q * 9;
 
-    return (color === "white" && matdiff >= 0) ||
-      (color === "black" && matdiff < 0)
-      ? Math.abs(matdiff)
-      : 0;
-  };
+  return (color === "white" && matdiff >= 0) ||
+    (color === "black" && matdiff < 0)
+    ? Math.abs(matdiff)
+    : 0;
+};
 
 export { isPieceSacrifice };

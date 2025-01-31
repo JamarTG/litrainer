@@ -1,4 +1,4 @@
-import { formatTime } from "../../utils/time";
+import { convertTimeToString } from "../../utils/time";
 
 interface TimeControlProps {
   timeControl: string;
@@ -13,7 +13,7 @@ const TimeControl: React.FC<TimeControlProps> = ({ clock }) => {
   <div className="space-y-2">
     {clock && (
       <p className="text-sm">
-        {formatTime(clock.initial)}+{formatTime(clock.increment)}
+        {convertTimeToString(clock.initial)}+{convertTimeToString(clock.increment)}
       </p>
     )}
   </div>

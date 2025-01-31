@@ -3,8 +3,8 @@ import { Puzzle } from "../../types/puzzle";
 
 interface PuzzleInfoProps {
   puzzle: Puzzle;
-  feedback: { best: string; played: string };
-  classification: Classification | "";
+  feedback: { best: string | null; played: string | null };
+  classification: Classification | null;
 }
 
 const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
@@ -47,13 +47,10 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
           </div>
         ) : (
           <div>
-             <p>{puzzle.userMove.san} was played here.</p>
-             <small>Find a better move</small>
+            <p>{puzzle.userMove.san} was played here.</p>
+            <small>Find a better move</small>
           </div>
-         
         )}
-
-        
       </p>
     </div>
   );

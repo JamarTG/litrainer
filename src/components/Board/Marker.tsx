@@ -2,10 +2,10 @@ import { Square } from "chess.js";
 import { Classification } from "../../types/move";
 
 interface MarkerProps {
-  classification: Classification | "";
+  classification: Classification | null;
   markerPosition: { top: number; right: number };
   boardSize: number;
-  destinationSquare: Square | "";
+  destinationSquare: Square | null;
 }
 
 const Marker: React.FC<MarkerProps> = ({

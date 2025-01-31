@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TrainerForm from "../Universal/Modals/TrainerForm";
 import { Fields } from "../../types/form";
-import { INITIAL_FORM_STATE } from "../../constants";
+import { INITIAL_FORM_STATE } from "../../constants/form";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
 
 const SubmitButtonWithModal = () => {
