@@ -17,7 +17,6 @@ import { getHighlightedLegalMoves } from "../utils/style";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
-import Settings from "../components/Settings/Settings";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
 import { PuzzleContext } from "../context/PuzzleContext";
@@ -237,7 +236,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         <div className="h-96 flex flex-col gap-4">
           <div className="flex gap-8 justify-center items-center">
             <SubmitButtonWithModal />
-            <Settings />
+     
             <ThemeChanger />
           </div>
 

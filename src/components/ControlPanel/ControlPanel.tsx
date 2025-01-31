@@ -4,7 +4,7 @@ import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
-import EngineDepthControl from "./EngineDepthAdjuster";
+
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -12,11 +12,12 @@ interface ControlPanelProps {
   unhighlightLegalMoves: () => void;
   setClassification: React.Dispatch<React.SetStateAction<Classification | null>>;
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
+
+  jumpToPuzzle: (index: number) => void;
   feedback: { best: string | null; played: string | null };
   classification: Classification | null;
   history: Record<number, string | null>;
   puzzleIndex: number;
-  jumpToPuzzle: (index: number) => void;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -64,12 +65,8 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
               <span className="icon text-2xl">&#xe036;</span>
             </button>
           </div>
-          <EngineDepthControl />
-          {/* <History
-            jumpToPuzzle={jumpToPuzzle}
-            puzzleIndex={puzzleIndex}
-            history={history}
-          /> */}
+          
+         
         </>
       )}
     </div>
