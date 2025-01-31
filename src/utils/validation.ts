@@ -23,7 +23,3 @@ export const validateDates = (
 
   return { valid: true, startDate: normalizedStartDate, endDate: normalizedEndDate };
 };
-
-export const atLeastOneGameType = (gameTypes: Fields["gameTypes"]): boolean => {
-  return gameTypes.length > 0;
-};

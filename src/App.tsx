@@ -5,18 +5,22 @@ import "./App.css";
 import { EngineProvider } from "./context/EngineContext";
 import { PuzzleProvider } from "./context/PuzzleContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
-        <PuzzleProvider>
-          <ThemeProvider>
-            <Router />
-          </ThemeProvider>
-        </PuzzleProvider>
-      </EngineProvider>
-    </BrowserRouter>
+    <>
+      <Toaster />
+      <BrowserRouter>
+        <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
+          <PuzzleProvider>
+            <ThemeProvider>
+              <Router />
+            </ThemeProvider>
+          </PuzzleProvider>
+        </EngineProvider>
+      </BrowserRouter>
+    </>
   );
 };
 

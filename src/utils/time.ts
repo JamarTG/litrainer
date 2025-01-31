@@ -29,7 +29,7 @@ export const getDefaultDate = (offsetDays: number): string => {
 };
 
 
-export const convertDatesToTimestamps = (
+export const toTimestamps = (
   startDate: Fields["startDate"],
   endDate: Fields["endDate"]
 ) => {

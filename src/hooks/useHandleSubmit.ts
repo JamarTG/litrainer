@@ -1,113 +1,68 @@
 import { useNavigate } from "react-router-dom";
-import createPuzzles, { parseLichessResponse } from "../utils/lichess";
+import { Fields } from "../types/form";
+import { validateDates } from "../utils/validation";
+import { userExists } from "../utils/user";
+import { setDefaultColor, setDefaultMaxNoGames, setDefaultSort } from "../utils/default";
+import { toTimestamps } from "../utils/time";
+import { getLichessGames } from "../utils/api";
+import createPuzzles from "../utils/lichess";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
+import { saveLocal } from "../utils/localStorage";
+import { toast } from "react-hot-toast";
+import React from "react";
 
-import { Fields, Color } from "../types/form";
-import { atLeastOneGameType, validateDates } from "../utils/validation";
-import { checkUserExists } from "../utils/user";
-import { setDefaultColor, setDefaultMaxNoGames, setDefaultSort } from "../utils/default";
-import { convertDatesToTimestamps } from "../utils/time";
-
-const useHandleSubmit = (formData: Fields) => {
+const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
+
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let {
-      username,
-      maxNoGames,
-      startDate,
-      endDate,
-      gameTypes,
-      color: colorString,
-      sort,
-    } = formData;
+    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } = formData;
 
-    console.log(formData, "formData");
-    let color: Color;
-
-    if (!checkUserExists(username)) {
-      alert("User Not Found");
+    if (!(await userExists(username))) {
+      toast.error("User does not exist.");
       return;
     }
 
-    if (!atLeastOneGameType(gameTypes)) {
-      alert("Game Type Not Selected");
+    if (gameTypes.length === 0) {
+      toast.error("Please select at least one game type.");
       return;
     }
 
     maxNoGames = setDefaultMaxNoGames(maxNoGames);
-    color = setDefaultColor(colorString);
+    color = setDefaultColor(color);
     sort = setDefaultSort(sort);
 
-    const {
-      valid,
-      startDate: validatedStartDate,
-      endDate: validatedEndDate,
-    } = validateDates(startDate, endDate);
-
+    const { valid, startDate: validatedStart, endDate: validatedEnd } = validateDates(startDate, endDate);
     if (!valid) {
-      alert("Invalid Dates");
+      toast.error("Invalid date range.");
       return;
     }
 
-    const { since, until } = convertDatesToTimestamps(validatedStartDate, validatedEndDate);
+    const { since, until } = toTimestamps(validatedStart, validatedEnd);
 
     try {
-      const url = new URL(`https://lichess.org/api/games/user/${username}`);
+      const { games, evaluations } = await getLichessGames(username, since, until, maxNoGames.toString(), sort, color, gameTypes);
 
-      url.searchParams.append("since", since);
-      url.searchParams.append("until", until);
-      url.searchParams.append("max", maxNoGames.toString());
-      url.searchParams.append("sort", "dateDesc");
-      url.searchParams.append("color", color);
-      url.searchParams.append("perfType", gameTypes.join(","));
-      url.searchParams.append("evals", "true");
-      url.searchParams.append("analysed", "true");
+      const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as LichessEvaluation[][]);
 
-      const response = await fetch(url, {
-        headers: {
-          Accept: "application/x-ndjson",
-        },
-      });
-
-      if (!response.ok) {
-        console.error(`Error ${response.status}: ${response.statusText}`);
-        return;
-      }
-
-      const parsedPuzzleData = await parseLichessResponse(response);
-
-      if (!parsedPuzzleData) {
-        alert("No games found for the given criteria");
-        return;
-      }
-
-      const puzzles = createPuzzles(
-        username,
-        parsedPuzzleData.games as LichessGameResponse[],
-        parsedPuzzleData.evaluations as LichessEvaluation[][]
-      );
-
-      if (puzzles.length === 0) {
-        alert("Unable to create puzzles from data");
-        return;
-      } else {
-        localStorage.setItem("puzzles", JSON.stringify(puzzles));
-        alert(`Fetched ${puzzles.length} puzzles`);
-      }
-
-      console.log(puzzles, "puzzles");
+      saveLocal("puzzles", puzzles);
       
+      if(puzzles.length === 0) {
+        toast.success(`No errors found for ${username} based on the given criteria`);
+        return
+      }
+
+      toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
- 
     } catch (error) {
-      alert(`Error fetching games for ${username}`);
+      console.error("Error:", error);
+      toast.error(error instanceof Error ? error.message : "An unexpected error occurred");
     }
   };
 
   return handleSubmit;
 };
 
-export default useHandleSubmit;
+export default useSubmitHandler;

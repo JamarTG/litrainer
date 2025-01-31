@@ -5,7 +5,6 @@ import { Puzzle } from "../types/puzzle";
 import { GameType } from "../types/form";
 
 export const parseLichessResponse = async (response: Response) => {
-  
   if (!response.body) {
     return;
   }
@@ -46,7 +45,7 @@ export const parseLichessResponse = async (response: Response) => {
   return { evaluations, games: parsedGames };
 };
 
-const createPuzzles = (
+const generatePuzzles = (
   username: string,
   games: LichessGameResponse[],
   evaluations: LichessEvaluation[][]
@@ -122,4 +121,4 @@ const getOpColor = (username: string, game: LichessGameResponse) => {
   return username === game.players.white.user.name ? "w" : "b";
 };
 
-export default createPuzzles;
+export default generatePuzzles;
