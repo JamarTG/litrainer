@@ -1,27 +1,25 @@
-const gameStatusMap: Record<string, (player: string) => string> = {
-  created: (player) =>
-    `${player} has created the game but it has not started yet.`,
-  started: (player) => `The game is in progress with ${player}.`,
-  aborted: (player) =>
-    `The game was aborted. ${player} left before it started.`,
-  mate: (player) => `The game ended with a checkmate. ${player} lost.`,
-  resign: (player) => `${player} resigned, ending the game.`,
-  stalemate: (player) => `The game ended in a stalemate with ${player}.`,
-  timeout: (player) => `${player} ran out of time, resulting in a loss.`,
-  draw: (player) => `The game ended in a draw with ${player}.`,
-  outoftime: (player) => `${player} ran out of time.`,
-  cheat: (player) =>
-    `The game ended due to cheating detected by Lichess involving ${player}.`,
-  noStart: (player) => `${player} failed to start the game.`,
-  unknownFinish: (player) =>
-    `The game ended for an unknown reason involving ${player}.`,
-  variantEnd: (player) =>
-    `The game ended due to a variant-specific rule with ${player}.`,
+const gameStatusMap: Record<string, (player: "white" | "black" | undefined) => string> = {
+  created: () => "The game was created.",
+  started: () => "The game started.",
+  aborted: () => "The game was aborted.",
+  mate: (player) => (player ? `${player} won by checkmate.` : "Draw."),
+  resign: (player) => (player ? `${player === "white" ? "black" : "white"} won by resignation.` : "Draw."),
+  stalemate: () => "The game ended in a stalemate.",
+  timeout: (player) => (player ? `${player === "white" ? "black" : "white"} won by timeout.` : "Draw."),
+  draw: () => "The game ended in a draw.",
+  outoftime: (player) => (player ? `${player === "white" ? "black" : "white"} won by timeout.` : "Draw."),
+  cheat: (player) => (player ? `${player === "white" ? "black" : "white"} won by cheating.` : "Draw."),
+  noStart: (player) => (player ? `${player} failed to start the game.` : "Draw."),
+  unknownFinish: () => "The game ended unexpectedly.",
+  // variantEnd: () => "The game ended due to a variant-specific rule.",
 };
 
-function getGameStatusDescription(status: string, player: string): string {
+function getGameStatusDescription(
+  status: string,
+  player: "white" | "black" | undefined
+): string {
   return (
-    gameStatusMap[status]?.(player) || `Unknown game status for ${player}.`
+    gameStatusMap[status]?.(player) || `Unknown game status: ${status}.`
   );
 }
 

@@ -3,7 +3,7 @@ import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
-
+import Navigation from "./Navigation";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -43,44 +43,28 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   };
 
   return (
-    <div className="flex flex-col justify-between px-2 rounded-md">
+    <div className="w-96 ">
       {isDataAvailable && (
-        <>
+        <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo puzzle={puzzle} />
+          <div className="border border-gray-200 rounded-lg shadow-md md:w-[400px] flex flex-col gap-2 p-5">
+            <PuzzleInfo
+              puzzle={puzzle}
+              feedback={feedback}
+              classification={classification}
+            />
 
-          <PuzzleInfo
-            puzzle={puzzle}
-            feedback={feedback}
-            classification={classification}
-          />
-
-          {/* <PuzzleHistory
-            history={history}
-            puzzleIndex={puzzleIndex}
-            jumpToPuzzle={jumpToPuzzle}
-          /> */}
-
-          <div className="flex justify-between items-center gap-4">
-            <button
-              onClick={() => resetBoard(prevPuzzle)}
-              className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
-            >
-              <span className="icon text-2xl">&#xe037;</span>
-            </button>
-            <button className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200">
-              <span className="icon text-2xl">&#xe078;</span>
-            </button>
-            <button
-              onClick={() => resetBoard(nextPuzzle)}
-              className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
-            >
-              <span className="icon text-2xl">&#xe036;</span>
-            </button>
+            
           </div>
-        </>
+
+          <Navigation
+              resetBoard={resetBoard}
+              nextPuzzle={nextPuzzle}
+              prevPuzzle={prevPuzzle}
+            />
+        </div>
       )}
     </div>
   );
 };
-
 export default PuzzleControlPanel;

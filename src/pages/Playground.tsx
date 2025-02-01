@@ -25,6 +25,7 @@ import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import ThemeWrapper from "../components/Wrapper/ThemeWrapper";
+import Navigation from "../components/ControlPanel/Navigation";
 // import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 interface PlayGroundProps {
@@ -169,12 +170,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       // if (result.classification === MoveClassification.Best) {
       //   setMoveFeedback({ best: `${move.san} is the best move`, played: "" });
       // } else {
-        setMoveFeedback({
-          best: `${result.bestMove} is the best move`,
-          played: `${move.san} ${
-            ClassificationMessage[result.classification]
-          } `,
-        });
+      setMoveFeedback({
+        best: `${result.bestMove} is the best move`,
+        played: `${move.san} ${ClassificationMessage[result.classification]} `,
+      });
       // }
 
       handleEvaluation(
@@ -214,8 +213,17 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
 
+  const resetBoard = (changePuzzle: () => void) => {
+    changePuzzle();
+    setClassification(null);
+    unhighlightLegalMoves();
+    setIsPuzzleSolved(false);
+  };
+
   return (
     <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
+      <div className="flex flex-col">
+      
       <InteractiveChessBoard
         game={game}
         sourceSquare={sourceSquare}
@@ -228,16 +236,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
+      </div>
+      
       {puzzles.length !== 0 ? (
-        <ThemeWrapper
-          style={{ height: 600 }}
-          //  className={`w-full md:w-[400px] flex flex-col gap-4 pt-5  rounded-lg shadow-2xl shadow-gray-400/50 border-2 border-${theme === "light" ? "gray-400" : "white"}`}
-        >
-          <div className="flex gap-8 justify-center items-center">
+        <ThemeWrapper className={`w-full md:w-[400px]`}>
+          <div className="mb-5 flex gap-8 justify-center items-center">
             <SubmitButtonWithModal />
             <ThemeChanger />
           </div>
-
           <PuzzleControlPanel
             puzzleIndex={puzzleIndex}
             classification={classification}
