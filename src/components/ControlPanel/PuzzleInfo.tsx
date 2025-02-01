@@ -13,7 +13,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
   classification,
 }) => {
   return (
-    <div className="w-full md:w-[400px] flex flex-col gap-4 py-0 p-4">
+    <div className="border border-gray-200 rounded-lg shadow-md md:w-[400px] flex flex-col gap-2 p-5">
       <div className="flex justify-center items-center gap-4 w-full max-w-md ">
         <img
           src={

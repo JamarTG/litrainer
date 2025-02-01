@@ -2,7 +2,7 @@ import GameLink from "./GameLink";
 import GameSpeedIcon from "./GameSpeedIcon";
 import { Puzzle } from "../../types/puzzle";
 import { convertTimeToString } from "../../utils/time";
-import { gameStatusMap, getGameStatusDescription } from "../../utils/game";
+import { getGameStatusDescription } from "../../utils/game";
 
 interface GameInfoProps {
   puzzle: Puzzle;
@@ -32,7 +32,12 @@ const GameInfo: React.FC<GameInfoProps> = ({ puzzle }) => {
       </div>
 
       <div className="flex justify-center items-center text-gray-500">
-        <p>{getGameStatusDescription(puzzle.status,puzzle.winner)}</p>
+        <p>
+          {getGameStatusDescription(
+            puzzle.status,
+            puzzle.winner === "white" ? puzzle.players.white : puzzle.players.black 
+          )}
+        </p>
       </div>
 
       <hr className="border-gray-400 m-2" />

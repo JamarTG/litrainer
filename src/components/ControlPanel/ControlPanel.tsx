@@ -28,9 +28,9 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setIsPuzzleSolved,
   feedback,
   classification,
-  puzzleIndex,
-  jumpToPuzzle,
-  history,
+  // puzzleIndex,
+  // jumpToPuzzle,
+  // history,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -47,15 +47,13 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
       {isDataAvailable && (
         <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo puzzle={puzzle} />
-          <div className="border border-gray-200 rounded-lg shadow-md md:w-[400px] flex flex-col gap-2 p-5">
+
             <PuzzleInfo
               puzzle={puzzle}
               feedback={feedback}
               classification={classification}
             />
 
-            
-          </div>
 
           <Navigation
               resetBoard={resetBoard}

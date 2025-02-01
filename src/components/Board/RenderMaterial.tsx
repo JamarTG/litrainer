@@ -21,7 +21,7 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
         ([piece, count]) =>
           count > 0 ? (
             <div key={piece} className="flex ">
-              {[...Array(count)].map((_, i) => (
+              {[...Array(count)].map((_, _i) => (
 
                   <PieceIcon piece="bishop" size={24} />
               ))}

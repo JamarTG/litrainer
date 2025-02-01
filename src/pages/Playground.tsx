@@ -25,7 +25,7 @@ import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import ThemeWrapper from "../components/Wrapper/ThemeWrapper";
-import Navigation from "../components/ControlPanel/Navigation";
+// import Navigation from "../components/ControlPanel/Navigation";
 // import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 interface PlayGroundProps {
@@ -213,12 +213,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     [setMoveSquares]
   );
 
-  const resetBoard = (changePuzzle: () => void) => {
-    changePuzzle();
-    setClassification(null);
-    unhighlightLegalMoves();
-    setIsPuzzleSolved(false);
-  };
+  // const resetBoard = (changePuzzle: () => void) => {
+  //   changePuzzle();
+  //   setClassification(null);
+  //   unhighlightLegalMoves();
+  //   setIsPuzzleSolved(false);
+  // };
 
   return (
     <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
