@@ -1,4 +1,4 @@
-import { timeControlIcons } from "../../constants";
+import { timeControlIcons } from "../../constants/tc";
 
 interface TimeControlIconProps {
     timeControl : string 

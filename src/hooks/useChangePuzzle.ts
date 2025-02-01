@@ -59,7 +59,7 @@ const useChangePuzzle = (
     setSrcSquare(null);
   };
 
-  return { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle };
+  return { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle};
 };
 
 export default useChangePuzzle;

@@ -18,8 +18,15 @@ export interface Puzzle {
   clock: LichessClock;
   winner?: "white" | "black";
   moveNumber: number;
+  opening: Opening;
+  phase: "opening" | "middlegame"| "endgame"
 }
 
+export interface Opening {
+  eco: string;
+  name: string;
+  ply: number;
+}
 
 export interface Fen {
   current: string;

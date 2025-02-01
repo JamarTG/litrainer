@@ -20,6 +20,9 @@ export const getLichessGames = async (
   url.searchParams.append("perfType", gameTypes.join(","));
   url.searchParams.append("evals", "true");
   url.searchParams.append("analysed", "true");
+  url.searchParams.append("division", "true");
+  url.searchParams.append("finished", "true");
+  url.searchParams.append("opening", "true")
 
   const response = await fetch(url, {
     headers: {

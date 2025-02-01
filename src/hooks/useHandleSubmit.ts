@@ -45,7 +45,10 @@ const useSubmitHandler = (formData: Fields) => {
     try {
       const { games, evaluations } = await getLichessGames(username, since, until, maxNoGames.toString(), sort, color, gameTypes);
 
+      
       const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as LichessEvaluation[][]);
+
+
 
       saveLocal("puzzles", puzzles);
       

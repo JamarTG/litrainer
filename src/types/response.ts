@@ -1,5 +1,6 @@
 import { LichessClock } from "./clock";
 import { LichessPlayers } from "./player";
+import { Opening } from "./puzzle";
 
 export interface LichessGameResponse {
   players: LichessPlayers;
@@ -12,4 +13,14 @@ export interface LichessGameResponse {
   variant: string;
   clock: LichessClock;
   winner?: "white" | "black" ;
+  opening: Opening,
+  division: {
+    middle: number;
+    end: number
+  }
+}
+
+export interface Division {
+  middle: number,
+  end:number
 }
