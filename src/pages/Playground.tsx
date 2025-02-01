@@ -24,6 +24,8 @@ import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
+import ThemeWrapper from "../components/Wrapper/ThemeWrapper";
+// import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -164,16 +166,16 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       const result = await engine.evaluateMoveQuality(fen, move.lan, depth);
 
-      if (result.classification === MoveClassification.Best) {
-        setMoveFeedback({ best: `${move.san} is the best move`, played: "" });
-      } else {
+      // if (result.classification === MoveClassification.Best) {
+      //   setMoveFeedback({ best: `${move.san} is the best move`, played: "" });
+      // } else {
         setMoveFeedback({
           best: `${result.bestMove} is the best move`,
           played: `${move.san} ${
             ClassificationMessage[result.classification]
           } `,
         });
-      }
+      // }
 
       handleEvaluation(
         result.classification,
@@ -213,13 +215,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   return (
-    <div
-      style={{
-        backgroundColor: theme === "light" ? "#e4e4e4" : "#363434",
-        color: theme === "light" ? "#4d4d4d" : "white",
-      }}
-      className="bg-red-500 text-white flex flex-col md:flex-row justify-center min-h-screen p-4 gap-3 items-center"
-    >
+    <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
       <InteractiveChessBoard
         game={game}
         sourceSquare={sourceSquare}
@@ -233,34 +229,58 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
       {puzzles.length !== 0 ? (
-        <div className="h-96 flex flex-col gap-4">
+        <ThemeWrapper
+          style={{ height: 600 }}
+          //  className={`w-full md:w-[400px] flex flex-col gap-4 pt-5  rounded-lg shadow-2xl shadow-gray-400/50 border-2 border-${theme === "light" ? "gray-400" : "white"}`}
+        >
           <div className="flex gap-8 justify-center items-center">
             <SubmitButtonWithModal />
-     
             <ThemeChanger />
           </div>
 
           <PuzzleControlPanel
-            jumpToPuzzle={jumpToPuzzle}
+            puzzleIndex={puzzleIndex}
             classification={classification}
-            puzzleIndex={puzzleIndex ?? 0}
             feedback={moveFeedback}
             nextPuzzle={nextPuzzle}
             prevPuzzle={prevPuzzle}
             unhighlightLegalMoves={unhighlightLegalMoves}
             setIsPuzzleSolved={setIsPuzzleSolved}
             setClassification={setClassification}
+            jumpToPuzzle={jumpToPuzzle}
             history={history}
           />
-        </div>
+        </ThemeWrapper>
       ) : (
-        <div className="h-96 flex flex-col gap-4 justify-center items-center">
-          <small>No Games Found on Specified Parameters</small>
-
-          <SubmitButtonWithModal />
-        </div>
+        <ThemeWrapper
+          style={{ height: 600 }}
+          className="w-full md:w-[400px] flex flex-col gap-4 justify-center items-center p-6"
+        >
+          <h2
+            style={{
+              color: theme === "light" ? "#4d4d4d" : "#ffd700",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            No Games Found on Specified Parameters
+          </h2>
+          <p
+            style={{
+              color: theme === "light" ? "#666" : "#ccc",
+              fontSize: "1rem",
+              textAlign: "center",
+            }}
+          >
+            Try adjusting your search or explore other puzzles!
+          </p>
+          <div style={{ marginTop: "1rem" }}>
+            <SubmitButtonWithModal />
+          </div>
+        </ThemeWrapper>
       )}
-    </div>
+    </ThemeWrapper>
   );
 };
 

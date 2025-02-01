@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useContext } from "react";
-// import History from "../Puzzle/History";
 import GameInfo from "./GameInfo";
 import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
@@ -9,15 +8,16 @@ import { PuzzleContext } from "../../context/PuzzleContext";
 interface ControlPanelProps {
   nextPuzzle: () => void;
   prevPuzzle: () => void;
-  unhighlightLegalMoves: () => void;
-  setClassification: React.Dispatch<React.SetStateAction<Classification | null>>;
-  setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
-
-  jumpToPuzzle: (index: number) => void;
-  feedback: { best: string | null; played: string | null };
-  classification: Classification | null;
+  jumpToPuzzle: (num: number) => void;
   history: Record<number, string | null>;
   puzzleIndex: number;
+  unhighlightLegalMoves: () => void;
+  setClassification: React.Dispatch<
+    React.SetStateAction<Classification | null>
+  >;
+  setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
+  feedback: { best: string | null; played: string | null };
+  classification: Classification | null;
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
@@ -28,9 +28,9 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setIsPuzzleSolved,
   feedback,
   classification,
-  // history,
-  // puzzleIndex,
-  // jumpToPuzzle,
+  puzzleIndex,
+  jumpToPuzzle,
+  history,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -43,30 +43,40 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   };
 
   return (
-    <div className="p-4 w-96">
+    <div className="flex flex-col justify-between px-2 rounded-md">
       {isDataAvailable && (
         <>
           <GameInfo puzzle={puzzle} />
-          <div className="flex mt-4 h-16">
-            <PuzzleInfo
-              puzzle={puzzle}
-              feedback={feedback}
-              classification={classification}
-            />
-          </div>
-          <div className="flex justify-center gap-16">
-            <button onClick={() => resetBoard(prevPuzzle)}>
+
+          <PuzzleInfo
+            puzzle={puzzle}
+            feedback={feedback}
+            classification={classification}
+          />
+
+          {/* <PuzzleHistory
+            history={history}
+            puzzleIndex={puzzleIndex}
+            jumpToPuzzle={jumpToPuzzle}
+          /> */}
+
+          <div className="flex justify-between items-center gap-4">
+            <button
+              onClick={() => resetBoard(prevPuzzle)}
+              className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
+            >
               <span className="icon text-2xl">&#xe037;</span>
             </button>
-            <button>
+            <button className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200">
               <span className="icon text-2xl">&#xe078;</span>
             </button>
-            <button onClick={() => resetBoard(nextPuzzle)}>
+            <button
+              onClick={() => resetBoard(nextPuzzle)}
+              className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
+            >
               <span className="icon text-2xl">&#xe036;</span>
             </button>
           </div>
-          
-         
         </>
       )}
     </div>

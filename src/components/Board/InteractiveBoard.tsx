@@ -80,19 +80,21 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         className="relative flex flex-col justify-center items-center gap-2"
         style={{ maxWidth: boardSize, maxHeight: boardSize }}
       >
-        <Chessboard
-          position={game.fen()}
-          onSquareClick={handleSquareClick}
-          onPieceDrop={handleMoveAttempt}
-          onPieceDragBegin={unhighlightLegalMoves}
-          onPieceDragEnd={unhighlightLegalMoves}
-          boardOrientation={getColorLongForm(
-            puzzle?.userMove.color as "w" | "b"
-          )}
-          boardWidth={boardSize}
-          customSquareStyles={customSquareStyles}
-          arePiecesDraggable={!solved}
-        />
+        <div className="rounded-lg overflow-hidden shadow-lg">
+          <Chessboard
+            position={game.fen()}
+            onSquareClick={handleSquareClick}
+            onPieceDrop={handleMoveAttempt}
+            onPieceDragBegin={unhighlightLegalMoves}
+            onPieceDragEnd={unhighlightLegalMoves}
+            boardOrientation={getColorLongForm(
+              puzzle?.userMove.color as "w" | "b"
+            )}
+            boardWidth={boardSize}
+            customSquareStyles={customSquareStyles}
+            arePiecesDraggable={!solved}
+          />
+        </div>
 
         <Marker
           classification={classification}

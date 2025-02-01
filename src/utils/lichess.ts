@@ -27,6 +27,7 @@ export const parseLichessResponse = async (response: Response) => {
 
   const parsedGames: LichessGameResponse[] = unParsedGames.map((line) => {
     const game = JSON.parse(line);
+    
     return {
       players: game.players,
       moves: game.moves,
@@ -38,10 +39,11 @@ export const parseLichessResponse = async (response: Response) => {
       variant: game.variant,
       clock: game.clock,
       winner: game.winner,
+      opening: game.opening,
+      division: game.division
     };
   });
 
-  console.log(parsedGames);
   return { evaluations, games: parsedGames };
 };
 
@@ -63,13 +65,30 @@ const generatePuzzles = (
 
     const res: Puzzle[] = [];
 
+    
+    const middlegameStartPly = game.division?.middle || Infinity; 
+    const endgameStartPly = game.division?.end || Infinity; 
+
     for (let i = 0; i < gameEvaluations.length; i++) {
       const evaluation = gameEvaluations[i];
 
       if (evaluation.judgment && OPColor === history[i].color && i > 0) {
+     
+        const plyNumber = i + 1; 
+        let phase: "opening" | "middlegame" | "endgame";
+
+        if (plyNumber < middlegameStartPly) {
+          phase = "opening";
+        } else if (plyNumber < endgameStartPly) {
+          phase = "middlegame";
+        } else {
+          phase = "endgame";
+        }
+
         const puzzle: Puzzle = {
           gameId: game.game_id,
           players: game.players,
+          opening: game.opening,
           variant: game.variant,
           timeControl: game.perf as GameType,
           status: game.status,
@@ -83,7 +102,7 @@ const generatePuzzles = (
             source: history[i].from,
             destination: history[i].to,
           },
-          moveNumber: i + 1,
+          moveNumber: plyNumber,
           opponentMove: {
             san: history[i - 1].san,
             lan: history[i - 1].lan,
@@ -97,7 +116,9 @@ const generatePuzzles = (
             current: history[i].before,
             previous: history[i - 1].before || history[i].before,
           },
+          phase, 
         };
+        console.log(phase)
 
         if (game.winner) {
           puzzle.winner = game.winner as "white" | "black";

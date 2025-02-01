@@ -9,7 +9,7 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({
   speed
 }) => {
   return (
-    <div className="flex justify-center items-center gap-2">
+    <div>
       {speed === "bullet" && (
         <div className="my-auto ">
           <span className="icon text-4xl">&#xe032;</span>
@@ -39,7 +39,7 @@ const GameSpeedIcon: React.FC<GameSpeedIconProps> = ({
           <span className="icon text-4xl">&#xe019;</span>
         </div>
       )}
-      <p className="capitalize">{speed}</p>
+     
     </div>
   );
 };

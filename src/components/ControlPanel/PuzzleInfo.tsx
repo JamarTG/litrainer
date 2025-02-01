@@ -13,45 +13,40 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
   classification,
 }) => {
   return (
-    <div className="flex gap-2 w-full">
-      {!(feedback && classification) && (
+    <div className="my-5 h-16 flex items-start justify-center">
+      <div className="flex justify-center items-center gap-4 w-full max-w-md ">
         <img
-          src={`/assets/evals/${puzzle.evaluation.judgment?.name}.svg`}
-          alt={puzzle.evaluation.judgment?.name}
+          src={
+            feedback && classification
+              ? `/assets/evals/${classification}.svg`
+              : `/assets/evals/${puzzle.evaluation.judgment?.name}.svg`
+          }
+          alt={
+            feedback && classification
+              ? classification
+              : puzzle.evaluation.judgment?.name
+          }
           width={40}
+          height={40}
+          className="flex-shrink-0"
         />
-      )}
-      <p className="text-lg flex flex-col">
-        {feedback && classification ? (
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col">
-              {classification != "Best" && (
-                <div className="flex gap-2">
-                  <img
-                    src={`/assets/evals/${classification}.svg`}
-                    alt={classification}
-                    width={20}
-                  />
-                  <p>{feedback.played}</p>
-                </div>
-              )}
-              <div className="flex gap-2">
-                <img
-                  src={`/assets/evals/Best.svg`}
-                  alt={puzzle.evaluation.judgment?.name}
-                  width={20}
-                />
-                <p>{feedback.best}</p>
+
+        <div className="flex-1 min-w-0">
+          <p className="text-lg truncate">
+            {feedback.played && classification ? (
+              <div>
+                <p>{feedback.played}</p>
+                <small>{feedback.best}</small>
               </div>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <p>{puzzle.userMove.san} was played here.</p>
-            <small>Find a better move</small>
-          </div>
-        )}
-      </p>
+            ) : (
+              <div>
+                <p>{puzzle.userMove.san} was played here.</p>
+                <small>Find a better move</small>
+              </div>
+            )}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
