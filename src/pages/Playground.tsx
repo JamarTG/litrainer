@@ -33,7 +33,7 @@ interface PlayGroundProps {
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
-  // const initialHistory: (Classification | "")[] = puzzles.map(() => "");
+  const initialHistory: (Classification | "")[] = puzzles.map(() => "");
 
   const [game, setGame] = useState<Chess>(new Chess());
   const [classification, setClassification] = useState<Classification | null>(
@@ -46,7 +46,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(
     null
   );
-  const [history, setHistory] = useState<Record<number, string | null>>({});
+  const [history, setHistory] = useState<Record<number, string | null>>(initialHistory);
   const [moveSquares, setMoveSquares] = useState({});
   const [fen, setFen] = useState<string>(STARTING_POS_FEN);
 

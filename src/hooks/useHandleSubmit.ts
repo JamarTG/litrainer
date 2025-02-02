@@ -55,8 +55,7 @@ const useSubmitHandler = (formData: Fields) => {
 
       saveLocal("puzzles", puzzles);
       
-      
-
+    
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
     } catch (error) {

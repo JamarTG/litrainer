@@ -17,10 +17,8 @@ export const PieceType = {
   KING: "k",
 } as const;
 
-// Starting position in FEN notation
 export const STARTING_POS_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-// Icons for each piece type
 export const PIECE_ICONS = {
   [PieceType.KNIGHT]: faChessKnight,
   [PieceType.BISHOP]: faChessBishop,
@@ -30,7 +28,6 @@ export const PIECE_ICONS = {
   [PieceType.PAWN]: faChessPawn,
 };
 
-// Value of each piece type
 export const PIECE_VALUE = {
   [PieceType.PAWN]: 1,
   [PieceType.KNIGHT]: 3,
@@ -40,7 +37,7 @@ export const PIECE_VALUE = {
   [PieceType.KING]: 0,
 };
 
-// Helper function to initialize piece counts
+
 const createInitialPieceCounts = () => ({
   p: 0,
   n: 0,
@@ -49,7 +46,6 @@ const createInitialPieceCounts = () => ({
   q: 0,
 });
 
-// Initial material state for both players
 export const INITIAL_PIECE_COUNTS = {
   w: createInitialPieceCounts(),
   b: createInitialPieceCounts(),

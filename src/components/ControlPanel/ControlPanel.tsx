@@ -4,6 +4,7 @@ import { Classification } from "../../types/move";
 import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
+import History from "./PuzzleHistory";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -28,9 +29,9 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   setIsPuzzleSolved,
   feedback,
   classification,
-  // puzzleIndex,
-  // jumpToPuzzle,
-  // history,
+  puzzleIndex,
+  jumpToPuzzle,
+  history,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
@@ -48,18 +49,23 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
         <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo puzzle={puzzle} />
 
-            <PuzzleInfo
-              puzzle={puzzle}
-              feedback={feedback}
-              classification={classification}
-            />
+          <PuzzleInfo
+            puzzle={puzzle}
+            feedback={feedback}
+            classification={classification}
+          />
 
+          <History
+            history={history}
+            puzzleIndex={puzzleIndex}
+            jumpToPuzzle={jumpToPuzzle}
+          />
 
           <Navigation
-              resetBoard={resetBoard}
-              nextPuzzle={nextPuzzle}
-              prevPuzzle={prevPuzzle}
-            />
+            resetBoard={resetBoard}
+            nextPuzzle={nextPuzzle}
+            prevPuzzle={prevPuzzle}
+          />
         </div>
       )}
     </div>
