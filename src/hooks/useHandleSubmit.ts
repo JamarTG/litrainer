@@ -48,14 +48,14 @@ const useSubmitHandler = (formData: Fields) => {
       
       const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as LichessEvaluation[][]);
 
-
+      if(puzzles.length === 0) {
+        toast.error(`No errors found for ${username} based on the given criteria`);
+        return
+      }
 
       saveLocal("puzzles", puzzles);
       
-      if(puzzles.length === 0) {
-        toast.success(`No errors found for ${username} based on the given criteria`);
-        return
-      }
+      
 
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
