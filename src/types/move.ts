@@ -9,7 +9,7 @@ export enum MoveClassification {
   Brilliant = "Brilliant"
 }
 
-export const ClassificationColors: Record<MoveClassification, string> = {
+export const ClassificationColors: Record<string, string> = {
   [MoveClassification.Book]: "#a88865",
   [MoveClassification.Best]: "#96bc4b",
   [MoveClassification.Excellent]: "#96bc4b",
@@ -18,6 +18,7 @@ export const ClassificationColors: Record<MoveClassification, string> = {
   [MoveClassification.Mistake]: "#e58f2a",
   [MoveClassification.Blunder]: "#ca3431",
   [MoveClassification.Brilliant]: "#1bada6",
+
 
 };
 
