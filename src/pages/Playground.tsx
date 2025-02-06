@@ -234,7 +234,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   return (
     <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
-      <div className="flex flex-col">
+      
         <InteractiveChessBoard
           game={game}
           sourceSquare={sourceSquare}
@@ -247,7 +247,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           handleMoveAttempt={handleMoveAttempt}
           unhighlightLegalMoves={unhighlightLegalMoves}
         />
-      </div>
+    
 
       {puzzles.length !== 0 ? (
         <ThemeWrapper className={`w-full md:w-[400px]`}>
