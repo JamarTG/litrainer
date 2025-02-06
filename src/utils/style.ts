@@ -1,12 +1,12 @@
-import { Move, Square } from "chess.js";
-import {
+  import { Move, Square } from "chess.js";
+  import {
   Classification,
   ClassificationColors,
   MoveClassification,
-} from "../types/move";
-import { CSSProperties } from "react";
+  } from "../types/move";
+  import { CSSProperties } from "react";
 
-const generateSquareStyle = (classification: Classification | null, isLoadingEvaluation: boolean) => ({
+  const generateSquareStyle = (classification: Classification | null, isLoadingEvaluation: boolean) => ({
   backgroundColor:
     classification && !isLoadingEvaluation
       ? ClassificationColors[MoveClassification[classification as keyof typeof MoveClassification]]
@@ -14,15 +14,15 @@ const generateSquareStyle = (classification: Classification | null, isLoadingEva
   backgroundSize: "30%",
   backgroundPosition: "top right",
   backgroundRepeat: "no-repeat",
-});
+  });
 
-export const getCustomSquareStyles = (
+  export const getCustomSquareStyles = (
   dstSquare: Square | null,
   srcSquare: Square | null,
   classification: Classification | null,
   moveSquares: Record<string, CSSProperties>,
   isLoadingEvaluation: boolean
-) => {
+  ) => {
   const styles: Record<string, CSSProperties> = { ...moveSquares };
 
   if (dstSquare && srcSquare) {
@@ -34,21 +34,21 @@ export const getCustomSquareStyles = (
   }
 
   return styles;
-};
+  };
 
-export const getHighlightedLegalMoves = (legalMoves: Move[]) => {
+  export const getHighlightedLegalMoves = (legalMoves: Move[]) => {
   return legalMoves.reduce((styles, move) => {
     styles[move.to] = getSquareStyle(!!move.captured);
     return styles;
   }, {} as Record<string, CSSProperties>);
-};
+  };
 
-export const getSquareStyle = (isCaptureMove: boolean) => ({
+  export const getSquareStyle = (isCaptureMove: boolean) => ({
   background: isCaptureMove
     ? "radial-gradient(circle, transparent 55%, rgba(0,0,0, 0.2) 35%)"
     : "radial-gradient(circle, rgba(0,0,0, 0.2) 30%, transparent 35%)",
   borderRadius: "50%",
   zIndex: 1,
-});
+  });
 
-export const getColorLongForm = (color: "w" | "b") => (color === "w" ? "white" : "black");
+  export const getColorLongForm = (color: "w" | "b") => (color === "w" ? "white" : "black");
