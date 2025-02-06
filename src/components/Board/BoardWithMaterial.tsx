@@ -17,7 +17,7 @@ const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({
   const opponentColor= puzzle?.opponentMove.color == "w" ? "white" : "black";
  
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-center items-center">
       <PlayerWithMaterial puzzle={puzzle} color={opponentColor} material={material} />
       {children}
       <PlayerWithMaterial puzzle={puzzle} color={userColor} material={material} />
