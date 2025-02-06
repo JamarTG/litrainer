@@ -98,7 +98,7 @@ export abstract class UciEngine {
 
   public async getBestMoves(
     fen: string,
-    depth = 20
+    depth = 16
   ): Promise<LineResult[] | null> {
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],
@@ -123,7 +123,7 @@ export abstract class UciEngine {
 
   public async evaluatePosition(
     fen: string,
-    depth = 15
+    depth = 16
   ): Promise<PositionEval> {
     const results = await this.sendCommands(
       [`position fen ${fen}`, `go depth ${depth}`],
@@ -148,6 +148,7 @@ export abstract class UciEngine {
     const lastPositionEval = await this.evaluatePosition(fen, depth);
     const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
 
+    
     const basicClassification = getBasicClassification(
       lastPositionEval,
       currentPositionEval,
@@ -157,6 +158,7 @@ export abstract class UciEngine {
     return {
       classification: basicClassification,
       bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san // Convert the best move to SAN
+      
     };
   }
 }

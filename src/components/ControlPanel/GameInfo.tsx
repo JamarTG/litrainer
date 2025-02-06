@@ -3,12 +3,16 @@ import GameSpeedIcon from "./GameSpeedIcon";
 import { Puzzle } from "../../types/puzzle";
 import { convertTimeToString } from "../../utils/time";
 import { getGameStatusDescription } from "../../utils/game";
+import { ThemeContext } from "../../context/ThemeContext";
+import { useContext } from "react";
 
 interface GameInfoProps {
   puzzle: Puzzle;
 }
 
 const GameInfo: React.FC<GameInfoProps> = ({ puzzle }) => {
+
+  const {theme} = useContext(ThemeContext);
   return (
     <div className="border border-gray-200 rounded-lg shadow-md md:w-[400px] flex flex-col gap-2 p-5">
       <div className="flex items-center justify-between ">
@@ -16,7 +20,7 @@ const GameInfo: React.FC<GameInfoProps> = ({ puzzle }) => {
           <GameSpeedIcon speed={puzzle.timeControl} />
           <div className="flex flex-col">
             <p className="capitalize font-medium">{puzzle.timeControl}</p>
-            <p className="text-sm text-gray-500">
+            <p className={`text-sm ${theme === "light" ? "text-gray-500" :'text-white'} `}>
               {puzzle.rated ? "Rated" : "Casual"} •{" "}
               {puzzle.clock
                 ? `${convertTimeToString(
@@ -32,7 +36,7 @@ const GameInfo: React.FC<GameInfoProps> = ({ puzzle }) => {
       </div>
 
       <div className="flex justify-center items-center text-gray-500">
-        <p>
+        <p className={`text-sm ${theme === "light" ? "text-gray-500" :'text-white'} `}>
           {getGameStatusDescription(
             puzzle.status,
             puzzle.winner === "white" ? puzzle.players.white : puzzle.players.black 

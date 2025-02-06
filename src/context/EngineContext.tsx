@@ -29,7 +29,7 @@ export const EngineProvider: React.FC<{
   useEffect(() => {
     if (!engineName) return;
 
-    if (engineName !== EngineName.Stockfish11 && !isWasmSupported()) {
+    if (engineName !== EngineName.Stockfish16_1Lite && !isWasmSupported()) {
       return;
     }
 

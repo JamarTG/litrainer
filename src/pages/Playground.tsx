@@ -46,7 +46,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(
     null
   );
-  const [history, setHistory] = useState<Record<number, string | null>>(initialHistory);
+  const [history, setHistory] =
+    useState<Record<number, string | null>>(initialHistory);
   const [moveSquares, setMoveSquares] = useState({});
   const [fen, setFen] = useState<string>(STARTING_POS_FEN);
 
@@ -138,6 +139,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
         );
+        
       });
     }
 
@@ -147,6 +149,18 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     return true;
   };
+
+  useEffect(() => {
+    if (isPuzzleSolved) {
+     
+      const timer = setTimeout(() => {
+        nextPuzzle();
+      }, 500); 
+  
+     
+      return () => clearTimeout(timer);
+    }
+  }, [isPuzzleSolved, nextPuzzle]);
 
   const handleEvaluation = (
     classificationResult: Classification | null,
@@ -158,7 +172,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setIsPuzzleSolved(solved);
   };
 
-  const evaluateMoveQuality = async (fen: string, move: Move, depth = 15) => {
+  const evaluateMoveQuality = async (fen: string, move: Move, depth = 16) => {
     setIsLoadingEvaluation(true);
     try {
       if (!engine?.isReady()) {
@@ -167,20 +181,17 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       const result = await engine.evaluateMoveQuality(fen, move.lan, depth);
 
-      // if (result.classification === MoveClassification.Best) {
-      //   setMoveFeedback({ best: `${move.san} is the best move`, played: "" });
-      // } else {
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
         played: `${move.san} ${ClassificationMessage[result.classification]} `,
       });
-      // }
 
       handleEvaluation(
         result.classification,
         move.to,
         isPositiveClassification(result.classification)
       );
+
 
       return result.classification;
     } catch (error) {
@@ -212,6 +223,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
+  
 
   // const resetBoard = (changePuzzle: () => void) => {
   //   changePuzzle();
@@ -223,21 +235,20 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   return (
     <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
       <div className="flex flex-col">
-      
-      <InteractiveChessBoard
-        game={game}
-        sourceSquare={sourceSquare}
-        destinationSquare={destinationSquare}
-        classification={classification}
-        moveSquares={moveSquares}
-        isLoadingEvaluation={isLoadingEvaluation}
-        solved={isPuzzleSolved}
-        handleSquareClick={handleSquareClick}
-        handleMoveAttempt={handleMoveAttempt}
-        unhighlightLegalMoves={unhighlightLegalMoves}
-      />
+        <InteractiveChessBoard
+          game={game}
+          sourceSquare={sourceSquare}
+          destinationSquare={destinationSquare}
+          classification={classification}
+          moveSquares={moveSquares}
+          isLoadingEvaluation={isLoadingEvaluation}
+          solved={isPuzzleSolved}
+          handleSquareClick={handleSquareClick}
+          handleMoveAttempt={handleMoveAttempt}
+          unhighlightLegalMoves={unhighlightLegalMoves}
+        />
       </div>
-      
+
       {puzzles.length !== 0 ? (
         <ThemeWrapper className={`w-full md:w-[400px]`}>
           <div className="mb-5 flex gap-8 justify-center items-center">
