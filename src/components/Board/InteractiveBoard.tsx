@@ -80,7 +80,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         className="relative flex flex-col justify-center items-center gap-2"
         style={{ maxWidth: boardSize, maxHeight: boardSize }}
       >
-        <div className="rounded-lg overflow-hidden shadow-lg">
+        <div className="flex justify-center items-center rounded-lg overflow-hidden shadow-lg">
           <Chessboard
             position={game.fen()}
             onSquareClick={handleSquareClick}

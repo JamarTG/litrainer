@@ -17,7 +17,7 @@ const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({
   return (
     <>
       {puzzle && (
-        <div className="h-8 flex gap-2 ">
+        <div className="h-8 flex gap-2 justify-center items-center">
           <PlayerInfo
             player={
               color === "white" ? puzzle.players.white : puzzle.players.black
