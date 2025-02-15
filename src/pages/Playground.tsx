@@ -24,7 +24,6 @@ import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
-import ThemeWrapper from "../components/Wrapper/ThemeWrapper";
 import { UciEngine } from "../engine/uciEngine";
 import { useDepth } from "../context/DepthContext";
 // import Navigation from "../components/ControlPanel/Navigation";
@@ -233,7 +232,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   // };
 
   return (
-    <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
+    <div className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
       <InteractiveChessBoard
         game={game}
         sourceSquare={sourceSquare}
@@ -246,9 +245,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-      
+
       {puzzles.length !== 0 ? (
-        <ThemeWrapper className={`w-full md:w-[400px]`}>
+        <div className={`w-full md:w-[400px]`}>
           <div className="mb-5 flex gap-8 justify-center items-center">
             <SubmitButtonWithModal />
             <ThemeChanger />
@@ -265,9 +264,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             jumpToPuzzle={jumpToPuzzle}
             history={history}
           />
-        </ThemeWrapper>
+        </div>
       ) : (
-        <ThemeWrapper
+        <div
           style={{ height: 600 }}
           className="w-full md:w-[400px] flex flex-col gap-4 justify-center items-center p-6"
         >
@@ -293,9 +292,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           <div style={{ marginTop: "1rem" }}>
             <SubmitButtonWithModal />
           </div>
-        </ThemeWrapper>
+        </div>
       )}
-    </ThemeWrapper>
+    </div>
   );
 };
 

@@ -11,6 +11,16 @@
     border-radius: 10px;
 }
 
+body {
+  background-color: #ffffff;
+  color: #4d4d4d;
+}
+
+body.dark {
+  background-color: #363434;
+  color: white;
+}
+
 
 html, body, #root {
   height: 100%;
