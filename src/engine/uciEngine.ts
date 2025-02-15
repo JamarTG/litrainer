@@ -12,6 +12,17 @@ export abstract class UciEngine {
   private multiPv = 3;
   private customEngineInit?: () => Promise<void>;
 
+  private static depth = 10;
+
+  public static setDepth (newDepth: number) {
+    if (newDepth < 2 || newDepth > 40) throw new Error("Invalid depth");
+    this.depth = newDepth;
+  }
+
+  public static getDepth() {
+    return this.depth;
+  }
+
   constructor(
     engineName: EngineName,
     enginePath: string,
@@ -97,11 +108,10 @@ export abstract class UciEngine {
   }
 
   public async getBestMoves(
-    fen: string,
-    depth = 16
+    fen: string
   ): Promise<LineResult[] | null> {
     const results = await this.sendCommands(
-      [`position fen ${fen}`, `go depth ${depth}`],
+      [`position fen ${fen}`, `go depth ${UciEngine.depth}`],
       "bestmove"
     );
 
@@ -122,11 +132,10 @@ export abstract class UciEngine {
   }
 
   public async evaluatePosition(
-    fen: string,
-    depth = 16
+    fen: string
   ): Promise<PositionEval> {
     const results = await this.sendCommands(
-      [`position fen ${fen}`, `go depth ${depth}`],
+      [`position fen ${fen}`, `go depth ${UciEngine.getDepth()}`],
       "bestmove"
     );
 
@@ -137,18 +146,18 @@ export abstract class UciEngine {
 
   public async evaluateMoveQuality(
     fen: string,
-    move: string,
-    depth: number
+    move: string
   ): Promise<{ classification: MoveClassification, bestMove: string }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
 
     if (!isValidMove) throw new Error("Invalid move");
 
-    const lastPositionEval = await this.evaluatePosition(fen, depth);
-    const currentPositionEval = await this.evaluatePosition(chess.fen(), depth);
+    const lastPositionEval = await this.evaluatePosition(fen);
+    const currentPositionEval = await this.evaluatePosition(chess.fen());
 
-    
+    console.log(lastPositionEval,currentPositionEval)
+
     const basicClassification = getBasicClassification(
       lastPositionEval,
       currentPositionEval,
