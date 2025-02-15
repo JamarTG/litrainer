@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
-import GameSpeedIcon from "../../../../ControlPanel/GameSpeedIcon";
+import GameSpeedIcon from "../../../../Game/GameSpeedIcon";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

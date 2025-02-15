@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useContext } from "react";
-import GameInfo from "./GameInfo";
+import GameInfo from "../Game/GameInfo";
 import { Classification } from "../../types/move";
-import PuzzleInfo from "./PuzzleInfo";
+import PuzzleInfo from "../Puzzle/PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
-import History from "./PuzzleHistory";
+import History from "../Puzzle/PuzzleHistory";
 import EngineDepthControl from "./EngineDepthControl";
 
 interface ControlPanelProps {
