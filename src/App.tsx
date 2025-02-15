@@ -5,6 +5,7 @@ import "./App.css";
 import { EngineProvider } from "./context/EngineContext";
 import { PuzzleProvider } from "./context/PuzzleContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { DepthProvider } from "./context/DepthContext";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -13,11 +14,13 @@ const App = () => {
       <Toaster />
       <BrowserRouter>
         <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
-          <PuzzleProvider>
-            <ThemeProvider>
-              <Router />
-            </ThemeProvider>
-          </PuzzleProvider>
+          <DepthProvider>
+            <PuzzleProvider>
+              <ThemeProvider>
+                <Router />
+              </ThemeProvider>
+            </PuzzleProvider>
+          </DepthProvider>
         </EngineProvider>
       </BrowserRouter>
     </>

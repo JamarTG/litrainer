@@ -25,6 +25,8 @@ import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import ThemeWrapper from "../components/Wrapper/ThemeWrapper";
+import { UciEngine } from "../engine/uciEngine";
+import { useDepth } from "../context/DepthContext";
 // import Navigation from "../components/ControlPanel/Navigation";
 // import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
@@ -52,6 +54,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const [fen, setFen] = useState<string>(STARTING_POS_FEN);
 
   const { engine } = useEngineContext();
+  const { depth: engineDepth } = useDepth();
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
   const { theme } = useContext(ThemeContext);
 
@@ -139,7 +142,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
         );
-        
       });
     }
 
@@ -152,12 +154,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   useEffect(() => {
     if (isPuzzleSolved) {
-     
       const timer = setTimeout(() => {
         nextPuzzle();
-      }, 500); 
-  
-     
+      }, 500);
+
       return () => clearTimeout(timer);
     }
   }, [isPuzzleSolved, nextPuzzle]);
@@ -172,14 +172,16 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setIsPuzzleSolved(solved);
   };
 
-  const evaluateMoveQuality = async (fen: string, move: Move, depth = 16) => {
+  const evaluateMoveQuality = async (fen: string, move: Move) => {
     setIsLoadingEvaluation(true);
     try {
       if (!engine?.isReady()) {
         throw new Error("Engine is not initialized");
       }
 
-      const result = await engine.evaluateMoveQuality(fen, move.lan, depth);
+      UciEngine.setDepth(engineDepth);
+
+      const result = await engine.evaluateMoveQuality(fen, move.lan);
 
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
@@ -191,7 +193,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         move.to,
         isPositiveClassification(result.classification)
       );
-
 
       return result.classification;
     } catch (error) {
@@ -223,7 +224,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
-  
 
   // const resetBoard = (changePuzzle: () => void) => {
   //   changePuzzle();
@@ -234,21 +234,19 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   return (
     <ThemeWrapper className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
+      <InteractiveChessBoard
+        game={game}
+        sourceSquare={sourceSquare}
+        destinationSquare={destinationSquare}
+        classification={classification}
+        moveSquares={moveSquares}
+        isLoadingEvaluation={isLoadingEvaluation}
+        solved={isPuzzleSolved}
+        handleSquareClick={handleSquareClick}
+        handleMoveAttempt={handleMoveAttempt}
+        unhighlightLegalMoves={unhighlightLegalMoves}
+      />
       
-        <InteractiveChessBoard
-          game={game}
-          sourceSquare={sourceSquare}
-          destinationSquare={destinationSquare}
-          classification={classification}
-          moveSquares={moveSquares}
-          isLoadingEvaluation={isLoadingEvaluation}
-          solved={isPuzzleSolved}
-          handleSquareClick={handleSquareClick}
-          handleMoveAttempt={handleMoveAttempt}
-          unhighlightLegalMoves={unhighlightLegalMoves}
-        />
-    
-
       {puzzles.length !== 0 ? (
         <ThemeWrapper className={`w-full md:w-[400px]`}>
           <div className="mb-5 flex gap-8 justify-center items-center">

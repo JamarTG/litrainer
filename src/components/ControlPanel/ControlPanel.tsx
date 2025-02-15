@@ -5,6 +5,7 @@ import PuzzleInfo from "./PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
 import History from "./PuzzleHistory";
+import EngineDepthControl from "./EngineDepthControl";
 
 interface ControlPanelProps {
   nextPuzzle: () => void;
@@ -45,6 +46,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
   return (
     <div className="w-96 ">
+      <EngineDepthControl />
       {isDataAvailable && (
         <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo puzzle={puzzle} />
