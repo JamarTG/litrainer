@@ -74,7 +74,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   useEffect(() => {
     if (history[puzzleIndex] && classification === null) return;
-
     setHistory({ ...history, [puzzleIndex]: classification });
   }, [classification, puzzleIndex]);
 
