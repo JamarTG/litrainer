@@ -11,7 +11,6 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // Add or remove dark class on the body element
     if (theme === "dark") {
       document.body.classList.add("dark");
     } else {

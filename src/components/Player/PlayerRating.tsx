@@ -31,7 +31,7 @@ const PlayerRating: React.FC<PlayerRatingProps> = ({ color }) => {
   }
 
   return (
-    <p className="text-gray-400 text-sm md:text-base ml-1">
+    <p className="text-gray-400 ml-1">
       ({rating}
       {provisional && "?"}) {ratingDiff !== undefined && ratingDiff !== 0 ? <span className={`${colorClass}`}>{displayText}</span> : null}
     </p>
