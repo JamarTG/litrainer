@@ -1,34 +1,21 @@
 import PlayerInfo from "../Player/PlayerInfo";
 import RenderMaterial from "./RenderMaterial";
 import { Materials } from "../../types/eval";
-import { Puzzle } from "../../types/puzzle";
 
 interface PlayerWithMaterialProps {
-  puzzle: Puzzle | null;
-  color: "white" | "black";
+  color: "w" | "b";
   material: Materials;
 }
 
 const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({
   color,
   material,
-  puzzle,
 }) => {
   return (
-    <>
-      {puzzle && (
-        <div className="h-8 flex gap-2 justify-center items-center">
-          <PlayerInfo
-            player={
-              color === "white" ? puzzle.players.white : puzzle.players.black
-            }
-            color={color}
-        
-          />
-          <RenderMaterial material={material} color={color} />
-        </div>
-      )}
-    </>
+    <div className="h-8 flex gap-2 justify-center items-center">
+      <PlayerInfo color={color} />
+      <RenderMaterial material={material} color={color} />
+    </div>
   );
 };
 

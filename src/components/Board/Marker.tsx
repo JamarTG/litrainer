@@ -1,9 +1,13 @@
 import { Square } from "chess.js";
 import { Classification } from "../../types/move";
+import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
+import { useContext, useState } from "react";
+import { Marker as MarkerT } from "../../types/board";
+import { INITIAL_MARKER_POSITION } from "../../constants/board";
+import { PuzzleContext } from "../../context/PuzzleContext";
 
 interface MarkerProps {
   classification: Classification | null;
-  markerPosition: { top: number; right: number };
   boardSize: number;
   destinationSquare: Square | null;
 }
@@ -11,9 +15,20 @@ interface MarkerProps {
 const Marker: React.FC<MarkerProps> = ({
   classification,
   boardSize,
-  markerPosition,
-  destinationSquare
+  destinationSquare,
 }) => {
+  const [markerPosition, setMarkerPosition] = useState<MarkerT>(
+    INITIAL_MARKER_POSITION
+  );
+  const { puzzle } = useContext(PuzzleContext);
+
+  useMarkerPositionEffect(
+    destinationSquare,
+    boardSize,
+    setMarkerPosition,
+    puzzle?.userMove.color
+  );
+  
   return (
     <>
       {destinationSquare && classification && (

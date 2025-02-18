@@ -13,14 +13,14 @@ const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({
   children,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
-  const userColor= puzzle?.userMove.color == "w" ? "white" : "black";
-  const opponentColor= puzzle?.opponentMove.color == "w" ? "white" : "black";
+  const userColor= puzzle?.userMove.color || "w";
+  const opponentColor= puzzle?.opponentMove.color || "b";
  
   return (
     <div className="flex flex-col justify-center items-center">
-      <PlayerWithMaterial puzzle={puzzle} color={opponentColor} material={material} />
+      <PlayerWithMaterial color={opponentColor} material={material} />
       {children}
-      <PlayerWithMaterial puzzle={puzzle} color={userColor} material={material} />
+      <PlayerWithMaterial color={userColor} material={material} />
     </div>
   );
 };

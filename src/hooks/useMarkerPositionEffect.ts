@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { Square } from "chess.js";
 import { getSquarePosition } from "../utils/chess";
-import { getColorLongForm } from "../utils/style";
+// import { getColorLongForm } from "../utils/style";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,
   boardSize: number,
-  puzzleColor: "w" | "b" | undefined,
-  setMarkerPosition: (position: { right: number; top: number }) => void
+  setMarkerPosition: (position: { right: number; top: number }) => void,
+  puzzleColor?: "w" | "b",
+
 ) => {
   useEffect(() => {
-    if (destinationSquare) {
+    if (destinationSquare && puzzleColor) {
       const { right, top } = getSquarePosition(
         destinationSquare,
         boardSize,
-        getColorLongForm(puzzleColor ?? "w")
+        puzzleColor
       );
       setMarkerPosition({ right, top });
     }

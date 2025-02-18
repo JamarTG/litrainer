@@ -26,8 +26,6 @@ import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import { UciEngine } from "../engine/uciEngine";
 import { useDepth } from "../context/DepthContext";
-// import Navigation from "../components/ControlPanel/Navigation";
-// import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -151,15 +149,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     return true;
   };
 
-  useEffect(() => {
-    if (isPuzzleSolved) {
-      const timer = setTimeout(() => {
-        nextPuzzle();
-      }, 500);
+  // useEffect(() => {
+  //   if (isPuzzleSolved) {
+  //     const timer = setTimeout(() => {
+  //       nextPuzzle();
+  //     }, 500);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isPuzzleSolved, nextPuzzle]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isPuzzleSolved, nextPuzzle]);
 
   const handleEvaluation = (
     classificationResult: Classification | null,
