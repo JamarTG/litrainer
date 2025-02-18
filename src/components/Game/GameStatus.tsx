@@ -1,20 +1,20 @@
-import { Puzzle } from "../../types/puzzle";
+import {  LichessPlayers } from "../../types/player";
+import { getGameStatusDescription } from "../../utils/game";
 
 interface GameStatusProps {
-  puzzle: Puzzle;
+  status: string;
+  winner: string | undefined;
+  players: LichessPlayers;
+  theme: "light" | "dark";
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ puzzle }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ status, winner, players, theme }) => {
   return (
-    <>
-      {puzzle.status && (
-        <img
-          src={`images/status/${puzzle.status}${puzzle.winner ? `_${puzzle.winner}` : ""}.svg`}
-          width={30}
-          alt=""
-        />
-      )}
-    </>
+    <div className="flex justify-center items-center text-gray-500">
+      <p className={`text-sm ${theme === "light" ? "text-gray-500" : "text-white"}`}>
+        {getGameStatusDescription(status, winner === "white" ? players.white : players.black)}
+      </p>
+    </div>
   );
 };
 

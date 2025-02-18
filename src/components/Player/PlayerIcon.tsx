@@ -1,7 +1,5 @@
-
-
-import { useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 interface PlayerIconProps {
   color: "w" | "b";
@@ -10,7 +8,8 @@ interface PlayerIconProps {
 const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
   const { theme } = useContext(ThemeContext);
 
-  const iconColor = theme === 'light' ? (color === 'w' ? 'black' : 'white') : color;
+  const iconColor =
+    theme === "light" ? (color === "w" ? "black" : "white") : color;
 
   return (
     <div className="rounded-full px-1">

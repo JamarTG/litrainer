@@ -1,8 +1,4 @@
-import PlayerIcon from "./PlayerIcon";
-import PatronIcon from "./PatronIcon";
-import PlayerTitle from "./PlayerTitle";
-import PlayerName from "./PlayerName";
-import PlayerRating from "./PlayerRating";
+import { PlayerIcon, PatronIcon, PlayerTitle, PlayerName,PlayerRating} from ".";
 
 interface PlayerInfoProps {
   color: "w" | "b";
