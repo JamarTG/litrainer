@@ -60,8 +60,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     played: string | null;
   }>({ best: "", played: "" });
 
-  const [evaluationCache, setEvaluationCache] = useState<Map<string, Classification | null>>(new Map());
-
   const { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle } = useChangePuzzle(
     puzzles,
     setDestinationSquare,
@@ -165,42 +163,53 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const evaluateMoveQuality = async (fen: string, move: Move) => {
     setIsLoadingEvaluation(true);
     try {
-      const cacheKey = `${fen}-${move.lan}`;  // Use a unique key based on FEN and move
-      const cachedResult = evaluationCache.get(cacheKey);
-
-      if (cachedResult !== undefined && cachedResult !== null) {
-        // Use cached evaluation
-        handleEvaluation(cachedResult, move.to, isPositiveClassification(cachedResult));
+      // Check if the evaluation already exists in sessionStorage
+      const cacheKey = `evaluation_${fen}_${move.lan}`;
+      const cachedEvaluation = sessionStorage.getItem(cacheKey);
+  
+      if (cachedEvaluation) {
+      
+        const parsedEvaluation = JSON.parse(cachedEvaluation);
         setMoveFeedback({
-          best: `${move.san} is the best move`,
-          played: `${move.san} ${ClassificationMessage[cachedResult]}`,
+          best: `${parsedEvaluation.bestMove} is the best move`,
+          played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
         });
-        return cachedResult;
+        handleEvaluation(
+          parsedEvaluation.classification,
+          move.to,
+          isPositiveClassification(parsedEvaluation.classification)
+        );
+        return parsedEvaluation.classification;
       }
-
+  
+      // If no cached evaluation, proceed with engine evaluation
       if (!engine?.isReady()) {
         throw new Error("Engine is not initialized");
       }
-
+  
       UciEngine.setDepth(engineDepth);
-
-      // Make an API call to evaluate the move quality
+  
       const result = await engine.evaluateMoveQuality(fen, move.lan);
-
-      // Cache the evaluation result
-      setEvaluationCache(new Map(evaluationCache.set(cacheKey, result.classification)));
-
+  
+      sessionStorage.setItem(
+        cacheKey,
+        JSON.stringify({
+          bestMove: result.bestMove,
+          classification: result.classification,
+        })
+      );
+  
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
         played: `${move.san} ${ClassificationMessage[result.classification]} `,
       });
-
+  
       handleEvaluation(
         result.classification,
         move.to,
         isPositiveClassification(result.classification)
       );
-
+  
       return result.classification;
     } catch (error) {
       console.error("Error evaluating move quality:", error);
@@ -209,6 +218,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setIsLoadingEvaluation(false);
     }
   };
+  
 
 
   const handleSquareClick = (srcSquare: Square) => {
