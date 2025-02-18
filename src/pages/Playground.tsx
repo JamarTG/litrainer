@@ -60,6 +60,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     played: string | null;
   }>({ best: "", played: "" });
 
+  const [evaluationCache, setEvaluationCache] = useState<Map<string, Classification | null>>(new Map());
+
   const { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle } = useChangePuzzle(
     puzzles,
     setDestinationSquare,
@@ -131,6 +133,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setDestinationSquare(targetSquare as Square);
 
     if (!isInOpeningBook(movePlayedByUser)) {
+    
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
@@ -162,13 +165,30 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const evaluateMoveQuality = async (fen: string, move: Move) => {
     setIsLoadingEvaluation(true);
     try {
+      const cacheKey = `${fen}-${move.lan}`;  // Use a unique key based on FEN and move
+      const cachedResult = evaluationCache.get(cacheKey);
+
+      if (cachedResult !== undefined && cachedResult !== null) {
+        // Use cached evaluation
+        handleEvaluation(cachedResult, move.to, isPositiveClassification(cachedResult));
+        setMoveFeedback({
+          best: `${move.san} is the best move`,
+          played: `${move.san} ${ClassificationMessage[cachedResult]}`,
+        });
+        return cachedResult;
+      }
+
       if (!engine?.isReady()) {
         throw new Error("Engine is not initialized");
       }
 
       UciEngine.setDepth(engineDepth);
 
+      // Make an API call to evaluate the move quality
       const result = await engine.evaluateMoveQuality(fen, move.lan);
+
+      // Cache the evaluation result
+      setEvaluationCache(new Map(evaluationCache.set(cacheKey, result.classification)));
 
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
@@ -189,6 +209,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setIsLoadingEvaluation(false);
     }
   };
+
 
   const handleSquareClick = (srcSquare: Square) => {
     if (isPuzzleSolved) return;
