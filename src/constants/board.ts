@@ -15,3 +15,5 @@ export const moveSquareStyles = {
   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
   transform: "scale(0.7)",
 };
+
+export const INITIAL_MARKER_POSITION = { right: 0, top: 0 };

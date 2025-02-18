@@ -1,4 +1,3 @@
-import { LichessPlayer } from "../../types/player";
 import PlayerIcon from "./PlayerIcon";
 import PatronIcon from "./PatronIcon";
 import PlayerTitle from "./PlayerTitle";
@@ -6,20 +5,17 @@ import PlayerName from "./PlayerName";
 import PlayerRating from "./PlayerRating";
 
 interface PlayerInfoProps {
-  player: LichessPlayer;
-  color: "white" | "black";
+  color: "w" | "b";
 }
 
-const PlayerInfo: React.FC<PlayerInfoProps> = ({ player, color }) => {
-  const { user, rating, ratingDiff, provisional} = player;
-  
+const PlayerInfo: React.FC<PlayerInfoProps> = ({ color }) => {
   return (
     <div className="noto player-color flex justify-center items-center flex">
       <PlayerIcon color={color} />
-      <PatronIcon isPatron={user.patron ?? null} />
-      <PlayerTitle title={user.title ?? null} />
-      <PlayerName name={user.name} />
-      <PlayerRating rating={rating} provisional={provisional ?? false} ratingDiff={ratingDiff}/>
+      <PatronIcon color={color} />
+      <PlayerTitle color={color} />
+      <PlayerName color={color} />
+      <PlayerRating color={color} />
     </div>
   );
 };

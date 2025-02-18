@@ -51,4 +51,3 @@
   zIndex: 1,
   });
 
-  export const getColorLongForm = (color: "w" | "b") => (color === "w" ? "white" : "black");

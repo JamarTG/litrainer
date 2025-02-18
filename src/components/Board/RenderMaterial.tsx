@@ -5,7 +5,7 @@ import PieceIcon from "../Icons/PieceIcons";
 
 interface RenderMaterialProps {
   material: Materials;
-  color: "white" | "black";
+  color: "w" | "b";
 }
 
 const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
@@ -17,13 +17,12 @@ const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
 
   return (
     <div className="flex justify-center items-center ">
-      {Object.entries(color === "black" ? material.b : material.w).map(
+      {Object.entries(color === "b" ? material.b : material.w).map(
         ([piece, count]) =>
           count > 0 ? (
             <div key={piece} className="flex ">
               {[...Array(count)].map((_, _i) => (
-
-                  <PieceIcon piece="bishop" size={24} />
+                <PieceIcon piece="bishop" size={24} />
               ))}
             </div>
           ) : null

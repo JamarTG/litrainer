@@ -8,7 +8,7 @@ import { Puzzle } from "../types/puzzle";
 export const getSquarePosition = (
   square: string,
   boardSize: number,
-  orientation: "white" | "black"
+  orientation: "w" | "b"
 ) => {
   const file = square.charCodeAt(0) - "a".charCodeAt(0);
   const rank = 8 - parseInt(square[1], 10);
@@ -18,7 +18,7 @@ export const getSquarePosition = (
   const topOffset = squareSize * 0.3;
   const rightOffset = squareSize * 0.3;
 
-  if (orientation === "white") {
+  if (orientation === "w") {
     return {
       right: (7 - file) * squareSize - rightOffset,
       top: rank * squareSize - topOffset,
@@ -278,7 +278,7 @@ export const getMaterialDiff = (game: Chess) => {
 
 export const getMaterialCount = (
   material: Materials,
-  color: "white" | "black"
+  color: "w" | "b"
 ) => {
   const matdiff =
     material.w.p -
@@ -292,8 +292,8 @@ export const getMaterialCount = (
     material.w.q * 9 +
     material.b.q * 9;
 
-  return (color === "white" && matdiff >= 0) ||
-    (color === "black" && matdiff < 0)
+  return (color === "w" && matdiff >= 0) ||
+    (color === "b" && matdiff < 0)
     ? Math.abs(matdiff)
     : 0;
 };

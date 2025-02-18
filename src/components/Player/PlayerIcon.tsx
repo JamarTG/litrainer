@@ -4,13 +4,13 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 interface PlayerIconProps {
-  color: "white" | "black";
+  color: "w" | "b";
 }
 
 const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
   const { theme } = useContext(ThemeContext);
 
-  const iconColor = theme === 'light' ? (color === 'white' ? 'black' : 'white') : color;
+  const iconColor = theme === 'light' ? (color === 'w' ? 'black' : 'white') : color;
 
   return (
     <div className="rounded-full px-1">

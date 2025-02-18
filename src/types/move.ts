@@ -49,5 +49,5 @@ export interface Move {
   piece: string;
   source: string;
   destination: string;
-  color: string;
+  color: "w" | "b";
 }
