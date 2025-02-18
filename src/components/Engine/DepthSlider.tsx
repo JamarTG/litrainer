@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 const DepthSlider = () => {
-    const [depth, setDepth] = useState(0);
+  const [depth, setDepth] = useState(0);
   return (
     <div className="flex">
-      
       <input
         onChange={(e) => setDepth(parseInt(e.target.value))}
         id="minmax-range"

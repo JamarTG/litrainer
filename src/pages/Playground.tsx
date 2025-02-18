@@ -149,16 +149,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     return true;
   };
 
-  // useEffect(() => {
-  //   if (isPuzzleSolved) {
-  //     const timer = setTimeout(() => {
-  //       nextPuzzle();
-  //     }, 500);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isPuzzleSolved, nextPuzzle]);
-
   const handleEvaluation = (
     classificationResult: Classification | null,
     dstSquare: Square,
