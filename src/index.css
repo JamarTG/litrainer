@@ -26,7 +26,7 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 @keyframes fadeGrowShrink {
@@ -82,15 +82,10 @@ html, body, #root {
   }
 }
 
-
-
 .fadeOut {
   animation: fadeOut 0.3s ease-in;
 }
 
-
-
 .modal-backdrop {
   background-color: rgba(0, 0, 0, .8);
 }
-

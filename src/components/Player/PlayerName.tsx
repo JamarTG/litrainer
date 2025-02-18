@@ -10,7 +10,7 @@ const PlayerName: React.FC<PlayerNameProps> = ({ color }) => {
   const {puzzle} = useContext(PuzzleContext);
   return (
     <a
-      className="text-blue-500 text-sm md:text-base ml-1"
+      className="text-blue-500"
       href={`https://lichess.org/@/${name}`}
       target="_blank"
       rel="noopener noreferrer"
