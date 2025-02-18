@@ -50,7 +50,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
       
       {isDataAvailable && (
         <div className="flex flex-col items-center gap-5 w-full m-5">
-          <GameInfo puzzle={puzzle} />
+          <GameInfo/>
 
           <PuzzleInfo
             puzzle={puzzle}
