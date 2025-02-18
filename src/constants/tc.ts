@@ -1,7 +1,7 @@
 export const timeControlIcons: { [key: string]: string } = {
-  bullet: "&#xe032;",
-  blitz: "&#xe02f;",
-  rapid: "&#xe002;",
-  correspondence: "&#xe019;",
-  classical: "&#xe00a;",
+  bullet: "\uE032",
+  blitz: "\uE008",
+  rapid: "\uE002",
+  correspondence: "\uE019",
+  classical: "\uE00A",
 };
