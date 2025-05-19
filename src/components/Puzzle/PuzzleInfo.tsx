@@ -18,8 +18,8 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
         <img
           src={
             feedback && classification
-              ? `/assets/evals/${classification}.svg`
-              : `/assets/evals/${puzzle.evaluation.judgment?.name}.svg`
+              ? `/assets/app-icons/move-quality/${classification}.svg`
+              : `/assets/app-icons/move-quality/${puzzle.evaluation.judgment?.name}.svg`
           }
           alt={
             feedback && classification
@@ -30,6 +30,8 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({
           height={40}
           className="flex-shrink-0"
         />
+
+        
 
         <div className="flex-1 min-w-0">
           <p className="text-lg truncate">
