@@ -7,10 +7,12 @@ import { PuzzleProvider } from "./context/PuzzleContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { DepthProvider } from "./context/DepthContext";
 import { Toaster } from "react-hot-toast";
+import { store } from "./pages/redux/store";
+import { Provider } from "react-redux";
 
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <Toaster />
       <BrowserRouter>
         <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
@@ -23,7 +25,7 @@ const App = () => {
           </DepthProvider>
         </EngineProvider>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 };
 

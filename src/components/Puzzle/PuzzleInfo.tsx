@@ -24,7 +24,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({ puzzle, feedback, classificatio
         />
 
         <div className="flex-1 min-w-0">
-          <p className="text-lg truncate">
+          <div className="text-lg truncate">
             {feedback.played && classification ? (
               <div>
                 <p>{feedback.played}</p>
@@ -36,7 +36,7 @@ const PuzzleInfo: React.FC<PuzzleInfoProps> = ({ puzzle, feedback, classificatio
                 <small>Find a better move</small>
               </div>
             )}
-          </p>
+          </div>
         </div>
       </div>
     </div>

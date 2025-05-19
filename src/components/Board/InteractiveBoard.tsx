@@ -39,15 +39,14 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   handleMoveAttempt,
   unhighlightLegalMoves,
 }) => {
-
   const [material, setMaterial] = useState<Materials>(INITIAL_PIECE_COUNTS);
   const { puzzle } = useContext(PuzzleContext);
 
   const { boardSize, setBoardSize } = useResponsiveBoardSize();
   const { boardRef } = useDraggableResizer(setBoardSize);
-  
+
   useMaterialEffect(game, setMaterial);
-6
+
   const customSquareStyles = getCustomSquareStyles(destinationSquare, sourceSquare, classification, moveSquares, isLoadingEvaluation);
 
   const customPieces: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = useMemo(createCustomPieces, []);
