@@ -1,39 +1,29 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { useContext } from "react";
 import GameInfo from "../Game/GameInfo";
-import { Classification } from "../../types/classification";
 import PuzzleInfo from "../Puzzle/PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
 import History from "../Puzzle/PuzzleHistory";
 import EngineDepthControl from "./EngineDepthControl";
+import { useDispatch } from "react-redux";
+import { setClassification, setIsPuzzleSolved } from "../../pages/redux/slices/feedbackSlices";
 
 interface ControlPanelProps {
   history: Record<number, string | null>;
-  puzzleIndex: number;
   unhighlightLegalMoves: () => void;
-  setClassification: React.Dispatch<React.SetStateAction<Classification | null>>;
-  setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
-  feedback: { best: string | null; played: string | null };
-  classification: Classification | null;
 }
 
-const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
-  setClassification,
-  unhighlightLegalMoves,
-  setIsPuzzleSolved,
-  feedback,
-  classification,
-  puzzleIndex,
-  history,
-}) => {
+const PuzzleControlPanel: React.FC<ControlPanelProps> = ({ unhighlightLegalMoves, history }) => {
   const { puzzle } = useContext(PuzzleContext);
   const isDataAvailable = puzzle !== null;
+  const dispatch = useDispatch();
 
   const resetBoard = (changePuzzle: () => void) => {
     changePuzzle();
-    setClassification(null);
+    dispatch(setClassification(null));
+    dispatch(setIsPuzzleSolved(false));
     unhighlightLegalMoves();
-    setIsPuzzleSolved(false);
+    
   };
 
   return (
@@ -46,13 +36,10 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
 
           <PuzzleInfo
             puzzle={puzzle}
-            feedback={feedback}
-            classification={classification}
           />
 
           <History
             history={history}
-            puzzleIndex={puzzleIndex}
           />
 
           <Navigation resetBoard={resetBoard} />
