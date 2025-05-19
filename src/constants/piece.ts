@@ -7,7 +7,8 @@ import {
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Constants for piece types
+export const chessPieceCodes = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
+
 export const PieceType = {
   PAWN: "p",
   KNIGHT: "n",

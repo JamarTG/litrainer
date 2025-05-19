@@ -2,7 +2,7 @@ import { useState, Dispatch, SetStateAction, useContext } from "react";
 import { Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { PuzzleContext } from "../context/PuzzleContext";
-import { Classification } from "../moveClassification/MoveClassification";
+import { Classification } from "../types/classification";
 
 const useChangePuzzle = (
   puzzles: Puzzle[],
