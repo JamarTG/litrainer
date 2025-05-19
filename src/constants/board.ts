@@ -1,7 +1,7 @@
-export const BOARD_DIMENSIONS = {
-  MAX_SIZE: 600,
-  MIN_SIZE: 30,
-  INITIAL_SIZE: 500,
+export const boardDimensions = {
+  maxSize: 600,
+  minSize: 30,
+  initialSize: 500,
 };
 
 export const customBoardStyles = {

@@ -1,15 +1,11 @@
-import { BOARD_DIMENSIONS } from "../constants/board";
+import { boardDimensions } from "../constants/board";
 
-export const calculateBoardSize = (
-  windowWidth: number,
-  windowHeight: number,
-  offset: number = 100
-): number => {
-  return Math.max(
-    BOARD_DIMENSIONS.MIN_SIZE,
-    Math.min(
-      BOARD_DIMENSIONS.MAX_SIZE,
-      Math.min(windowWidth - offset, windowHeight - offset)
-    )
-  );
+export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
+  
+  const {minSize, maxSize} = boardDimensions;
+
+  const smallestWindowDimension = Math.min(windowWidth - offset, windowHeight - offset);
+  const clampedSize = Math.min(maxSize, Math.max(minSize, smallestWindowDimension));
+
+  return clampedSize;
 };

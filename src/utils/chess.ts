@@ -10,6 +10,7 @@ export const getSquarePosition = (
   boardSize: number,
   orientation: "w" | "b"
 ) => {
+
   const file = square.charCodeAt(0) - "a".charCodeAt(0);
   const rank = 8 - parseInt(square[1], 10);
 
