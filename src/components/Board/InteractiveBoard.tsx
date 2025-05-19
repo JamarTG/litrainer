@@ -4,7 +4,7 @@ import { Chessboard } from "react-chessboard";
 import { Materials } from "../../types/eval";
 import { getCustomSquareStyles } from "../../utils/style";
 import Marker from "./Marker";
-import { Classification } from "../../types/move";
+import { Classification } from "../../types/classification";
 import useResizableBoard from "../../hooks/useResizableBoard";
 import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
@@ -21,11 +21,7 @@ interface BoardComponentProps {
   isLoadingEvaluation: boolean;
   solved: boolean | null;
   handleSquareClick: (srcSquare: Square) => void;
-  handleMoveAttempt: (
-    sourceSquare: Square,
-    targetSquare: Square,
-    piece: string
-  ) => boolean;
+  handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, piece: string) => boolean;
   unhighlightLegalMoves: () => void;
 }
 
@@ -47,19 +43,13 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
 
   useMaterialEffect(game, setMaterial);
 
-  const customSquareStyles = getCustomSquareStyles(
-    destinationSquare,
-    sourceSquare,
-    classification,
-    moveSquares,
-    isLoadingEvaluation
-  );
+  const customSquareStyles = getCustomSquareStyles(destinationSquare, sourceSquare, classification, moveSquares, isLoadingEvaluation);
 
   const pieces = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 
   const customPieces: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = useMemo(() => {
     const pieceComponents: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = {};
-    pieces.forEach(piece => {
+    pieces.forEach((piece) => {
       pieceComponents[piece] = ({ squareWidth }) => (
         <div
           style={{
@@ -73,8 +63,6 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
     });
     return pieceComponents;
   }, []);
-  
-  
 
   return (
     <BoardWithPlayers material={material}>

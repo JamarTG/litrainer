@@ -18,8 +18,6 @@ export const ClassificationColors: Record<string, string> = {
   [MoveClassification.Mistake]: "#e58f2a",
   [MoveClassification.Blunder]: "#ca3431",
   [MoveClassification.Brilliant]: "#1bada6",
-
-
 };
 
 export const ClassificationMessage: Record<MoveClassification, string> = {
@@ -32,22 +30,3 @@ export const ClassificationMessage: Record<MoveClassification, string> = {
   [MoveClassification.Book]: "is a book move",
   [MoveClassification.Brilliant]: "is a brilliant move",
 };
-
-export type Classification =
-  | MoveClassification.Blunder
-  | MoveClassification.Mistake
-  | MoveClassification.Inaccuracy
-  | MoveClassification.Good
-  | MoveClassification.Excellent
-  | MoveClassification.Best
-  | MoveClassification.Book
-  | MoveClassification.Brilliant;
-
-export interface Move {
-  san: string;
-  lan: string;
-  piece: string;
-  source: string;
-  destination: string;
-  color: "w" | "b";
-}

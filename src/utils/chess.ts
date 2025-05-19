@@ -1,16 +1,11 @@
 import { Chess, Move, Square } from "chess.js";
-import { MoveClassification } from "../types/move";
 import { Materials, PositionEval } from "../types/eval";
 import { PIECE_VALUE } from "../constants/piece";
 import { openings } from "../data/openings";
 import { Puzzle } from "../types/puzzle";
+import { MoveClassification } from "../constants/classification";
 
-export const getSquarePosition = (
-  square: string,
-  boardSize: number,
-  orientation: "w" | "b"
-) => {
-
+export const getSquarePosition = (square: string, boardSize: number, orientation: "w" | "b") => {
   const file = square.charCodeAt(0) - "a".charCodeAt(0);
   const rank = 8 - parseInt(square[1], 10);
 
@@ -32,11 +27,7 @@ export const getSquarePosition = (
   }
 };
 
-export const attemptMove = (
-  game: Chess,
-  sourceSquare: string,
-  targetSquare: string
-) => {
+export const attemptMove = (game: Chess, sourceSquare: string, targetSquare: string) => {
   try {
     const move = game.move({
       from: sourceSquare,
@@ -54,16 +45,14 @@ export const normalizeCastlingMove = (move: string) => {
   const sourceSquare = move.slice(0, 2);
   const targetSquare = move.slice(2);
   if (
-    (sourceSquare === "e1" &&
-      (targetSquare === "g1" || targetSquare === "h1")) ||
+    (sourceSquare === "e1" && (targetSquare === "g1" || targetSquare === "h1")) ||
     (sourceSquare === "e8" && (targetSquare === "g8" || targetSquare === "h8"))
   ) {
     return "O-O";
   }
 
   if (
-    (sourceSquare === "e1" &&
-      (targetSquare === "c1" || targetSquare === "a1")) ||
+    (sourceSquare === "e1" && (targetSquare === "c1" || targetSquare === "a1")) ||
     (sourceSquare === "e8" && (targetSquare === "c8" || targetSquare === "a8"))
   ) {
     return "O-O-O";
@@ -82,15 +71,9 @@ export const checkKnownOpening = (fen: string) => {
 };
 
 export const checkKnownBadMove = (movePlayedByUser: Move, puzzle: Puzzle) => {
-  return movePlayedByUser.lan == puzzle?.userMove.lan
-    ? puzzle.evaluation.judgment?.name
-    : "";
+  return movePlayedByUser.lan == puzzle?.userMove.lan ? puzzle.evaluation.judgment?.name : "";
 };
-export const getBasicClassification = (
-  lastPositionEval: PositionEval,
-  currentPositionEval: PositionEval,
-  move: string
-) => {
+export const getBasicClassification = (lastPositionEval: PositionEval, currentPositionEval: PositionEval, move: string) => {
   if (lastPositionEval.bestMove === move) {
     return MoveClassification.Best;
   }
@@ -111,9 +94,7 @@ export const getBasicClassification = (
     lastCp = lastPositionEval.lines[0].cp ?? 0;
   } else {
     lastCp =
-      lastPositionEval.lines[0].mate > 0
-        ? 100000 - lastPositionEval.lines[0].mate * 100
-        : -100000 - lastPositionEval.lines[0].mate * 100;
+      lastPositionEval.lines[0].mate > 0 ? 100000 - lastPositionEval.lines[0].mate * 100 : -100000 - lastPositionEval.lines[0].mate * 100;
   }
 
   const cpDiff = Math.abs(currentCp - lastCp);
@@ -148,22 +129,15 @@ const isPieceSacrifice = (fen: string, move: string) => {
   const game = new Chess(fen);
 
   const pieceSquare = move.slice(0, 2);
-  const attackers = game
-    .moves({ verbose: true })
-    .filter((m) => m.to === pieceSquare && m.color !== game.turn());
+  const attackers = game.moves({ verbose: true }).filter((m) => m.to === pieceSquare && m.color !== game.turn());
 
   for (const attacker of attackers) {
-    if (
-      PIECE_VALUE[attacker.piece] <
-      PIECE_VALUE[game.get(pieceSquare as Square)?.type ?? ""]
-    ) {
+    if (PIECE_VALUE[attacker.piece] < PIECE_VALUE[game.get(pieceSquare as Square)?.type ?? ""]) {
       return false;
     }
   }
 
-  const protectors = game
-    .moves({ verbose: true })
-    .filter((m) => m.to === pieceSquare && m.color === game.turn());
+  const protectors = game.moves({ verbose: true }).filter((m) => m.to === pieceSquare && m.color === game.turn());
 
   if (attackers.length > 0 && protectors.length === 0) {
     return false;
@@ -174,10 +148,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
   }
 
   const moveObj = game.move(move);
-  if (
-    moveObj.captured &&
-    PIECE_VALUE[moveObj.captured] >= PIECE_VALUE[moveObj.piece]
-  ) {
+  if (moveObj.captured && PIECE_VALUE[moveObj.captured] >= PIECE_VALUE[moveObj.piece]) {
     return false;
   }
 
@@ -195,9 +166,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
     for (const ourMove of ourMoves) {
       if (
         ourMove.captured &&
-        PIECE_VALUE[ourMove.captured] +
-          (moveObj.captured ? PIECE_VALUE[moveObj.captured] : 0) >=
-          PIECE_VALUE[opponentMove.captured]
+        PIECE_VALUE[ourMove.captured] + (moveObj.captured ? PIECE_VALUE[moveObj.captured] : 0) >= PIECE_VALUE[opponentMove.captured]
       ) {
         canRegainMaterial = true;
         break;
@@ -232,8 +201,7 @@ export const getMaterialDiff = (game: Chess) => {
 
     let materialDiff = 0;
     for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
-      materialDiff +=
-        (material.w[pieceType] - material.b[pieceType]) * PIECE_VALUE[pieceType];
+      materialDiff += (material.w[pieceType] - material.b[pieceType]) * PIECE_VALUE[pieceType];
     }
   }
 
@@ -256,10 +224,7 @@ export const getMaterialDiff = (game: Chess) => {
   return { w, b };
 };
 
-export const getMaterialCount = (
-  material: Materials,
-  color: "w" | "b"
-) => {
+export const getMaterialCount = (material: Materials, color: "w" | "b") => {
   const matdiff =
     material.w.p -
     material.b.p +
@@ -272,10 +237,7 @@ export const getMaterialCount = (
     material.w.q * 9 +
     material.b.q * 9;
 
-  return (color === "w" && matdiff >= 0) ||
-    (color === "b" && matdiff < 0)
-    ? Math.abs(matdiff)
-    : 0;
+  return (color === "w" && matdiff >= 0) || (color === "b" && matdiff < 0) ? Math.abs(matdiff) : 0;
 };
 
 export { isPieceSacrifice };

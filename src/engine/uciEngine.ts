@@ -1,4 +1,4 @@
-import { MoveClassification } from "../types/move";
+import { MoveClassification } from "../moveClassification/MoveClassification";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
@@ -14,7 +14,7 @@ export abstract class UciEngine {
 
   private static depth = 10;
 
-  public static setDepth (newDepth: number) {
+  public static setDepth(newDepth: number) {
     if (newDepth < 2 || newDepth > 40) throw new Error("Invalid depth");
     this.depth = newDepth;
   }
@@ -23,11 +23,7 @@ export abstract class UciEngine {
     return this.depth;
   }
 
-  constructor(
-    engineName: EngineName,
-    enginePath: string,
-    customEngineInit?: () => Promise<void>
-  ) {
+  constructor(engineName: EngineName, enginePath: string, customEngineInit?: () => Promise<void>) {
     this.engineName = engineName;
     this.worker = new Worker(enginePath);
     this.customEngineInit = customEngineInit;
@@ -54,10 +50,7 @@ export abstract class UciEngine {
       throw new Error(`Invalid MultiPV value : ${multiPv}`);
     }
 
-    await this.sendCommands(
-      [`setoption name MultiPV value ${multiPv}`, "isready"],
-      "readyok"
-    );
+    await this.sendCommands([`setoption name MultiPV value ${multiPv}`, "isready"], "readyok");
 
     this.multiPv = multiPv;
   }
@@ -83,11 +76,7 @@ export abstract class UciEngine {
     await this.sendCommands(["stop", "isready"], "readyok");
   }
 
-  protected async sendCommands(
-    commands: string[],
-    finalMessage: string,
-    onNewMessage?: (messages: string[]) => void
-  ): Promise<string[]> {
+  protected async sendCommands(commands: string[], finalMessage: string, onNewMessage?: (messages: string[]) => void): Promise<string[]> {
     return new Promise((resolve) => {
       const messages: string[] = [];
 
@@ -107,13 +96,8 @@ export abstract class UciEngine {
     });
   }
 
-  public async getBestMoves(
-    fen: string
-  ): Promise<LineResult[] | null> {
-    const results = await this.sendCommands(
-      [`position fen ${fen}`, `go depth ${UciEngine.depth}`],
-      "bestmove"
-    );
+  public async getBestMoves(fen: string): Promise<LineResult[] | null> {
+    const results = await this.sendCommands([`position fen ${fen}`, `go depth ${UciEngine.depth}`], "bestmove");
 
     const whiteToPlay = fen.split(" ")[1] === "w";
 
@@ -131,23 +115,15 @@ export abstract class UciEngine {
       .filter((line) => line.eval !== undefined) as LineResult[];
   }
 
-  public async evaluatePosition(
-    fen: string
-  ): Promise<PositionEval> {
-    const results = await this.sendCommands(
-      [`position fen ${fen}`, `go depth ${UciEngine.getDepth()}`],
-      "bestmove"
-    );
+  public async evaluatePosition(fen: string): Promise<PositionEval> {
+    const results = await this.sendCommands([`position fen ${fen}`, `go depth ${UciEngine.getDepth()}`], "bestmove");
 
     const whiteToPlay = fen.split(" ")[1] === "w";
 
     return parseEvaluationResults(results, whiteToPlay);
   }
 
-  public async evaluateMoveQuality(
-    fen: string,
-    move: string
-  ): Promise<{ classification: MoveClassification, bestMove: string }> {
+  public async evaluateMoveQuality(fen: string, move: string): Promise<{ classification: MoveClassification; bestMove: string }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
 
@@ -156,18 +132,13 @@ export abstract class UciEngine {
     const lastPositionEval = await this.evaluatePosition(fen);
     const currentPositionEval = await this.evaluatePosition(chess.fen());
 
-    console.log(lastPositionEval,currentPositionEval)
+    console.log(lastPositionEval, currentPositionEval);
 
-    const basicClassification = getBasicClassification(
-      lastPositionEval,
-      currentPositionEval,
-      move
-    );
+    const basicClassification = getBasicClassification(lastPositionEval, currentPositionEval, move);
 
     return {
       classification: basicClassification,
-      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san // Convert the best move to SAN
-      
+      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san, // Convert the best move to SAN
     };
   }
 }

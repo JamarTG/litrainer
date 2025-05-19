@@ -1,7 +1,7 @@
+import { Move } from "chess.js";
 import { LichessClock } from "./clock";
 import { LichessEvaluation } from "./eval";
 import { GameType } from "./form";
-import { Move } from "./move";
 import { LichessPlayers } from "./player";
 
 export interface Puzzle {
@@ -19,7 +19,7 @@ export interface Puzzle {
   winner?: "white" | "black";
   moveNumber: number;
   opening: Opening;
-  phase: "opening" | "middlegame"| "endgame"
+  phase: "opening" | "middlegame" | "endgame";
 }
 
 export interface Opening {

@@ -1,8 +1,7 @@
-import { Classification, MoveClassification } from "../types/move";
+import { MoveClassification } from "../constants/classification";
+import { Classification } from "../types/classification";
 
-export const isPositiveClassification = (
-  classificationResult: Classification
-) => {
+export const isPositiveClassification = (classificationResult: Classification) => {
   return (
     classificationResult === MoveClassification.Best ||
     classificationResult === MoveClassification.Excellent ||
