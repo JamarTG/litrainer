@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect} from "react";
+import React, { useState, useCallback} from "react";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../lib/sound";
@@ -18,10 +18,12 @@ import { useDepth } from "../context/DepthContext";
 import { ClassificationMessage, MoveClassification } from "../constants/classification";
 import { Classification } from "../types/classification";
 import { useDispatch, useSelector } from "react-redux";
-import { setPuzzles } from "./redux/slices/puzzleSlices";
 import { RootState } from "./redux/store";
 import { setClassification, setFeedback, setIsPuzzleSolved } from "./redux/slices/feedbackSlices";
 import NoGamesFound from "../components/ControlPanel/NoGamesFound";
+import useClassificationHistory from "../hooks/useClassificationHistory";
+import usePuzzleSetup from "../hooks/usePuzzleSetup";
+import useInitPuzzles from "../hooks/useInitPuzzles";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -29,6 +31,8 @@ interface PlayGroundProps {
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const initialHistory: (Classification | "")[] = puzzles.map(() => "");
+
+  useInitPuzzles(puzzles);
 
   const [game, setGame] = useState<Chess>(new Chess());
   const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
@@ -43,40 +47,17 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
 
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const classification = useSelector((state: RootState) => state.feedback.classification);
+  // const classification = useSelector((state: RootState) => state.feedback.classification);
   const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
-
-  useChangePuzzle(setDestinationSquare, setSourceSquare, setFen);
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setPuzzles(puzzles));
-  }, [puzzles]);
 
-  useEffect(() => {
-    if (history[puzzleIndex] && classification === null) return;
-    setHistory({ ...history, [puzzleIndex]: classification });
-  }, [classification, puzzleIndex]);
-
-  useEffect(() => {
-    const currentPuzzle = puzzles[puzzleIndex] || puzzles[0];
-    if (!currentPuzzle) return;
-
-    setFen(currentPuzzle.fen.previous);
-    game.load(currentPuzzle.fen.previous);
-
-    dispatch(setClassification(null));
-    dispatch(setIsPuzzleSolved(false));
-    setSourceSquare(null);
-    setDestinationSquare(null as Square | null);
-
-    if (currentPuzzle.opponentMove?.lan) {
-      executeComputerMove(game, currentPuzzle.opponentMove.lan);
-    }
-  }, [puzzleIndex, puzzles, setFen]);
+  useChangePuzzle(setDestinationSquare, setSourceSquare, setFen);
+  useClassificationHistory(history, setHistory);
+  usePuzzleSetup(executeComputerMove, game, setFen, setSourceSquare, setDestinationSquare);
 
   const unhighlightLegalMoves = useCallback(() => {
     setMoveSquares({});
@@ -211,13 +192,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     },
     [setMoveSquares]
   );
-
-  // const resetBoard = (changePuzzle: () => void) => {
-  //   changePuzzle();
-  //   setClassification(null);
-  //   unhighlightLegalMoves();
-  //   setIsPuzzleSolved(false);
-  // };
 
   return (
     <div className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
