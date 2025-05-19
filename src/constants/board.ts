@@ -9,3 +9,6 @@ export const boardDimensions:BoardDimensions = {
   minSize: 30,
   initialSize: 500,
 };
+
+
+export const INITIAL_MARKER_POSITION = { right: 0, top: 0 };
