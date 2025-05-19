@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
 import { validateDates } from "../utils/validation";
 import { userExists } from "../utils/user";
-import { setDefaultColor, setDefaultMaxNoGames, setDefaultSort } from "../utils/default";
 import { toTimestamps } from "../utils/time";
 import { getLichessGames } from "../utils/api";
 import createPuzzles from "../utils/lichess";
@@ -30,9 +29,12 @@ const useSubmitHandler = (formData: Fields) => {
       return;
     }
 
-    maxNoGames = setDefaultMaxNoGames(maxNoGames);
-    color = setDefaultColor(color);
-    sort = setDefaultSort(sort);
+    
+    
+
+    maxNoGames = maxNoGames || 10;
+    color = color || "both";
+    sort = sort || "desc";
 
     const { valid, startDate: validatedStart, endDate: validatedEnd } = validateDates(startDate, endDate);
     if (!valid) {

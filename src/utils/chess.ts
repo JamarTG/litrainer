@@ -1,5 +1,5 @@
 import { Chess, Move, Square } from "chess.js";
-import { Classification, MoveClassification } from "../types/move";
+import { MoveClassification } from "../types/move";
 import { Materials, PositionEval } from "../types/eval";
 import { PIECE_VALUE } from "../constants/piece";
 import { openings } from "../data/openings";
@@ -73,27 +73,6 @@ export const normalizeCastlingMove = (move: string) => {
 
 export const isNotUserTurn = (game: Chess, puzzle: Puzzle | null) => {
   return game.turn() !== puzzle?.userMove.color;
-};
-
-export const isPositiveClassification = (
-  classificationResult: Classification
-) => {
-  return (
-    classificationResult === MoveClassification.Best ||
-    classificationResult === MoveClassification.Excellent ||
-    classificationResult === MoveClassification.Good ||
-    classificationResult === MoveClassification.Brilliant
-  );
-};
-
-export const isNegativeClassification = (
-  classificationResult: Classification | ""
-) => {
-  return (
-    classificationResult === MoveClassification.Blunder ||
-    classificationResult === MoveClassification.Mistake ||
-    classificationResult === MoveClassification.Inaccuracy
-  );
 };
 
 export const checkKnownOpening = (fen: string) => {

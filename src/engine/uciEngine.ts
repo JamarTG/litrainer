@@ -2,7 +2,7 @@ import { MoveClassification } from "../types/move";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
-import { parseEvaluationResults } from "../utils/parse";
+import { parseEvaluationResults } from "../utils/uciEngineParsers";
 import { getBasicClassification } from "../utils/chess";
 
 export abstract class UciEngine {

@@ -65,7 +65,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
           style={{
             width: squareWidth,
             height: squareWidth,
-            backgroundImage: `url(/assets/fresca/${piece}.svg)`,
+            backgroundImage: `url(/assets/piece-sets/fresca/${piece}.svg)`,
             backgroundSize: "100%",
           }}
         />
