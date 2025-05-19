@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, Dispatch } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../pages/redux/store";
+import { RootState } from "../redux/store";
 
 type History = Record<number, string | null>;
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Marker as MarkerT } from "../../types/board";
 import { INITIAL_MARKER_POSITION } from "../../constants/board";
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 interface MarkerProps {
   boardSize: number;
@@ -24,7 +24,7 @@ const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
     <>
       {destinationSquare && classification && (
         <img
-          src={`/assets/app-icons/move-quality/${classification}.svg`}
+          src={`/move-quality/${classification}.svg`}
           alt=""
           width={boardSize / 16}
           height={boardSize / 16}

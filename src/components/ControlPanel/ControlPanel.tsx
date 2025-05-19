@@ -3,8 +3,9 @@ import PuzzleInfo from "../Puzzle/PuzzleInfo";
 import Navigation from "./Navigation";
 import EngineDepthControl from "./EngineDepthControl";
 import { useDispatch, useSelector } from "react-redux";
-import { setClassification, setIsPuzzleSolved } from "../../pages/redux/slices/feedbackSlices";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
+import { setClassification, setIsPuzzleSolved } from "../../redux/slices/feedbackSlices";
+
 
 interface ControlPanelProps {
   unhighlightLegalMoves: () => void;

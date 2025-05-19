@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../pages/redux/store";
 import { Chess} from "chess.js";
-import { setClassification, setIsPuzzleSolved } from "../pages/redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen } from "../pages/redux/slices/boardSlices";
-import { setSourceSquare } from "../pages/redux/slices/boardSlices";
+import { setClassification, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
+import { setDestinationSquare, setFen, setSourceSquare } from "../redux/slices/boardSlices";
+import { RootState } from "../redux/store";
 
 const usePuzzleSetup = (
   executeComputerMove: (game: Chess, move: string) => void,

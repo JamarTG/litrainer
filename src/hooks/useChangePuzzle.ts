@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "../pages/redux/store";
-import { setClassification, setFeedback, setIsPuzzleSolved } from "../pages/redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setSourceSquare } from "../pages/redux/slices/boardSlices";
+import { RootState } from "../redux/store";
+import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
+import { setDestinationSquare, setFen, setSourceSquare } from "../redux/slices/boardSlices";
 
 const useChangePuzzle = () => {
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
