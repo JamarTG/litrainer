@@ -22,6 +22,7 @@ import { Classification } from "../types/classification";
 import { useDispatch, useSelector } from "react-redux";
 import { setPuzzles } from "./redux/slices/puzzleSlices";
 import { RootState } from "./redux/store";
+import { setClassification, setFeedback, setIsPuzzleSolved } from "./redux/slices/feedbackSlices";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -31,8 +32,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const initialHistory: (Classification | "")[] = puzzles.map(() => "");
 
   const [game, setGame] = useState<Chess>(new Chess());
-  const [classification, setClassification] = useState<Classification | null>(null);
-  const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean | null>(null);
   const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | null>(null);
   const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(null);
@@ -46,19 +45,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const { theme } = useContext(ThemeContext);
 
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const [moveFeedback, setMoveFeedback] = useState<{
-    best: string | null;
-    played: string | null;
-  }>({ best: "", played: "" });
+  const classification = useSelector((state: RootState) => state.feedback.classification);
+  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
 
   useChangePuzzle(
-    puzzles,
     setDestinationSquare,
     setSourceSquare,
-    setFen,
-    setMoveFeedback,
-    setClassification,
-    setIsPuzzleSolved
+    setFen
   );
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
@@ -82,8 +75,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setPuzzle(currentPuzzle);
     setFen(currentPuzzle.fen.previous);
     game.load(currentPuzzle.fen.previous);
-    setClassification(null);
-    setIsPuzzleSolved(false);
+
+    dispatch(setClassification(null));
+    dispatch(setIsPuzzleSolved(false));
     setSourceSquare(null);
     setDestinationSquare(null as Square | null);
 
@@ -143,7 +137,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   };
 
   const handleEvaluation = (classificationResult: Classification | null, dstSquare: Square, solved: boolean) => {
-    setClassification(classificationResult);
+    dispatch(setClassification(classificationResult));
     setDestinationSquare(dstSquare);
     setIsPuzzleSolved(solved);
   };
@@ -157,10 +151,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       if (cachedEvaluation) {
         const parsedEvaluation = JSON.parse(cachedEvaluation);
-        setMoveFeedback({
+        dispatch(setFeedback({
           best: `${parsedEvaluation.bestMove} is the best move`,
           played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
-        });
+        }))
+     
         handleEvaluation(parsedEvaluation.classification, move.to, isPositiveClassification(parsedEvaluation.classification));
         return parsedEvaluation.classification;
       }
@@ -182,11 +177,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         })
       );
 
-      setMoveFeedback({
+      dispatch(setFeedback({
         best: `${result.bestMove} is the best move`,
         played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
-      });
+      }))
 
+      
       handleEvaluation(result.classification, move.to, isPositiveClassification(result.classification));
 
       return result.classification;
@@ -233,10 +229,8 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         game={game}
         sourceSquare={sourceSquare}
         destinationSquare={destinationSquare}
-        classification={classification}
         moveSquares={moveSquares}
         isLoadingEvaluation={isLoadingEvaluation}
-        solved={isPuzzleSolved}
         handleSquareClick={handleSquareClick}
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
@@ -249,16 +243,9 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             <ThemeChanger />
           </div>
           <PuzzleControlPanel
-            puzzleIndex={puzzleIndex}
-            classification={classification}
-            feedback={moveFeedback}
-          
             unhighlightLegalMoves={unhighlightLegalMoves}
-            setIsPuzzleSolved={setIsPuzzleSolved}
-            setClassification={setClassification}
-      
-            history={history}
-          />
+            history={history} 
+                  />
         </div>
       ) : (
         <div

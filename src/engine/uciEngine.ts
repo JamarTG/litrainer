@@ -1,4 +1,4 @@
-import { MoveClassification } from "../moveClassification/MoveClassification";
+import { MoveClassification } from "../constants/classification";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
@@ -138,7 +138,7 @@ export abstract class UciEngine {
 
     return {
       classification: basicClassification,
-      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san, // Convert the best move to SAN
+      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san, 
     };
   }
 }
