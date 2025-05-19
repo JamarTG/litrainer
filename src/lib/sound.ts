@@ -2,7 +2,7 @@ import { Chess } from "chess.js";
 
 type SoundKey = "move" | "capture" | "check" | "castle" | "promotion" | "checkmate";
 
-const soundPaths: Record<string, string> = {
+const soundPaths: Record<SoundKey, string> = {
   move: "/assets/move-sounds/move.mp3",
   capture: "/assets/move-sounds/capture.webm",
   check: "/assets/move-sounds/check.webm",
@@ -20,8 +20,6 @@ function preloadSounds(): void {
     sound.load(); 
   });
 }
-
-
 
 const getMoveType = (chess: Chess): SoundKey => {
   const lastMove = chess.history({ verbose: true }).slice(-1)[0];

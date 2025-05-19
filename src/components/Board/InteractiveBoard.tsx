@@ -11,6 +11,7 @@ import { useMaterialEffect } from "../../hooks/useMaterialEffect";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import { INITIAL_PIECE_COUNTS } from "../../constants/piece";
 import { useMemo } from "react";
+import { chessPieceCodes } from "../../constants/piece";
 
 interface BoardComponentProps {
   game: Chess;
@@ -38,24 +39,25 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   unhighlightLegalMoves,
 }) => {
   const [material, setMaterial] = useState<Materials>(INITIAL_PIECE_COUNTS);
+  
   const { boardSize, boardRef } = useResizableBoard();
   const { puzzle } = useContext(PuzzleContext);
+
 
   useMaterialEffect(game, setMaterial);
 
   const customSquareStyles = getCustomSquareStyles(destinationSquare, sourceSquare, classification, moveSquares, isLoadingEvaluation);
-
-  const pieces = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
+  
 
   const customPieces: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = useMemo(() => {
     const pieceComponents: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = {};
-    pieces.forEach((piece) => {
-      pieceComponents[piece] = ({ squareWidth }) => (
+    chessPieceCodes.forEach((chessPieceCode) => {
+      pieceComponents[chessPieceCode] = ({ squareWidth }) => (
         <div
           style={{
             width: squareWidth,
             height: squareWidth,
-            backgroundImage: `url(/assets/piece-sets/fresca/${piece}.svg)`,
+            backgroundImage: `url(/assets/piece-sets/fresca/${chessPieceCode}.svg)`,
             backgroundSize: "100%",
           }}
         />
