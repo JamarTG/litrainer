@@ -1,13 +1,14 @@
 import { Color } from "chess.js";
-import { useContext } from "react";
-import { PuzzleContext } from "../../context/PuzzleContext";
+import { RootState } from "../../pages/redux/store";
+import { useSelector } from "react-redux";
 
 interface PatronIconProps {
   color: Color;
 }
 
 const PatronIcon: React.FC<PatronIconProps> = ( {color}) => {
-  const {puzzle} = useContext(PuzzleContext);
+   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
  
   return (
     (color === "w" ? puzzle?.players.white.user.patron : puzzle?.players.black.user.patron) || false  && (

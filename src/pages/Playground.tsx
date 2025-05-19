@@ -10,7 +10,6 @@ import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
-import { PuzzleContext } from "../context/PuzzleContext";
 import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import { ThemeContext } from "../context/ThemeContext";
@@ -42,7 +41,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
-  const { puzzle, setPuzzle } = useContext(PuzzleContext);
+
   const { theme } = useContext(ThemeContext);
 
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
@@ -68,7 +67,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const currentPuzzle = puzzles[puzzleIndex] || puzzles[0];
     if (!currentPuzzle) return;
 
-    setPuzzle(currentPuzzle);
     setFen(currentPuzzle.fen.previous);
     game.load(currentPuzzle.fen.previous);
 
@@ -101,6 +99,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const handleMoveAttempt = (sourceSquare: string, targetSquare: string) => {
     if (isPuzzleSolved) return false;
 
+    const puzzle = puzzles[puzzleIndex];
     if (isNotUserTurn(game, puzzle)) {
       return false;
     }

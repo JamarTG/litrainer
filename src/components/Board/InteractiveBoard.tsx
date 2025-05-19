@@ -1,4 +1,4 @@
-import { CSSProperties, useContext, useState } from "react";
+import { CSSProperties, useState } from "react";
 import { Chess, Move, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../types/eval";
@@ -7,7 +7,6 @@ import Marker from "./Marker";
 import useResponsiveBoardSize from "../../hooks/useResponsiveBoardSize";
 import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
-import { PuzzleContext } from "../../context/PuzzleContext";
 import { INITIAL_PIECE_COUNTS } from "../../constants/piece";
 import { useMemo } from "react";
 import useDraggableResizer from "../../hooks/useDraggableResizer";
@@ -37,7 +36,9 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   unhighlightLegalMoves,
 }) => {
   const [material, setMaterial] = useState<Materials>(INITIAL_PIECE_COUNTS);
-  const { puzzle } = useContext(PuzzleContext);
+   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
+ 
 
   const { boardSize, setBoardSize } = useResponsiveBoardSize();
   const { boardRef } = useDraggableResizer(setBoardSize);

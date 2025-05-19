@@ -1,13 +1,14 @@
-import { useContext } from "react";
-import { PuzzleContext } from "../../context/PuzzleContext";
 import { Color } from "chess.js";
+import { useSelector } from "react-redux";
+import { RootState } from "../../pages/redux/store";
 
 interface PlayerRatingProps {
   color: Color
 }
 
 const PlayerRating: React.FC<PlayerRatingProps> = ({ color }) => {
-  const { puzzle } = useContext(PuzzleContext);
+   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
 
   if (!puzzle) return null; 
   const player = color === "w" ? puzzle.players.white : puzzle.players.black;
