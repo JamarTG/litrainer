@@ -1,4 +1,4 @@
-import React, { useState, useCallback} from "react";
+import React, { useState, useCallback } from "react";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../lib/sound";
@@ -10,7 +10,6 @@ import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/Board/InteractiveBoard";
 import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
-import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
 import ThemeChanger from "../components/ThemeChanger";
 import { UciEngine } from "../engine/uciEngine";
@@ -21,54 +20,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import { setClassification, setFeedback, setIsPuzzleSolved } from "./redux/slices/feedbackSlices";
 import NoGamesFound from "../components/ControlPanel/NoGamesFound";
-import useClassificationHistory from "../hooks/useClassificationHistory";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
+
+import { setDestinationSquare, setFen, setIsLoading, setMoveSquares, setSourceSquare } from "./redux/slices/boardSlices";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
 }
 
 const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
-  const initialHistory: (Classification | "")[] = puzzles.map(() => "");
-
   useInitPuzzles(puzzles);
 
   const [game, setGame] = useState<Chess>(new Chess());
-  const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
-  const [sourceSquare, setSourceSquare] = useState<Move["from"] | null>(null);
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(null);
-  const [history, setHistory] = useState<Record<number, string | null>>(initialHistory);
-  const [moveSquares, setMoveSquares] = useState({});
-  const [fen, setFen] = useState<string>(STARTING_POS_FEN);
-
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
 
-
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  // const classification = useSelector((state: RootState) => state.feedback.classification);
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
 
-  const { executeComputerMove } = useComputerMove(setGame, setFen);
+  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
+  const fen = useSelector((state: RootState) => state.board.fen);
+  const sourceSquare = useSelector((state: RootState) => state.board.sourceSquare);
+
+  const { executeComputerMove } = useComputerMove(setGame);
 
   const dispatch = useDispatch();
 
-
-  useChangePuzzle(setDestinationSquare, setSourceSquare, setFen);
-  useClassificationHistory(history, setHistory);
-  usePuzzleSetup(executeComputerMove, game, setFen, setSourceSquare, setDestinationSquare);
+  useChangePuzzle();
+  usePuzzleSetup(executeComputerMove, game);
 
   const unhighlightLegalMoves = useCallback(() => {
-    setMoveSquares({});
+    dispatch(setMoveSquares({}));
   }, []);
 
-  const isInOpeningBook = (movePlayedByUser: Move) => {
+  const isInOpeningBook = () => {
     const fenPosition = game.fen().split(" ")[0];
     const isMoveAccepted = true;
 
     if (checkKnownOpening(fenPosition)) {
-      handleEvaluation(MoveClassification.Book, movePlayedByUser.to, isMoveAccepted);
+      handleEvaluation(MoveClassification.Book,  isMoveAccepted);
       return true;
     }
 
@@ -88,38 +78,34 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
     if (isMoveInvalid) return false;
 
-    setSourceSquare(sourceSquare as Square);
-    setDestinationSquare(targetSquare as Square);
+    dispatch(setSourceSquare(sourceSquare));
+    dispatch(setDestinationSquare(targetSquare));
 
-    if (!isInOpeningBook(movePlayedByUser)) {
+    if (!isInOpeningBook()) {
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
         handleEvaluation(
           isSameMistake ? (sameJudgement as Classification) : classification,
-          movePlayedByUser.to,
           isPositiveClassification(classification as Classification)
         );
       });
     }
 
     playSound(game);
-    setFen(game.fen());
+    dispatch(setFen(game.fen()));
     setMoveSquares({});
-
     return true;
   };
 
-  const handleEvaluation = (classificationResult: Classification | null, dstSquare: Square, solved: boolean) => {
+  const handleEvaluation = (classificationResult: Classification | null,  solved: boolean) => {
     dispatch(setClassification(classificationResult));
-    setDestinationSquare(dstSquare);
     setIsPuzzleSolved(solved);
   };
 
   const evaluateMoveQuality = async (fen: string, move: Move) => {
-    setIsLoadingEvaluation(true);
+    dispatch(setIsLoading(true));
     try {
-      // Check if the evaluation already exists in sessionStorage
       const cacheKey = `evaluation_${fen}_${move.lan}`;
       const cachedEvaluation = sessionStorage.getItem(cacheKey);
 
@@ -132,7 +118,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           })
         );
 
-        handleEvaluation(parsedEvaluation.classification, move.to, isPositiveClassification(parsedEvaluation.classification));
+        handleEvaluation(parsedEvaluation.classification, isPositiveClassification(parsedEvaluation.classification));
         return parsedEvaluation.classification;
       }
 
@@ -160,14 +146,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         })
       );
 
-      handleEvaluation(result.classification, move.to, isPositiveClassification(result.classification));
+      handleEvaluation(result.classification, isPositiveClassification(result.classification));
 
       return result.classification;
     } catch (error) {
       console.error("Error evaluating move quality:", error);
       return null;
     } finally {
-      setIsLoadingEvaluation(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -197,10 +183,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     <div className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
       <InteractiveChessBoard
         game={game}
-        sourceSquare={sourceSquare}
-        destinationSquare={destinationSquare}
-        moveSquares={moveSquares}
-        isLoadingEvaluation={isLoadingEvaluation}
         handleSquareClick={handleSquareClick}
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
@@ -214,11 +196,10 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           </div>
           <PuzzleControlPanel
             unhighlightLegalMoves={unhighlightLegalMoves}
-            history={history}
           />
         </div>
       ) : (
-        <NoGamesFound/>
+        <NoGamesFound />
       )}
     </div>
   );
