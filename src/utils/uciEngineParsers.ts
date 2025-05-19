@@ -1,9 +1,6 @@
 import { LineEval, PositionEval } from "../types/eval";
 
-export const parseEvaluationResults = (
-  results: string[],
-  whiteToPlay: boolean
-): PositionEval => {
+export const parseEvaluationResults = (results: string[], whiteToPlay: boolean): PositionEval => {
   const parsedResults: PositionEval = {
     lines: [],
   };
@@ -23,10 +20,7 @@ export const parseEvaluationResults = (
       const depth = getResultProperty(result, "depth");
       if (!pv || !multiPv || !depth) continue;
 
-      if (
-        tempResults[multiPv] &&
-        parseInt(depth) < tempResults[multiPv].depth
-      ) {
+      if (tempResults[multiPv] && parseInt(depth) < tempResults[multiPv].depth) {
         continue;
       }
 
@@ -72,27 +66,19 @@ export const sortLines = (a: LineEval, b: LineEval): number => {
   return (b.cp ?? 0) - (a.cp ?? 0);
 };
 
-export const getResultProperty = (
-  result: string,
-  property: string
-): string | undefined => {
+export const getResultProperty = (result: string, property: string): string | undefined => {
   const splitResult = result.split(" ");
   const propertyIndex = splitResult.indexOf(property);
 
-  if (propertyIndex === -1 || propertyIndex + 1 >= splitResult.length) {
-    return undefined;
-  }
+  const isInvalidPropertyIndex = propertyIndex === -1 || propertyIndex + 1 >= splitResult.length;
+  return isInvalidPropertyIndex ? undefined : splitResult[propertyIndex + 1];
 
-  return splitResult[propertyIndex + 1];
 };
 
 const getResultPv = (result: string): string[] | undefined => {
   const splitResult = result.split(" ");
   const pvIndex = splitResult.indexOf("pv");
 
-  if (pvIndex === -1 || pvIndex + 1 >= splitResult.length) {
-    return undefined;
-  }
-
-  return splitResult.slice(pvIndex + 1);
+  const isInvalidPvIndex = pvIndex === -1 || pvIndex + 1 >= splitResult.length;
+  return isInvalidPvIndex ? undefined : splitResult.slice(pvIndex + 1);
 };

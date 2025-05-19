@@ -1,18 +1,11 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
-import { playSound } from "../utils/sound";
-import {
-  attemptMove,
-  checkKnownOpening,
-  isPositiveClassification,
-  isNotUserTurn,
-} from "../utils/chess";
-import {
-  Classification,
-  ClassificationMessage,
-  MoveClassification,
-} from "../types/move";
+import { playSound } from "../lib/sound";
+import { attemptMove, checkKnownOpening, isNotUserTurn } from "../utils/chess";
+
+import { isPositiveClassification } from "../utils/classification";
+import { Classification, ClassificationMessage, MoveClassification } from "../types/move";
 import { getHighlightedLegalMoves } from "../utils/style";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -35,18 +28,12 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const initialHistory: (Classification | "")[] = puzzles.map(() => "");
 
   const [game, setGame] = useState<Chess>(new Chess());
-  const [classification, setClassification] = useState<Classification | null>(
-    null
-  );
+  const [classification, setClassification] = useState<Classification | null>(null);
   const [isPuzzleSolved, setIsPuzzleSolved] = useState<boolean | null>(null);
-  const [isLoadingEvaluation, setIsLoadingEvaluation] =
-    useState<boolean>(false);
+  const [isLoadingEvaluation, setIsLoadingEvaluation] = useState<boolean>(false);
   const [sourceSquare, setSourceSquare] = useState<Move["from"] | null>(null);
-  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(
-    null
-  );
-  const [history, setHistory] =
-    useState<Record<number, string | null>>(initialHistory);
+  const [destinationSquare, setDestinationSquare] = useState<Move["to"] | null>(null);
+  const [history, setHistory] = useState<Record<number, string | null>>(initialHistory);
   const [moveSquares, setMoveSquares] = useState({});
   const [fen, setFen] = useState<string>(STARTING_POS_FEN);
 
@@ -103,11 +90,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     const isMoveAccepted = true;
 
     if (checkKnownOpening(fenPosition)) {
-      handleEvaluation(
-        MoveClassification.Book,
-        movePlayedByUser.to,
-        isMoveAccepted
-      );
+      handleEvaluation(MoveClassification.Book, movePlayedByUser.to, isMoveAccepted);
       return true;
     }
 
@@ -130,7 +113,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
     setDestinationSquare(targetSquare as Square);
 
     if (!isInOpeningBook(movePlayedByUser)) {
-    
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
@@ -142,18 +124,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       });
     }
 
-    playSound(game, movePlayedByUser);
+    playSound(game);
     setFen(game.fen());
     setMoveSquares({});
 
     return true;
   };
 
-  const handleEvaluation = (
-    classificationResult: Classification | null,
-    dstSquare: Square,
-    solved: boolean
-  ) => {
+  const handleEvaluation = (classificationResult: Classification | null, dstSquare: Square, solved: boolean) => {
     setClassification(classificationResult);
     setDestinationSquare(dstSquare);
     setIsPuzzleSolved(solved);
@@ -165,31 +143,26 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       // Check if the evaluation already exists in sessionStorage
       const cacheKey = `evaluation_${fen}_${move.lan}`;
       const cachedEvaluation = sessionStorage.getItem(cacheKey);
-  
+
       if (cachedEvaluation) {
-      
         const parsedEvaluation = JSON.parse(cachedEvaluation);
         setMoveFeedback({
           best: `${parsedEvaluation.bestMove} is the best move`,
           played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
         });
-        handleEvaluation(
-          parsedEvaluation.classification,
-          move.to,
-          isPositiveClassification(parsedEvaluation.classification)
-        );
+        handleEvaluation(parsedEvaluation.classification, move.to, isPositiveClassification(parsedEvaluation.classification));
         return parsedEvaluation.classification;
       }
-  
+
       // If no cached evaluation, proceed with engine evaluation
       if (!engine?.isReady()) {
         throw new Error("Engine is not initialized");
       }
-  
+
       UciEngine.setDepth(engineDepth);
-  
+
       const result = await engine.evaluateMoveQuality(fen, move.lan);
-  
+
       sessionStorage.setItem(
         cacheKey,
         JSON.stringify({
@@ -197,18 +170,14 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           classification: result.classification,
         })
       );
-  
+
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
         played: `${move.san} ${ClassificationMessage[result.classification]} `,
       });
-  
-      handleEvaluation(
-        result.classification,
-        move.to,
-        isPositiveClassification(result.classification)
-      );
-  
+
+      handleEvaluation(result.classification, move.to, isPositiveClassification(result.classification));
+
       return result.classification;
     } catch (error) {
       console.error("Error evaluating move quality:", error);
@@ -217,8 +186,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
       setIsLoadingEvaluation(false);
     }
   };
-  
-
 
   const handleSquareClick = (srcSquare: Square) => {
     if (isPuzzleSolved) return;
