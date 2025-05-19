@@ -1,11 +1,22 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../pages/redux/store";
+import { toggleTheme } from "../pages/redux/slices/themeSlices";
 
 const ThemeChanger: React.FC = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
-    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+    <button onClick={() => dispatch(toggleTheme())}>
       {theme === "light" ? (
         <svg
           width="1.5em"
