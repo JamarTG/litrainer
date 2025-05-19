@@ -3,7 +3,6 @@ import { EngineName } from "./types/engine";
 import Router from "./routes/router";
 import "./App.css";
 import { EngineProvider } from "./context/EngineContext";
-import { ThemeProvider } from "./context/ThemeContext";
 import { DepthProvider } from "./context/DepthContext";
 import { Toaster } from "react-hot-toast";
 import { store } from "./pages/redux/store";
@@ -16,9 +15,9 @@ const App = () => {
       <BrowserRouter>
         <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
           <DepthProvider>
-            <ThemeProvider>
+     
               <Router />
-            </ThemeProvider>
+          
           </DepthProvider>
         </EngineProvider>
       </BrowserRouter>

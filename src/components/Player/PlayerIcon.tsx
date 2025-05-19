@@ -1,13 +1,14 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../pages/redux/store";
 
 interface PlayerIconProps {
   color: "w" | "b";
 }
 
 const PlayerIcon: React.FC<PlayerIconProps> = ({ color }) => {
-  const { theme } = useContext(ThemeContext);
 
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  
   const iconColor =
     theme === "light" ? (color === "w" ? "black" : "white") : color;
 

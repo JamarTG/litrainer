@@ -1,11 +1,13 @@
-import React from "react";
+
+import { useSelector } from "react-redux";
 import SubmitButtonWithModal from "../Form/SubmitButtomWithModal";
+import { RootState } from "../../pages/redux/store";
 
-interface NoGamesFoundProps {
-  theme: "light" | "dark";
-}
 
-const NoGamesFound: React.FC<NoGamesFoundProps> = ({ theme }) => {
+
+const NoGamesFound = () => {
+
+  const theme = useSelector((state:RootState) => state.theme.theme);
   const headingColor = theme === "light" ? "text-gray-700" : "text-yellow-400";
   const textColor = theme === "light" ? "text-gray-600" : "text-gray-300";
 

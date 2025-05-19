@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useState, useCallback, useEffect} from "react";
 import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../lib/sound";
@@ -12,7 +12,6 @@ import PuzzleControlPanel from "../components/ControlPanel/ControlPanel";
 import { useEngineContext } from "../context/EngineContext";
 import { STARTING_POS_FEN } from "../constants/piece";
 import SubmitButtonWithModal from "../components/Form/SubmitButtomWithModal";
-import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import { UciEngine } from "../engine/uciEngine";
 import { useDepth } from "../context/DepthContext";
@@ -42,7 +41,6 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
 
-  const { theme } = useContext(ThemeContext);
 
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
   const classification = useSelector((state: RootState) => state.feedback.classification);
@@ -246,7 +244,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           />
         </div>
       ) : (
-        <NoGamesFound theme={theme}/>
+        <NoGamesFound/>
       )}
     </div>
   );
