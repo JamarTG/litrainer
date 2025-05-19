@@ -5,8 +5,7 @@ import { Marker as MarkerT } from "../../types/board";
 import { INITIAL_MARKER_POSITION } from "../../constants/board";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { MoveClassificationImages } from "../../assets/MoveAssets";
-import { MoveClassification } from "../../constants/classification";
+import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
 
 interface MarkerProps {
   boardSize: number;

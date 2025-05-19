@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { MoveClassificationImages } from "../../assets/MoveAssets";
+import { MoveClassificationImages } from "../../constants/classification";
 import { MoveClassification } from "../../constants/classification";
 const PuzzleInfo = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
