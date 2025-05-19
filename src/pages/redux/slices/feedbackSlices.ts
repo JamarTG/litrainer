@@ -39,7 +39,7 @@ const feedbackSlice = createSlice({
       state.bestMove = null;
       state.playedMove = null;
       state.isPuzzleSolved = false;
-    },
+    }, //for later use
   },
 });
 

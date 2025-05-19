@@ -17,7 +17,7 @@ export const gameSlice = createSlice({
     },
     resetGame(state) {
       state.fen = ""; 
-    },
+    }, // for later use
   },
 });
 

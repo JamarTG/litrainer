@@ -16,8 +16,7 @@ const puzzleSlice = createSlice({
   initialState,
   reducers: {
     setPuzzles(state, action: PayloadAction<Puzzle[]>) {
-      console.log("setPuzzles", action.payload);
-        state.puzzles = action.payload;
+      state.puzzles = action.payload;
       state.currentIndex = 0;
     },
     nextPuzzle(state) {
@@ -25,7 +24,6 @@ const puzzleSlice = createSlice({
       if (state.currentIndex < state.puzzles.length - 1) state.currentIndex += 1;
     },
 
-   
     prevPuzzle(state) {
       if (state.currentIndex > 0) state.currentIndex -= 1;
     },

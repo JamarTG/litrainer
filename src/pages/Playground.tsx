@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPuzzles } from "./redux/slices/puzzleSlices";
 import { RootState } from "./redux/store";
 import { setClassification, setFeedback, setIsPuzzleSolved } from "./redux/slices/feedbackSlices";
+import NoGamesFound from "../components/ControlPanel/NoGamesFound";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -48,20 +49,15 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const classification = useSelector((state: RootState) => state.feedback.classification);
   const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
 
-  useChangePuzzle(
-    setDestinationSquare,
-    setSourceSquare,
-    setFen
-  );
+  useChangePuzzle(setDestinationSquare, setSourceSquare, setFen);
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(setPuzzles(puzzles));
   }, [puzzles]);
-
 
   useEffect(() => {
     if (history[puzzleIndex] && classification === null) return;
@@ -151,11 +147,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       if (cachedEvaluation) {
         const parsedEvaluation = JSON.parse(cachedEvaluation);
-        dispatch(setFeedback({
-          best: `${parsedEvaluation.bestMove} is the best move`,
-          played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
-        }))
-     
+        dispatch(
+          setFeedback({
+            best: `${parsedEvaluation.bestMove} is the best move`,
+            played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
+          })
+        );
+
         handleEvaluation(parsedEvaluation.classification, move.to, isPositiveClassification(parsedEvaluation.classification));
         return parsedEvaluation.classification;
       }
@@ -177,12 +175,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
         })
       );
 
-      dispatch(setFeedback({
-        best: `${result.bestMove} is the best move`,
-        played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
-      }))
+      dispatch(
+        setFeedback({
+          best: `${result.bestMove} is the best move`,
+          played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
+        })
+      );
 
-      
       handleEvaluation(result.classification, move.to, isPositiveClassification(result.classification));
 
       return result.classification;
@@ -244,37 +243,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
           </div>
           <PuzzleControlPanel
             unhighlightLegalMoves={unhighlightLegalMoves}
-            history={history} 
-                  />
+            history={history}
+          />
         </div>
       ) : (
-        <div
-          style={{ height: 600 }}
-          className="w-full md:w-[400px] flex flex-col gap-4 justify-center items-center p-6"
-        >
-          <h2
-            style={{
-              color: theme === "light" ? "#4d4d4d" : "#ffd700",
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
-            No Games Found on Specified Parameters
-          </h2>
-          <p
-            style={{
-              color: theme === "light" ? "#666" : "#ccc",
-              fontSize: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Try adjusting your search or explore other puzzles!
-          </p>
-          <div style={{ marginTop: "1rem" }}>
-            <SubmitButtonWithModal />
-          </div>
-        </div>
+        <NoGamesFound theme={theme}/>
       )}
     </div>
   );
