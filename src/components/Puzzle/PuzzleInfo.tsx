@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { MoveClassificationImages } from "../../assets/MoveAssets";
+import { MoveClassification } from "../../constants/classification";
 const PuzzleInfo = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
@@ -14,14 +16,10 @@ const PuzzleInfo = () => {
         <img
           src={
             feedback && classification
-              ? `/move-quality/${classification}.svg`
-              : `/move-quality/${puzzle.evaluation.judgment?.name}.svg`
+              ? MoveClassificationImages[classification as keyof typeof MoveClassification]
+              : MoveClassificationImages[puzzle.evaluation.judgment?.name as keyof typeof MoveClassification]
           }
-          alt={
-            feedback && classification
-              ? classification
-              : puzzle.evaluation.judgment?.name || "move quality"
-          }
+          alt={feedback && classification ? classification : puzzle.evaluation.judgment?.name || "move quality"}
           width={40}
           height={40}
           className="flex-shrink-0"
@@ -48,4 +46,3 @@ const PuzzleInfo = () => {
 };
 
 export default PuzzleInfo;
-

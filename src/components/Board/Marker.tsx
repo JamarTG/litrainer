@@ -5,6 +5,8 @@ import { Marker as MarkerT } from "../../types/board";
 import { INITIAL_MARKER_POSITION } from "../../constants/board";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { MoveClassificationImages } from "../../assets/MoveAssets";
+import { MoveClassification } from "../../constants/classification";
 
 interface MarkerProps {
   boardSize: number;
@@ -24,7 +26,7 @@ const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
     <>
       {destinationSquare && classification && (
         <img
-          src={`/move-quality/${classification}.svg`}
+          src={MoveClassificationImages[classification as keyof typeof MoveClassification]}
           alt=""
           width={boardSize / 16}
           height={boardSize / 16}
