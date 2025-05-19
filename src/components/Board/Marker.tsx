@@ -2,7 +2,6 @@ import { Square } from "chess.js";
 import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
 import { useState } from "react";
 import { Marker as MarkerT } from "../../types/board";
-import { INITIAL_MARKER_POSITION } from "../../constants/board";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
@@ -12,7 +11,7 @@ interface MarkerProps {
 }
 
 const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
-  const [markerPosition, setMarkerPosition] = useState<MarkerT>(INITIAL_MARKER_POSITION);
+  const [markerPosition, setMarkerPosition] = useState<MarkerT>({ right: 0, top: 0 });
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
 
