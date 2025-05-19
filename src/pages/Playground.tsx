@@ -3,9 +3,7 @@ import { Chess, Move, Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { playSound } from "../lib/sound";
 import { attemptMove, checkKnownOpening, isNotUserTurn } from "../utils/chess";
-
 import { isPositiveClassification } from "../utils/classification";
-import { Classification, ClassificationMessage, MoveClassification } from "../types/move";
 import { getHighlightedLegalMoves } from "../utils/style";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -19,6 +17,8 @@ import { ThemeContext } from "../context/ThemeContext";
 import ThemeChanger from "../components/ThemeChanger";
 import { UciEngine } from "../engine/uciEngine";
 import { useDepth } from "../context/DepthContext";
+import { ClassificationMessage, MoveClassification } from "../constants/classification";
+import { Classification } from "../types/classification";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -173,7 +173,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
       setMoveFeedback({
         best: `${result.bestMove} is the best move`,
-        played: `${move.san} ${ClassificationMessage[result.classification]} `,
+        played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
       });
 
       handleEvaluation(result.classification, move.to, isPositiveClassification(result.classification));

@@ -2,16 +2,14 @@ import { useState, Dispatch, SetStateAction, useContext } from "react";
 import { Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { PuzzleContext } from "../context/PuzzleContext";
-import { Classification } from "../types/move";
+import { Classification } from "../moveClassification/MoveClassification";
 
 const useChangePuzzle = (
   puzzles: Puzzle[],
   setDstSquare: Dispatch<SetStateAction<Square | null>>,
   setSrcSquare: Dispatch<SetStateAction<Square | null>>,
   setFen: Dispatch<SetStateAction<string>>,
-  setMoveFeedback: Dispatch<
-    SetStateAction<{ best: string | null; played: string | null }>
-  >,
+  setMoveFeedback: Dispatch<SetStateAction<{ best: string | null; played: string | null }>>,
   setClassification: Dispatch<SetStateAction<Classification | null>>,
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>
 ) => {
@@ -59,7 +57,7 @@ const useChangePuzzle = (
     setSrcSquare(null);
   };
 
-  return { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle};
+  return { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle };
 };
 
 export default useChangePuzzle;

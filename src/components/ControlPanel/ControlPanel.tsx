@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import GameInfo from "../Game/GameInfo";
-import { Classification } from "../../types/move";
+import { Classification } from "../../types/classification";
 import PuzzleInfo from "../Puzzle/PuzzleInfo";
 import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
@@ -14,9 +14,7 @@ interface ControlPanelProps {
   history: Record<number, string | null>;
   puzzleIndex: number;
   unhighlightLegalMoves: () => void;
-  setClassification: React.Dispatch<
-    React.SetStateAction<Classification | null>
-  >;
+  setClassification: React.Dispatch<React.SetStateAction<Classification | null>>;
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>;
   feedback: { best: string | null; played: string | null };
   classification: Classification | null;
@@ -47,10 +45,10 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div className="w-96 ">
       <EngineDepthControl />
-      
+
       {isDataAvailable && (
         <div className="flex flex-col items-center gap-5 w-full m-5">
-          <GameInfo/>
+          <GameInfo />
 
           <PuzzleInfo
             puzzle={puzzle}
