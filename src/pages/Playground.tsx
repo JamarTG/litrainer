@@ -19,6 +19,9 @@ import { UciEngine } from "../engine/uciEngine";
 import { useDepth } from "../context/DepthContext";
 import { ClassificationMessage, MoveClassification } from "../constants/classification";
 import { Classification } from "../types/classification";
+import { useDispatch, useSelector } from "react-redux";
+import { setPuzzles } from "./redux/slices/puzzleSlices";
+import { RootState } from "./redux/store";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -42,12 +45,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   const { puzzle, setPuzzle } = useContext(PuzzleContext);
   const { theme } = useContext(ThemeContext);
 
+  const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
   const [moveFeedback, setMoveFeedback] = useState<{
     best: string | null;
     played: string | null;
   }>({ best: "", played: "" });
 
-  const { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle } = useChangePuzzle(
+  useChangePuzzle(
     puzzles,
     setDestinationSquare,
     setSourceSquare,
@@ -58,6 +62,13 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   );
 
   const { executeComputerMove } = useComputerMove(setGame, setFen);
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(setPuzzles(puzzles));
+  }, [puzzles]);
+
 
   useEffect(() => {
     if (history[puzzleIndex] && classification === null) return;
@@ -241,12 +252,11 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
             puzzleIndex={puzzleIndex}
             classification={classification}
             feedback={moveFeedback}
-            nextPuzzle={nextPuzzle}
-            prevPuzzle={prevPuzzle}
+          
             unhighlightLegalMoves={unhighlightLegalMoves}
             setIsPuzzleSolved={setIsPuzzleSolved}
             setClassification={setClassification}
-            jumpToPuzzle={jumpToPuzzle}
+      
             history={history}
           />
         </div>

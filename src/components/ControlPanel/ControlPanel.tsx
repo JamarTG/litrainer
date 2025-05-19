@@ -8,9 +8,6 @@ import History from "../Puzzle/PuzzleHistory";
 import EngineDepthControl from "./EngineDepthControl";
 
 interface ControlPanelProps {
-  nextPuzzle: () => void;
-  prevPuzzle: () => void;
-  jumpToPuzzle: (num: number) => void;
   history: Record<number, string | null>;
   puzzleIndex: number;
   unhighlightLegalMoves: () => void;
@@ -21,15 +18,12 @@ interface ControlPanelProps {
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
-  nextPuzzle,
-  prevPuzzle,
   setClassification,
   unhighlightLegalMoves,
   setIsPuzzleSolved,
   feedback,
   classification,
   puzzleIndex,
-  jumpToPuzzle,
   history,
 }) => {
   const { puzzle } = useContext(PuzzleContext);
@@ -59,14 +53,9 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({
           <History
             history={history}
             puzzleIndex={puzzleIndex}
-            jumpToPuzzle={jumpToPuzzle}
           />
 
-          <Navigation
-            resetBoard={resetBoard}
-            nextPuzzle={nextPuzzle}
-            prevPuzzle={prevPuzzle}
-          />
+          <Navigation resetBoard={resetBoard} />
         </div>
       )}
     </div>

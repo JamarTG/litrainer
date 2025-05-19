@@ -1,8 +1,9 @@
-import { useState, Dispatch, SetStateAction, useContext } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import { Square } from "chess.js";
 import { Puzzle } from "../types/puzzle";
-import { PuzzleContext } from "../context/PuzzleContext";
 import { Classification } from "../types/classification";
+import { useSelector } from "react-redux";
+import { RootState } from "../pages/redux/store";
 
 const useChangePuzzle = (
   puzzles: Puzzle[],
@@ -13,51 +14,31 @@ const useChangePuzzle = (
   setClassification: Dispatch<SetStateAction<Classification | null>>,
   setIsPuzzleSolved: Dispatch<SetStateAction<boolean | null>>
 ) => {
-  const [puzzleIndex, setPuzzleIndex] = useState<number>(0);
-  const { setPuzzle } = useContext(PuzzleContext);
 
-  const jumpToPuzzle = (index: number) => {
-    if (index < 0 || index >= puzzles.length) return;
+  const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
+  
 
-    setClassification(null);
-    setIsPuzzleSolved(null);
-    setMoveFeedback({ best: null, played: null });
-    setPuzzle(puzzles[index]);
-    setPuzzleIndex(index);
-    setFen(puzzles[index].fen.previous);
-    setDstSquare(null);
-    setSrcSquare(null);
-  };
-  const nextPuzzle = () => {
+
+  useEffect(() => {
     if (puzzles.length === 0) return;
+
     setClassification(null);
     setIsPuzzleSolved(null);
     setMoveFeedback({ best: null, played: null });
-
-    if (puzzleIndex + 1 < puzzles.length) {
-      setPuzzle(puzzles[puzzleIndex + 1]);
-      setPuzzleIndex(puzzleIndex + 1);
-      setFen(puzzles[puzzleIndex + 1].fen.previous);
-    }
+    setFen(puzzles[puzzleIndex].fen.previous);
     setDstSquare(null);
     setSrcSquare(null);
-  };
-
-  const prevPuzzle = () => {
-    if (puzzles.length === 0) return;
-    setClassification(null);
-    setIsPuzzleSolved(null);
-    setMoveFeedback({ best: null, played: null });
-    if (puzzleIndex - 1 >= 0) {
-      setPuzzle(puzzles[puzzleIndex - 1]);
-      setPuzzleIndex(puzzleIndex - 1);
-      setFen(puzzles[puzzleIndex - 1].fen.previous);
-    }
-    setDstSquare(null);
-    setSrcSquare(null);
-  };
-
-  return { puzzleIndex, nextPuzzle, prevPuzzle, jumpToPuzzle };
+   
+  }, [
+    puzzleIndex,
+    puzzles,
+    setFen,
+    setDstSquare,
+    setSrcSquare,
+    setMoveFeedback,
+    setClassification,
+    setIsPuzzleSolved,
+  ]);
 };
 
 export default useChangePuzzle;

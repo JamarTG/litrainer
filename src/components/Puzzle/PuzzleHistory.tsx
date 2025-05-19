@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { jumpToPuzzle } from "../../pages/redux/slices/puzzleSlices";
 
 interface HistoryProps {
   history: Record<number, string | null>;
   puzzleIndex: number;
-  jumpToPuzzle: (index: number) => void;
 }
 
 const ITEMS_PER_PAGE = 7;
@@ -11,12 +12,12 @@ const ITEMS_PER_PAGE = 7;
 const History: React.FC<HistoryProps> = ({
   history,
   puzzleIndex,
-  jumpToPuzzle,
 }) => {
   const entries = Object.entries(history);
   const [page, setPage] = useState(0);
   const totalPages = Math.ceil(entries.length / ITEMS_PER_PAGE);
 
+  const dispatch = useDispatch();
   // Calculate the page that contains the active puzzle
   useEffect(() => {
     const activePage = Math.floor(puzzleIndex / ITEMS_PER_PAGE);
@@ -52,7 +53,7 @@ const History: React.FC<HistoryProps> = ({
           return (
             <button
               key={key}
-              onClick={() => jumpToPuzzle(index)}
+              onClick={() => dispatch(jumpToPuzzle(index))}
               className="font-bold flex justify-center items-center text-white w-8 h-5 rounded-lg"
             >
               <img
