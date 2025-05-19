@@ -1,5 +1,5 @@
-import { CSSProperties, useState } from "react";
-import { Chess, Move, Square } from "chess.js";
+import { useState } from "react";
+import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../types/eval";
 import { getCustomSquareStyles } from "../../utils/style";
@@ -16,10 +16,6 @@ import { RootState } from "../../pages/redux/store";
 
 interface BoardComponentProps {
   game: Chess;
-  destinationSquare: Move["to"] | null;
-  sourceSquare: Move["from"] | null;
-  moveSquares: Record<string, CSSProperties>;
-  isLoadingEvaluation: boolean;
   handleSquareClick: (srcSquare: Square) => void;
   handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, piece: string) => boolean;
   unhighlightLegalMoves: () => void;
@@ -27,10 +23,6 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   game,
-  destinationSquare,
-  sourceSquare,
-  moveSquares,
-  isLoadingEvaluation,
   handleSquareClick,
   handleMoveAttempt,
   unhighlightLegalMoves,
@@ -38,6 +30,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   const [material, setMaterial] = useState<Materials>(INITIAL_PIECE_COUNTS);
    const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex]
+  const fen = useSelector((state: RootState) => state.board.fen);
  
 
   const { boardSize, setBoardSize } = useResponsiveBoardSize();
@@ -47,8 +40,11 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
 
   const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
   const classification = useSelector((state: RootState) => state.feedback.classification);
+  const moveSquares = useSelector((state: RootState) => state.board.moveSquares);
 
-  const customSquareStyles = getCustomSquareStyles(destinationSquare, sourceSquare, classification, moveSquares, isLoadingEvaluation);
+  const {destinationSquare, sourceSquare} = useSelector((state: RootState) => state.board);
+  const isLoading = useSelector((state: RootState) => state.board.isLoading);
+  const customSquareStyles = getCustomSquareStyles(destinationSquare as Square, sourceSquare as Square, classification, moveSquares, isLoading);
 
   const customPieces: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = useMemo(createCustomPieces, []);
 
@@ -60,7 +56,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         style={{ maxWidth: boardSize, maxHeight: boardSize }}
       >
         <Chessboard
-          position={game.fen()}
+          position={fen}
           onSquareClick={handleSquareClick}
           onPieceDrop={handleMoveAttempt}
           onPieceDragBegin={unhighlightLegalMoves}
@@ -73,7 +69,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
         />
         <Marker
           boardSize={boardSize}
-          destinationSquare={destinationSquare}
+       
         />
       </div>
     </BoardWithPlayers>

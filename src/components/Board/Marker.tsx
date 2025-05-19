@@ -8,16 +8,17 @@ import { RootState } from "../../pages/redux/store";
 
 interface MarkerProps {
   boardSize: number;
-  destinationSquare: Square | null;
 }
 
-const Marker: React.FC<MarkerProps> = ({ boardSize, destinationSquare }) => {
+const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
   const [markerPosition, setMarkerPosition] = useState<MarkerT>(INITIAL_MARKER_POSITION);
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
 
   const classification = useSelector((state: RootState) => state.feedback.classification);
-  useMarkerPositionEffect(destinationSquare, boardSize, setMarkerPosition, puzzle?.userMove.color);
+  const destinationSquare = useSelector((state: RootState) => state.board.destinationSquare);
+
+  useMarkerPositionEffect(destinationSquare as Square, boardSize, setMarkerPosition, puzzle?.userMove.color);
 
   return (
     <>
