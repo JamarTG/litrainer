@@ -20,7 +20,6 @@ const puzzleSlice = createSlice({
       state.currentIndex = 0;
     },
     nextPuzzle(state) {
-      console.log(state.currentIndex, state.puzzles.length);
       if (state.currentIndex < state.puzzles.length - 1) state.currentIndex += 1;
     },
 

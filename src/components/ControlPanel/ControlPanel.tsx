@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import GameInfo from "../Game/GameInfo";
 import PuzzleInfo from "../Puzzle/PuzzleInfo";
-import { PuzzleContext } from "../../context/PuzzleContext";
 import Navigation from "./Navigation";
 import History from "../Puzzle/PuzzleHistory";
 import EngineDepthControl from "./EngineDepthControl";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setClassification, setIsPuzzleSolved } from "../../pages/redux/slices/feedbackSlices";
+import { RootState } from "../../pages/redux/store";
 
 interface ControlPanelProps {
   history: Record<number, string | null>;
@@ -14,7 +13,9 @@ interface ControlPanelProps {
 }
 
 const PuzzleControlPanel: React.FC<ControlPanelProps> = ({ unhighlightLegalMoves, history }) => {
-  const { puzzle } = useContext(PuzzleContext);
+
+  const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
   const isDataAvailable = puzzle !== null;
   const dispatch = useDispatch();
 
@@ -34,9 +35,7 @@ const PuzzleControlPanel: React.FC<ControlPanelProps> = ({ unhighlightLegalMoves
         <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo />
 
-          <PuzzleInfo
-            puzzle={puzzle}
-          />
+          <PuzzleInfo/>
 
           <History
             history={history}

@@ -1,7 +1,7 @@
-import { useContext } from "react";
 import { Materials } from "../../types/eval";
 import PlayerWithMaterial from "./PlayerWithMaterial";
-import { PuzzleContext } from "../../context/PuzzleContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../pages/redux/store";
 
 interface BoardWithPlayersProps {
   material: Materials;
@@ -12,7 +12,10 @@ const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({
   material,
   children,
 }) => {
-  const { puzzle } = useContext(PuzzleContext);
+
+  const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
+  
   const userColor= puzzle?.userMove.color || "w";
   const opponentColor= puzzle?.opponentMove.color || "b";
  

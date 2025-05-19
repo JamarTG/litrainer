@@ -4,10 +4,12 @@ import GameStatus from "./GameStatus";
 import GameOpening from "./GameOpening";
 import GameLink from "./GameLink";
 import { ThemeContext } from "../../context/ThemeContext";
-import { PuzzleContext } from "../../context/PuzzleContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../pages/redux/store";
 
 const GameInfo = () => {
-  const { puzzle } = useContext(PuzzleContext);
+   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
   const { theme } = useContext(ThemeContext);
 
   if (!puzzle) return null;
@@ -19,6 +21,7 @@ const GameInfo = () => {
         <GameLink gameId={puzzle.gameId} moveNo={puzzle.moveNumber} />
       </div>
 
+    
       <GameStatus status={puzzle.status} winner={puzzle.winner} players={puzzle.players} theme={theme} />
 
       <hr className="border-gray-400 m-2" />

@@ -1,13 +1,14 @@
 import { Color } from "chess.js";
-import { useContext } from "react";
-import { PuzzleContext } from "../../context/PuzzleContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../pages/redux/store";
 
 interface PlayerNameProps {
   color: Color;
 }
 
 const PlayerName: React.FC<PlayerNameProps> = ({ color }) => {
-  const {puzzle} = useContext(PuzzleContext);
+   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex]
   return (
     <a
       className="text-blue-500"
