@@ -56,7 +56,7 @@ const History: React.FC<HistoryProps> = ({
               className="font-bold flex justify-center items-center text-white w-8 h-5 rounded-lg"
             >
               <img
-                src={`/assets/evals/${isActive  ? "Current" : value ? value : "Blank"}.svg`}
+                src={`/assets/app-icons/move-quality/${isActive  ? "Current" : value ? value : "Blank"}.svg`}
                 width={20}
                 alt=""
               />
