@@ -1,7 +1,6 @@
 import { Color } from "chess.js";
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
-
+import { RootState } from "../../redux/store";
 interface PlayerRatingProps {
   color: Color
 }

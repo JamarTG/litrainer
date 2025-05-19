@@ -12,7 +12,7 @@ import { useMemo } from "react";
 import useDraggableResizer from "../../hooks/useDraggableResizer";
 import { createCustomPieces } from "../../utils/piece";
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 interface BoardComponentProps {
   game: Chess;

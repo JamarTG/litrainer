@@ -1,7 +1,7 @@
 
 import { useSelector } from "react-redux";
 import SubmitButtonWithModal from "../Form/SubmitButtomWithModal";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 
 

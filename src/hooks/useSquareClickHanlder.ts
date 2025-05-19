@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess, Move, Square } from "chess.js";
-import { RootState } from "../pages/redux/store";
-import { setMoveSquares, setSourceSquare } from "../pages/redux/slices/boardSlices";
+import { RootState } from "../redux/store";
 import { getHighlightedLegalMoves } from "../utils/style";
 import { useMoveHandler } from "./useMovehandler";
+import { setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 
 export const useSquareClickHandler = (game: Chess) => {
   const dispatch = useDispatch();

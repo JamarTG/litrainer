@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
-
+import { RootState } from "../../redux/store";
 const PuzzleInfo = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
@@ -15,8 +14,8 @@ const PuzzleInfo = () => {
         <img
           src={
             feedback && classification
-              ? `/assets/app-icons/move-quality/${classification}.svg`
-              : `/assets/app-icons/move-quality/${puzzle.evaluation.judgment?.name}.svg`
+              ? `/move-quality/${classification}.svg`
+              : `/move-quality/${puzzle.evaluation.judgment?.name}.svg`
           }
           alt={
             feedback && classification

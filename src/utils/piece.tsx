@@ -9,7 +9,7 @@ export const createCustomPieces = () => {
         style={{
           width: squareWidth,
           height: squareWidth,
-          backgroundImage: `url(/assets/piece-sets/fresca/${chessPieceCode}.svg)`,
+          backgroundImage: `url(/piece-sets/fresca/${chessPieceCode}.svg)`,
           backgroundSize: "100%",
         }}
       />

@@ -3,7 +3,7 @@ import GameStatus from "./GameStatus";
 import GameOpening from "./GameOpening";
 import GameLink from "./GameLink";
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 const GameInfo = () => {
   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);

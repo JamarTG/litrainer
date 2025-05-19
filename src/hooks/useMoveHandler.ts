@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { UciEngine } from "../engine/uciEngine";
 import { attemptMove, checkKnownOpening, isNotUserTurn } from "../utils/chess";
 import { ClassificationMessage, MoveClassification } from "../constants/classification";
-import { setClassification, setFeedback, setIsPuzzleSolved } from "../pages/redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setIsLoading, setMoveSquares, setSourceSquare } from "../pages/redux/slices/boardSlices";
+import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
+import { setDestinationSquare, setFen, setIsLoading, setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 import { Classification } from "../types/classification";
 import { isPositiveClassification } from "../utils/classification";
 import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
-import { RootState } from "../pages/redux/store";
+import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/EngineContext";
 import { useDepth } from "../context/DepthContext";
 

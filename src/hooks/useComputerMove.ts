@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { Chess } from "chess.js";
 import { playSound } from "../lib/sound";
 import { useDispatch } from "react-redux";
-import { setFen } from "../pages/redux/slices/boardSlices";
+import { setFen } from "../redux/slices/boardSlices";
 
 export const useComputerMove = (setGame: (game: Chess) => void) => {
 

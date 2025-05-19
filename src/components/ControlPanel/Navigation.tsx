@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { nextPuzzle, prevPuzzle } from "../../pages/redux/slices/puzzleSlices";
+import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
 interface NavigationProps {
   resetBoard: (changePuzzle: () => void) => void;
 }

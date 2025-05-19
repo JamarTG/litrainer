@@ -1,7 +1,7 @@
 import { Materials } from "../../types/eval";
 import PlayerWithMaterial from "./PlayerWithMaterial";
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 interface BoardWithPlayersProps {
   material: Materials;

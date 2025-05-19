@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 
 interface PlayerIconProps {
   color: "w" | "b";

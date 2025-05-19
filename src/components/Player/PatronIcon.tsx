@@ -1,5 +1,5 @@
 import { Color } from "chess.js";
-import { RootState } from "../../pages/redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 interface PatronIconProps {
