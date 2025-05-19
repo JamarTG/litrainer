@@ -5,13 +5,14 @@ import { Marker as MarkerT } from "../../types/board";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
+import { INITIAL_MARKER_POSITION } from "../../constants/board";
 
 interface MarkerProps {
   boardSize: number;
 }
 
 const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
-  const [markerPosition, setMarkerPosition] = useState<MarkerT>({ right: 0, top: 0 });
+  const [markerPosition, setMarkerPosition] = useState<MarkerT>(INITIAL_MARKER_POSITION);
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
 
