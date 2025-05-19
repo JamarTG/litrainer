@@ -1,5 +1,5 @@
-import React, { useState} from "react";
-import { Chess} from "chess.js";
+import React, { useState } from "react";
+import { Chess } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
@@ -28,7 +28,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { handleMoveAttempt } = useMoveHandler(game);
 
-  const {handleSquareClick,unhighlightLegalMoves} = useSquareClickHandler(game)
+  const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   return (
     <div className="flex flex-col gap-4 md:flex-row justify-center min-h-screen gap-1 items-center p-4">
