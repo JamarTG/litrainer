@@ -13,11 +13,8 @@ import { RootState } from "../pages/redux/store";
 import { useEngineContext } from "../context/EngineContext";
 import { useDepth } from "../context/DepthContext";
 
-interface useMoveHandlerProps {
-  game: Chess;
-}
 
-export const useMoveHandler = ({ game}: useMoveHandlerProps) => {
+export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
 
   const { engine } = useEngineContext();

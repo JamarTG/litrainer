@@ -36,10 +36,7 @@ const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
   useChangePuzzle();
   usePuzzleSetup(executeComputerMove, game);
 
-  const { handleMoveAttempt } = useMoveHandler({
-    game,
-    engine: null
-  });
+  const { handleMoveAttempt } = useMoveHandler(game);
 
   const unhighlightLegalMoves = useCallback(() => {
     dispatch(setMoveSquares({}));
