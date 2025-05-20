@@ -4,14 +4,14 @@ import { Puzzle } from "../types/puzzle";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/board/InteractiveBoard";
-import PuzzleControlPanel from "../components/controlPanel/ControlPanel";
-import SubmitButtonWithModal from "../components/form/SubmitButtomWithModal";
 import ThemeChanger from "../components/ThemeChanger";
-import NoGamesFound from "../components/controlPanel/NoGamesFound";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
 import { useSquareClickHandler } from "../hooks/useSquareClickHandler";
+import SubmitButtonWithModal from "../components/form/SubmitButtonWithModal";
+import PuzzleControlPanel from "../components/controlPanel/ControlPanel";
+import NoGamesFound from "../components/controlPanel/NoGamesFound";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];

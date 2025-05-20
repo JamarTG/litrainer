@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import SubmitButtonWithModal from "../form/SubmitButtomWithModal";
+import SubmitButtonWithModal from "../form/SubmitButtonWithModal";
 import { RootState } from "../../redux/store";
 
 const NoGamesFound = () => {
