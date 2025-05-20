@@ -1,3 +1,5 @@
+import { Color } from "chess.js";
+
 export interface Fields {
   username: string;
   maxNoGames: number;
@@ -17,4 +19,4 @@ export type GameType =
   | "classical"
   | "correspondence";
 
-export type Color = "black" | "white" | "both";
+// export type Color = "black" | "white" | "both";

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { Materials } from "../../types/eval";
-import { getMaterialCount } from "../../utils/chess/material";
+import { determineColorLeadingInMaterial } from "../../utils/chess/material";
 import PieceIcon from "../icons/PieceIcons";
-import { Color } from "../../types/board";
+import { Color } from "chess.js";
 
 interface RenderMaterialProps {
   material: Materials;
@@ -11,7 +11,7 @@ interface RenderMaterialProps {
 
 const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   useEffect(() => {
-    setMaterialCount(getMaterialCount(material, color));
+    setMaterialCount(determineColorLeadingInMaterial(material, color));
   }, [color, material]);
 
   const [materialCount, setMaterialCount] = useState<number>(0);

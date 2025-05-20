@@ -35,6 +35,7 @@ const useSubmitHandler = (formData: Fields) => {
     sort = sort || "desc";
 
     const { isDateRangeValid, normalizedStartDate, normalizedEndDate } = validateDateRange(startDate, endDate);
+    
     if (!isDateRangeValid) {
       toast.error("Invalid date range.");
       return;

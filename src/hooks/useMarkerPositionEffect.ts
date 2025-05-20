@@ -1,19 +1,19 @@
 import { useEffect } from "react";
-import { Square } from "chess.js";
-import { getSquarePosition } from "../utils/chess/board";
+import { Color, Square } from "chess.js";
+import { getSquareCoordinates } from "../utils/chess/board";
 import { useDispatch } from "react-redux";
 import { setMarkerPosition } from "../redux/slices/boardSlices";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,
   boardSize: number,
-  puzzleColor?: "w" | "b",
+  puzzleColor?: Color,
 
 ) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (destinationSquare && puzzleColor) {
-      const { right, top } = getSquarePosition(
+      const { right, top } = getSquareCoordinates(
         destinationSquare,
         boardSize,
         puzzleColor

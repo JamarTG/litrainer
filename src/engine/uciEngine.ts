@@ -1,9 +1,9 @@
 import { MoveClassification } from "../constants/classification";
 import { EngineName } from "../types/engine";
-import { LineResult, PositionEval } from "../types/eval";
+import { PositionEvaluation, VariationLineResult } from "../types/eval";
 import { Chess } from "chess.js";
 import { parseEvaluationResults } from "../lib/engine/parsers";
-import { getBasicClassification } from "../utils/chess/evaluation";
+import { getBasicClassification } from "../utils/chess/classification";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -96,7 +96,7 @@ export abstract class UciEngine {
     });
   }
 
-  public async getBestMoves(fen: string): Promise<LineResult[] | null> {
+  public async getBestMoves(fen: string): Promise<VariationLineResult[] | null> {
     const results = await this.sendCommands([`position fen ${fen}`, `go depth ${UciEngine.depth}`], "bestmove");
 
     const whiteToPlay = fen.split(" ")[1] === "w";
@@ -112,10 +112,10 @@ export abstract class UciEngine {
           eval: cp,
         };
       })
-      .filter((line) => line.eval !== undefined) as LineResult[];
+      .filter((line) => line.eval !== undefined) as VariationLineResult[];
   }
 
-  public async evaluatePosition(fen: string): Promise<PositionEval> {
+  public async evaluatePosition(fen: string): Promise<PositionEvaluation> {
     const results = await this.sendCommands([`position fen ${fen}`, `go depth ${UciEngine.getDepth()}`], "bestmove");
 
     const whiteToPlay = fen.split(" ")[1] === "w";

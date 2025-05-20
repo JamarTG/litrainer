@@ -1,5 +1,6 @@
-import { Square } from "chess.js";
+import { Color, Square } from "chess.js";
 import { boardDimensions } from "../../constants/board";
+import { SquareCoordinates } from "../../types/board";
 
 export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
   const { minimumSize, maximumSize } = boardDimensions;
@@ -10,29 +11,35 @@ export const calculateBoardSize = (windowWidth: number, windowHeight: number, of
   return clampedSize;
 };
 
-export const getSquarePosition = (
+export const getSquareCoordinates = (
   square: Square,
-  boardSize: number,
-  orientation: "w" | "b"
-): { top: number; right: number } => {
-  const [fileChar, rankChar] = square;
-  const file = fileChar.charCodeAt(0) - "a".charCodeAt(0);
-  const rank = 8 - parseInt(rankChar, 10);
+  chessBoardSize: number, 
+  boardOrientation: Color
+): SquareCoordinates => {
 
-  const squareSize = boardSize / 8;
+  const [fileLetter, rankNumberAsString] = square;
+  const fileLetterASCIINumberCode = fileLetter.charCodeAt(0);
+  const ASCIINumberCodeForA = "a".charCodeAt(0);
+  const rankNumberAsInteger = parseInt(rankNumberAsString, 10);
+  const endRank = 8;
+  const file = fileLetterASCIINumberCode - ASCIINumberCodeForA;
+  const rank = endRank - rankNumberAsInteger
+  const numberOfSquaresOnRank = 8;
+  const arbitraryOffsetConstant = 0.3;
+  const singleSquareSize = chessBoardSize / numberOfSquaresOnRank;
+  const topOffset = singleSquareSize * arbitraryOffsetConstant;
+  const rightOffset = singleSquareSize * arbitraryOffsetConstant;
+  const isBoardWhiteOriented = boardOrientation === "w";
 
-  const topOffset = squareSize * 0.3;
-  const rightOffset = squareSize * 0.3;
-
-  if (orientation === "w") {
+  if (isBoardWhiteOriented) {
     return {
-      right: (7 - file) * squareSize - rightOffset,
-      top: rank * squareSize - topOffset,
+      right: (7 - file) * singleSquareSize - rightOffset,
+      top: rank * singleSquareSize - topOffset,
     };
   } else {
     return {
-      right: file * squareSize - rightOffset,
-      top: (7 - rank) * squareSize - topOffset,
+      right: file * singleSquareSize - rightOffset,
+      top: (7 - rank) * singleSquareSize - topOffset,
     };
   }
 };

@@ -6,7 +6,6 @@ export const validateDateRange = (startDate: string, endDate: string) => {
 
   const validatedOrDefaultStartDate = startDate && !isNaN(Date.parse(startDate)) ? startDate : defaultStartDateSevenDaysAgo;
   const validatedOrDefaultEndDate = endDate && !isNaN(Date.parse(endDate)) ? endDate : defaultEndDateToday;
-
   if (new Date(validatedOrDefaultStartDate) > new Date(validatedOrDefaultEndDate)) {
     return {
       isDateRangeValid: false,
@@ -16,5 +15,5 @@ export const validateDateRange = (startDate: string, endDate: string) => {
     };
   }
 
-  return { valid: true, startDate: validatedOrDefaultStartDate, endDate: validatedOrDefaultEndDate };
+  return { isDateRangeValid: true, normalizedStartDate: validatedOrDefaultStartDate, normalizedEndDate: validatedOrDefaultEndDate };
 };

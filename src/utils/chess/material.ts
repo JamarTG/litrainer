@@ -1,14 +1,14 @@
 import { Chess } from "chess.js";
 import { Materials } from "../../types/eval";
 
-export const getMaterialDiff = (game: Chess): Materials => {
+export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   const material: Materials = {
     w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
   };
 
-  for (const row of game.board()) {
-    for (const square of row) {
+  for (const rank of currentGame.board()) {
+    for (const square of rank) {
       if (square && square.type !== "k") {
         material[square.color][square.type]++;
       }
@@ -34,8 +34,8 @@ export const getMaterialDiff = (game: Chess): Materials => {
   return { w, b };
 };
 
-export const getMaterialCount = (material: Materials, color: "w" | "b"): number => {
-  const matdiff =
+export const determineColorLeadingInMaterial = (material: Materials, color: "w" | "b"): number => {
+  const materialDifference =
     material.w.p -
     material.b.p +
     material.w.b * 3 -
@@ -44,8 +44,10 @@ export const getMaterialCount = (material: Materials, color: "w" | "b"): number 
     material.b.n * 3 +
     material.w.r * 5 -
     material.b.r * 5 +
-    material.w.q * 9 -   // FIXED: subtract black queen count
+    material.w.q * 9 -
     material.b.q * 9;
 
-  return (color === "w" && matdiff >= 0) || (color === "b" && matdiff < 0) ? Math.abs(matdiff) : 0;
+  
+  return (color === "w" && materialDifference >= 0) || (color === "b" && materialDifference < 0) ? Math.abs(materialDifference) : 0;
 };
+

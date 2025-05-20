@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { FC } from "react";
+import { Color } from "chess.js";
 
 interface PlayerInfoProps {
-  color: "w" | "b";
+  color: Color;
 }
 
 const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
@@ -23,7 +24,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   const renderIcon = () => {
     return (
       <div className="rounded-full px-1">
-        {iconColor === "white" ? <span className="icon text-xl">&#xe028;</span> : <span className="icon text-xl">&#xe029;</span>}
+        {iconColor === "w" ? <span className="icon text-xl">&#xe028;</span> : <span className="icon text-xl">&#xe029;</span>}
       </div>
     );
   };

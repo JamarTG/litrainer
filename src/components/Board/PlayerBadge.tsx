@@ -2,9 +2,10 @@ import RenderMaterial from "./RenderMaterial";
 import { Materials } from "../../types/eval";
 import { FC } from "react";
 import PlayerHeader from "./PlayerHeader";
+import { Color } from "chess.js";
 
 interface PlayerWithMaterialProps {
-  color: "w" | "b";
+  color: Color;
   material: Materials;
 }
 

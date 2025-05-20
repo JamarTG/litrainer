@@ -1,15 +1,15 @@
-export interface PositionEval {
+export interface PositionEvaluation {
   bestMove?: string;
   opening?: string;
-  lines: LineEval[];
+  lines: VariationLineEvaluation[];
 }
 
-export interface LineResult {
+export interface VariationLineResult {
   move: string;
   eval: number;
 }
 
-export interface LineEval {
+export interface VariationLineEvaluation {
   pv: string[];
   cp?: number;
   mate?: number;
