@@ -1,5 +1,5 @@
-import { MoveClassification } from "../constants/classification";
-import { Classification } from "../types/classification";
+import { MoveClassification } from "../../constants/classification";
+import { Classification } from "../../types/classification";
 
 export const isPositiveClassification = (classificationResult: Classification) => {
   return (

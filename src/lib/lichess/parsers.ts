@@ -1,8 +1,8 @@
 import { Chess } from "chess.js";
-import { LichessEvaluation } from "../types/eval";
-import { LichessGameResponse } from "../types/response";
-import { Puzzle } from "../types/puzzle";
-import { GameType } from "../types/form";
+import { LichessEvaluation } from "../../types/eval";
+import { LichessGameResponse } from "../../types/response";
+import { Puzzle } from "../../types/puzzle";
+import { GameType } from "../../types/form";
 
 export const parseLichessResponse = async (response: Response) => {
   if (!response.body) {
@@ -18,16 +18,12 @@ export const parseLichessResponse = async (response: Response) => {
     result += gameInfo;
   }
 
-  const unParsedGames = result
-    .split("\n")
-    .filter((unParsedGame) => unParsedGame.trim() !== "");
-  const evaluations:string[] = unParsedGames.map(
-    (unParsedGame) => JSON.parse(unParsedGame).analysis
-  );
+  const unParsedGames = result.split("\n").filter((unParsedGame) => unParsedGame.trim() !== "");
+  const evaluations: string[] = unParsedGames.map((unParsedGame) => JSON.parse(unParsedGame).analysis);
 
   const parsedGames: LichessGameResponse[] = unParsedGames.map((line) => {
     const game = JSON.parse(line);
-    
+
     return {
       players: game.players,
       moves: game.moves,
@@ -40,18 +36,14 @@ export const parseLichessResponse = async (response: Response) => {
       clock: game.clock,
       winner: game.winner,
       opening: game.opening,
-      division: game.division
+      division: game.division,
     };
   });
 
   return { evaluations, games: parsedGames };
 };
 
-const generatePuzzles = (
-  username: string,
-  games: LichessGameResponse[],
-  evaluations: LichessEvaluation[][]
-) => {
+const generatePuzzles = (username: string, games: LichessGameResponse[], evaluations: LichessEvaluation[][]) => {
   const standardGames = games.filter((game) => game.variant === "standard");
 
   const result = standardGames.flatMap((game, index) => {
@@ -61,20 +53,18 @@ const generatePuzzles = (
     const history = chessgame.history({ verbose: true });
 
     const gameEvaluations = evaluations[index];
-    const OPColor = username === game.players.white.user.name ? "w" : "b"; 
+    const OPColor = username === game.players.white.user.name ? "w" : "b";
 
     const res: Puzzle[] = [];
 
-    
-    const middlegameStartPly = game.division?.middle || Infinity; 
-    const endgameStartPly = game.division?.end || Infinity; 
+    const middlegameStartPly = game.division?.middle || Infinity;
+    const endgameStartPly = game.division?.end || Infinity;
 
     for (let i = 0; i < gameEvaluations.length; i++) {
       const evaluation = gameEvaluations[i];
 
       if (evaluation.judgment && OPColor === history[i].color && i > 0) {
-     
-        const plyNumber = i + 1; 
+        const plyNumber = i + 1;
         let phase: "opening" | "middlegame" | "endgame";
 
         if (plyNumber < middlegameStartPly) {
@@ -116,9 +106,9 @@ const generatePuzzles = (
             current: history[i].before,
             previous: history[i - 1].before || history[i].before,
           },
-          phase, 
+          phase,
         };
-        console.log(phase)
+        console.log(phase);
 
         if (game.winner) {
           puzzle.winner = game.winner as "white" | "black";
@@ -134,12 +124,5 @@ const generatePuzzles = (
   return result.flat();
 };
 
-// const getOnlyStandardGames = (games: LichessGameResponse[]) => {
-//   return games.filter((game) => game.variant === "standard");
-// };
-
-// const getOpColor = (username: string, game: LichessGameResponse) => {
-//   return username === game.players.white.user.name ? "w" : "b";
-// };
 
 export default generatePuzzles;

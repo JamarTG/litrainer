@@ -1,17 +1,19 @@
 import { Chess, Move } from "chess.js";
 import { useDispatch } from "react-redux";
 import { UciEngine } from "../engine/uciEngine";
-import { attemptMove, checkKnownOpening, isNotUserTurn } from "../utils/chess";
+
 import { ClassificationMessage, MoveClassification } from "../constants/classification";
 import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
 import { setDestinationSquare, setFen, setIsLoading, setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 import { Classification } from "../types/classification";
-import { isPositiveClassification } from "../utils/classification";
+import { isPositiveClassification } from "../utils/chess/classification";
 import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
+import { checkKnownOpening, isNotUserTurn } from "../utils/chess/game";
+import { attemptMove } from "../utils/chess/move";
 
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
@@ -23,9 +25,8 @@ export const useMoveHandler = (game: Chess) => {
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
   const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
 
-
   const fen = useSelector((state: RootState) => state.board.fen);
- 
+
   const isInOpeningBook = () => {
     const fenPosition = game.fen().split(" ")[0];
     const isMoveAccepted = true;

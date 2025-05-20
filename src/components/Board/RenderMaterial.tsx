@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Materials } from "../../types/eval";
-import { getMaterialCount } from "../../utils/chess";
+import { getMaterialCount } from "../../utils/chess/material";
 import PieceIcon from "../icons/PieceIcons";
 import { Color } from "../../types/board";
 

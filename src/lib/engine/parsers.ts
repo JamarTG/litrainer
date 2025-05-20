@@ -1,4 +1,4 @@
-import { LineEval, PositionEval } from "../types/eval";
+import { LineEval, PositionEval } from "../../types/eval";
 
 export const parseEvaluationResults = (results: string[], whiteToPlay: boolean): PositionEval => {
   const parsedResults: PositionEval = {
@@ -72,7 +72,6 @@ export const getResultProperty = (result: string, property: string): string | un
 
   const isInvalidPropertyIndex = propertyIndex === -1 || propertyIndex + 1 >= splitResult.length;
   return isInvalidPropertyIndex ? undefined : splitResult[propertyIndex + 1];
-
 };
 
 const getResultPv = (result: string): string[] | undefined => {

@@ -1,4 +1,4 @@
-import { LichessPlayer } from "../types/player";
+import { LichessPlayer } from "../../types/player";
 
 const gameStatusMap: Record<string, (player: string) => string> = {
   created: () => "The game was created.",
@@ -13,16 +13,10 @@ const gameStatusMap: Record<string, (player: string) => string> = {
   cheat: (player) => (player ? `${player} won by cheating.` : "Draw."),
   noStart: (player) => (player ? `${player} failed to start the game.` : "Draw."),
   unknownFinish: () => "The game ended unexpectedly.",
-  // variantEnd: () => "The game ended due to a variant-specific rule.",
 };
 
-function getGameStatusDescription(
-  status: string,
-  player: LichessPlayer
-): string {
-  return (
-    gameStatusMap[status]?.(player.user.name) || `Unknown game status: ${status}.`
-  );
+function getGameStatusDescription(status: string, player: LichessPlayer): string {
+  return gameStatusMap[status]?.(player.user.name) || `Unknown game status: ${status}.`;
 }
 
 export { gameStatusMap, getGameStatusDescription };
