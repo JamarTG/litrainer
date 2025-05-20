@@ -20,17 +20,11 @@ interface BoardComponentProps {
   unhighlightLegalMoves: () => void;
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({
-  game,
-  handleSquareClick,
-  handleMoveAttempt,
-  unhighlightLegalMoves,
-}) => {
+const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex]
+  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex];
   const fen = useSelector((state: RootState) => state.board.fen);
- 
 
   const { boardSize, setBoardSize } = useResponsiveBoardSize();
   const { boardRef } = useDraggableResizer(setBoardSize);
@@ -41,9 +35,15 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
   const classification = useSelector((state: RootState) => state.feedback.classification);
   const moveSquares = useSelector((state: RootState) => state.board.moveSquares);
 
-  const {destinationSquare, sourceSquare} = useSelector((state: RootState) => state.board);
+  const { destinationSquare, sourceSquare } = useSelector((state: RootState) => state.board);
   const isLoading = useSelector((state: RootState) => state.board.isLoading);
-  const customSquareStyles = getCustomSquareStyles(destinationSquare as Square, sourceSquare as Square, classification, moveSquares, isLoading);
+  const customSquareStyles = getCustomSquareStyles(
+    destinationSquare as Square,
+    sourceSquare as Square,
+    classification,
+    moveSquares,
+    isLoading
+  );
 
   const customPieces = useMemo(() => {
     return CustomPieces();
@@ -68,10 +68,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
           arePiecesDraggable={!isPuzzleSolved}
           customPieces={customPieces}
         />
-        <Marker
-          boardSize={boardSize}
-       
-        />
+        <Marker boardSize={boardSize} />
       </div>
     </BoardWithPlayers>
   );
