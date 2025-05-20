@@ -10,7 +10,6 @@ export const convertTimeToString = (seconds: number): string => {
   return `${minutes}${convertTimeToString(remainingSeconds).replace("0.", ".")}`;
 };
 
-
 export const convertDateToReadableFormat = (dateString: string) => {
   if (!dateString) return "";
   const date = new Date(dateString);
@@ -28,11 +27,7 @@ export const getDefaultDate = (offsetDays: number): string => {
   return date.toISOString().split("T")[0];
 };
 
-
-export const toTimestamps = (
-  startDate: Fields["startDate"],
-  endDate: Fields["endDate"]
-) => {
+export const toTimestamps = (startDate: string, endDate: string) => {
   const since = new Date(startDate).getTime().toString();
   const until = new Date(endDate).getTime().toString();
   return { since, until };

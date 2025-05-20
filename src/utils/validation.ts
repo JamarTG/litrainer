@@ -1,11 +1,9 @@
-import { Fields } from "../types/form";
 import { ValidationResult } from "../types/validation";
 import { getDefaultDate } from "./time";
 
-export const validateDates = (
-  startDate: Fields["startDate"],
-  endDate: Fields["endDate"]
-): ValidationResult => {
+type ValidateDatesFn = (startDate: string, endDate: string) => ValidationResult;
+
+export const validateDates: ValidateDatesFn = (startDate, endDate) => {
   const lastWeek = getDefaultDate(-7);
   const today = getDefaultDate(0);
 
@@ -22,4 +20,18 @@ export const validateDates = (
   }
 
   return { valid: true, startDate: normalizedStartDate, endDate: normalizedEndDate };
+};
+
+
+export const userExists = async (username: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`https://lichess.org/api/user/${username}`);
+    if (!response.ok) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error checking user existence:", error);
+    return false;
+  }
 };

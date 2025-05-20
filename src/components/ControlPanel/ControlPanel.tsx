@@ -1,5 +1,5 @@
-import GameInfo from "../Game/GameInfo";
-import PuzzleInfo from "../Puzzle/PuzzleInfo";
+import GameInfo from "../game/GameInfo";
+import PuzzleInfo from "../puzzle/PuzzleInfo";
 import Navigation from "./Navigation";
 import EngineDepthControl from "./EngineDepthControl";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +7,13 @@ import { RootState } from "../../redux/store";
 import { setClassification, setIsPuzzleSolved } from "../../redux/slices/feedbackSlices";
 import { FC } from "react";
 
-
 interface ControlPanelProps {
   unhighlightLegalMoves: () => void;
 }
 
 const PuzzleControlPanel: FC<ControlPanelProps> = ({ unhighlightLegalMoves }) => {
-
-  const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex]
+  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex];
   const isDataAvailable = puzzle !== null;
   const dispatch = useDispatch();
 
@@ -24,7 +22,6 @@ const PuzzleControlPanel: FC<ControlPanelProps> = ({ unhighlightLegalMoves }) =>
     dispatch(setClassification(null));
     dispatch(setIsPuzzleSolved(false));
     unhighlightLegalMoves();
-    
   };
 
   return (
@@ -34,7 +31,7 @@ const PuzzleControlPanel: FC<ControlPanelProps> = ({ unhighlightLegalMoves }) =>
       {isDataAvailable && (
         <div className="flex flex-col items-center gap-5 w-full m-5">
           <GameInfo />
-          <PuzzleInfo/>
+          <PuzzleInfo />
           <Navigation resetBoard={resetBoard} />
         </div>
       )}

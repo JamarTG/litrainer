@@ -52,7 +52,7 @@ const generatePuzzles = (
   games: LichessGameResponse[],
   evaluations: LichessEvaluation[][]
 ) => {
-  const standardGames = getOnlyStandardGames(games);
+  const standardGames = games.filter((game) => game.variant === "standard");
 
   const result = standardGames.flatMap((game, index) => {
     const chessgame = new Chess();
@@ -61,7 +61,7 @@ const generatePuzzles = (
     const history = chessgame.history({ verbose: true });
 
     const gameEvaluations = evaluations[index];
-    const OPColor = getOpColor(username, game);
+    const OPColor = username === game.players.white.user.name ? "w" : "b"; 
 
     const res: Puzzle[] = [];
 
@@ -134,12 +134,12 @@ const generatePuzzles = (
   return result.flat();
 };
 
-const getOnlyStandardGames = (games: LichessGameResponse[]) => {
-  return games.filter((game) => game.variant === "standard");
-};
+// const getOnlyStandardGames = (games: LichessGameResponse[]) => {
+//   return games.filter((game) => game.variant === "standard");
+// };
 
-const getOpColor = (username: string, game: LichessGameResponse) => {
-  return username === game.players.white.user.name ? "w" : "b";
-};
+// const getOpColor = (username: string, game: LichessGameResponse) => {
+//   return username === game.players.white.user.name ? "w" : "b";
+// };
 
 export default generatePuzzles;

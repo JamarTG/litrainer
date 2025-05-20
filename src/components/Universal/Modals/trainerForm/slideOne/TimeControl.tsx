@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
-import GameSpeedIcon from "../../../../Game/GameSpeedIcon";
+import GameSpeedIcon from "../../../../game/GameSpeedIcon";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -10,11 +10,7 @@ interface GamesProps {
   formData: Fields;
 }
 
-const Games: FC<GamesProps> = ({
-  handleInputChange,
-  handleGameTypesChange,
-  formData,
-}) => {
+const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formData }) => {
   const gamesDropdown = usePopperDropDown();
 
   const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];
@@ -52,7 +48,10 @@ const Games: FC<GamesProps> = ({
 
         {gamesDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={gamesDropdown.dropdownRef} className="z-50 shadow-2xl">
+            <div
+              ref={gamesDropdown.dropdownRef}
+              className="z-50 shadow-2xl"
+            >
               <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
                 <div className="flex flex-col space-y-0">
                   {games.map((game) => (
@@ -64,19 +63,17 @@ const Games: FC<GamesProps> = ({
                     >
                       <div className="flex my-auto gap-x-2">
                         <GameSpeedIcon speed={game.toLocaleLowerCase() as GameType} />
-                  
                       </div>
-                      <svg viewBox="0 0 16 16" height="35" width="35">
+                      <svg
+                        viewBox="0 0 16 16"
+                        height="35"
+                        width="35"
+                      >
                         <path
                           d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
                           fill={` ${
                             formData.gameTypes.includes(
-                              game.toLocaleLowerCase() as
-                                | "bullet"
-                                | "blitz"
-                                | "rapid"
-                                | "classical"
-                                | "correspondence"
+                              game.toLocaleLowerCase() as "bullet" | "blitz" | "rapid" | "classical" | "correspondence"
                             )
                               ? "#287F71"
                               : "#424242"
@@ -87,12 +84,7 @@ const Games: FC<GamesProps> = ({
                           fill="#ffffff"
                           className={`transition transform 0.3s ease ${
                             formData.gameTypes.includes(
-                              game.toLocaleLowerCase() as
-                                | "bullet"
-                                | "blitz"
-                                | "rapid"
-                                | "classical"
-                                | "correspondence"
+                              game.toLocaleLowerCase() as "bullet" | "blitz" | "rapid" | "classical" | "correspondence"
                             )
                               ? "transform translate-x-[6px]"
                               : ""
