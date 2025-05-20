@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TrainerForm from "../universal/modals/TrainerForm";
+import TrainerForm from "./modals/TrainerForm";
 import { Fields } from "../../types/form";
 import { initialFormState } from "../../constants/form";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
@@ -26,11 +26,8 @@ const SubmitButtonWithModal = () => {
         />
       )}
 
-      <button
-        onClick={handleToggleModal}
-      >
+      <button onClick={handleToggleModal}>
         <span className="icon text-2xl">&#xe02d;</span>
-        
       </button>
     </div>
   );
