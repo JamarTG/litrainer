@@ -1,5 +1,3 @@
-import { Color } from "chess.js";
-
 export interface Fields {
   username: string;
   maxNoGames: number;
@@ -14,4 +12,4 @@ export type Sort = "asc" | "desc";
 
 export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
 
-// export type Color = "black" | "white" | "both";
+export type Color = "black" | "white" | "both";
