@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Chess, Move, Square } from "chess.js";
 import { RootState } from "../redux/store";
 import { getHighlightedLegalMoves } from "../utils/style";
-import { useMoveHandler } from "./useMovehandler";
+import { useMoveHandler } from "./useMoveHandler";
 import { setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 
 export const useSquareClickHandler = (game: Chess) => {
