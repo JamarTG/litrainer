@@ -2,13 +2,14 @@ import { Materials } from "../../types/eval";
 import PlayerBadge from "./PlayerBadge";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { FC, ReactNode } from "react";
 
 interface BoardWithPlayersProps {
   material: Materials;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({
+const BoardWithPlayers: FC<BoardWithPlayersProps> = ({
   material,
   children,
 }) => {

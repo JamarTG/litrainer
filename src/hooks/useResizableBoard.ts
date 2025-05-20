@@ -28,7 +28,7 @@ const useResizableBoard = () => {
     };
   }, [handleResize]);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+  const handleMouseDown = useCallback((e: MouseEvent) => {
     e.preventDefault();
     isResizing.current = true;
 

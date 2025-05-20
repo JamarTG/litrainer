@@ -1,11 +1,13 @@
+import { Dispatch, FC, ReactNode, SetStateAction } from "react";
+
 interface ProgressIndicatorProps {
-  children: React.ReactNode[];
+  children: ReactNode[];
   currentIndex: number;
-  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
   scrollToSlide: (index: number) => void;
 }
 
-const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
+const ProgressIndicator: FC<ProgressIndicatorProps> = ({
   children,
   currentIndex,
   setCurrentIndex,

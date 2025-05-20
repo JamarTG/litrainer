@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FC } from "react";
 import { Fields } from "../../../../../types/form";
 
 interface ColorsProps {
@@ -6,7 +6,7 @@ interface ColorsProps {
   formData : Fields
 }
 
-const Colors: React.FC<ColorsProps> = ({ handleInputChange , formData }) => {
+const Colors: FC<ColorsProps> = ({ handleInputChange , formData }) => {
 
   return (
     <div className="grid gap-2">

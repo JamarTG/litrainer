@@ -1,6 +1,7 @@
 import GameSpeedIcon from "./GameSpeedIcon";
 import { convertTimeToString } from "../../utils/time";
 import { GameType } from "../../types/form";
+import { FC } from "react";
 
 interface GameSpeedProps {
   timeControl: GameType;
@@ -8,7 +9,7 @@ interface GameSpeedProps {
   clock?: { initial: number; increment: number };
 }
 
-const GameSpeed: React.FC<GameSpeedProps> = ({ timeControl, rated, clock }) => {
+const GameSpeed: FC<GameSpeedProps> = ({ timeControl, rated, clock }) => {
   return (
     <div className="flex items-center gap-3">
       <GameSpeedIcon speed={timeControl} />

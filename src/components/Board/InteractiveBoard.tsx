@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, FC } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../types/eval";
@@ -8,7 +8,6 @@ import useResponsiveBoardSize from "../../hooks/useResponsiveBoardSize";
 import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
 import { initialPieceCounts } from "../../constants/piece";
-import { useMemo } from "react";
 import useDraggableResizer from "../../hooks/useDraggableResizer";
 import { createCustomPieces } from "../../utils/piece";
 import { useSelector } from "react-redux";
@@ -21,7 +20,7 @@ interface BoardComponentProps {
   unhighlightLegalMoves: () => void;
 }
 
-const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
+const InteractiveChessBoard: FC<BoardComponentProps> = ({
   game,
   handleSquareClick,
   handleMoveAttempt,

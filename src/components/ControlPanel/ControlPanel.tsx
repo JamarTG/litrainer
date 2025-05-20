@@ -5,13 +5,14 @@ import EngineDepthControl from "./EngineDepthControl";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setClassification, setIsPuzzleSolved } from "../../redux/slices/feedbackSlices";
+import { FC } from "react";
 
 
 interface ControlPanelProps {
   unhighlightLegalMoves: () => void;
 }
 
-const PuzzleControlPanel: React.FC<ControlPanelProps> = ({ unhighlightLegalMoves }) => {
+const PuzzleControlPanel: FC<ControlPanelProps> = ({ unhighlightLegalMoves }) => {
 
   const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex]

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
@@ -10,7 +10,7 @@ interface GamesProps {
   formData: Fields;
 }
 
-const Games: React.FC<GamesProps> = ({
+const Games: FC<GamesProps> = ({
   handleInputChange,
   handleGameTypesChange,
   formData,

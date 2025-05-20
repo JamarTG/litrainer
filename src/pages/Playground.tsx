@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Chess } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { useComputerMove } from "../hooks/useComputerMove";
@@ -17,7 +17,7 @@ interface PlayGroundProps {
   puzzles: Puzzle[];
 }
 
-const Playground: React.FC<PlayGroundProps> = ({ puzzles }) => {
+const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useInitPuzzles(puzzles);
 
   const [game, setGame] = useState<Chess>(new Chess());
