@@ -3,12 +3,12 @@ import { Chess } from "chess.js";
 type SoundKey = "move" | "capture" | "check" | "castle" | "promotion" | "checkmate";
 
 const soundPaths: Record<SoundKey, string> = {
-  move: "/move-sounds/move.mp3",
-  capture: "/move-sounds/capture.webm",
-  check: "/move-sounds/check.webm",
-  castle: "/move-sounds/castle.webm",
-  promotion: "/move-sounds/promotion.webm",
-  checkmate: "/move-sounds/checkmate.webm",
+  move: "/moveSounds/move.mp3",
+  capture: "/moveSounds/capture.webm",
+  check: "/moveSounds/check.webm",
+  castle: "/moveSounds/castle.webm",
+  promotion: "/moveSounds/promotion.webm",
+  checkmate: "/moveSounds/checkmate.webm",
 };
 
 const sounds: Record<keyof typeof soundPaths, HTMLAudioElement> = Object.fromEntries(
