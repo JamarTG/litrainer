@@ -2,8 +2,8 @@ import { MoveClassification } from "../constants/classification";
 import { EngineName } from "../types/engine";
 import { LineResult, PositionEval } from "../types/eval";
 import { Chess } from "chess.js";
-import { parseEvaluationResults } from "../utils/eval-parsers";
-import { getBasicClassification } from "../utils/chess";
+import { parseEvaluationResults } from "../lib/engine/parsers";
+import { getBasicClassification } from "../utils/chess/evaluation";
 
 export abstract class UciEngine {
   private worker: Worker;
@@ -138,7 +138,7 @@ export abstract class UciEngine {
 
     return {
       classification: basicClassification,
-      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san, 
+      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san,
     };
   }
 }

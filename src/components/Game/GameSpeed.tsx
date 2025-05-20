@@ -1,5 +1,5 @@
 import GameSpeedIcon from "./GameSpeedIcon";
-import { convertTimeToString } from "../../utils/time";
+import { convertTimeToString } from "../../lib/lichess/time";
 import { GameType } from "../../types/form";
 import { FC } from "react";
 

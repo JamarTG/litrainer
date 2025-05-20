@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, ReactNode, FC } from "react";
 import { UciEngine } from "../engine/uciEngine";
 import { EngineName } from "../types/engine";
 import { isWasmSupported } from "../engine/shared";
-import { pickEngine } from "../utils/engine";
+import { pickEngine } from "../lib/engine/factory";
 
 export interface EngineContextProps {
   engine: UciEngine | null;
@@ -35,9 +35,5 @@ export const EngineProvider: FC<{
     };
   }, [engineName]);
 
-  return (
-    <EngineContext.Provider value={{ engine, setEngineName }}>
-      {children}
-    </EngineContext.Provider>
-  );
+  return <EngineContext.Provider value={{ engine, setEngineName }}>{children}</EngineContext.Provider>;
 };

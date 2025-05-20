@@ -1,7 +1,8 @@
 import { Move, Square } from "chess.js";
 import { CSSProperties } from "react";
-import { ClassificationColors, MoveClassification } from "../constants/classification";
-import { Classification } from "../types/classification";
+import { Classification } from "../../../types/classification";
+import { ClassificationColors, MoveClassification } from "../../../constants/classification";
+
 
 export const getCustomSquareStyles = (
   dstSquare: Square | null,

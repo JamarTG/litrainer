@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
-import { validateDates } from "../utils/validation";
-import { userExists } from "../utils/user";
-import { toTimestamps } from "../utils/time";
 import { getLichessGames } from "../utils/api";
-import createPuzzles from "../utils/lichess";
+import createPuzzles from "../lib/lichess/parsers";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
-import { saveLocal } from "../utils/localStorage";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
+import { userExists } from "../lib/lichess/user";
+import { convertDateRangetoTimestamps } from "../utils/date/convertDateRangeToTimestamps";
+import { validateDates } from "../utils/date/validateDates";
+import { saveToLocalStorage } from "../utils/storage";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
@@ -40,23 +40,19 @@ const useSubmitHandler = (formData: Fields) => {
       return;
     }
 
-    const { since, until } = toTimestamps(validatedStart, validatedEnd);
+    const { since, until } = convertDateRangetoTimestamps(validatedStart, validatedEnd);
 
     try {
       const { games, evaluations } = await getLichessGames(username, since, until, maxNoGames.toString(), sort, color, gameTypes);
 
-      const puzzles = createPuzzles(
-        username,
-        games as LichessGameResponse[],
-        (evaluations as unknown) as LichessEvaluation[][]
-      );
+      const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as unknown as LichessEvaluation[][]);
 
       if (puzzles.length === 0) {
         toast.error(`No errors found for ${username} based on the given criteria`);
         return;
       }
 
-      saveLocal("puzzles", puzzles);
+      saveToLocalStorage("puzzles", puzzles);
 
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });

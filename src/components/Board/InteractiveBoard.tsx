@@ -2,16 +2,16 @@ import { useState, useMemo, FC } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../types/eval";
-import { getCustomSquareStyles } from "../../utils/style";
 import Marker from "./Marker";
 import useResponsiveBoardSize from "../../hooks/useResponsiveBoardSize";
 import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
 import { initialPieceCounts } from "../../constants/piece";
 import useDraggableResizer from "../../hooks/useDraggableResizer";
-import { createCustomPieces } from "../../utils/piece";
+import CustomPieces from "./CustomPieces";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getCustomSquareStyles } from "./helpers/squareStyles";
 
 interface BoardComponentProps {
   game: Chess;
@@ -45,7 +45,9 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
   const isLoading = useSelector((state: RootState) => state.board.isLoading);
   const customSquareStyles = getCustomSquareStyles(destinationSquare as Square, sourceSquare as Square, classification, moveSquares, isLoading);
 
-  const customPieces: Record<string, ({ squareWidth }: { squareWidth: number }) => JSX.Element> = useMemo(createCustomPieces, []);
+  const customPieces = useMemo(() => {
+    return CustomPieces();
+  }, []);
 
   return (
     <BoardWithPlayers material={material}>

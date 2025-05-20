@@ -1,4 +1,4 @@
-import { parseLichessResponse } from "./lichess";
+import { parseLichessResponse } from "../lib/lichess/parsers";
 
 export const getLichessGames = async (
   username: string,
@@ -9,24 +9,23 @@ export const getLichessGames = async (
   color: string,
   gameTypes: string[]
 ) => {
-
   const url = new URL(`https://lichess.org/api/games/user/${username}`);
 
-  url.searchParams.append("since", since); 
-  url.searchParams.append("until", until); 
+  url.searchParams.append("since", since);
+  url.searchParams.append("until", until);
   url.searchParams.append("max", maxNoGames);
-  url.searchParams.append("sort", sort); 
+  url.searchParams.append("sort", sort);
   url.searchParams.append("color", color);
   url.searchParams.append("perfType", gameTypes.join(","));
   url.searchParams.append("evals", "true");
   url.searchParams.append("analysed", "true");
   url.searchParams.append("division", "true");
   url.searchParams.append("finished", "true");
-  url.searchParams.append("opening", "true")
+  url.searchParams.append("opening", "true");
 
   const response = await fetch(url, {
     headers: {
-      Accept: "application/x-ndjson", 
+      Accept: "application/x-ndjson",
     },
   });
 

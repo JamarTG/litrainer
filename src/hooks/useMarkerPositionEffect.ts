@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Square } from "chess.js";
-import { getSquarePosition } from "../utils/chess";
+import { getSquarePosition } from "../utils/chess/board";
 import { useDispatch } from "react-redux";
 import { setMarkerPosition } from "../redux/slices/boardSlices";
 
