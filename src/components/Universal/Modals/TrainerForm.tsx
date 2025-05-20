@@ -8,7 +8,9 @@ import {
   } from "react";
 import { Fields } from "../../../types/form";
 import Swiper from "../swipers/Swiper";
-
+import Portal from "./Portal";
+import SlideOne from "./trainerForm/slideOne/Slide1";
+import SlideTwo from "./trainerForm/slideTwo/Slide2";
 
 
 
