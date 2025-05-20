@@ -5,12 +5,19 @@ interface MoveSquares {
   [square: string]: any;
 }
 
+interface MarkerPosition {
+  right: number;
+  top: number;
+}
+
+
 export interface BoardState {
   fen: string;
   sourceSquare: string | null;
   destinationSquare: string | null;
   moveSquares: MoveSquares;
   isLoading: boolean;
+  markerPosition: MarkerPosition;
 }
 
 const initialState: BoardState = {
@@ -19,6 +26,10 @@ const initialState: BoardState = {
   destinationSquare: null,
   moveSquares: {},
   isLoading: false,
+  markerPosition: {
+    right: 0,
+    top: 0,
+  },
 };
 
 const boardSlice = createSlice({
@@ -43,20 +54,16 @@ const boardSlice = createSlice({
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
+    setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
+      state.markerPosition = action.payload;
+    },
     resetBoard(state) {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const {
-  setFen,
-  setSourceSquare,
-  setDestinationSquare,
-  setMoveSquares,
-  clearMoveSquares,
-  setIsLoading,
-  resetBoard,
-} = boardSlice.actions;
+export const { setFen, setSourceSquare, setDestinationSquare, setMoveSquares, setMarkerPosition, clearMoveSquares, setIsLoading, resetBoard } =
+  boardSlice.actions;
 
 export default boardSlice.reducer;
