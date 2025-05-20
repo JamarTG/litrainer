@@ -1,4 +1,4 @@
-import { useDepth } from "../../context/DepthContext";
+import { useDepth } from "../../context/hooks/useDepth";
 
 const EngineDepthControl = () => {
   const { depth, setDepth } = useDepth(); 

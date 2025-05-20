@@ -10,9 +10,8 @@ import { isPositiveClassification } from "../utils/classification";
 import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useEngineContext } from "../context/EngineContext";
-import { useDepth } from "../context/DepthContext";
-
+import { useEngineContext } from "../context/hooks/useEngineContext";
+import { useDepth } from "../context/hooks/useDepth";
 
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
