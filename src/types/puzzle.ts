@@ -16,11 +16,13 @@ export interface Puzzle {
   userMove:{ san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
   opponentMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
   clock: LichessClock;
-  winner?: "w" | "b";
+  winner?: Color;
   moveNumber: number;
   opening: Opening;
-  phase: "opening" | "middlegame" | "endgame";
+  phase: Phase
 }
+
+type Phase = "opening" | "middlegame" | "endgame";
 
 export interface Opening {
   eco: string;

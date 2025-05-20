@@ -1,6 +1,5 @@
 import { Color, Square } from "chess.js";
 import { boardDimensions } from "../../constants/board";
-import { SquareCoordinates } from "../../types/board";
 
 export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
   const { minimumSize, maximumSize } = boardDimensions;
@@ -15,7 +14,7 @@ export const getSquareCoordinates = (
   square: Square,
   chessBoardSize: number, 
   boardOrientation: Color
-): SquareCoordinates => {
+) => {
 
   const [fileLetter, rankNumberAsString] = square;
   const fileLetterASCIINumberCode = fileLetter.charCodeAt(0);

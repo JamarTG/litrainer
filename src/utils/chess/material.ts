@@ -1,4 +1,4 @@
-import { Chess } from "chess.js";
+import { Chess, Color } from "chess.js";
 import { Materials } from "../../types/eval";
 
 export const calculateMaterialDifference = (currentGame: Chess): Materials => {
@@ -34,7 +34,7 @@ export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   return { w, b };
 };
 
-export const determineColorLeadingInMaterial = (material: Materials, color: "w" | "b"): number => {
+export const determineColorLeadingInMaterial = (material: Materials, color: Color): number => {
   const materialDifference =
     material.w.p -
     material.b.p +

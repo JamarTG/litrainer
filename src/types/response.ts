@@ -19,8 +19,3 @@ export interface LichessGameResponse {
     end: number
   }
 }
-
-export interface Division {
-  middle: number,
-  end:number
-}
