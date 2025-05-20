@@ -50,7 +50,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
           ReactDOM.createPortal(
             <div
               ref={gamesDropdown.dropdownRef}
-              className="z-50 shadow-2xl"
+              className="z-50 bg-white shadow-2xl"
             >
               <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
                 <div className="flex flex-col space-y-0">

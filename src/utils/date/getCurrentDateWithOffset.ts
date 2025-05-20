@@ -1,5 +1,6 @@
-export const getCurrentDateWithOffset = (offsetDays: number): string => {
-  const date = new Date();
-  date.setDate(date.getDate() + offsetDays);
-  return date.toISOString().split("T")[0];
+export const getCurrentDateWithOffset = (offSetDaysAsNumber: number): string => {
+  const todaysDate = new Date();
+  const todaysDateAsNumber = todaysDate.getDate();
+  todaysDate.setDate(todaysDateAsNumber + offSetDaysAsNumber);
+  return todaysDate.toISOString().split("T")[0];
 };

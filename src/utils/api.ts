@@ -1,43 +1,40 @@
-import { parseLichessResponse } from "../lib/lichess/parsers";
+import { decodeLichessGameResponse } from "../lib/lichess/parsers";
 
-export const getLichessGames = async (
-  username: string,
-  since: string,
-  until: string,
-  maxNoGames: string,
-  sort: string,
-  color: string,
-  gameTypes: string[]
+export const fetchAndParseLichessGames = async (
+  lichessUsername: string,
+  startTimeEpochMillis: string,
+  endTimeEpochMillis: string,
+  maximumNumberOfGamesToFetch: string,
+  sortOrderChronologicalOrReverse: string,
+  playerPerspectiveColor: string,
+  preferredGameSpeedCategories: string[]
 ) => {
-  const url = new URL(`https://lichess.org/api/games/user/${username}`);
+  const lichessUserGamesAPIURL = new URL(`https://lichess.org/api/games/user/${lichessUsername}`);
 
-  url.searchParams.append("since", since);
-  url.searchParams.append("until", until);
-  url.searchParams.append("max", maxNoGames);
-  url.searchParams.append("sort", sort);
-  url.searchParams.append("color", color);
-  url.searchParams.append("perfType", gameTypes.join(","));
-  url.searchParams.append("evals", "true");
-  url.searchParams.append("analysed", "true");
-  url.searchParams.append("division", "true");
-  url.searchParams.append("finished", "true");
-  url.searchParams.append("opening", "true");
+  lichessUserGamesAPIURL.searchParams.append("since", startTimeEpochMillis);
+  lichessUserGamesAPIURL.searchParams.append("until", endTimeEpochMillis);
+  lichessUserGamesAPIURL.searchParams.append("max", maximumNumberOfGamesToFetch);
+  lichessUserGamesAPIURL.searchParams.append("sort", sortOrderChronologicalOrReverse);
+  lichessUserGamesAPIURL.searchParams.append("color", playerPerspectiveColor);
+  lichessUserGamesAPIURL.searchParams.append("perfType", preferredGameSpeedCategories.join(","));
+  lichessUserGamesAPIURL.searchParams.append("evals", "true");
+  lichessUserGamesAPIURL.searchParams.append("analysed", "true");
+  lichessUserGamesAPIURL.searchParams.append("division", "true");
+  lichessUserGamesAPIURL.searchParams.append("finished", "true");
+  lichessUserGamesAPIURL.searchParams.append("opening", "true");
 
-  const response = await fetch(url, {
+  const lichessApiRequestInitOptions: RequestInit = {
     headers: {
       Accept: "application/x-ndjson",
     },
-  });
+  };
+  const lichessUserGamesApiResponse = await fetch(lichessUserGamesAPIURL, lichessApiRequestInitOptions);
 
-  if (!response.ok) {
-    throw new Error(`Error ${response.status}: ${response.statusText}`);
-  }
+  if (!lichessUserGamesApiResponse.ok)
+    throw new Error(`Error ${lichessUserGamesApiResponse.status}: ${lichessUserGamesApiResponse.statusText}`);
 
-  const parsedPuzzleData = await parseLichessResponse(response);
+  const puzzlesFromLichessUserGames = await decodeLichessGameResponse(lichessUserGamesApiResponse);
+  if (!puzzlesFromLichessUserGames) throw new Error("No puzzle created from specified params");
 
-  if (!parsedPuzzleData) {
-    throw new Error("No games found for the given criteria");
-  }
-
-  return parsedPuzzleData;
+  return puzzlesFromLichessUserGames;
 };

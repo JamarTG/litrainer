@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
-import { getLichessGames } from "../utils/api";
+import { fetchAndParseLichessGames } from "../utils/api";
 import createPuzzles from "../lib/lichess/parsers";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import { userExists } from "../lib/lichess/user";
-import { convertDateRangetoTimestamps } from "../utils/date/convertDateRangeToTimestamps";
-import { validateDates } from "../utils/date/validateDates";
+import { dateRangeToEpochMillis } from "../utils/date/dateRangeToEpochMillis";
 import { saveToLocalStorage } from "../utils/storage";
+import { validateDateRange } from "../utils/date/validateDateRange";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
@@ -34,16 +34,24 @@ const useSubmitHandler = (formData: Fields) => {
     color = color || "both";
     sort = sort || "desc";
 
-    const { valid, startDate: validatedStart, endDate: validatedEnd } = validateDates(startDate, endDate);
-    if (!valid) {
+    const { isDateRangeValid, normalizedStartDate, normalizedEndDate } = validateDateRange(startDate, endDate);
+    if (!isDateRangeValid) {
       toast.error("Invalid date range.");
       return;
     }
 
-    const { since, until } = convertDateRangetoTimestamps(validatedStart, validatedEnd);
+    const { startTimeEpochMillis, endTimeEpochMillis } = dateRangeToEpochMillis(normalizedStartDate, normalizedEndDate);
 
     try {
-      const { games, evaluations } = await getLichessGames(username, since, until, maxNoGames.toString(), sort, color, gameTypes);
+      const { games, evaluations } = await fetchAndParseLichessGames(
+        username,
+        startTimeEpochMillis,
+        endTimeEpochMillis,
+        maxNoGames.toString(),
+        sort,
+        color,
+        gameTypes
+      );
 
       const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as unknown as LichessEvaluation[][]);
 
