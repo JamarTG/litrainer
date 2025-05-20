@@ -28,7 +28,7 @@ const usePuzzleSetup = (
     if (currentPuzzle.opponentMove?.lan) {
       executeComputerMove(game, currentPuzzle.opponentMove.lan);
     }
-  }, [puzzleIndex, puzzles, setFen]);
+  }, [puzzleIndex, puzzles, dispatch, game, executeComputerMove]);
 };
 
 export default usePuzzleSetup;

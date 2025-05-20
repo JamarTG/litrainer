@@ -30,7 +30,7 @@ import Portal from "./Portal";
   }) => {
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      setFormData((prevFormData: any) => ({
+      setFormData((prevFormData: Fields) => ({
         ...prevFormData,
         [name]: name === "maxNoGames" ? parseInt(value) : value,
       }));

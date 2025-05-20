@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { boardDimensions } from '../constants/board';
 
 const useDraggableResizer = (setBoardSize: (size: number) => void) => {
-  const { minSize, maxSize } = boardDimensions;
+  const { minimumSize, maximumSize } = boardDimensions;
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
   const isResizing = useRef<boolean>(false);
@@ -16,7 +16,7 @@ const useDraggableResizer = (setBoardSize: (size: number) => void) => {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const newWidth = initialWidth + (moveEvent.clientX - initialX);
-      setBoardSize(Math.max(minSize, Math.min(maxSize, newWidth)));
+      setBoardSize(Math.max(minimumSize, Math.min(maximumSize, newWidth)));
     };
 
     const onMouseUp = () => {
@@ -27,7 +27,7 @@ const useDraggableResizer = (setBoardSize: (size: number) => void) => {
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  }, [minSize, maxSize, setBoardSize]);
+  }, [minimumSize, maximumSize, setBoardSize]);
 
   return { boardRef, resizeRef, handleMouseDown };
 };

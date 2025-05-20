@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { Fields } from "../../../../../types/form";
+import { Fields, GameType } from "../../../../../types/form";
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 
@@ -15,12 +15,12 @@ const SlideOne: React.FC<SlideOneProps> = ({
   handleInputChange,
 }) => {
   const handleGameTypesChange = (game: string) => {
-    game = game.toLowerCase();
-    setFormData((prevFormData: any) => ({
+    const gameType = game.toLowerCase() as GameType;
+    setFormData((prevFormData: Fields) => ({
       ...prevFormData,
-      gameTypes: prevFormData.gameTypes.includes(game)
-        ? prevFormData.gameTypes.filter((g: string) => g !== game)
-        : [...prevFormData.gameTypes, game],
+      gameTypes: prevFormData.gameTypes.includes(gameType)
+        ? prevFormData.gameTypes.filter((g: GameType) => g !== gameType)
+        : [...prevFormData.gameTypes, gameType],
     }));
   };
 

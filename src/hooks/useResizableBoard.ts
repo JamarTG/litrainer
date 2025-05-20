@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { boardDimensions } from '../constants/board';
 
 const useResizableBoard = () => {
-  const { initialSize, minSize, maxSize} = boardDimensions;
+  const { initialSize, minimumSize, maximumSize} = boardDimensions;
   const [boardSize, setBoardSize] = useState<number>(initialSize);
   const boardRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
@@ -15,9 +15,9 @@ const useResizableBoard = () => {
       const margin = 20;
       const maxBoardSize = maxViewportSize - margin * 2;
 
-      setBoardSize(Math.max(minSize, Math.min(maxSize, maxBoardSize)));
+      setBoardSize(Math.max(minimumSize, Math.min(maximumSize, maxBoardSize)));
     }
-  }, [minSize, maxSize]);
+  }, [minimumSize, maximumSize]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -37,7 +37,7 @@ const useResizableBoard = () => {
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       const width = initialWidth + (moveEvent.clientX - initialX);
-      setBoardSize(Math.max(minSize, Math.min(width, minSize)));
+      setBoardSize(Math.max(minimumSize, Math.min(width, minimumSize)));
     };
 
     const onMouseUp = () => {
@@ -48,7 +48,7 @@ const useResizableBoard = () => {
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  }, [initialSize, minSize, maxSize]);
+  }, [minimumSize,initialSize]);
 
   return { boardSize, boardRef, resizeRef, handleMouseDown };
 };

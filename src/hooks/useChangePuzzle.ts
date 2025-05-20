@@ -21,7 +21,7 @@ const useChangePuzzle = () => {
     dispatch(setDestinationSquare(null));
     dispatch(setSourceSquare(null));
     
-  }, [puzzleIndex, puzzles, setFen, setClassification, setIsPuzzleSolved]);
+  }, [puzzleIndex, puzzles, dispatch]);
 };
 
 export default useChangePuzzle;

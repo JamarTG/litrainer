@@ -20,5 +20,5 @@ export const useMarkerPositionEffect = (
       );
       dispatch(setMarkerPosition({ right, top }));
     }
-  }, [destinationSquare, boardSize, puzzleColor, setMarkerPosition]);
+  }, [destinationSquare, dispatch, boardSize, puzzleColor]);
 };

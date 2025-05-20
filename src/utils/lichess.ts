@@ -21,7 +21,7 @@ export const parseLichessResponse = async (response: Response) => {
   const unParsedGames = result
     .split("\n")
     .filter((unParsedGame) => unParsedGame.trim() !== "");
-  const evaluations: any = unParsedGames.map(
+  const evaluations:string[] = unParsedGames.map(
     (unParsedGame) => JSON.parse(unParsedGame).analysis
   );
 

@@ -1,23 +1,15 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useEffect, useState, ReactNode } from "react";
 import { UciEngine } from "../engine/uciEngine";
 import { EngineName } from "../types/engine";
 import { isWasmSupported } from "../engine/shared";
 import { pickEngine } from "../utils/engine";
 
-interface EngineContextProps {
+export interface EngineContextProps {
   engine: UciEngine | null;
   setEngineName: (name: EngineName) => void;
 }
 
-const EngineContext = createContext<EngineContextProps | undefined>(undefined);
-
-export const useEngineContext = () => {
-  const context = useContext(EngineContext);
-  if (!context) {
-    throw new Error("useEngineContext must be used within an EngineProvider");
-  }
-  return context;
-};
+export const EngineContext = createContext<EngineContextProps | undefined>(undefined);
 
 export const EngineProvider: React.FC<{
   children: ReactNode;

@@ -1,4 +1,4 @@
-import { Move } from "chess.js";
+import { Color, PieceSymbol, Square } from "chess.js";
 import { LichessClock } from "./clock";
 import { LichessEvaluation } from "./eval";
 import { GameType } from "./form";
@@ -13,8 +13,8 @@ export interface Puzzle {
   rated: boolean;
   status: string;
   variant: string;
-  userMove: Move;
-  opponentMove: Move;
+  userMove:{ san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
+  opponentMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
   clock: LichessClock;
   winner?: "white" | "black";
   moveNumber: number;
