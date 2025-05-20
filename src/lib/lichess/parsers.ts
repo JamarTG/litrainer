@@ -4,7 +4,7 @@ import { LichessGameResponse } from "../../types/response";
 import { Puzzle } from "../../types/puzzle";
 import { GameType } from "../../types/form";
 
-export const parseLichessResponse = async (response: Response) => {
+export const decodeLichessGameResponse = async (response: Response) => {
   if (!response.body) {
     return;
   }

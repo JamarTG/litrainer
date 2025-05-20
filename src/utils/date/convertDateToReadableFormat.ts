@@ -1,10 +1,10 @@
 export const convertDateToReadableFormat = (dateString: string) => {
   if (!dateString) return "";
-  const date = new Date(dateString);
-  const options: Intl.DateTimeFormatOptions = {
+  const dateFromDateString = new Date(dateString);
+  const dateTimeFormatOptions: Intl.DateTimeFormatOptions = {
     month: "short",
     day: "2-digit",
     year: "numeric",
   };
-  return date.toLocaleDateString("en-US", options);
+  return dateFromDateString.toLocaleDateString("en-US", dateTimeFormatOptions);
 };
