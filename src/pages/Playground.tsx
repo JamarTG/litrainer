@@ -10,7 +10,7 @@ import ThemeChanger from "../components/ThemeChanger";
 import NoGamesFound from "../components/ControlPanel/NoGamesFound";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
-import { useMoveHandler } from "../hooks/useMovehandler";
+import { useMoveHandler } from "../hooks/useMoveHandler";
 import { useSquareClickHandler } from "../hooks/useSquareClickHanlder";
 
 interface PlayGroundProps {

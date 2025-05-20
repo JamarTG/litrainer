@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Puzzle } from "../../../types/puzzle";
+import { Puzzle } from "../../types/puzzle";
 
 export interface PuzzleState {
   puzzles: Puzzle[];
