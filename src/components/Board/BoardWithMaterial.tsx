@@ -1,5 +1,5 @@
 import { Materials } from "../../types/eval";
-import PlayerWithMaterial from "./PlayerWithMaterial";
+import PlayerBadge from "./PlayerBadge";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
@@ -21,9 +21,9 @@ const BoardWithPlayers: React.FC<BoardWithPlayersProps> = ({
  
   return (
     <div className="flex flex-col justify-center items-center">
-      <PlayerWithMaterial color={opponentColor} material={material} />
+      <PlayerBadge color={opponentColor} material={material} />
       {children}
-      <PlayerWithMaterial color={userColor} material={material} />
+      <PlayerBadge color={userColor} material={material} />
     </div>
   );
 };

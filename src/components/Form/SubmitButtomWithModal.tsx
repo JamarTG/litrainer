@@ -1,12 +1,12 @@
 import { useState } from "react";
 import TrainerForm from "../Universal/Modals/TrainerForm";
 import { Fields } from "../../types/form";
-import { INITIAL_FORM_STATE } from "../../constants/form";
+import { initialFormState } from "../../constants/form";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
 
 const SubmitButtonWithModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState<Fields>(INITIAL_FORM_STATE);
+  const [formData, setFormData] = useState<Fields>(initialFormState);
 
   const handleSubmit = useHandleSubmit(formData);
 
