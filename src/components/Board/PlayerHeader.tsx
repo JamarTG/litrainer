@@ -29,7 +29,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
     );
   };
 
-  const renderPatronIcon = () => {
+  const renderPatronWing = () => {
     const isPatron = color === "w" ? puzzle?.players.white.user.patron : puzzle?.players.black.user.patron;
 
     return isPatron ? (
@@ -41,7 +41,16 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
 
   const renderPlayerTitle = () => {
     const playerTitle = color === "w" ? puzzle?.players.white.user.title : puzzle?.players.black.user.title;
-    return <>{playerTitle && <p className="text-orange-400 text-sm ml-1 md:text-base">{playerTitle}</p>}</>;
+    return (
+      <>
+        {playerTitle && (
+          <p className="text-orange-400 text-sm md:text-base">
+            {playerTitle}
+            {"  "}
+          </p>
+        )}
+      </>
+    );
   };
 
   const renderPlayerName = () => {
@@ -65,13 +74,17 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
       </p>
     );
   };
-  
+
   return (
     <div className="noto player-color flex justify-center items-center text-xs lg:text-base">
       {renderIcon()}
-      {renderPatronIcon()}
-      {renderPlayerTitle()}
-      {renderPlayerName()}
+
+      <div className="flex gap-1">
+        {renderPatronWing()}
+        {renderPlayerTitle()}
+        {renderPlayerName()}
+      </div>
+
       {renderPlayerRating()}
     </div>
   );
