@@ -182,7 +182,7 @@ const isPieceSacrifice = (fen: string, move: string) => {
 };
 
 export const getMaterialDiff = (game: Chess) => {
-  let material: Materials = {
+  const material: Materials = {
     w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     b: { p: 0, n: 0, b: 0, r: 0, q: 0 },
   };
@@ -199,10 +199,7 @@ export const getMaterialDiff = (game: Chess) => {
       }
     }
 
-    let materialDiff = 0;
-    for (const pieceType of ["p", "n", "b", "r", "q"] as const) {
-      materialDiff += (material.w[pieceType] - material.b[pieceType]) * PIECE_VALUE[pieceType];
-    }
+
   }
 
   const w = {

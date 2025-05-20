@@ -104,7 +104,7 @@ export abstract class UciEngine {
     const position = parseEvaluationResults(results, whiteToPlay);
 
     return position?.lines
-      .map(({ pv, cp }, _) => {
+      .map(({ pv, cp }) => {
         const move = pv[0];
 
         return {

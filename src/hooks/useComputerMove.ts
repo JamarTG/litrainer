@@ -17,7 +17,7 @@ export const useComputerMove = (setGame: (game: Chess) => void) => {
         dispatch(setFen(game.fen()));
       }, 500);
     },
-    [setGame, setFen]
+    [setGame, dispatch]
   );
 
   return { executeComputerMove };

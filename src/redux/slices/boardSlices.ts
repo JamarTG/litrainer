@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Chess } from "chess.js";
+import { CSSProperties } from "react";
 
 interface MoveSquares {
-  [square: string]: any;
+  [square: string]: CSSProperties;
 }
 
 interface MarkerPosition {

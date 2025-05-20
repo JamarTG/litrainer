@@ -17,7 +17,8 @@ const useSubmitHandler = (formData: Fields) => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { username, maxNoGames, startDate, endDate, gameTypes, color, sort } = formData;
+    let { maxNoGames, color, sort } = formData;
+    const { username, startDate, endDate, gameTypes } = formData;
 
     if (!(await userExists(username))) {
       toast.error("User does not exist.");
@@ -28,9 +29,6 @@ const useSubmitHandler = (formData: Fields) => {
       toast.error("Please select at least one game type.");
       return;
     }
-
-    
-    
 
     maxNoGames = maxNoGames || 10;
     color = color || "both";
@@ -47,17 +45,19 @@ const useSubmitHandler = (formData: Fields) => {
     try {
       const { games, evaluations } = await getLichessGames(username, since, until, maxNoGames.toString(), sort, color, gameTypes);
 
-      
-      const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as LichessEvaluation[][]);
+      const puzzles = createPuzzles(
+        username,
+        games as LichessGameResponse[],
+        (evaluations as unknown) as LichessEvaluation[][]
+      );
 
-      if(puzzles.length === 0) {
+      if (puzzles.length === 0) {
         toast.error(`No errors found for ${username} based on the given criteria`);
-        return
+        return;
       }
 
       saveLocal("puzzles", puzzles);
-      
-    
+
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
     } catch (error) {
