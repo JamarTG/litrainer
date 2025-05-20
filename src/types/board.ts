@@ -4,4 +4,6 @@ export interface Marker {
 }
 
 
-export type Color = "w" | "b";
+export type SquareCoordinates =  { top: number; right: number }
+
+export type BoardOrientation = "w" | "b";

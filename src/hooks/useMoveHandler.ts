@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
-import { checkKnownOpening, isNotUserTurn } from "../utils/chess/game";
 import { attemptMove } from "../utils/chess/move";
+import { openings } from "../data/openings";
 
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
@@ -28,9 +28,13 @@ export const useMoveHandler = (game: Chess) => {
   const fen = useSelector((state: RootState) => state.board.fen);
 
   const isInOpeningBook = () => {
-    const fenPosition = game.fen().split(" ")[0];
+    const fen = game.fen().split(" ")[0];
     const isMoveAccepted = true;
-    if (checkKnownOpening(fenPosition)) {
+
+    const fenWithoutColor = fen.split(" ")[0]    
+    const isKnownOpening = openings.some(opening => opening.fen === fenWithoutColor)
+
+    if (isKnownOpening) {
       handleEvaluation(MoveClassification.Book, isMoveAccepted);
       return true;
     }
@@ -100,9 +104,10 @@ export const useMoveHandler = (game: Chess) => {
     if (isPuzzleSolved) return false;
 
     const puzzle = puzzles[puzzleIndex];
-    if (isNotUserTurn(game, puzzle)) {
-      return false;
-    }
+    
+    const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
+    if (isOpponentsTurn) return false;
+    
 
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     const isMoveInvalid = !movePlayedByUser;

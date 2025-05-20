@@ -111,7 +111,7 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
         console.log(phase);
 
         if (game.winner) {
-          puzzle.winner = game.winner as "white" | "black";
+          puzzle.winner = game.winner as "w" | "b";
         }
 
         res.push(puzzle);

@@ -1,10 +1,10 @@
-import { LineEval, PositionEval } from "../../types/eval";
+import { VariationLineEvaluation, PositionEvaluation } from "../../types/eval";
 
-export const parseEvaluationResults = (results: string[], whiteToPlay: boolean): PositionEval => {
-  const parsedResults: PositionEval = {
+export const parseEvaluationResults = (results: string[], whiteToPlay: boolean): PositionEvaluation => {
+  const parsedResults: PositionEvaluation = {
     lines: [],
   };
-  const tempResults: Record<string, LineEval> = {};
+  const tempResults: Record<string, VariationLineEvaluation> = {};
 
   for (const result of results) {
     if (result.startsWith("bestmove")) {
@@ -50,7 +50,7 @@ export const parseEvaluationResults = (results: string[], whiteToPlay: boolean):
   return parsedResults;
 };
 
-export const sortLines = (a: LineEval, b: LineEval): number => {
+export const sortLines = (a: VariationLineEvaluation, b: VariationLineEvaluation): number => {
   if (a.mate !== undefined && b.mate !== undefined) {
     return a.mate - b.mate;
   }
