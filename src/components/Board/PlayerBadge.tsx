@@ -1,4 +1,4 @@
-import PlayerInfo from "./PlayerInfo";
+import PlayerInfo from "./PlayerHeader";
 import RenderMaterial from "./RenderMaterial";
 import { Materials } from "../../types/eval";
 
