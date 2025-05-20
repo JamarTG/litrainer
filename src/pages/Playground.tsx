@@ -11,7 +11,7 @@ import NoGamesFound from "../components/ControlPanel/NoGamesFound";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
-import { useSquareClickHandler } from "../hooks/useSquareClickHanlder";
+import { useSquareClickHandler } from "../hooks/useSquareClickHandler";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
