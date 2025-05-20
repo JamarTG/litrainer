@@ -12,11 +12,6 @@ export interface Fields {
 
 export type Sort = "asc" | "desc";
 
-export type GameType =
-  | "bullet"
-  | "blitz"
-  | "rapid"
-  | "classical"
-  | "correspondence";
+export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
 
 // export type Color = "black" | "white" | "both";

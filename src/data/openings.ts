@@ -1,4 +1,4 @@
-export const openings: { name: string; fen: string }[] = [
+export const openings = [
   {
     name: "Amar Gambit",
     fen: "rn1qkbnr/ppp2ppp/8/3p4/5p2/6PB/PPPPP2P/RNBQK2R",
