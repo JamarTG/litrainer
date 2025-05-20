@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields } from "../../../../../types/form";
@@ -11,7 +11,7 @@ interface DatesProps {
   formData: Fields;
 }
 
-const Dates: React.FC<DatesProps> = ({
+const Dates: FC<DatesProps> = ({
   handleInputChange,
   setFormData,
   formData,

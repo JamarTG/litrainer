@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
 import { Fields } from "../../../../../types/form";
 import Dates from "./Dates";
 
@@ -8,7 +8,7 @@ interface SlideTwoProps {
   formData: Fields;
 }
 
-const SlideTwo: React.FC<SlideTwoProps> = ({ handleInputChange, formData, setFormData }) => {
+const SlideTwo: FC<SlideTwoProps> = ({ handleInputChange, formData, setFormData }) => {
   
   return (
     <div className="grid gap-6 px-4">

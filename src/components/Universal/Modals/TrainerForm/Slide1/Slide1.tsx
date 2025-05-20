@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
 import { Fields, GameType } from "../../../../../types/form";
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
@@ -9,7 +9,7 @@ interface SlideOneProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SlideOne: React.FC<SlideOneProps> = ({
+const SlideOne: FC<SlideOneProps> = ({
   formData,
   setFormData,
   handleInputChange,

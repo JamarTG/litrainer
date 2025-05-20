@@ -1,14 +1,14 @@
-import { useRef, useState, useEffect, MouseEventHandler } from "react";
+import { useRef, useState, useEffect, MouseEventHandler, ReactNode, FC } from "react";
 import NavigationButtons from "./Navbuttons";
 import ProgressIndicator from "./ProgressIndicator";
 
 interface SwiperProps {
-  children: React.ReactNode[];
+  children: ReactNode[];
   className?: string;
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Swiper: React.FC<SwiperProps> = ({ children, className , handleSubmit}) => {
+const Swiper: FC<SwiperProps> = ({ children, className , handleSubmit}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 

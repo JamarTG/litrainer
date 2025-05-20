@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
 
 export interface DepthContextType {
   depth: number;
@@ -7,7 +7,7 @@ export interface DepthContextType {
 
 export const DepthContext = createContext<DepthContextType | undefined>(undefined);
 
-export function DepthProvider({ children }: { children: React.ReactNode }) {
+export function DepthProvider({ children }: { children: ReactNode }) {
   const [depth, setDepth] = useState<number>(12); 
 
   return (

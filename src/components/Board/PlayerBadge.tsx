@@ -1,13 +1,14 @@
 import PlayerInfo from "./PlayerHeader";
 import RenderMaterial from "./RenderMaterial";
 import { Materials } from "../../types/eval";
+import { FC } from "react";
 
 interface PlayerWithMaterialProps {
   color: "w" | "b";
   material: Materials;
 }
 
-const PlayerWithMaterial: React.FC<PlayerWithMaterialProps> = ({
+const PlayerWithMaterial: FC<PlayerWithMaterialProps> = ({
   color,
   material,
 }) => {

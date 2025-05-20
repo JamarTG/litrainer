@@ -9,12 +9,12 @@ import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
 import { saveLocal } from "../utils/localStorage";
 import { toast } from "react-hot-toast";
-import React from "react";
+import { MouseEvent } from "react";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     let { maxNoGames, color, sort } = formData;

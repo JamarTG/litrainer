@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { FC, MouseEventHandler, MouseEvent } from "react";
 
 interface NavigationButtonsProps {
   handlePrev: () => void;
@@ -8,14 +8,14 @@ interface NavigationButtonsProps {
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
-const NavigationButtons: React.FC<NavigationButtonsProps> = ({
+const NavigationButtons: FC<NavigationButtonsProps> = ({
   handlePrev,
   handleNext,
   currentIndex,
   length,
   handleSubmit,
 }) => {
-  const submitHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const submitHandler = (event: MouseEvent<HTMLButtonElement>) => {
     if (currentIndex === length - 1) {
       handleSubmit(event); 
     } else {

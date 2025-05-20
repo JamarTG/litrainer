@@ -7,7 +7,7 @@ const useDraggableResizer = (setBoardSize: (size: number) => void) => {
   const resizeRef = useRef<HTMLDivElement>(null);
   const isResizing = useRef<boolean>(false);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+  const handleMouseDown = useCallback((e: MouseEvent) => {
     e.preventDefault();
     isResizing.current = true;
 

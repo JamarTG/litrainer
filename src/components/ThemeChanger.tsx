@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleTheme } from "../redux/slices/themeSlices";
 
-const ThemeChanger: React.FC = () => {
+const ThemeChanger: FC = () => {
 
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();

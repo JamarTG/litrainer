@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Materials } from "../../types/eval";
 import { getMaterialCount } from "../../utils/chess";
 import PieceIcon from "../Icons/PieceIcons";
@@ -10,7 +10,7 @@ interface RenderMaterialProps {
   color: Color;
 }
 
-const RenderMaterial: React.FC<RenderMaterialProps> = ({ material, color }) => {
+const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   
   useEffect(() => {
     setMaterialCount(getMaterialCount(material, color));

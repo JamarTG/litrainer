@@ -1,11 +1,11 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
+import { FC } from "react";
 interface NavigationProps {
   resetBoard: (changePuzzle: () => void) => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ resetBoard }) => {
+const Navigation: FC<NavigationProps> = ({ resetBoard }) => {
   const dispatch = useDispatch();
 
 

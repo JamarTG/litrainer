@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useEffect, useState, ReactNode, FC } from "react";
 import { UciEngine } from "../engine/uciEngine";
 import { EngineName } from "../types/engine";
 import { isWasmSupported } from "../engine/shared";
@@ -11,7 +11,7 @@ export interface EngineContextProps {
 
 export const EngineContext = createContext<EngineContextProps | undefined>(undefined);
 
-export const EngineProvider: React.FC<{
+export const EngineProvider: FC<{
   children: ReactNode;
   initialEngineName: EngineName;
 }> = ({ children, initialEngineName }) => {

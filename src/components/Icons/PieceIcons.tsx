@@ -1,8 +1,11 @@
-import React from "react";
+import { cloneElement, FC } from "react";
 
 const PIECE_SVGS = {
   bishop: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 45 45"
+    >
       <path
         fill="#7f7f7f"
         stroke="#7f7f7f"
@@ -11,7 +14,10 @@ const PIECE_SVGS = {
     </svg>
   ),
   knight: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 45 45"
+    >
       <g
         fill="#7f7f7f"
         fillRule="evenodd"
@@ -26,7 +32,10 @@ const PIECE_SVGS = {
     </svg>
   ),
   pawn: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 45 45"
+    >
       <path
         fill="#7f7f7f"
         stroke="#7f7f7f"
@@ -37,7 +46,10 @@ const PIECE_SVGS = {
     </svg>
   ),
   queen: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 45 45"
+    >
       <g
         fill="#7f7f7f"
         fillRule="evenodd"
@@ -46,13 +58,19 @@ const PIECE_SVGS = {
         strokeWidth="1.5"
       >
         <path d="M9 39h27v-3H9v3zm3.5-7 1.5-2.5h17l1.5 2.5h-20zm-.5 4v-4h21v4H12z" />
-        <path strokeLinejoin="miter" d="M14 29.5v-13h17v13H14z" />
+        <path
+          strokeLinejoin="miter"
+          d="M14 29.5v-13h17v13H14z"
+        />
         <path d="M14 16.5 11 14h23l-3 2.5H14zM11 14V9h4v2h5V9h5v2h5V9h4v5H11z" />
       </g>
     </svg>
   ),
   rook: (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 45 45"
+    >
       <g
         fill="#7f7f7f"
         fillRule="evenodd"
@@ -61,20 +79,22 @@ const PIECE_SVGS = {
         strokeWidth="1.5"
       >
         <path d="M9 39h27v-3H9v3zm3.5-7 1.5-2.5h17l1.5 2.5h-20zm-.5 4v-4h21v4H12z" />
-        <path strokeLinejoin="miter" d="M14 29.5v-13h17v13H14z" />
+        <path
+          strokeLinejoin="miter"
+          d="M14 29.5v-13h17v13H14z"
+        />
         <path d="M14 16.5 11 14h23l-3 2.5H14zM11 14V9h4v2h5V9h5v2h5V9h4v5H11z" />
       </g>
     </svg>
   ),
 };
 
-
 interface PieceIconProps {
-  piece: keyof typeof PIECE_SVGS; 
-  size?: number; 
+  piece: keyof typeof PIECE_SVGS;
+  size?: number;
 }
 
-const PieceIcon: React.FC<PieceIconProps> = ({ piece, size = 24 }) => {
+const PieceIcon: FC<PieceIconProps> = ({ piece, size = 24 }) => {
   const svg = PIECE_SVGS[piece];
 
   if (!svg) {
@@ -82,11 +102,7 @@ const PieceIcon: React.FC<PieceIconProps> = ({ piece, size = 24 }) => {
     return null;
   }
 
-  return (
-    <div style={{ width: size, height: size }}>
-      {React.cloneElement(svg, { width: size, height: size })}
-    </div>
-  );
+  return <div style={{ width: size, height: size }}>{cloneElement(svg, { width: size, height: size })}</div>;
 };
 
 export default PieceIcon;

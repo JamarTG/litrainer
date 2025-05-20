@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { FC } from "react";
 
 interface PlayerInfoProps {
   color: "w" | "b";
 }
 
-const PlayerHeader: React.FC<PlayerInfoProps> = ({ color }) => {
+const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];

@@ -1,9 +1,11 @@
+import { FC } from "react";
+
 interface GameLinkProps {
   gameId: string;
   moveNo: number;
 }
 
-const GameLink: React.FC<GameLinkProps> = ({ gameId, moveNo }) => {
+const GameLink: FC<GameLinkProps> = ({ gameId, moveNo }) => {
   return (
     <div className="flex items-center gap-2">
      

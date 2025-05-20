@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ onDateSelect }) => {
+const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);

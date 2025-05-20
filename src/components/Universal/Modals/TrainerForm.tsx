@@ -1,6 +1,7 @@
 import {
     ChangeEvent,
     Dispatch,
+    FC,
     MouseEventHandler,
     SetStateAction,
     useRef,
@@ -15,13 +16,13 @@ import Portal from "./Portal";
   
   interface ParamsFormProps {
     isModalOpen: boolean;
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
     formData: Fields;
     setFormData: Dispatch<SetStateAction<Fields>>;
     handleSubmit: MouseEventHandler<HTMLButtonElement>;
   }
   
-  const TrainerForm: React.FC<ParamsFormProps> = ({
+  const TrainerForm: FC<ParamsFormProps> = ({
     isModalOpen,
     setIsModalOpen,
     formData,

@@ -3,12 +3,13 @@ import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
+import { FC } from "react";
 
 interface MarkerProps {
   boardSize: number;
 }
 
-const Marker: React.FC<MarkerProps> = ({ boardSize}) => {
+const Marker: FC<MarkerProps> = ({ boardSize}) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
