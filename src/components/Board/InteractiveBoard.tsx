@@ -7,7 +7,7 @@ import Marker from "./Marker";
 import useResponsiveBoardSize from "../../hooks/useResponsiveBoardSize";
 import BoardWithPlayers from "./BoardWithMaterial";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
-import { INITIAL_PIECE_COUNTS } from "../../constants/piece";
+import { initialPieceCounts } from "../../constants/piece";
 import { useMemo } from "react";
 import useDraggableResizer from "../../hooks/useDraggableResizer";
 import { createCustomPieces } from "../../utils/piece";
@@ -27,7 +27,7 @@ const InteractiveChessBoard: React.FC<BoardComponentProps> = ({
   handleMoveAttempt,
   unhighlightLegalMoves,
 }) => {
-  const [material, setMaterial] = useState<Materials>(INITIAL_PIECE_COUNTS);
+  const [material, setMaterial] = useState<Materials>(initialPieceCounts);
    const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex]
   const fen = useSelector((state: RootState) => state.board.fen);

@@ -47,7 +47,7 @@ const createInitialPieceCounts = () => ({
   q: 0,
 });
 
-export const INITIAL_PIECE_COUNTS = {
+export const initialPieceCounts = {
   w: createInitialPieceCounts(),
   b: createInitialPieceCounts(),
 };
