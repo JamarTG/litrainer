@@ -9,22 +9,28 @@ interface BoardWithPlayersProps {
   children: ReactNode;
 }
 
-const BoardWithPlayers: FC<BoardWithPlayersProps> = ({
-  material,
-  children,
-}) => {
+const BoardWithPlayers: FC<BoardWithPlayersProps> = ({ material, children }) => {
+  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
+  const puzzle = puzzles[currentIndex];
 
-  const {puzzles, currentIndex} = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex]
-  
-  const userColor= puzzle?.userMove.color || "w";
-  const opponentColor= puzzle?.opponentMove.color || "b";
- 
+  const userColor = puzzle?.userMove.color || "w";
+  const opponentColor = puzzle?.opponentMove.color || "b";
+
   return (
     <div className="flex flex-col justify-center items-center">
-      <PlayerBadge color={opponentColor} material={material} />
+      {puzzle?.players && (
+        <PlayerBadge
+          color={opponentColor}
+          material={material}
+        />
+      )}
       {children}
-      <PlayerBadge color={userColor} material={material} />
+      {puzzle?.players && (
+        <PlayerBadge
+          color={userColor}
+          material={material}
+        />
+      )}
     </div>
   );
 };
