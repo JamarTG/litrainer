@@ -46,7 +46,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   );
 
   const customPieces = useMemo(() => {
-    return CustomPieces();
+    return CustomPieces("fresca");
   }, []);
 
   return (

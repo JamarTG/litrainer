@@ -2,7 +2,7 @@ import { Move, Square } from "chess.js";
 import { CSSProperties } from "react";
 import { Classification } from "../../../types/classification";
 import { ClassificationColors, MoveClassification } from "../../../constants/classification";
-
+import { BASE_SQUARE_HIGHLIGHT_STYLES, CLASSIFICATION_OPACITY, DEFAULT_CLASSIFICATION_COLOR, LEGAL_MOVE_GRADIENTS } from "../../../constants/board";
 
 export const getCustomSquareStyles = (
   dstSquare: Square | null,
@@ -15,13 +15,11 @@ export const getCustomSquareStyles = (
 
   if (dstSquare && srcSquare) {
     const baseStyles = {
-      backgroundSize: "30%",
-      backgroundPosition: "top right",
-      backgroundRepeat: "no-repeat",
+      ...BASE_SQUARE_HIGHLIGHT_STYLES,
       backgroundColor:
         classification && !isLoadingEvaluation
           ? ClassificationColors[MoveClassification[classification as keyof typeof MoveClassification]]
-          : "grey",
+          : DEFAULT_CLASSIFICATION_COLOR,
     };
 
     styles[dstSquare] = {
@@ -30,7 +28,7 @@ export const getCustomSquareStyles = (
 
     styles[srcSquare] = {
       ...baseStyles,
-      opacity: classification ? 0.7 : 1,
+      opacity: classification ? CLASSIFICATION_OPACITY : 1,
     };
   }
 
@@ -43,8 +41,8 @@ export const getHighlightedLegalMoves = (legalMoves: Move[]) => {
 
     styles[move.to] = {
       background: isCaptureMove
-        ? "radial-gradient(circle, transparent 55%, rgba(0,0,0, 0.2) 35%)"
-        : "radial-gradient(circle, rgba(0,0,0, 0.2) 30%, transparent 35%)",
+        ? LEGAL_MOVE_GRADIENTS.capture
+        : LEGAL_MOVE_GRADIENTS.move,
       borderRadius: "50%",
       zIndex: 1,
     };

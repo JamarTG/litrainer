@@ -20,6 +20,8 @@ export const PieceType = {
 
 export const STARTING_POS_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
+export const PIECE_IMAGE_BASE_PATH = "pieceSets";
+
 export const PIECE_ICONS = {
   [PieceType.KNIGHT]: faChessKnight,
   [PieceType.BISHOP]: faChessBishop,
