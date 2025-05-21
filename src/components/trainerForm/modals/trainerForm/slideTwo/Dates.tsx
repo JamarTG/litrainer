@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields } from "../../../../../types/form";
+import { Fields, Sort } from "../../../../../types/form";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
 import { convertDateToReadableFormat } from "../../../../../utils/date/convertDateToReadableFormat";
@@ -20,7 +20,7 @@ const Dates: FC<DatesProps> = ({
   const calendarDropdown = usePopperDropDown();
   const sortbyDropdown = usePopperDropDown();
 
-  const [sortOption, setSortOption] = useState<"asc" | "desc">("desc");
+  const [sortOption, setSortOption] = useState<Sort>("desc");
 
   const handleDateSelect = (startDate: Date | null, endDate: Date | null) => {
     setFormData((prevFormData) => ({
@@ -31,7 +31,7 @@ const Dates: FC<DatesProps> = ({
     calendarDropdown.toggleDropdown();
   };
 
-  const handleSortOptionSelect = (option: "asc" | "desc") => {
+  const handleSortOptionSelect = (option: Sort) => {
     
     setSortOption(option);
     setFormData((prevFormData) => ({
