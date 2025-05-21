@@ -1,14 +1,24 @@
 import { Color, Square } from "chess.js";
 import { boardDimensions } from "../../constants/board";
 
-export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
+export const calculateBoardSize = (
+  windowWidth: number,
+  windowHeight: number,
+  offset: number = 100
+): number => {
   const { minimumSize, maximumSize } = boardDimensions;
 
-  const smallestWindowDimension = Math.min(windowWidth - offset, windowHeight - offset);
-  const clampedSize = Math.min(maximumSize, Math.max(minimumSize, smallestWindowDimension));
+  // Use only half the window width
+  const halfWindowWidth = windowWidth / 2;
+  const usableWidth = halfWindowWidth - offset;
+  const usableHeight = windowHeight - offset;
+
+  const smallestUsableDimension = Math.min(usableWidth, usableHeight);
+  const clampedSize = Math.min(maximumSize, Math.max(minimumSize, smallestUsableDimension));
 
   return clampedSize;
 };
+
 
 export const getSquareCoordinates = (
   square: Square,

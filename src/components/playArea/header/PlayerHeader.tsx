@@ -28,7 +28,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
 
     return (
       <span
-        className="icon text-base"
+        className="icon"
         dangerouslySetInnerHTML={{ __html: icon }}
       />
     );
@@ -40,7 +40,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
     return (
       isPatron && (
         <span
-          className="icon text-orange-500 text-lg md:text-xl ml-1"
+          className="icon text-orange-500"
           dangerouslySetInnerHTML={{ __html: PLAYER_ICONS.patron }}
         />
       )
@@ -52,7 +52,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
     return (
       <>
         {playerTitle && (
-          <p className="text-orange-400 text-sm md:text-base">
+          <p className="text-orange-400">
             {playerTitle}
             {"  "}
           </p>
@@ -84,7 +84,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   };
 
   return (
-    <div className="noto player-color flex justify-center items-center gap-1 text-xs lg:text-base">
+    <div className="noto player-color flex justify-center items-center gap-1 text-md">
       {renderIcon()}
       {renderPatronWing()}
       {renderPlayerTitle()}
