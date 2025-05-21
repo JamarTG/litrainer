@@ -1,4 +1,4 @@
-import { chessPieceCodes, PIECE_IMAGE_BASE_PATH } from "../../constants/piece";
+import { chessPieceCodes, PIECE_BACKGROUND_SIZE, PIECE_IMAGE_BASE_PATH } from "../../constants/piece";
 
 const CustomPieces = (pieceSet : string) => {
   const pieceComponents: { [key: string]: React.FC<{ squareWidth: number }> } = {};
@@ -10,7 +10,7 @@ const CustomPieces = (pieceSet : string) => {
           width: squareWidth,
           height: squareWidth,
           backgroundImage: `url(/${PIECE_IMAGE_BASE_PATH}/${pieceSet}/${chessPieceCode}.svg)`,
-          backgroundSize: "100%",
+          backgroundSize: PIECE_BACKGROUND_SIZE,
         }}
       />
     );

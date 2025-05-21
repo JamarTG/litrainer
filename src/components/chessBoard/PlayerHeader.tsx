@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { FC } from "react";
 import { Color } from "chess.js";
+import { PLAYER_ICONS, RATING_DIFF_CLASSES } from "../../constants/player";
+import { LICHESS_PROFILE_BASE_URL } from "../../constants/lichess";
 
 interface PlayerInfoProps {
   color: Color;
@@ -11,32 +13,38 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
-
   const player = puzzles[currentIndex]?.players[color === "w" ? "white" : "black"];
-  const iconColor = theme === "light" ? (color === "w" ? "black" : "white") : color;
+  const { rating, provisional, ratingDiff, user } = player;
 
-  const rating = player?.rating;
-  const provisional = player?.provisional;
-  const ratingDiff = player?.ratingDiff;
-  const colorClass = ratingDiff > 0 ? "text-green-500" : ratingDiff < 0 ? "text-red-500" : "text-gray-500";
+  const colorClass =
+    ratingDiff > 0 ? RATING_DIFF_CLASSES.positive : ratingDiff < 0 ? RATING_DIFF_CLASSES.negative : RATING_DIFF_CLASSES.neutral;
   const showDiff = ratingDiff !== undefined && ratingDiff !== 0;
 
   const renderIcon = () => {
+    const isLightTheme = theme === "light";
+    const isWhite = color === "w";
+
+    const icon = (isLightTheme && isWhite) || (!isLightTheme && !isWhite) ? PLAYER_ICONS.unfilled : PLAYER_ICONS.filled;
+
     return (
-      <div className="rounded-full px-1">
-        {iconColor === "w" ? <span className="icon text-xl">&#xe028;</span> : <span className="icon text-xl">&#xe029;</span>}
-      </div>
+      <span
+        className="icon text-base"
+        dangerouslySetInnerHTML={{ __html: icon }}
+      />
     );
   };
 
   const renderPatronWing = () => {
     const isPatron = color === "w" ? puzzle?.players.white.user.patron : puzzle?.players.black.user.patron;
 
-    return isPatron ? (
-      <div>
-        <small className="icon text-orange-500 text-xl md:text-2xl ml-1">&#xe06c;</small>
-      </div>
-    ) : null;
+    return (
+      isPatron && (
+        <span
+          className="icon text-orange-500 text-lg md:text-xl ml-1"
+          dangerouslySetInnerHTML={{ __html: PLAYER_ICONS.patron }}
+        />
+      )
+    );
   };
 
   const renderPlayerTitle = () => {
@@ -57,7 +65,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
     return (
       <a
         className="text-blue-500"
-        href={`https://lichess.org/@/${name}`}
+        href={`${LICHESS_PROFILE_BASE_URL}${user.name}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -76,15 +84,11 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   };
 
   return (
-    <div className="noto player-color flex justify-center items-center text-xs lg:text-base">
+    <div className="noto player-color flex justify-center items-center gap-1 text-xs lg:text-base">
       {renderIcon()}
-
-      <div className="flex gap-1">
-        {renderPatronWing()}
-        {renderPlayerTitle()}
-        {renderPlayerName()}
-      </div>
-
+      {renderPatronWing()}
+      {renderPlayerTitle()}
+      {renderPlayerName()}
       {renderPlayerRating()}
     </div>
   );
