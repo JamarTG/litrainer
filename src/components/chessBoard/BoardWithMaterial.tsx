@@ -3,7 +3,7 @@ import PlayerBadge from "./PlayerBadge";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { FC, ReactNode } from "react";
-import { DEFAULT_OPPONENT_COLOR, DEFAULT_USER_COLOR } from "../../constants/board";
+// import { DEFAULT_OPPONENT_COLOR, DEFAULT_USER_COLOR } from "../../constants/board";
 
 interface BoardWithPlayersProps {
   material: Materials;
@@ -14,8 +14,8 @@ const BoardWithPlayers: FC<BoardWithPlayersProps> = ({ material, children }) => 
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
   const puzzle = puzzles[currentIndex];
 
-  const userColor = puzzle?.userMove.color || DEFAULT_USER_COLOR;
-  const opponentColor = puzzle?.opponentMove.color || DEFAULT_OPPONENT_COLOR;
+  const userColor = puzzle?.userMove.color;
+  const opponentColor = puzzle?.opponentMove.color;
 
   return (
     <div className="flex flex-col justify-center items-center">

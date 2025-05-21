@@ -1,0 +1,1 @@
+export const LICHESS_PROFILE_BASE_URL = "https://lichess.org/@/";

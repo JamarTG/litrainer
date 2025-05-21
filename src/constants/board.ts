@@ -26,3 +26,5 @@ export const LEGAL_MOVE_GRADIENTS = {
 
 export const DEFAULT_USER_COLOR = "w";
 export const DEFAULT_OPPONENT_COLOR = "b";
+
+export const MARKER_SIZE_RATIO = 16;

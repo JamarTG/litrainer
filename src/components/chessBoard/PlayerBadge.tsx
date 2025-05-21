@@ -4,12 +4,12 @@ import { FC } from "react";
 import PlayerHeader from "./PlayerHeader";
 import { Color } from "chess.js";
 
-interface PlayerWithMaterialProps {
+interface PlayerBadgeProps {
   color: Color;
   material: Materials;
 }
 
-const PlayerWithMaterial: FC<PlayerWithMaterialProps> = ({
+const PlayerBadge: FC<PlayerBadgeProps> = ({
   color,
   material,
 }) => {
@@ -21,4 +21,4 @@ const PlayerWithMaterial: FC<PlayerWithMaterialProps> = ({
   );
 };
 
-export default PlayerWithMaterial;
+export default PlayerBadge;
