@@ -4,12 +4,6 @@
   font-weight: 400;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .feedback-message {
   position: absolute;
   top: 50%;

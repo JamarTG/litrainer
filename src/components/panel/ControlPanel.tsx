@@ -25,13 +25,16 @@ const PuzzleControlPanel: FC<ControlPanelProps> = ({ unhighlightLegalMoves }) =>
   };
 
   return (
-    <div className="w-96 ">
+    <div className="flex flex-col w-full">
       <EngineDepthControl />
 
       {isDataAvailable && (
-        <div className="flex flex-col items-center gap-5 w-full m-5">
-          <GameInfo />
-          <PuzzleInfo />
+        <div className="flex flex-col gap-1 justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <GameInfo />
+            <PuzzleInfo />
+          </div>
+
           <Navigation resetBoard={resetBoard} />
         </div>
       )}

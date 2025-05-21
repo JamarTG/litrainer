@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import SubmitButtonWithModal from "../trainerForm/SubmitButtonWithModal";
 import { RootState } from "../../redux/store";
-import { NO_GAMES_FOUND_COLORS } from "../../constants/theme";
+import { NO_GAMES_FOUND_COLORS } from "../../constants/style";
 
 const NoGamesFound = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);

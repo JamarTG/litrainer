@@ -15,9 +15,7 @@ const App = () => {
       <BrowserRouter>
         <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
           <DepthProvider>
-     
               <Router />
-          
           </DepthProvider>
         </EngineProvider>
       </BrowserRouter>

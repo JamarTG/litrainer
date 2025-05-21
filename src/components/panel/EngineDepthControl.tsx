@@ -5,7 +5,7 @@ const EngineDepthControl = () => {
   const { depth, setDepth } = useDepth(); 
 
   return (
-    <div className="p-6 rounded-lg">
+    <div className="rounded-lg w-full">
       <div className="flex gap-2 items-center space-x-4">
         <input
           type="range"
@@ -18,7 +18,7 @@ const EngineDepthControl = () => {
         />
         {depth}
       </div>
-      <p className="mt-3 text-sm">
+      <p className="mt-3 text-md w-full">
         Adjust the depth of the chess engine analysis.
       </p>
     </div>
