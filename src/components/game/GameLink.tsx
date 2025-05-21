@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { LICHESS_BASE_URL } from "../../constants/lichess";
 
 interface GameLinkProps {
   gameId: string;
@@ -10,7 +11,7 @@ const GameLink: FC<GameLinkProps> = ({ gameId, moveNo }) => {
     <div className="flex items-center gap-2">
      
       <a
-        href={`https://lichess.org/${gameId}#${moveNo}`}
+        href={`${LICHESS_BASE_URL}${gameId}#${moveNo}`}
         target="_blank"
         rel="noopener noreferrer"
         className="text-sm text-blue-500 hover:text-blue-600 transition-colors duration-200"
