@@ -1,5 +1,5 @@
 import { GameType } from "../../types/form";
-import { timeControlIcons } from "../../constants/tc";
+import { timeControlIcons } from "../../constants/game";
 import { FC } from "react";
 
 interface GameSpeedIconProps {
