@@ -1,5 +1,5 @@
 import GameInfo from "../game/GameInfo";
-import PuzzleInfo from "../puzzle/PuzzleInfo";
+import PuzzleInfo from "./PuzzleInfo";
 import Navigation from "./Navigation";
 import EngineDepthControl from "./EngineDepthControl";
 import { useDispatch, useSelector } from "react-redux";

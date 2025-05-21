@@ -3,7 +3,7 @@ import { Chess } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
-import InteractiveChessBoard from "../components/chessBoard/InteractiveBoard";
+import InteractiveChessBoard from "../components/playArea/board/InteractiveBoard";
 import ThemeChanger from "../components/ThemeChanger";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";

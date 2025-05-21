@@ -1,17 +1,17 @@
 import { useState, useMemo, FC } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
-import { Materials } from "../../types/eval";
-import Marker from "./Marker";
-import useResponsiveBoardSize from "../../hooks/useResponsiveBoardSize";
-import BoardWithPlayers from "./BoardWithMaterial";
-import { useMaterialEffect } from "../../hooks/useMaterialEffect";
-import { initialPieceCounts } from "../../constants/piece";
-import useDraggableResizer from "../../hooks/useDraggableResizer";
+import { Materials } from "../../../types/eval";
+import Marker from "./MoveClassificationMarker";
+import useResponsiveBoardSize from "../../../hooks/useResponsiveBoardSize";
+import BoardPlayerInfo from "../header/BoardPlayerInfo";
+import { useMaterialEffect } from "../../../hooks/useMaterialEffect";
+import { initialPieceCounts } from "../../../constants/piece";
+import useDraggableResizer from "../../../hooks/useDraggableResizer";
 import CustomPieces from "./CustomPieces";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { getCustomSquareStyles } from "./helpers/squareStyles";
+import { RootState } from "../../../redux/store";
+import { getCustomSquareStyles } from "../helpers/squareStyles";
 
 interface BoardComponentProps {
   game: Chess;
@@ -50,7 +50,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   }, []);
 
   return (
-    <BoardWithPlayers material={material}>
+    <BoardPlayerInfo material={material}>
       <div
         ref={boardRef}
         className="relative flex flex-col justify-center items-center gap-2"
@@ -70,7 +70,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
         />
         <Marker boardSize={boardSize} />
       </div>
-    </BoardWithPlayers>
+    </BoardPlayerInfo>
   );
 };
 
