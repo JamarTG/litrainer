@@ -16,10 +16,9 @@ const usePuzzleSetup = (
   useEffect(() => {
     const currentPuzzle = puzzles[puzzleIndex] || puzzles[0];
     if (!currentPuzzle) return;
-
-    dispatch(setFen(currentPuzzle.fen.previous));
     game.load(currentPuzzle.fen.previous);
 
+    dispatch(setFen(currentPuzzle.fen.previous));
     dispatch(setClassification(null));
     dispatch(setIsPuzzleSolved(false));
     dispatch(setSourceSquare(null));

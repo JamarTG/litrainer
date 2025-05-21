@@ -2,7 +2,7 @@ import { createPopper } from "@popperjs/core";
 import { useState, useRef, useEffect } from "react";
 
 const usePopperDropDown = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const triggerRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const DepthSlider = () => {
-  const [depth, setDepth] = useState(0);
+  const [depth, setDepth] = useState<number>(0);
   return (
     <div className="flex">
       <input

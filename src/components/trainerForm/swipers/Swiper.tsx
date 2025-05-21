@@ -11,7 +11,7 @@ interface SwiperProps {
 
 const Swiper: FC<SwiperProps> = ({ children, className , handleSubmit}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const scrollToSlide = (index: number) => {
     if (containerRef.current) {

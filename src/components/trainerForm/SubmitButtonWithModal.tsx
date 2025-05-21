@@ -5,7 +5,7 @@ import { initialFormState } from "../../constants/form";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
 
 const SubmitButtonWithModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Fields>(initialFormState);
 
   const handleSubmit = useHandleSubmit(formData);
