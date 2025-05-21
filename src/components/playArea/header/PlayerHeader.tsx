@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 import { FC } from "react";
 import { Color } from "chess.js";
-import { PLAYER_ICONS, RATING_DIFF_CLASSES } from "../../constants/player";
-import { LICHESS_PROFILE_BASE_URL } from "../../constants/lichess";
+import { PLAYER_ICONS, RATING_DIFF_CLASSES } from "../../../constants/player";
+import { LICHESS_PROFILE_BASE_URL } from "../../../constants/lichess";
 
 interface PlayerInfoProps {
   color: Color;

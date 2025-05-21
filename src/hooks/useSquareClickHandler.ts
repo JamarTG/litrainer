@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess, Move, Square } from "chess.js";
 import { RootState } from "../redux/store";
-import { getHighlightedLegalMoves } from "../components/chessBoard/helpers/squareStyles";
+import { getHighlightedLegalMoves } from "../components/playArea/helpers/squareStyles";
 import { useMoveHandler } from "./useMoveHandler";
 import { setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 
