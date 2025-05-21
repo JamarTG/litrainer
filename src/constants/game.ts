@@ -5,3 +5,5 @@ export const timeControlIcons: { [key: string]: string } = {
   correspondence: "\uE019",
   classical: "\uE00A",
 };
+
+export const games = ["Blitz", "Classical", "Rapid", "Bullet", "Correspondence"];

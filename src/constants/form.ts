@@ -9,3 +9,20 @@ export const initialFormState: Fields = {
   gameTypes: ["bullet", "blitz", "rapid", "classical", "correspondence"],
   sort: "desc",
 };
+
+export const DAYS_OF_WEEK = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const;
+
+export const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const;

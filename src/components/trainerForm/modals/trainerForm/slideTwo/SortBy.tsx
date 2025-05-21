@@ -1,4 +1,6 @@
-const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: "asc" | "desc") => void }) => {
+import { Sort } from "../../../../../types/form";
+
+const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: Sort) => void }) => {
   return (
     <div className="bg-secondary w-[128px] rounded-lg border border-shadowGray px-2 py-2">
       <div className="flex flex-col text-xs text-offWhite space-y-0">
