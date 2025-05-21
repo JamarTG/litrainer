@@ -68,7 +68,9 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
           arePiecesDraggable={!isPuzzleSolved}
           customPieces={customPieces}
         />
+
         <Marker boardSize={boardSize} />
+   
       </div>
     </BoardPlayerInfo>
   );

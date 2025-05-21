@@ -1,6 +1,6 @@
 const Paths = {
   HOME:"/",
-  ABOUT: "/about",
+  SETTINGS: "/settings",
   HELP: "/help",
 }
 

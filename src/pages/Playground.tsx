@@ -27,7 +27,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <>
       <InteractiveChessBoard
         game={game}
         handleSquareClick={handleSquareClick}
@@ -35,20 +35,19 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
+      {/* <Navigation resetBoard={() => {}} /> */}
+
       {/* <div className="w-full flex justify-center items-center">
         {puzzles.length !== 0 ? (
           <div className="w-full max-w-md flex flex-col items-center gap-4">
-            <div className="gap-4">
-              <SubmitButtonWithModal />
-              <ThemeChanger />
-            </div>
+            <SubmitButtonWithModal />
             <PuzzleControlPanel unhighlightLegalMoves={unhighlightLegalMoves} />
           </div>
         ) : (
           <NoGamesFound />
         )}
       </div> */}
-    </div>
+    </>
   );
 };
 

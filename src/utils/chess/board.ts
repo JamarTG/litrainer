@@ -1,11 +1,7 @@
 import { Color, Square } from "chess.js";
 import { boardDimensions } from "../../constants/board";
 
-export const calculateBoardSize = (
-  windowWidth: number,
-  windowHeight: number,
-  offset: number = 100
-): number => {
+export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
   const { minimumSize, maximumSize } = boardDimensions;
 
   // Use only half the window width
@@ -18,7 +14,6 @@ export const calculateBoardSize = (
 
   return clampedSize;
 };
-
 
 export const getSquareCoordinates = (
   square: Square,
