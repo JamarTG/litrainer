@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import SubmitButtonWithModal from "../trainerForm/SubmitButtonWithModal";
 import { RootState } from "../../redux/store";
+import { NO_GAMES_FOUND_COLORS } from "../../constants/theme";
 
 const NoGamesFound = () => {
   const theme = useSelector((state: RootState) => state.theme.theme);
-  const headingColor = theme === "light" ? "text-gray-700" : "text-yellow-400";
-  const textColor = theme === "light" ? "text-gray-600" : "text-gray-300";
+  const headingColor = theme === "light" ? NO_GAMES_FOUND_COLORS.light.heading : NO_GAMES_FOUND_COLORS.dark.heading;
+  const textColor = theme === "light" ? NO_GAMES_FOUND_COLORS.light.text : NO_GAMES_FOUND_COLORS.dark.text;
 
   return (
     <div className="w-full md:w-[400px] h-[600px] flex flex-col gap-4 justify-center items-center p-6">
