@@ -1,20 +1,16 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleTheme } from "../redux/slices/themeSlices";
+import useUpdateTheme from "../hooks/useUpdateTheme";
 
 const ThemeChanger: FC = () => {
 
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (theme === "dark") {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [theme]);
 
+  useUpdateTheme(theme);
+  
   return (
     <button onClick={() => dispatch(toggleTheme())}>
       {theme === "light" ? (
