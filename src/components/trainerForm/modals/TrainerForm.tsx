@@ -31,17 +31,17 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
   return (
     <Portal>
       <div className="">
-        <div className="fixed text-gray-600  inset-0  flex justify-center items-center z-50  modal-backdrop">
+        <div className="fixed inset-0  flex justify-center items-center z-50  modal-backdrop">
           <div className="fixed inset-0 z-40"></div>
           <div
             ref={modalRef}
-            className={`bg-white pt-4 w-[420px]  border-[1.5px] border-quaternary rounded-xl ${
+            className={` bg-theme-bg-light text-theme-text-light dark:bg-theme-bg-dark dark:text-theme-text-dark pt-4 w-[420px]  border-[1.5px] border-quaternary rounded-xl ${
               isModalOpen ? "fadeIn" : "animate-fadeOut"
             } z-50`}
           >
             <div className="py-1 ">
               <div className="flex gap-4 px-4">
-                <div className="bg-secondary shadow-2xl rounded-lg flex items-center justify-center border border-shadowGray w-fit p-3">
+                <div className="shadow-2xl rounded-lg flex items-center justify-center border border-shadowGray w-fit p-3">
                   <svg
                     width="20"
                     height="20"
@@ -54,7 +54,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
                 </div>
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between w-full">
-                    <h1 className="text-offWhite text-lg font-semibold">Training session form</h1>
+                    <h1 className="text-lg font-semibold">Training session form</h1>
                     <button
                       onClick={closeModal}
                       className="my-auto"
@@ -64,7 +64,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
                         height="20"
                         fill="currentColor"
                         viewBox="0 0 512 512"
-                        className="text-offWhite my-auto"
+                        className="my-auto"
                       >
                         <path d="m289.94 256 95-95A24 24 0 0 0 351 127l-95 95-95-95a24 24 0 0 0-34 34l95 95-95 95a24 24 0 1 0 34 34l95-95 95 95a24 24 0 0 0 34-34z" />
                       </svg>
@@ -74,7 +74,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
                 </div>
               </div>
               <div className="pt-5">
-                <div className="bg-tertiary w-full h-[1.5px]" />
+                <div className="w-full h-[1.5px]" />
               </div>
             </div>
 
