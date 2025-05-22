@@ -18,7 +18,7 @@ const PuzzleInfo = () => {
   return (
     <div
       style={{ width: "90%" }}
-      className="pl-2 w-full max-w-md px-4 sm:px-0 mx-auto rounded-lg border border-yellow-600 p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4 shadow-md"
+      className="pl-2  px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4"
     >
       <img
         src={imageSrc}

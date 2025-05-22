@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
 import { NAVIGATION_ICONS } from "../../constants/navigation";
+import SubmitButtonWithModal from "../trainerForm/SubmitButtonWithModal";
 
 const PuzzleNavigation = () => {
   const dispatch = useDispatch();
 
   return (
     <div style={{ width: "90%" }}
-      className="pl-2  px-4 sm:px-0 mx-auto rounded-lg border border-yellow-600 flex sm:flex-row items-center justify-center sm:items-start gap-4 shadow-md">
+        className="flex justify-center items-center pl-2  px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4 ">
       
       <button
         onClick={() => dispatch(prevPuzzle())}
@@ -41,6 +42,8 @@ const PuzzleNavigation = () => {
           dangerouslySetInnerHTML={{ __html: NAVIGATION_ICONS.NEXT }}
         />
       </button>
+
+      <SubmitButtonWithModal/>
     </div>
   );
 };

@@ -15,7 +15,10 @@ const SubmitButtonWithModal = () => {
   };
 
   return (
-    <div>
+  <div
+      style={{ width: "90%" }}
+      className="pl-2 px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4"
+    >
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
