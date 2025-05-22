@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { MoveClassificationImages, MoveClassification } from "../../constants/classification";
+// import { MoveClassificationImages, MoveClassification } from "../../constants/classification";
 
 const PuzzleInfo = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
@@ -9,38 +9,40 @@ const PuzzleInfo = () => {
 
   if (!puzzle) return null;
 
-  const imageSrc = classification
-    ? MoveClassificationImages[classification as keyof typeof MoveClassification]
-    : MoveClassificationImages[puzzle.evaluation.judgment?.name as keyof typeof MoveClassification];
+  // const imageSrc = classification
+  //   ? MoveClassificationImages[classification as keyof typeof MoveClassification]
+  //   : MoveClassificationImages[puzzle.evaluation.judgment?.name as keyof typeof MoveClassification];
 
-  const imageAlt = classification ?? puzzle.evaluation.judgment?.name ?? "move quality";
+  // const imageAlt = classification ?? puzzle.evaluation.judgment?.name ?? "move quality";
 
   return (
     <div
-      style={{ width: "90%" }}
-      className="pl-2  px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4"
+      className="border border-gray-300 dark:border-transparent w-full flex sm:flex-row items-center justify-center sm:items-start"
     >
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        className="ml-3 w-10 h-10 sm:w-12 sm:h-12 object-contain"
-      />
 
-      <div className="flex-1 text-center sm:text-left">
+      <div className="flex-1 text-center flex justify-center items-center sm:text-left h-[50px]">
         {playedMove && classification ? (
-          <>
-            <p className="text-base sm:text-lg font-semibold text-gray-800">
-              <span className="text-purple-900">{playedMove}</span>
+            <div className="flex flex-row justify-center items-center h-full xl:justify-center xl:items-center xl:flex-col gap-2">
+            <small className="text-sm text-gray-800">
+              <span className="text-xl font-bold">{playedMove}</span>
+              {classification && (
+              <span className="ml-2 text-base font-semibold text-purple-900">
+                ({classification})
+              </span>
+              )}
+            </small>
+            <p className="hidden xs:inline text-gray-600">
+              Best move: <span className="font-medium">{bestMove}</span>
             </p>
-            <p className="text-sm text-gray-700">
-              <span className="font-medium">{bestMove}</span>
-            </p>
-          </>
+            </div>
         ) : (
-          <>
-            <p className="text-base sm:text-lg text-gray-800">{puzzle.userMove?.san || "A move"} was played.</p>
-            <p className="text-sm text-gray-600">Try to find a better move.</p>
-          </>
+          <div className="flex flex-row justify-center items-center h-full xl:justify-center xl:items-center xl:flex-col gap-2">
+            <small className="text-sm text-gray-800 dark:text-white">
+              <span className="text-xl font-bold">{puzzle.userMove?.san || "A move"}?!</span>
+             
+            </small>
+            <p className="hidden xs:inline text-gray-600">Try to find a better move.</p>
+          </div>
         )}
       </div>
     </div>

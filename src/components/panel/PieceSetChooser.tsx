@@ -1,60 +1,28 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { PIECE_SETS } from "../../constants/pieceSet";
+import { useDispatch, useSelector } from "react-redux";
 import { setPieceSet } from "../../redux/slices/pieceSetSlices";
-import { useSelector } from "react-redux";
+import { PIECE_SETS } from "../../constants/pieceSet";
 import { RootState } from "../../redux/store";
+import GenericChooser from "../shared/GenericChooser";
 
 const PieceSetChooser = () => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const handleSelect = (pieceSet: string) => {
-    dispatch(setPieceSet(pieceSet));
-  };
-
   return (
-    <div
-      style={{ width: "90%" }}
-      className="pl-2 px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4"
-    >
-      <button
-        onClick={toggleDropdown}
-        className="w-24 rounded-md flex gap-2"
-      >
-        {pieceSet ? (
+    <GenericChooser
+      options={PIECE_SETS}
+      selected={pieceSet}
+      onSelect={(value) => dispatch(setPieceSet(value))}
+      getDisplay={(setName) => (
+        <div className="w-8 h-8" title={setName}>
           <img
-            className="w-4"
-            src={`pieceSets/${pieceSet}/wK.svg`}
+            src={`pieceSets/${setName}/wK.svg`}
+            className="w-8"
+            alt={setName}
           />
-        ) : null}
-        {pieceSet || "Select Piece Sets"}
-        <span className="ml-2"> </span>
-      </button>
-
-      {isOpen && (
-        <ul className="absolute dark:bg-[#2c2c2c] dark:text-white mt-8 p-2 w-40 h-48 overflow-y-auto bg-white border rounded shadow-lg z-10">
-          {PIECE_SETS.map((pieceSet) => (
-            <li
-              onClick={() => handleSelect(pieceSet)}
-              key={pieceSet}
-              className="cursor-pointer dark:hover:bg-[#000] w-full hover:bg-gray-100 px-4 py-2 flex gap-2"
-            >
-              <img
-                src={`pieceSets/${pieceSet}/wK.svg`}
-                className="w-4"
-                alt={pieceSet}
-              />
-
-              {pieceSet}
-            </li>
-          ))}
-        </ul>
+        </div>
       )}
-    </div>
+    />
   );
 };
 
