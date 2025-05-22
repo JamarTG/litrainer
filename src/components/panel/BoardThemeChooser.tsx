@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setBoardTheme } from "../../redux/slices/boardThemeSlices";
-import { BOARD_THEMES } from "../../constants/boardTheme";
+import { BOARD_THEMES } from "../../constants/board";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";
 

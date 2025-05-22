@@ -1,5 +1,5 @@
 import { Color, Square } from "chess.js";
-import { boardDimensions } from "../../constants/board";
+import { BOARD_THEMES, boardDimensions } from "../../constants/board";
 
 export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
   const { minimumSize, maximumSize } = boardDimensions;
@@ -42,3 +42,15 @@ export const getSquareCoordinates = (
     };
   }
 };
+
+export function getBoardBackgroundStyle(boardThemeName: string) {
+    const theme = Object.values(BOARD_THEMES).find(t => t.name === boardThemeName);
+    if (!theme) return {};
+    return {
+      backgroundImage: `url(${theme.path})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    };
+  
+  return {};
+}
