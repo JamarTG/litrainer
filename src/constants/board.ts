@@ -5,7 +5,7 @@ interface BoardDimensions {
 }
 
 export const boardDimensions:BoardDimensions = {
-  maximumSize: 500,
+  maximumSize: 580,
   minimumSize: 30,
   initialSize: 500
 };

@@ -14,7 +14,10 @@ const GameInfo = () => {
   if (!puzzle) return null;
 
   return (
-    <div className="w-full">
+    <div
+      style={{ width: "90%" }}
+      className="pl-2 px-4 sm:px-0 mx-auto rounded-lg border border-yellow-600 p-4 flex-col items-center justify-center  gap-4 shadow-md"
+    >
       <div className="flex items-center justify-between">
         <GameSpeed
           timeControl={puzzle.timeControl}

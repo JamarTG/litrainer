@@ -3,7 +3,6 @@ import PlayerBadge from "../header/PlayerBadge";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { FC, ReactNode } from "react";
-import Navigation from "../../panel/Navigation";
 // import { DEFAULT_OPPONENT_COLOR, DEFAULT_USER_COLOR } from "../../constants/board";
 
 interface BoardPlayerInfoProps {
@@ -36,7 +35,6 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
         hasPuzzle={hasPuzzle}
       />
 
-      <Navigation />
     </div>
   );
 };

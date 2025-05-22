@@ -8,6 +8,9 @@ import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
 import { useSquareClickHandler } from "../hooks/useSquareClickHandler";
+import PuzzleControlPanel from "../components/panel/ControlPanel";
+import GameInfo from "../components/game/GameInfo";
+import EngineDepthControl from "../components/engine/EngineDepthControl";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -22,32 +25,28 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useChangePuzzle();
   usePuzzleSetup(executeComputerMove, game);
 
-  const { handleMoveAttempt } = useMoveHandler(game);
+  const { handleMoveAttempt2 } = useMoveHandler(game);
 
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   return (
-    <>
+    <div className="flex h-screen justify-center gap-3 items-center flex-wrap min-[1024px]:flex-nowrap">
+      <div className="hidden min-[1350px]:block">
+        <GameInfo />
+        <EngineDepthControl/>
+      </div>
+
       <InteractiveChessBoard
         game={game}
         handleSquareClick={handleSquareClick}
-        handleMoveAttempt={handleMoveAttempt}
+        handleMoveAttempt={handleMoveAttempt2}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
-      {/* <Navigation resetBoard={() => {}} /> */}
-
-      {/* <div className="w-full flex justify-center items-center">
-        {puzzles.length !== 0 ? (
-          <div className="w-full max-w-md flex flex-col items-center gap-4">
-            <SubmitButtonWithModal />
-            <PuzzleControlPanel unhighlightLegalMoves={unhighlightLegalMoves} />
-          </div>
-        ) : (
-          <NoGamesFound />
-        )}
-      </div> */}
-    </>
+      <div className="w-full min-[768px]:w-[400px]">
+        <PuzzleControlPanel />
+      </div>
+    </div>
   );
 };
 
