@@ -30,7 +30,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   return (
-    <div className="flex h-screen justify-center gap-3 items-center flex-wrap min-[1024px]:flex-nowrap">
+    <div className="flex h-screen justify-center gap-3 items-start p-5 flex-wrap min-[1024px]:flex-nowrap">
       <div className="hidden min-[1350px]:block">
         <GameInfo />
         <EngineDepthControl/>
