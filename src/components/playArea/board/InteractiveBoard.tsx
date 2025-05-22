@@ -45,9 +45,10 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     isLoading
   );
 
+  const pieceSet = useSelector((state: RootState) => state.pieceSet.set)
   const customPieces = useMemo(() => {
-    return CustomPieces("fresca");
-  }, []);
+    return CustomPieces(pieceSet);
+  }, [pieceSet]);
 
   return (
     <BoardPlayerInfo material={material}>

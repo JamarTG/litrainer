@@ -3,13 +3,15 @@ import puzzleReducer from "./slices/puzzleSlices"
 import feedbackReducer from "./slices/feedbackSlices";
 import themeReducer from "./slices/themeSlices";
 import boardReducer from "./slices/boardSlices";
+import pieceSetReducer from "./slices/pieceSet";
 
 export const store = configureStore({
   reducer: {
     puzzle: puzzleReducer,
     feedback: feedbackReducer,
     theme : themeReducer,
-    board : boardReducer
+    board : boardReducer,
+    pieceSet : pieceSetReducer
   },
 });
 

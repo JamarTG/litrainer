@@ -16,7 +16,7 @@ const GameInfo = () => {
   return (
     <div
       style={{ width: "90%" }}
-      className="pl-2 px-4 sm:px-0 mx-auto rounded-lg border border-yellow-600 p-4 flex-col items-center justify-center  gap-4 shadow-md"
+      className="pl-2 px-4 sm:px-0 mx-auto rounded-lg border px-10 flex-col items-center justify-center gap-4"
     >
       <div className="flex items-center justify-between">
         <GameSpeed

@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import Navigation from "./Navigation";
 import PuzzleInfo from "./PuzzleInfo";
 import { RootState } from "../../redux/store";
+import PieceSetChooser from "./PieceSetChooser";
+import ThemeChanger from "../ThemeChanger";
 
 const PuzzleControlPanel = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
@@ -14,6 +16,8 @@ const PuzzleControlPanel = () => {
     <div className="flex flex-col gap-2">
       <PuzzleInfo />
       <Navigation />
+      <PieceSetChooser/>
+      <ThemeChanger/>
     </div>
   );
 };
