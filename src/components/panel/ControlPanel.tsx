@@ -4,6 +4,7 @@ import PuzzleInfo from "./PuzzleInfo";
 import { RootState } from "../../redux/store";
 import PieceSetChooser from "./PieceSetChooser";
 import ThemeChanger from "../ThemeChanger";
+import BoardThemeChooser from "./BoardThemeChooser";
 
 const PuzzleControlPanel = () => {
   const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
@@ -17,6 +18,7 @@ const PuzzleControlPanel = () => {
       <PuzzleInfo />
       <Navigation />
       <PieceSetChooser/>
+      <BoardThemeChooser/>
       <ThemeChanger/>
     </div>
   );

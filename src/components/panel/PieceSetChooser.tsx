@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { PIECE_SETS } from "../../constants/pieceSet";
-import { setPieceSet } from "../../redux/slices/pieceSet";
+import { setPieceSet } from "../../redux/slices/pieceSetSlices";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
@@ -25,7 +25,12 @@ const PieceSetChooser = () => {
         onClick={toggleDropdown}
         className="w-24 rounded-md flex gap-2"
       >
-        {pieceSet ? <img className="w-4" src={`pieceSets/${pieceSet}/wK.svg`} /> : null}
+        {pieceSet ? (
+          <img
+            className="w-4"
+            src={`pieceSets/${pieceSet}/wK.svg`}
+          />
+        ) : null}
         {pieceSet || "Select Piece Sets"}
         <span className="ml-2"> </span>
       </button>
