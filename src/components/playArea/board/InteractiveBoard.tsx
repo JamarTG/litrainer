@@ -70,7 +70,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
         />
 
         <Marker boardSize={boardSize} />
-   
       </div>
     </BoardPlayerInfo>
   );

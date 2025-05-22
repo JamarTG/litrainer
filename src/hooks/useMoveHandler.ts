@@ -31,8 +31,8 @@ export const useMoveHandler = (game: Chess) => {
     const fen = game.fen().split(" ")[0];
     const isMoveAccepted = true;
 
-    const fenWithoutColor = fen.split(" ")[0]    
-    const isKnownOpening = openings.some(opening => opening.fen === fenWithoutColor)
+    const fenWithoutColor = fen.split(" ")[0];
+    const isKnownOpening = openings.some((opening) => opening.fen === fenWithoutColor);
 
     if (isKnownOpening) {
       handleEvaluation(MoveClassification.Book, isMoveAccepted);
@@ -104,10 +104,9 @@ export const useMoveHandler = (game: Chess) => {
     if (isPuzzleSolved) return false;
 
     const puzzle = puzzles[puzzleIndex];
-    
+
     const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
     if (isOpponentsTurn) return false;
-    
 
     const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
     const isMoveInvalid = !movePlayedByUser;
@@ -134,5 +133,38 @@ export const useMoveHandler = (game: Chess) => {
     return true;
   };
 
-  return { handleMoveAttempt, evaluateMoveQuality };
+  const handleMoveAttempt2 = (sourceSquare: string, targetSquare: string) => {
+    if (isPuzzleSolved) return false;
+
+    const puzzle = puzzles[puzzleIndex];
+
+    const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
+    if (isOpponentsTurn) return false;
+
+    const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
+    const isMoveInvalid = !movePlayedByUser;
+
+    if (isMoveInvalid) return false;
+
+    dispatch(setSourceSquare(sourceSquare));
+    dispatch(setDestinationSquare(targetSquare));
+
+    if (!isInOpeningBook()) {
+      evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
+        const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
+        const sameJudgement = puzzle?.evaluation.judgment?.name;
+        handleEvaluation(
+          isSameMistake ? (sameJudgement as Classification) : classification,
+          isPositiveClassification(classification as Classification)
+        );
+      });
+    }
+
+    playSound(game);
+    dispatch(setFen(game.fen()));
+    setMoveSquares({});
+    return true;
+  };
+
+  return { handleMoveAttempt, handleMoveAttempt2, evaluateMoveQuality };
 };

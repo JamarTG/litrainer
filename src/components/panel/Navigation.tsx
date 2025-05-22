@@ -6,7 +6,9 @@ const PuzzleNavigation = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-full md:w-[400px] flex justify-between gap-2 py-2 px-4 rounded-xl">
+    <div style={{ width: "90%" }}
+      className="pl-2  px-4 sm:px-0 mx-auto rounded-lg border border-yellow-600 flex sm:flex-row items-center justify-center sm:items-start gap-4 shadow-md">
+      
       <button
         onClick={() => dispatch(prevPuzzle())}
         className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"

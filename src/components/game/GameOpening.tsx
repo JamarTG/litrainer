@@ -7,7 +7,7 @@ interface GameOpeningProps {
   
   const GameOpening: FC<GameOpeningProps> = ({ eco, name }) => {
     return (
-      <p className="text-blue-500 p-1 truncate cursor-pointer" title={`${eco} ${name}`}>
+      <p className="text-blue-500 p-1 truncate cursor-pointer text-sm" title={`${eco} ${name}`}>
         {eco} {name}
       </p>
     );
