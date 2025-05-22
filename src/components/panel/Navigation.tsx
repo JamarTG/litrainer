@@ -1,51 +1,38 @@
 import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
-import { NAVIGATION_ICONS } from "../../constants/navigation";
-import SubmitButtonWithModal from "../trainerForm/SubmitButtonWithModal";
+import { BiArrowBack, BiRefresh, BiRightArrowAlt } from "react-icons/bi";
 
 const PuzzleNavigation = () => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ width: "90%" }}
-        className="flex justify-center items-center pl-2  px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4 ">
-      
+    <div
+     className="border border-gray-300 dark:border-transparent w-full  flex sm:flex-row items-center justify-center sm:items-start"
+    >
+      {/* Previous */}
       <button
         onClick={() => dispatch(prevPuzzle())}
-        className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
+        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         aria-label="Previous Puzzle"
       >
-        <span
-          className="icon text-2xl"
-          dangerouslySetInnerHTML={{ __html: NAVIGATION_ICONS.PREV }}
-        />
+        <BiArrowBack className="text-2xl sm:text-3xl" />
       </button>
 
+      {/* Retry */}
       <button
         // onClick={retryPuzzle}
-        className="flex items-center justify-center p-2 rounded-lg transition-colors duration-200"
+        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         aria-label="Retry Puzzle"
       >
-        <span
-          className="icon text-2xl"
-          dangerouslySetInnerHTML={{ __html: NAVIGATION_ICONS.RELOAD }}
-        />
+        <BiRefresh className="text-2xl sm:text-3xl" />
       </button>
-
       <button
         onClick={() => dispatch(nextPuzzle())}
-        className="flex items-center justify-center p-2 rounded-lg  transition-colors duration-200"
+        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         aria-label="Next Puzzle"
       >
-        <span
-          className="icon text-2xl"
-          dangerouslySetInnerHTML={{ __html: NAVIGATION_ICONS.NEXT }}
-        />
+        <BiRightArrowAlt className="text-2xl sm:text-3xl" />
       </button>
-    
-        <SubmitButtonWithModal/>
-    
-      
     </div>
   );
 };

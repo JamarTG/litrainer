@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 import PuzzleInfo from "./PuzzleInfo";
 import { RootState } from "../../redux/store";
 import PieceSetChooser from "./PieceSetChooser";
-import ThemeChanger from "../ThemeChanger";
+import ThemeChanger from "./ThemeChanger";
 import BoardThemeChooser from "./BoardThemeChooser";
 
 const PuzzleControlPanel = () => {
@@ -14,12 +14,14 @@ const PuzzleControlPanel = () => {
   if (!isDataAvailable) return null;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full max-w-[350px] min-w-[220px]">
       <PuzzleInfo />
       <Navigation />
-      <PieceSetChooser/>
-      <BoardThemeChooser/>
-      <ThemeChanger/>
+      <div className="border border-gray-300 dark:border-transparent flex items-center justify-between">
+        <ThemeChanger />
+        <PieceSetChooser />
+        <BoardThemeChooser />
+      </div>
     </div>
   );
 };
