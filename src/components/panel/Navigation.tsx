@@ -42,10 +42,9 @@ const PuzzleNavigation = () => {
           dangerouslySetInnerHTML={{ __html: NAVIGATION_ICONS.NEXT }}
         />
       </button>
-      <div className="flex justify-center items-center gap-1">
-        <small>New Session</small>
+    
         <SubmitButtonWithModal/>
-      </div>
+    
       
     </div>
   );

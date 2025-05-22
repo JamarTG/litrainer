@@ -19,6 +19,10 @@ const SubmitButtonWithModal = () => {
       style={{ width: "90%" }}
       className="pl-2 px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-center sm:items-start gap-4"
     >
+      <div>
+
+      </div>
+       
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -29,7 +33,8 @@ const SubmitButtonWithModal = () => {
         />
       )}
 
-      <button onClick={handleToggleModal}>
+      <button className="flex justify-center items-center gap-2" onClick={handleToggleModal}>
+        <small>Create new session</small>
         <span className="icon text-2xl">&#xe02d;</span>
       </button>
     </div>
