@@ -1,4 +1,4 @@
-import { useState, useMemo, FC, useCallback } from "react";
+import { useState, useMemo, FC, useEffect} from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../../types/eval";
@@ -20,24 +20,38 @@ interface BoardComponentProps {
   unhighlightLegalMoves: () => void;
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
+const InteractiveChessBoard: FC<BoardComponentProps> = ({
+  game,
+  handleSquareClick,
+  handleMoveAttempt,
+  unhighlightLegalMoves,
+}) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-
-  const { puzzle, fen, moveSquares, destinationSquare, isPuzzleSolved, isLoading, classification, sourceSquare, pieceSet } = useSelector(
-    (state: RootState) => {
-      return {
-        puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-        fen: state.board.fen,
-        moveSquares: state.board.moveSquares,
-        isPuzzleSolved: state.feedback.isPuzzleSolved,
-        classification: state.feedback.classification,
-        destinationSquare: state.board.destinationSquare,
-        sourceSquare: state.board.sourceSquare,
-        isLoading: state.board.isLoading,
-        pieceSet: state.pieceSet.set,
-      };
-    }
+  const [boardSize, setBoardSize] = useState(() =>
+    calculateBoardSize(window.innerWidth, window.innerHeight)
   );
+
+  const {
+    puzzle,
+    fen,
+    moveSquares,
+    destinationSquare,
+    isPuzzleSolved,
+    isLoading,
+    classification,
+    sourceSquare,
+    pieceSet,
+  } = useSelector((state: RootState) => ({
+    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+    fen: state.board.fen,
+    moveSquares: state.board.moveSquares,
+    isPuzzleSolved: state.feedback.isPuzzleSolved,
+    classification: state.feedback.classification,
+    destinationSquare: state.board.destinationSquare,
+    sourceSquare: state.board.sourceSquare,
+    isLoading: state.board.isLoading,
+    pieceSet: state.pieceSet.set,
+  }));
 
   useMaterialEffect(game, setMaterial);
 
@@ -48,31 +62,26 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     moveSquares,
     isLoading
   );
-  const customPieces = useMemo(() => {
-    return CustomPieces(pieceSet);
-  }, [pieceSet]);
 
-  // const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
-  // const boardBackgroundStyle = useMemo(() => {
-  //   const style = getBoardBackgroundStyle(boardTheme);
-  //   // Ensure all properties are defined and fallback to empty string if not
-  //   return {
-  //     backgroundImage: style.backgroundImage ?? "",
-  //     backgroundSize: style.backgroundSize ?? "",
-  //     backgroundPosition: style.backgroundPosition ?? "",
-  //   };
-  // }, [boardTheme]);
+  const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
 
-  const boardSize = useCallback(() => {
-    return calculateBoardSize(window.innerWidth,window.innerHeight)
-  },[])
+  // Update board size on window resize
+  useEffect(() => {
+    const updateSize = () => {
+      setBoardSize(calculateBoardSize(window.innerWidth, window.innerHeight));
+    };
+
+    window.addEventListener("resize", updateSize);
+
+    // Initial size check (in case it changed before mount)
+    updateSize();
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   return (
     <BoardPlayerInfo material={material}>
-        {/* <p>innerWidth : {window.innerWidth} {window.innerHeight}</p> */}
-        {/* <br /> */}
-        {/* <p>{window.innerWidth/window.innerHeight}</p> */}
-        
+      <div className="flex flex-col justify-center items-center gap-2">
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -80,14 +89,14 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
           onPieceDragBegin={unhighlightLegalMoves}
           onPieceDragEnd={unhighlightLegalMoves}
           boardOrientation={puzzle?.userMove.color === "w" ? "white" : "black"}
-          boardWidth={boardSize()}
+          boardWidth={boardSize}
           customSquareStyles={customSquareStyles}
           arePiecesDraggable={!isPuzzleSolved}
           customPieces={customPieces}
         />
 
-        <Marker boardSize={boardSize()} />
-
+        <Marker boardSize={boardSize} />
+      </div>
     </BoardPlayerInfo>
   );
 };
