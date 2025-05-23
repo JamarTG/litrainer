@@ -108,7 +108,6 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
           },
           phase,
         };
-        console.log(phase);
 
         if (game.winner) {
           puzzle.winner = game.winner as Color;

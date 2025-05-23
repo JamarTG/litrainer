@@ -17,7 +17,7 @@ const PuzzleControlPanel = () => {
     <div className="flex flex-col gap-2 w-full max-w-[350px] min-w-[220px]">
       <PuzzleInfo />
       <Navigation />
-      <div className="border border-gray-300 dark:border-transparent flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <ThemeChanger />
         <PieceSetChooser />
         <BoardThemeChooser />
