@@ -23,21 +23,27 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex];
-  const fen = useSelector((state: RootState) => state.board.fen);
 
+  const { puzzle, fen, moveSquares, destinationSquare, isPuzzleSolved, isLoading, classification, sourceSquare, pieceSet } = useSelector(
+    (state: RootState) => {
+      return {
+        puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+        fen: state.board.fen,
+        moveSquares: state.board.moveSquares,
+        isPuzzleSolved: state.feedback.isPuzzleSolved,
+        classification: state.feedback.classification,
+        destinationSquare: state.board.destinationSquare,
+        sourceSquare: state.board.sourceSquare,
+        isLoading: state.board.isLoading,
+        pieceSet: state.pieceSet.set,
+      };
+    }
+  );
   const { boardSize, setBoardSize } = useResponsiveBoardSize();
   const { boardRef } = useDraggableResizer(setBoardSize);
 
   useMaterialEffect(game, setMaterial);
 
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
-  const classification = useSelector((state: RootState) => state.feedback.classification);
-  const moveSquares = useSelector((state: RootState) => state.board.moveSquares);
-
-  const { destinationSquare, sourceSquare } = useSelector((state: RootState) => state.board);
-  const isLoading = useSelector((state: RootState) => state.board.isLoading);
   const customSquareStyles = getCustomSquareStyles(
     destinationSquare as Square,
     sourceSquare as Square,
@@ -45,8 +51,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     moveSquares,
     isLoading
   );
-
-  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
   const customPieces = useMemo(() => {
     return CustomPieces(pieceSet);
   }, [pieceSet]);

@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 const GameInfo = () => {
-  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex];
-
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  const { puzzle, theme } = useSelector((state: RootState) => {
+    return {
+      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+      theme: state.theme.theme,
+    };
+  });
 
   if (!puzzle) return null;
 

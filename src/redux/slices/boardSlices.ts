@@ -33,6 +33,7 @@ const initialState: BoardState = {
   },
 };
 
+
 const boardSlice = createSlice({
   name: "board",
   initialState,

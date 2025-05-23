@@ -8,8 +8,11 @@ import { setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 
 export const useSquareClickHandler = (game: Chess) => {
   const dispatch = useDispatch();
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
-  const sourceSquare = useSelector((state: RootState) => state.board.sourceSquare);
+  const { isPuzzleSolved, sourceSquare } = useSelector((state: RootState) => ({
+    isPuzzleSolved: state.feedback.isPuzzleSolved,
+    sourceSquare: state.board.sourceSquare
+  }));
+
   const { handleMoveAttempt } = useMoveHandler(game);
 
   const highlightLegalMoves = useCallback(
