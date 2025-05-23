@@ -7,9 +7,9 @@ const PuzzleNavigation = () => {
 
   return (
     <div
-     className="border border-gray-300 dark:border-transparent w-full  flex sm:flex-row items-center justify-center sm:items-start"
+     className="w-full  flex sm:flex-row items-center justify-center sm:items-start"
     >
-      {/* Previous */}
+
       <button
         onClick={() => dispatch(prevPuzzle())}
         className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -17,8 +17,6 @@ const PuzzleNavigation = () => {
       >
         <BiArrowBack className="text-2xl sm:text-3xl" />
       </button>
-
-      {/* Retry */}
       <button
         // onClick={retryPuzzle}
         className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"

@@ -23,7 +23,6 @@ function preloadSounds(): void {
 
 const getMoveType = (chess: Chess): SoundKey => {
   const lastMove = chess.history({ verbose: true }).slice(-1)[0];
-  console.log("lastMove", lastMove);
   if (!lastMove) return "move"; 
 
   if (chess.isCheckmate()) return "checkmate";

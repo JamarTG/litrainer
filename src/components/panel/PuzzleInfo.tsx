@@ -17,7 +17,7 @@ const PuzzleInfo = () => {
 
   return (
     <div
-      className="border border-gray-300 dark:border-transparent w-full flex sm:flex-row items-center justify-center sm:items-start"
+      className="w-full flex sm:flex-row items-center justify-center sm:items-start"
     >
 
       <div className="flex-1 text-center flex justify-center items-center sm:text-left h-[50px]">
