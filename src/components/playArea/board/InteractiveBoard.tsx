@@ -7,11 +7,11 @@ import useResponsiveBoardSize from "../../../hooks/useResponsiveBoardSize";
 import BoardPlayerInfo from "../header/BoardPlayerInfo";
 import { useMaterialEffect } from "../../../hooks/useMaterialEffect";
 import { initialPieceCounts } from "../../../constants/piece";
-import useDraggableResizer from "../../../hooks/useDraggableResizer";
 import CustomPieces from "./CustomPieces";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getCustomSquareStyles } from "../helpers/squareStyles";
+import { calculateBoardSize } from "../../../utils/chess/board";
 // import { getBoardBackgroundStyle } from "../../../utils/chess/board";
 
 interface BoardComponentProps {
@@ -39,8 +39,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
       };
     }
   );
-  const { boardSize, setBoardSize } = useResponsiveBoardSize();
-  const { boardRef } = useDraggableResizer(setBoardSize);
+  const { boardSize} = useResponsiveBoardSize();
 
   useMaterialEffect(game, setMaterial);
 
@@ -68,11 +67,10 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
 
   return (
     <BoardPlayerInfo material={material}>
-      <div
-        ref={boardRef}
-        className="relative flex flex-col justify-center items-center gap-2"
-        style={{ maxWidth: boardSize, maxHeight: boardSize }}
-      >
+        {/* <p>innerWidth : {window.innerWidth} {window.innerHeight}</p> */}
+        {/* <br /> */}
+        {/* <p>{window.innerWidth/window.innerHeight}</p> */}
+        
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}
@@ -80,14 +78,14 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
           onPieceDragBegin={unhighlightLegalMoves}
           onPieceDragEnd={unhighlightLegalMoves}
           boardOrientation={puzzle?.userMove.color === "w" ? "white" : "black"}
-          boardWidth={boardSize}
+          boardWidth={calculateBoardSize(window.innerWidth,window.innerHeight)}
           customSquareStyles={customSquareStyles}
           arePiecesDraggable={!isPuzzleSolved}
           customPieces={customPieces}
         />
 
         <Marker boardSize={boardSize} />
-      </div>
+
     </BoardPlayerInfo>
   );
 };
