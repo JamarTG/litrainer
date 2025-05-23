@@ -12,7 +12,7 @@ import CustomPieces from "./CustomPieces";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getCustomSquareStyles } from "../helpers/squareStyles";
-import { getBoardBackgroundStyle } from "../../../utils/chess/board";
+// import { getBoardBackgroundStyle } from "../../../utils/chess/board";
 
 interface BoardComponentProps {
   game: Chess;
@@ -51,16 +51,16 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     return CustomPieces(pieceSet);
   }, [pieceSet]);
 
-  const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
-  const boardBackgroundStyle = useMemo(() => {
-    const style = getBoardBackgroundStyle(boardTheme);
-    // Ensure all properties are defined and fallback to empty string if not
-    return {
-      backgroundImage: style.backgroundImage ?? "",
-      backgroundSize: style.backgroundSize ?? "",
-      backgroundPosition: style.backgroundPosition ?? "",
-    };
-  }, [boardTheme]);
+  // const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
+  // const boardBackgroundStyle = useMemo(() => {
+  //   const style = getBoardBackgroundStyle(boardTheme);
+  //   // Ensure all properties are defined and fallback to empty string if not
+  //   return {
+  //     backgroundImage: style.backgroundImage ?? "",
+  //     backgroundSize: style.backgroundSize ?? "",
+  //     backgroundPosition: style.backgroundPosition ?? "",
+  //   };
+  // }, [boardTheme]);
 
   return (
     <BoardPlayerInfo material={material}>
