@@ -1,9 +1,8 @@
-import { useState, useMemo, FC } from "react";
+import { useState, useMemo, FC, useCallback } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../../types/eval";
 import Marker from "./MoveClassificationMarker";
-import useResponsiveBoardSize from "../../../hooks/useResponsiveBoardSize";
 import BoardPlayerInfo from "../header/BoardPlayerInfo";
 import { useMaterialEffect } from "../../../hooks/useMaterialEffect";
 import { initialPieceCounts } from "../../../constants/piece";
@@ -39,7 +38,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
       };
     }
   );
-  const { boardSize} = useResponsiveBoardSize();
 
   useMaterialEffect(game, setMaterial);
 
@@ -65,6 +63,10 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   //   };
   // }, [boardTheme]);
 
+  const boardSize = useCallback(() => {
+    return calculateBoardSize(window.innerWidth,window.innerHeight)
+  },[])
+
   return (
     <BoardPlayerInfo material={material}>
         {/* <p>innerWidth : {window.innerWidth} {window.innerHeight}</p> */}
@@ -78,13 +80,13 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
           onPieceDragBegin={unhighlightLegalMoves}
           onPieceDragEnd={unhighlightLegalMoves}
           boardOrientation={puzzle?.userMove.color === "w" ? "white" : "black"}
-          boardWidth={calculateBoardSize(window.innerWidth,window.innerHeight)}
+          boardWidth={boardSize()}
           customSquareStyles={customSquareStyles}
           arePiecesDraggable={!isPuzzleSolved}
           customPieces={customPieces}
         />
 
-        <Marker boardSize={boardSize} />
+        <Marker boardSize={boardSize()} />
 
     </BoardPlayerInfo>
   );
