@@ -41,9 +41,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
-      <div className="border rounded-md w-full min-[768px]:w-[400px] h-4/5 flex justify-center items-center ">
-        <PuzzleControlPanel />
-      </div>
+      <PuzzleControlPanel />
     </div>
   );
 };
