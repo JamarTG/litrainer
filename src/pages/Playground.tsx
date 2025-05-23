@@ -23,7 +23,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useChangePuzzle();
   usePuzzleSetup(executeComputerMove, game);
 
-  const { handleMoveAttempt2 } = useMoveHandler(game);
+  const { handleMoveAttempt } = useMoveHandler(game);
 
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
@@ -37,7 +37,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
       <InteractiveChessBoard
         game={game}
         handleSquareClick={handleSquareClick}
-        handleMoveAttempt={handleMoveAttempt2}
+        handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
