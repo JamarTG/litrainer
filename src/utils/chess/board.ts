@@ -1,10 +1,10 @@
 import { Color, Square } from "chess.js";
 import { BOARD_THEMES, boardDimensions } from "../../constants/board";
 
-export const calculateBoardSize = (windowWidth: number, windowHeight: number, offset: number = 100): number => {
+export const calculateBoardSize = (windowWidth: number, windowHeight: number): number => {
   const { minimumSize, maximumSize } = boardDimensions;
 
-  const smallestWindowDimension = Math.min(windowWidth - offset, windowHeight - offset);
+  const smallestWindowDimension = Math.min(windowWidth, windowHeight);
   const clampedSize = Math.min(maximumSize, Math.max(minimumSize, smallestWindowDimension));
 
   return clampedSize;
