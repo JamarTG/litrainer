@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { formatTimeControl } from "../../../lib/lichess/time";
 import { SiLichess } from "react-icons/si";
+import { IoBookOutline } from "react-icons/io5";
 
 const GameInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -55,15 +56,15 @@ const GameInfo = () => {
           {/* <div className="font-bold mb-1">Game Info</div> */}
           <div className="text-xs text-gray-700 dark:text-gray-200 space-y-2">
             <div>
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-start items-center gap-2">
                 <a
                   href={`https://lichess.org/${puzzle.gameId}#${puzzle.moveNumber}`}
-                  className="flex justfiy-center items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition flex items-center"
+                  className="flex justify-center items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="View game on Lichess"
                 >
-                  <SiLichess />
+                  <SiLichess size={20} />
                 </a>
                 <a
                   href={`https://lichess.org/opening/${puzzle.opening.eco}`}
@@ -72,15 +73,7 @@ const GameInfo = () => {
                   rel="noopener noreferrer"
                   title={`Explore ${puzzle.opening.name}`}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
-                    width="1em"
-                    height="1em"
-                  >
-                    <path d="M2 2v12h12V2H2zm11 11H3V3h10v10zM5 5h6v1H5V5zm0 2h6v1H5V7zm0 2h4v1H5V9z"/>
-                  </svg>
+                  <IoBookOutline size={20}/>
                 </a>
               </div>
 
@@ -117,6 +110,7 @@ const GameInfo = () => {
                 </span>
               )}
             </div>
+            
           </div>
           <button
             className="mt-2 text-xs text-blue-500 hover:underline"
