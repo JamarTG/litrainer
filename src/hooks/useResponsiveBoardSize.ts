@@ -8,8 +8,8 @@ const useResponsiveBoardSize = () => {
   useEffect(() => {
     const handleResize = () => {
       const maxViewportSize = Math.min(window.innerWidth, window.innerHeight);
-      const margin = 20;
-      const newSize = Math.max(minimumSize, Math.min(maximumSize, maxViewportSize - margin * 2));
+    
+      const newSize = Math.max(minimumSize, Math.min(maximumSize, maxViewportSize ));
       setBoardSize(newSize);
     };
 

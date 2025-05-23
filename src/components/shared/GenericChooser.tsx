@@ -7,9 +7,9 @@ interface GenericChooserProps<T> {
   selected: string;
   onSelect: (value: string) => void;
   getDisplay: (option: T) => JSX.Element;
+  getOptionKey: (option: T) => string;
 }
-
-const GenericChooser = <T,>({ options, selected, onSelect, getDisplay }: GenericChooserProps<T>) => {
+const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOptionKey }: GenericChooserProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -21,7 +21,9 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay }: Generic
         className=" p-1 flex items-center justify-between rounded-md  transition"
       >
         <span className="flex-1 flex items-center justify-center">
-          <div className="flex gap-1">{selected && getDisplay(options.find((opt) => getOptionName(opt) === selected)!)}</div>
+          <div className="flex gap-1">
+            {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}
+          </div>
         </span>
         <span
           className="ml-2"
@@ -37,14 +39,13 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay }: Generic
           </svg>
         </span>
       </button>
-
       {isOpen && (
-        <ul className="absolute dark:bg-[#2c2c2c] dark:text-white top-2/3 right-1 mt-2 h-48 overflow-y-auto bg-white rounded z-10 shadow-lg">
+        <ul className="absolute z-10 mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg w-full">
           {options.map((option) => (
             <li
-              key={getOptionName(option)}
+              key={getOptionKey(option)}
               onClick={() => {
-                onSelect(getOptionName(option));
+                onSelect(getOptionKey(option));
                 setIsOpen(false);
               }}
               className="cursor-pointer dark:hover:bg-[#000] hover:bg-gray-100 px-4 py-2 w-16 flex items-center gap-2"
@@ -60,6 +61,3 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay }: Generic
 
 export default GenericChooser;
 
-function getOptionName(option: any) {
-  return typeof option === "string" ? option : option.name;
-}
