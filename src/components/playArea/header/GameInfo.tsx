@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/store";
 import { formatTimeControl } from "../../../lib/lichess/time";
 import { SiLichess } from "react-icons/si";
 import { IoBookOutline } from "react-icons/io5";
+import SubmitButtonWithModal from "../../trainerForm/SubmitButtonWithModal";
 
 const GameInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -29,7 +30,7 @@ const GameInfo = () => {
   }, [showDropdown]);
 
   if (!puzzle) {
-    return null;
+    return <SubmitButtonWithModal>"Click here to get puzzles"</SubmitButtonWithModal>;
   }
 
   return (
