@@ -15,8 +15,8 @@ const PlayerBadge: FC<PlayerBadgeProps> = ({ color, material, hasPuzzle }) => {
 
   return (
     <div
-      className={`rounded-${color === "w" ? "b" : "t"}-md w-full  border border-gray-300 text-center p-1 text-sm
-                   dark:bg-[#2c2c2c] dark:text-white dark:border-gray-600 flex justify-center items-center`}
+      className={`rounded-${color === "w" ? "b" : "t"}-md w-full text-center p-1 text-sm
+                    dark:text-whit flex justify-center items-center`}
     >
       <PlayerHeader color={color} />
       <RenderMaterial

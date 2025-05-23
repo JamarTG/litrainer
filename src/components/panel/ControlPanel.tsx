@@ -16,7 +16,7 @@ const PuzzleControlPanel = () => {
   if (!isDataAvailable) return null;
 
   return (
-    <div className="flex flex-col gap-2 items-center w-full max-w-[350px] min-w-[220px]">
+    <div className="flex flex-col gap-2 items-center w-full max-w-[350px] min-w-[367px]">
       <PuzzleInfo />
       <Navigation />
       <div className="flex items-center justify-between">
