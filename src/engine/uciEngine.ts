@@ -28,7 +28,6 @@ export abstract class UciEngine {
     this.worker = new Worker(enginePath);
     this.customEngineInit = customEngineInit;
 
-    // console.log(`${engineName} created`);
   }
 
   public async init(): Promise<void> {
@@ -36,7 +35,6 @@ export abstract class UciEngine {
     await this.setMultiPv(this.multiPv, true);
     await this.customEngineInit?.();
     this.ready = true;
-    // console.log(`${this.engineName} initialized`);
   }
 
   private async setMultiPv(multiPv: number, initCase = false) {
