@@ -1,6 +1,6 @@
 import { Chess } from "chess.js";
 
-type SoundKey = "move" | "capture" | "check" | "castle" | "promotion" | "checkmate";
+type SoundKey = "move" | "capture" | "check" | "castle" | "promotion" | "checkmate" | "select";
 
 const soundPaths: Record<SoundKey, string> = {
   move: "/moveSounds/move.mp3",
@@ -9,6 +9,7 @@ const soundPaths: Record<SoundKey, string> = {
   castle: "/moveSounds/castle.webm",
   promotion: "/moveSounds/promotion.webm",
   checkmate: "/moveSounds/checkmate.webm",
+  select : "/moveSounds/select.mp3"
 };
 
 const sounds: Record<keyof typeof soundPaths, HTMLAudioElement> = Object.fromEntries(
@@ -33,6 +34,8 @@ const getMoveType = (chess: Chess): SoundKey => {
   return "move";
 };
 
+
+
 function playSound(chess: Chess): void {
   const moveType = getMoveType(chess);
   const sound = sounds[moveType];
@@ -45,6 +48,17 @@ function playSound(chess: Chess): void {
   }
 }
 
+function playSelectSound(): void {
+  const sound = sounds["select"];
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch((error) =>
+      console.error("Failed to play select sound:", error)
+    );
+  }
+}
+
+
 preloadSounds();
 
-export { playSound };
+export { playSound, playSelectSound };
