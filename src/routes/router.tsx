@@ -13,9 +13,9 @@ export default function Router() {
         <Route
           path={Paths.HOME}
           element={
-            <DevBanner >
+            // <DevBanner >
               <Playground puzzles={puzzles} />
-            </DevBanner>
+            // </DevBanner>
           }
         />
       </Routes>
