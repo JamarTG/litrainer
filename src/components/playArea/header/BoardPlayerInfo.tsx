@@ -12,8 +12,8 @@ interface BoardPlayerInfoProps {
 }
 
 const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
-  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex];
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+
 
   const userColor = puzzle?.userMove.color;
   const opponentColor = puzzle?.opponentMove.color;

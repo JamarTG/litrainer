@@ -7,8 +7,10 @@ import ThemeChanger from "./ThemeChanger";
 import BoardThemeChooser from "./BoardThemeChooser";
 
 const PuzzleControlPanel = () => {
-  const { puzzles, currentIndex } = useSelector((state: RootState) => state.puzzle);
-  const puzzle = puzzles[currentIndex];
+  const { puzzle } = useSelector((state: RootState) => ({
+    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex]
+  }));
+
   const isDataAvailable = puzzle !== null;
 
   if (!isDataAvailable) return null;

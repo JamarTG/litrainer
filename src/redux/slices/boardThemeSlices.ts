@@ -24,6 +24,6 @@ const boardThemeSlice = createSlice({
   },
 })
 
-export const {setBoardTheme} = boardThemeSlice.actions;
+export const  {setBoardTheme} = boardThemeSlice.actions;
 export default boardThemeSlice.reducer;
 

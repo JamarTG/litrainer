@@ -21,12 +21,10 @@ export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
 
-  const puzzles = useSelector((state: RootState) => state.puzzle.puzzles);
-  const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
-
-  const fen = useSelector((state: RootState) => state.board.fen);
-
+  const { puzzle, isPuzzleSolved, fen } = useSelector((state: RootState) => {
+    return { fen:state.board.fen, puzzle: state.puzzle.puzzles[state.puzzle.currentIndex] , isPuzzleSolved:state.feedback.isPuzzleSolved};
+  });
+ 
   const isInOpeningBook = () => {
     const fen = game.fen().split(" ")[0];
     const isMoveAccepted = true;
@@ -103,8 +101,6 @@ export const useMoveHandler = (game: Chess) => {
   const handleMoveAttempt = (sourceSquare: string, targetSquare: string) => {
     if (isPuzzleSolved) return false;
 
-    const puzzle = puzzles[puzzleIndex];
-
     const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
     if (isOpponentsTurn) return false;
 
@@ -133,38 +129,5 @@ export const useMoveHandler = (game: Chess) => {
     return true;
   };
 
-  const handleMoveAttempt2 = (sourceSquare: string, targetSquare: string) => {
-    if (isPuzzleSolved) return false;
-
-    const puzzle = puzzles[puzzleIndex];
-
-    const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
-    if (isOpponentsTurn) return false;
-
-    const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
-    const isMoveInvalid = !movePlayedByUser;
-
-    if (isMoveInvalid) return false;
-
-    dispatch(setSourceSquare(sourceSquare));
-    dispatch(setDestinationSquare(targetSquare));
-
-    if (!isInOpeningBook()) {
-      evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
-        const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
-        const sameJudgement = puzzle?.evaluation.judgment?.name;
-        handleEvaluation(
-          isSameMistake ? (sameJudgement as Classification) : classification,
-          isPositiveClassification(classification as Classification)
-        );
-      });
-    }
-
-    playSound(game);
-    dispatch(setFen(game.fen()));
-    setMoveSquares({});
-    return true;
-  };
-
-  return { handleMoveAttempt, handleMoveAttempt2, evaluateMoveQuality };
+  return { handleMoveAttempt, evaluateMoveQuality };
 };
