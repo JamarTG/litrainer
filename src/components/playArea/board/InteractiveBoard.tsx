@@ -65,7 +65,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
 
   const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
 
-  // Update board size on window resize
   useEffect(() => {
     const updateSize = () => {
       setBoardSize(calculateBoardSize(window.innerWidth, window.innerHeight));
@@ -73,7 +72,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
 
     window.addEventListener("resize", updateSize);
 
-    // Initial size check (in case it changed before mount)
     updateSize();
 
     return () => window.removeEventListener("resize", updateSize);
@@ -81,7 +79,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
 
   return (
     <BoardPlayerInfo material={material}>
-      <div className="flex flex-col justify-center items-center gap-2">
+      <div className="relative flex flex-col justify-center items-center gap-2">
         <Chessboard
           position={fen}
           onSquareClick={handleSquareClick}

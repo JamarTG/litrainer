@@ -1,4 +1,3 @@
-// components/GenericChooser.tsx
 import { useState } from "react";
 
 interface GenericChooserProps<T> {
