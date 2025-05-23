@@ -23,6 +23,7 @@ const BoardThemeChooser = () => {
           />
         </div>
       )}
+      getOptionKey={(option: { name: string; path: string; thumbnail: string | null }): string => option.name}
     />
   );
 };

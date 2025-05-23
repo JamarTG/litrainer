@@ -37,7 +37,7 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ children 
         className="flex justify-center items-center gap-2"
         onClick={handleToggleModal}
       >
-        {!!children ? <small className="font-bold underline">Click here to get puzzles</small> : <span className="icon text-2xl">&#xe02d;</span>}
+        {children ? <small className="font-bold underline">Click here to get puzzles</small> : <span className="icon text-2xl">&#xe02d;</span>}
       </button>
     </div>
   );
