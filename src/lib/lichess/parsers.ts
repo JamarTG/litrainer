@@ -47,81 +47,87 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
   const standardGames = games.filter((game) => game.variant === "standard");
 
   const result = standardGames.flatMap((game, index) => {
-    const chessgame = new Chess();
-    chessgame.loadPgn(game.moves);
+  const chessgame = new Chess();
+  chessgame.loadPgn(game.moves);
 
-    const history = chessgame.history({ verbose: true });
+  const history = chessgame.history({ verbose: true });
+  const gameEvaluations = evaluations[index];
 
-    const gameEvaluations = evaluations[index];
-    const OPColor = username === game.players.white.user.name ? "w" : "b";
+  // Skip initial evaluation if it corresponds to the starting position
+  const trimmedEvaluations = gameEvaluations.length > history.length ? gameEvaluations.slice(1) : gameEvaluations;
 
-    const res: Puzzle[] = [];
+  const OPColor = username === game.players.white.user.name ? "w" : "b";
 
-    const middlegameStartPly = game.division?.middle || Infinity;
-    const endgameStartPly = game.division?.end || Infinity;
+  const res: Puzzle[] = [];
 
-    for (let i = 0; i < gameEvaluations.length; i++) {
-      const evaluation = gameEvaluations[i];
+  const middlegameStartPly = game.division?.middle ?? Infinity;
+  const endgameStartPly = game.division?.end ?? Infinity;
 
-      if (evaluation.judgment && OPColor === history[i].color && i > 0) {
-        const plyNumber = i + 1;
-        let phase: "opening" | "middlegame" | "endgame";
+  for (let i = 0; i < trimmedEvaluations.length && i < history.length; i++) {
+    const evaluation = trimmedEvaluations[i];
+    const move = history[i];
 
-        if (plyNumber < middlegameStartPly) {
-          phase = "opening";
-        } else if (plyNumber < endgameStartPly) {
-          phase = "middlegame";
-        } else {
-          phase = "endgame";
-        }
+    if (!evaluation || !move) continue;
 
-        const puzzle: Puzzle = {
-          gameId: game.game_id,
-          players: game.players,
-          opening: game.opening,
-          variant: game.variant,
-          timeControl: game.perf as GameType,
-          status: game.status,
-          rated: game.rated,
-          clock: game.clock,
-          userMove: {
-            san: history[i].san,
-            lan: history[i].lan,
-            piece: history[i].piece,
-            color: history[i].color,
-            source: history[i].from,
-            destination: history[i].to,
-          },
-          moveNumber: plyNumber,
-          opponentMove: {
-            san: history[i - 1].san,
-            lan: history[i - 1].lan,
-            piece: history[i - 1].piece,
-            source: history[i - 1].from,
-            destination: history[i - 1].to,
-            color: history[i - 1].color,
-          },
-          evaluation,
-          fen: {
-            current: history[i].before,
-            previous: history[i - 1].before || history[i].before,
-          },
-          phase,
-        };
+    if (evaluation.judgment && move.color === OPColor && i > 0) {
+      const plyNumber = i + 1;
 
-        if (game.winner) {
-          puzzle.winner = game.winner as Color;
-        }
-
-        res.push(puzzle);
+      let phase: "opening" | "middlegame" | "endgame";
+      if (plyNumber < middlegameStartPly) {
+        phase = "opening";
+      } else if (plyNumber < endgameStartPly) {
+        phase = "middlegame";
+      } else {
+        phase = "endgame";
       }
+
+      const previousMove = history[i - 1];
+
+      const puzzle: Puzzle = {
+        gameId: game.game_id,
+        players: game.players,
+        opening: game.opening,
+        variant: game.variant,
+        timeControl: game.perf as GameType,
+        status: game.status,
+        rated: game.rated,
+        clock: game.clock,
+        userMove: {
+          san: move.san,
+          lan: move.lan,
+          piece: move.piece,
+          color: move.color,
+          source: move.from,
+          destination: move.to,
+        },
+        moveNumber: plyNumber,
+        opponentMove: {
+          san: previousMove.san,
+          lan: previousMove.lan,
+          piece: previousMove.piece,
+          source: previousMove.from,
+          destination: previousMove.to,
+          color: previousMove.color,
+        },
+        evaluation,
+        fen: {
+          current: move.before,
+          previous: previousMove.before ?? move.before,
+        },
+        phase,
+      };
+
+      if (game.winner) {
+        puzzle.winner = game.winner as Color;
+      }
+
+      res.push(puzzle);
     }
+  }
 
-    return res;
-  });
-
+  return res;
+});
   return result.flat();
 };
-
 
 export default generatePuzzles;
