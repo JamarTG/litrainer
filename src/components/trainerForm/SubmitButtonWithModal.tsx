@@ -19,10 +19,7 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ children 
   };
 
   return (
-    <div
-      style={{ width: "90%" }}
-      // className="pl-2 px-4 sm:px-0 p-2 border mx-auto rounded-lg  flex sm:flex-row items-center justify-start sm:items-start gap-4"
-    >
+    <div>
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -34,10 +31,15 @@ const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ children 
       )}
 
       <button
-        className="flex justify-center items-center gap-2"
+        className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
+        aria-label="Create New Sesstion"
         onClick={handleToggleModal}
       >
-        {children ? <small className="font-bold underline">Click here to get puzzles</small> : <span className="icon text-2xl">&#xe02d;</span>}
+        {children ? (
+          <small className="font-bold underline">Click here to get puzzles</small>
+        ) : (
+          <span className="icon text-2xl">&#xe02d;</span>
+        )}
       </button>
     </div>
   );

@@ -18,6 +18,7 @@ import { toggleTheme } from "../redux/slices/themeSlices";
 import useUpdateTheme from "../hooks/useUpdateTheme";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
+import SubmitButtonWithModal from "../components/trainerForm/SubmitButtonWithModal";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -62,14 +63,18 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
           <div className="space-y-4">
             <div className="h-8 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Controls</h2>
-              <button
-                aria-label="Settings"
-                onClick={() => setShowSettings(true)}
-                className="w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-              >
-                <FaGear size={20}/>
-              </button>
+              <div className="flex justify-center items-center rounded-full ">
+                <SubmitButtonWithModal />
+                <button
+                  aria-label="Settings"
+                  onClick={() => setShowSettings(true)}
+                  className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
+                >
+                  <FaGear size={20} />
+                </button>
+              </div>
             </div>
+
             <Navigation />
             <PuzzleInfo />
           </div>
