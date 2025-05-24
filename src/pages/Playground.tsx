@@ -10,7 +10,6 @@ import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
 import { useSquareClickHandler } from "../hooks/useSquareClickHandler";
-import Navigation from "../components/panel/Navigation";
 import PuzzleInfo from "../components/panel/PuzzleInfo";
 import PieceSetChooser from "../components/panel/PieceSetChooser";
 import BoardThemeChooser from "../components/panel/BoardThemeChooser";
@@ -58,9 +57,9 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
-      <div className="relative flex flex-col gap-4 w-full max-w-sm bg-gray-100 dark:bg-zinc-800 p-4 rounded-lg min-h-[500px]">
+      <div className="relative flex flex-col gap-4 w-full bg-gray-100 dark:bg-zinc-800 p-4 rounded-lg min-h-[500px]">
         {!showSettings && (
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <div className="h-8 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Controls</h2>
               <div className="flex justify-center items-center rounded-full ">
@@ -74,8 +73,6 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 </button>
               </div>
             </div>
-
-            <Navigation />
             <PuzzleInfo />
           </div>
         )}

@@ -1,36 +1,54 @@
 import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
-import { BiArrowBack, BiRefresh, BiRightArrowAlt } from "react-icons/bi";
+
+const navButtons = [
+  {
+    label: "Retry",
+    aria: "Retry Puzzle",
+    onClick: undefined,
+  },
+  {
+    label: "Previous",
+    aria: "Previous Puzzle",
+    action: prevPuzzle,
+  },
+  {
+    label: "Next",
+    aria: "Next Puzzle",
+    action: nextPuzzle,
+  },
+];
 
 const PuzzleNavigation = () => {
   const dispatch = useDispatch();
 
   return (
-    <div
-     className="w-full  flex sm:flex-row items-center justify-center sm:items-start"
-    >
-
-      <button
-        onClick={() => dispatch(prevPuzzle())}
-        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        aria-label="Previous Puzzle"
-      >
-        <BiArrowBack className="text-2xl sm:text-3xl" />
-      </button>
-      <button
-        // onClick={retryPuzzle}
-        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        aria-label="Retry Puzzle"
-      >
-        <BiRefresh className="text-2xl sm:text-3xl" />
-      </button>
-      <button
-        onClick={() => dispatch(nextPuzzle())}
-        className="flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        aria-label="Next Puzzle"
-      >
-        <BiRightArrowAlt className="text-2xl sm:text-3xl" />
-      </button>
+    <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
+      {navButtons.map((btn) => (
+        <button
+          key={btn.aria}
+          onClick={btn.action ? () => dispatch(btn.action!()) : btn.onClick}
+          className={`
+            rounded-xl font-semibold text-base sm:text-lg
+            bg-blue-500 text-white
+            hover:bg-blue-600
+            active:scale-95 active:ring-2 active:ring-purple-300
+            transition
+            w-24 h-14 sm:w-32 sm:h-20
+            m-1
+          `}
+          aria-label={btn.aria}
+          type="button"
+          style={{
+            outline: "none",
+            letterSpacing: "0.03em",
+          }}
+        >
+          <span className="flex items-center justify-center h-full">
+            {btn.label}
+          </span>
+        </button>
+      ))}
     </div>
   );
 };
