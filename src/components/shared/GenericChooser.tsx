@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
 
 interface GenericChooserProps<T> {
   label?: string;
@@ -10,19 +11,22 @@ interface GenericChooserProps<T> {
 }
 const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOptionKey }: GenericChooserProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
+  useClickOutside(dropdownRef, setIsOpen, isOpen);
   return (
-    <div className="rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4 relative">
+    <div
+      ref={dropdownRef}
+      className="rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
+    >
       <button
         onClick={toggleDropdown}
         className=" p-1 flex items-center justify-between rounded-md  transition"
       >
         <span className="flex-1 flex items-center justify-center">
-          <div className="flex gap-1">
-            {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}
-          </div>
+          <div className="flex gap-1">{selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}</div>
         </span>
         <span
           className="ml-2"
@@ -59,4 +63,3 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
 };
 
 export default GenericChooser;
-
