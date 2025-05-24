@@ -5,8 +5,8 @@ const EngineDepthControl = () => {
   const { depth, setDepth } = useDepth(); 
 
   return (
-    <div className="rounded-lg w-full">
-      <div className="flex gap-2 items-center space-x-4">
+    <div className="w-2/5">
+      <div >
         <input
           type="range"
           min={ENGINE_DEPTH_MIN}

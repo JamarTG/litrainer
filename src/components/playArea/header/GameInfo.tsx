@@ -35,7 +35,7 @@ const GameInfo = () => {
 
   return (
     <div
-      className="mb-2 flex items-center relative"
+      className="mb-2 flex items-center relative h-full"
       ref={dropdownRef}
     >
       <button
@@ -114,7 +114,7 @@ const GameInfo = () => {
             
           </div>
           <button
-            className="mt-2 text-xs text-blue-500 hover:underline"
+            className="mt-2 text-xs text-blue-500 hover:text-blue-400"
             onClick={() => setShowDropdown(false)}
           >
             Close
