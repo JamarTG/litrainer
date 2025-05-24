@@ -40,13 +40,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const { handleMoveAttempt } = useMoveHandler(game);
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
-  const { puzzle } = useSelector((state: RootState) => ({
-    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-  }));
-
   const [showSettings, setShowSettings] = useState(false);
-
-  if (!puzzle) return null;
 
   return (
     <div className="flex gap-6 justify-center items-center flex-wrap min-[850px]:flex-nowrap">
