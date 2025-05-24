@@ -1,20 +1,16 @@
+Fix Cannot read property of undefined reading color
+Fix or remove the board switch option
+Make choosers grid layout
+Swap out arrow icons
+Copy to clipboard to be added. download pgn for game and other options
 Need to tell how long ago it was played
 Page When Offline
-Sound is Broken (Incomplete)
-Use Local Storage 
-    - Store Puzzles
-    - Store Puzzle Index
-
 Move Classification System
     - Improve on Brilliant
-
-Engine Switcher & Depth Changer
-
 Mate or Even Best Move doesn't show at the end because there is no next position
-Also handle where all mate is the best move
-Message Creator on Lichess
 Linkedin
 Github
+Ability to report Bug or Message Creator on Lichess
 
         {/* <span className="icon text-2xl">&#xe001;</span> - Link */}
         {/* <span className="icon text-2xl">&#xe00b;</span> - Start Session */}

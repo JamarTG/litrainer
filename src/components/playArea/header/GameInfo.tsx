@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -6,6 +6,7 @@ import { formatTimeControl } from "../../../lib/lichess/time";
 import { SiLichess } from "react-icons/si";
 import { IoBookOutline } from "react-icons/io5";
 import SubmitButtonWithModal from "../../trainerForm/SubmitButtonWithModal";
+import useClickOutside from "../../../hooks/useClickOutside";
 
 const GameInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -13,21 +14,7 @@ const GameInfo = () => {
 
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
-      }
-    }
-
-    if (showDropdown) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showDropdown]);
+  useClickOutside(dropdownRef,setShowDropdown,showDropdown)
 
   if (!puzzle) {
     return <SubmitButtonWithModal>"Click here to get puzzles"</SubmitButtonWithModal>;
