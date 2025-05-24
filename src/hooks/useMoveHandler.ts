@@ -22,10 +22,10 @@ export const useMoveHandler = (game: Chess) => {
   const { depth: engineDepth } = useDepth();
 
   const { puzzle, isPuzzleSolved, fen } = useSelector((state: RootState) => {
-    return { fen:state.board.fen, puzzle: state.puzzle.puzzles[state.puzzle.currentIndex] , isPuzzleSolved:state.feedback.isPuzzleSolved};
+    return { fen: state.board.fen, puzzle: state.puzzle.puzzles[state.puzzle.currentIndex], isPuzzleSolved: state.feedback.isPuzzleSolved };
   });
- 
-  const isInOpeningBook = () => {
+
+  const isInOpeningBook = (move: string) => {
     const fen = game.fen().split(" ")[0];
     const isMoveAccepted = true;
 
@@ -33,6 +33,10 @@ export const useMoveHandler = (game: Chess) => {
     const isKnownOpening = openings.some((opening) => opening.fen === fenWithoutColor);
 
     if (isKnownOpening) {
+      dispatch(setFeedback({
+        best: `${move} is acceptable`,
+        played: `${move} ${ClassificationMessage["Book"]} `,
+      }));
       handleEvaluation(MoveClassification.Book, isMoveAccepted);
       return true;
     }
@@ -112,7 +116,7 @@ export const useMoveHandler = (game: Chess) => {
     dispatch(setSourceSquare(sourceSquare));
     dispatch(setDestinationSquare(targetSquare));
 
-    if (!isInOpeningBook()) {
+    if (!isInOpeningBook(movePlayedByUser.san)) {
       evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
         const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
         const sameJudgement = puzzle?.evaluation.judgment?.name;
@@ -125,6 +129,7 @@ export const useMoveHandler = (game: Chess) => {
 
     playSound(game);
     dispatch(setFen(game.fen()));
+
     setMoveSquares({});
     return true;
   };
