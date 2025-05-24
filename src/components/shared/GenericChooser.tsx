@@ -39,7 +39,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         </span>
       </button>
       {isOpen && (
-        <ul className="absolute z-10 mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg w-full">
+        <ul className="overflow-y-auto h-48 absolute z-10 mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg w-full">
           {options.map((option) => (
             <li
               key={getOptionKey(option)}
@@ -47,7 +47,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
                 onSelect(getOptionKey(option));
                 setIsOpen(false);
               }}
-              className="cursor-pointer dark:hover:bg-[#000] hover:bg-gray-100 px-4 py-2 w-16 flex items-center gap-2"
+              className="cursor-pointer dark:hover:bg-[#000] hover:bg-gray-100 px-4 py-2 w-full flex items-center gap-2"
             >
               {getDisplay(option)}
             </li>

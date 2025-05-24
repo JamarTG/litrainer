@@ -21,7 +21,7 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
   const hasPuzzle = !!puzzle;
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center pt-2">
       <GameInfo/>
       <PlayerBadge
         color={opponentColor}
