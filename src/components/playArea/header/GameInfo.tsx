@@ -29,7 +29,7 @@ const GameInfo = () => {
     >
       <button
         type="button"
-        className="inline-flex items-center focus:outline-none"
+        className="inline-flex gap-1 items-center focus:outline-none"
         onClick={() => setShowDropdown((v) => !v)}
         aria-haspopup="true"
         aria-expanded={showDropdown}
