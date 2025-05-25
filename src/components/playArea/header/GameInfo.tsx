@@ -73,16 +73,18 @@ const GameInfo = () => {
                 <SiLichess size={20} />
                 <span>View Game on Lichess.org</span>
               </a>
-              <a
-                href={`https://lichess.org/opening/${puzzle.opening.eco}`}
-                className="inline-flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
-                target="_blank"
-                rel="noopener noreferrer"
-                title={`Explore ${puzzle.opening.name}`}
-              >
-                <IoBookOutline size={20} />
-                <span>Explore Opening</span>
-              </a>
+              {puzzle.positionOpening ? (
+                <a
+                  href={`https://lichess.org/opening/${puzzle.positionOpening.eco}`}
+                  className="inline-flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Explore ${puzzle.positionOpening.name}`}
+                >
+                  <IoBookOutline size={20} />
+                  <span>Practice This Opening</span>
+                </a>
+              ) : null}
             </div>
           </div>
           <button

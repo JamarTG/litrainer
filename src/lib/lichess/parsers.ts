@@ -1,8 +1,9 @@
 import { Chess } from "chess.js";
 import { LichessEvaluation } from "../../types/eval";
 import { LichessGameResponse } from "../../types/response";
-import { Puzzle } from "../../types/puzzle";
+import { PositionOpening, Puzzle } from "../../types/puzzle";
 import { GameType } from "../../types/form";
+import openings from "./openings";
 
 export const decodeLichessGameResponse = async (response: Response) => {
   if (!response.body) {
@@ -47,86 +48,95 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
   const standardGames = games.filter((game) => game.variant === "standard");
 
   const result = standardGames.flatMap((game, index) => {
-  const chessgame = new Chess();
-  chessgame.loadPgn(game.moves);
+    const chessgame = new Chess();
+    chessgame.loadPgn(game.moves);
 
-  const history = chessgame.history({ verbose: true });
-  const gameEvaluations = evaluations[index];
+    const history = chessgame.history({ verbose: true });
+    const gameEvaluations = evaluations[index];
 
-  // Skip initial evaluation if it corresponds to the starting position
-  const trimmedEvaluations = gameEvaluations.length > history.length ? gameEvaluations.slice(1) : gameEvaluations;
+    // Skip initial evaluation if it corresponds to the starting position
+    const trimmedEvaluations = gameEvaluations.length > history.length ? gameEvaluations.slice(1) : gameEvaluations;
 
-  const OPColor = username === game.players.white.user.name ? "w" : "b";
+    const OPColor = username === game.players.white.user.name ? "w" : "b";
 
-  const res: Puzzle[] = [];
+    const res: Puzzle[] = [];
 
-  const middlegameStartPly = game.division?.middle ?? Infinity;
-  const endgameStartPly = game.division?.end ?? Infinity;
+    const middlegameStartPly = game.division?.middle ?? Infinity;
+    const endgameStartPly = game.division?.end ?? Infinity;
 
-  for (let i = 0; i < trimmedEvaluations.length && i < history.length; i++) {
-    const evaluation = trimmedEvaluations[i];
-    const move = history[i];
+    let pgnString = "";
 
-    if (!evaluation || !move) continue;
-
-    if (evaluation.judgment && move.color === OPColor && i > 0) {
+    for (let i = 0; i < trimmedEvaluations.length && i < history.length; i++) {
+      let positionOpening = null;
+      const evaluation = trimmedEvaluations[i];
+      const move = history[i];
       const plyNumber = i + 1;
+      const isWhiteMove = plyNumber % 2;
 
-      let phase: "opening" | "middlegame" | "endgame";
+      if (!evaluation || !move) continue;
+
+      if (evaluation.judgment && move.color === OPColor && i > 0) {
+        let phase: "opening" | "middlegame" | "endgame";
+        if (plyNumber < middlegameStartPly) {
+          phase = "opening";
+          positionOpening = openings.find((opening: PositionOpening) => opening.pgn === pgnString.trim());
+        } else if (plyNumber < endgameStartPly) {
+          phase = "middlegame";
+        } else {
+          phase = "endgame";
+        }
+
+        const previousMove = history[i - 1];
+
+        const puzzle: Puzzle = {
+          gameId: game.game_id,
+          players: game.players,
+          positionOpening: positionOpening ?? null,
+          gameOpening: game.opening,
+          variant: game.variant,
+          timeControl: game.perf as GameType,
+          status: game.status,
+          rated: game.rated,
+          clock: game.clock,
+          userMove: {
+            san: move.san,
+            lan: move.lan,
+            piece: move.piece,
+            color: move.color,
+            source: move.from,
+            destination: move.to,
+          },
+          moveNumber: plyNumber,
+          opponentMove: {
+            san: previousMove.san,
+            lan: previousMove.lan,
+            piece: previousMove.piece,
+            source: previousMove.from,
+            destination: previousMove.to,
+            color: previousMove.color,
+          },
+          evaluation,
+          fen: {
+            current: move.before,
+            previous: previousMove.before ?? move.before,
+          },
+          phase,
+        };
+
+        if (game.winner) {
+          puzzle.winner = game.winner as "white" | "black";
+        }
+
+        res.push(puzzle);
+      }
+
       if (plyNumber < middlegameStartPly) {
-        phase = "opening";
-      } else if (plyNumber < endgameStartPly) {
-        phase = "middlegame";
-      } else {
-        phase = "endgame";
+        pgnString += isWhiteMove ? `${plyNumber}. ${move.san}` : ` ${move.san}${plyNumber < middlegameStartPly - 1 ? " " : ""}`;
       }
-
-      const previousMove = history[i - 1];
-
-      const puzzle: Puzzle = {
-        gameId: game.game_id,
-        players: game.players,
-        opening: game.opening,
-        variant: game.variant,
-        timeControl: game.perf as GameType,
-        status: game.status,
-        rated: game.rated,
-        clock: game.clock,
-        userMove: {
-          san: move.san,
-          lan: move.lan,
-          piece: move.piece,
-          color: move.color,
-          source: move.from,
-          destination: move.to,
-        },
-        moveNumber: plyNumber,
-        opponentMove: {
-          san: previousMove.san,
-          lan: previousMove.lan,
-          piece: previousMove.piece,
-          source: previousMove.from,
-          destination: previousMove.to,
-          color: previousMove.color,
-        },
-        evaluation,
-        fen: {
-          current: move.before,
-          previous: previousMove.before ?? move.before,
-        },
-        phase,
-      };
-
-      if (game.winner) {
-        puzzle.winner = game.winner as "white" | "black";
-      }
-
-      res.push(puzzle);
     }
-  }
 
-  return res;
-});
+    return res;
+  });
   return result.flat();
 };
 
