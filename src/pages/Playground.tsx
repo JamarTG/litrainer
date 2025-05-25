@@ -23,6 +23,7 @@ import TrainerForm from "../components/trainerForm/modals/TrainerForm";
 import { initialFormState } from "../constants/form";
 import { Fields } from "../types/form";
 import useHandleSubmit from "../hooks/useHandleSubmit";
+import GameInfo from "../components/playArea/header/GameInfo";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -79,6 +80,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
             <div className="h-8 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Controls</h2>
               <div className="flex justify-center items-center rounded-full ">
+                <GameInfo/>
                 <SubmitButtonWithModal />
                 <button
                   aria-label="Settings"

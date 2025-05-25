@@ -22,7 +22,7 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
 
   return (
     <div className="flex flex-col justify-center items-center pt-2">
-      <GameInfo/>
+      
       <PlayerBadge
         color={opponentColor}
         material={material}
