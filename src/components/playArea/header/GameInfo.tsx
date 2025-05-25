@@ -33,10 +33,9 @@ const GameInfo = () => {
         onClick={() => setShowDropdown((v) => !v)}
         aria-haspopup="true"
         aria-expanded={showDropdown}
-        title="Game Info"
+        title="Get Additional Game Info"
       >
-        <FaInfoCircle className="text-blue-500 text-2xl" />
-        <span className="ml-1 text-md">Game Info</span>
+        <FaInfoCircle className="text-2xl" />
       </button>
 
       {showDropdown && (
