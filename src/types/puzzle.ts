@@ -13,13 +13,14 @@ export interface Puzzle {
   rated: boolean;
   status: string;
   variant: string;
-  userMove:{ san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
-  opponentMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
+  userMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color };
+  opponentMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color };
   clock: LichessClock;
   winner?: "white" | "black";
   moveNumber: number;
-  opening: Opening;
-  phase: Phase
+  gameOpening: Opening;
+  phase: Phase;
+  positionOpening: PositionOpening | null;
 }
 
 type Phase = "opening" | "middlegame" | "endgame";
@@ -28,6 +29,12 @@ export interface Opening {
   eco: string;
   name: string;
   ply: number;
+}
+
+export interface PositionOpening {
+  eco: string;
+  name: string;
+  pgn: string;
 }
 
 export interface Fen {

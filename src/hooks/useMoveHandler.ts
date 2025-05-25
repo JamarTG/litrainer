@@ -13,7 +13,6 @@ import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
 import { attemptMove } from "../utils/chess/move";
-import { openings } from "../data/openings";
 
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
@@ -26,17 +25,15 @@ export const useMoveHandler = (game: Chess) => {
   });
 
   const isInOpeningBook = (move: string) => {
-    const fen = game.fen().split(" ")[0];
     const isMoveAccepted = true;
 
-    const fenWithoutColor = fen.split(" ")[0];
-    const isKnownOpening = openings.some((opening) => opening.fen === fenWithoutColor);
-
-    if (isKnownOpening) {
-      dispatch(setFeedback({
-        best: `${move} is acceptable`,
-        played: `${move} ${ClassificationMessage["Book"]} `,
-      }));
+    if (puzzle.positionOpening) {
+      dispatch(
+        setFeedback({
+          best: `${move} is acceptable`,
+          played: `${move} ${ClassificationMessage["Book"]} `,
+        })
+      );
       handleEvaluation(MoveClassification.Book, isMoveAccepted);
       return true;
     }
