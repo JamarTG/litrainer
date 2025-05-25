@@ -87,7 +87,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                   onClick={() => setShowSettings(true)}
                   className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
                 >
-                  <FaGear size={20} />
+                  <FaGear size={30} />
                 </button>
             
             </div>
