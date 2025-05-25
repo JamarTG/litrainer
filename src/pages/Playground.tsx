@@ -67,7 +67,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   }
 
   return (
-    <div className="flex gap-6 justify-center items-center flex-wrap min-[850px]:flex-nowrap">
+    <div className="flex gap-6 justify-center items-center flex-wrap min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <InteractiveChessBoard
         game={game}
         handleSquareClick={handleSquareClick}
@@ -75,10 +75,10 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
-      <div className="relative flex flex-col gap-4 w-full bg-gray-100 dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
+      <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (
           <div className="space-y-4 ">
-            <div className="h-8 flex items-center justify-end">
+            <div className="relative h-8 flex items-center justify-end">
                 <GameInfo/>
                 <SubmitButtonWithModal />
                 <button

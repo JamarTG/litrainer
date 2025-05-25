@@ -34,7 +34,7 @@ const PuzzleNavigation = () => {
             hover:bg-blue-600
             active:scale-95 active:ring-2 active:ring-purple-300
             transition
-            w-24 h-14 sm:w-32 sm:h-20
+            w-24 h-14 sm:w-24 sm:h-12
             m-1
           `}
           aria-label={btn.aria}
