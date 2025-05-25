@@ -1,14 +1,11 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import TrainerForm from "./modals/TrainerForm";
 import { Fields } from "../../types/form";
 import { initialFormState } from "../../constants/form";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
 
-interface SubmitButtonWithModalProps {
-  children?: ReactNode;
-}
 
-const SubmitButtonWithModal: React.FC<SubmitButtonWithModalProps> = ({ children }) => {
+const SubmitButtonWithModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Fields>(initialFormState);
 
