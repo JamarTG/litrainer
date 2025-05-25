@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, MouseEvent, SetStateAction, useState } from "react";
 import { Chess } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,10 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import SubmitButtonWithModal from "../components/trainerForm/SubmitButtonWithModal";
 import AutoSkip from "../components/panel/AutoSkip";
+import TrainerForm from "../components/trainerForm/modals/TrainerForm";
+import { initialFormState } from "../constants/form";
+import { Fields } from "../types/form";
+import useHandleSubmit from "../hooks/useHandleSubmit";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -42,6 +46,23 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   const [showSettings, setShowSettings] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+
+  const [formData, setFormData] = useState<Fields>(initialFormState);
+
+  const handleSubmit = useHandleSubmit(formData);
+
+  if (puzzles.length === 0) {
+    return (
+      <TrainerForm
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
+    );
+  }
 
   return (
     <div className="flex gap-6 justify-center items-center flex-wrap min-[850px]:flex-nowrap">
