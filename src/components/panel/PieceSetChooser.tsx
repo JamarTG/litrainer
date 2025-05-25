@@ -16,15 +16,22 @@ const PieceSetChooser = () => {
       onSelect={(value) => {
         dispatch(setPieceSet(value));
         playSelectSound();
-      } }
+      }}
       getDisplay={(setName) => (
-        <div className="w-8 h-8" title={setName}>
+        <div
+          className="h-8 flex items-center gap-1"
+          title={setName}
+        >
           <img
             src={`pieceSets/${setName}/wK.svg`}
             className="w-8"
-            alt={setName} />
+            alt={setName}
+          />
+          {setName}
         </div>
-      )} getOptionKey={(option: string): string => option} />
+      )}
+      getOptionKey={(option: string): string => option}
+    />
   );
 };
 
