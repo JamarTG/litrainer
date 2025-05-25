@@ -1,5 +1,5 @@
 import GameSpeedIcon from "./GameSpeedIcon";
-import { convertTimeToString } from "../../lib/lichess/time";
+import { convertTimeToString } from "../../utils/chess/time";
 import { GameType } from "../../types/form";
 import { FC } from "react";
 
@@ -17,9 +17,7 @@ const GameSpeed: FC<GameSpeedProps> = ({ timeControl, rated, clock }) => {
         <p className="capitalize font-medium">{timeControl}</p>
         <p className="text-sm text-gray-500">
           {rated ? "Rated" : "Casual"} •{" "}
-          {clock
-            ? `${convertTimeToString(clock.initial)}+${convertTimeToString(clock.increment)}`
-            : "Unlimited"}
+          {clock ? `${convertTimeToString(clock.initial)}+${convertTimeToString(clock.increment)}` : "Unlimited"}
         </p>
       </div>
     </div>

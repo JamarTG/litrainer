@@ -61,7 +61,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
                       onClick={() => handleGameTypesChange(game)}
                     >
                       <div className="flex my-auto gap-x-2">
-                        <GameSpeedIcon speed={game.toLocaleLowerCase() as GameType} />
+                        <GameSpeedIcon size="text-2xl" speed={game.toLocaleLowerCase() as GameType} />
                       </div>
                       <svg
                         viewBox="0 0 16 16"

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { LichessPlayers } from "../../types/player";
-import { getGameStatusDescription } from "../../lib/lichess/status";
+import { getGameStatusDescription } from "../../utils/chess/status";
 
 interface GameStatusProps {
   status: string;

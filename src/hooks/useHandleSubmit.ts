@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
 import { fetchAndParseLichessGames } from "../utils/api";
-import createPuzzles from "../lib/lichess/parsers";
+import generatePuzzles from "../lib/lichess/parsers";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
 import { toast } from "react-hot-toast";
@@ -54,7 +54,7 @@ const useSubmitHandler = (formData: Fields) => {
         gameTypes
       );
 
-      const puzzles = createPuzzles(username, games as LichessGameResponse[], evaluations as unknown as LichessEvaluation[][]);
+      const puzzles = generatePuzzles(username, games as LichessGameResponse[], evaluations as unknown as LichessEvaluation[][]);
 
       if (puzzles.length === 0) {
         toast.error(`No errors found for ${username} based on the given criteria`);

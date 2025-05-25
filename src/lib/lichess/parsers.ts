@@ -1,4 +1,4 @@
-import { Chess, Color } from "chess.js";
+import { Chess } from "chess.js";
 import { LichessEvaluation } from "../../types/eval";
 import { LichessGameResponse } from "../../types/response";
 import { Puzzle } from "../../types/puzzle";
@@ -118,7 +118,7 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
       };
 
       if (game.winner) {
-        puzzle.winner = game.winner as Color;
+        puzzle.winner = game.winner as "white" | "black";
       }
 
       res.push(puzzle);
