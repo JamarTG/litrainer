@@ -24,7 +24,7 @@ const GameInfo = () => {
 
   return (
     <div
-      className="mb-2 relative h-full"
+      className="relative h-full"
       ref={dropdownRef}
     >
       <button
@@ -38,7 +38,7 @@ const GameInfo = () => {
           className="text-blue-500"
           title="Game Info"
         />
-        <span className="ml-1 text-xs">Game Info</span>
+        <span className="ml-1 text-md">Game Info</span>
       </button>
 
       {showDropdown && (
