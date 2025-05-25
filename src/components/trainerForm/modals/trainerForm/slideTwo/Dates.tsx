@@ -12,11 +12,7 @@ interface DatesProps {
   formData: Fields;
 }
 
-const Dates: FC<DatesProps> = ({
-  handleInputChange,
-  setFormData,
-  formData,
-}) => {
+const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => {
   const calendarDropdown = usePopperDropDown();
   const sortbyDropdown = usePopperDropDown();
 
@@ -32,7 +28,6 @@ const Dates: FC<DatesProps> = ({
   };
 
   const handleSortOptionSelect = (option: Sort) => {
-    
     setSortOption(option);
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -48,7 +43,7 @@ const Dates: FC<DatesProps> = ({
 
         <div className="relative w-[250px] flex items-center justify-center ">
           <input
-            className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
             value={convertDateToReadableFormat(formData.startDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -75,7 +70,7 @@ const Dates: FC<DatesProps> = ({
         </div>
         <div className="relative w-[250px] flex items-center mt-2">
           <input
-            className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
             value={convertDateToReadableFormat(formData.endDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -117,7 +112,7 @@ const Dates: FC<DatesProps> = ({
         <h1 className="text-landingText text-sm text-offWhite">Order Games</h1>
         <div className="relative  flex items-center">
           <input
-            className="flex  w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
+            className="flex text-[#222] w-full h-[32px]   outline-none caret-accent  rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
             placeholder="Ascending"
             value={sortOption}
             onChange={handleInputChange}

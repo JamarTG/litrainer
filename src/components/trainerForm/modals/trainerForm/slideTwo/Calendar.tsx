@@ -21,23 +21,15 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   };
 
   const handlePrevMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
-    );
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-    );
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
   const handleDateClick = (date: number) => {
-    const clickedDate = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      date
-    );
+    const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), date);
 
     if (!tempStartDate || (tempStartDate && tempEndDate)) {
       setTempStartDate(clickedDate);
@@ -51,11 +43,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
 
   const isWithinRange = (date: number) => {
     if (!tempStartDate || !tempEndDate) return false;
-    const current = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      date
-    );
+    const current = new Date(currentDate.getFullYear(), currentDate.getMonth(), date);
     return current >= tempStartDate && current <= tempEndDate;
   };
 
@@ -69,52 +57,39 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     const daysArray = [];
 
     const prevMonthDays = daysInPrevMonth - firstDay + 1;
-    
+
     for (let i = prevMonthDays; i <= daysInPrevMonth; i++) {
       daysArray.push(
         <div className="py-[1.5px] w-full flex items-center justify-center">
-        <div
-          key={`prev-${i}`}
-          className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
-        >
-           <span className = "my-auto mx-auto">{i}</span>
-        </div>
+          <div
+            key={`prev-${i}`}
+            className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
+          >
+            <span className="my-auto mx-auto">{i}</span>
+          </div>
         </div>
       );
     }
 
     for (let date = 1; date <= daysInMonth; date++) {
       const isSelected =
-        (tempStartDate &&
-          tempStartDate.getDate() === date &&
-          tempStartDate.getMonth() === month &&
-          tempStartDate.getFullYear() === year) ||
-        (tempEndDate &&
-          tempEndDate.getDate() === date &&
-          tempEndDate.getMonth() === month &&
-          tempEndDate.getFullYear() === year);
+        (tempStartDate && tempStartDate.getDate() === date && tempStartDate.getMonth() === month && tempStartDate.getFullYear() === year) ||
+        (tempEndDate && tempEndDate.getDate() === date && tempEndDate.getMonth() === month && tempEndDate.getFullYear() === year);
 
       const inRange = isWithinRange(date);
 
       daysArray.push(
-
         <div className="py-[1.5px] w-full flex items-center justify-center">
           <div
             key={date}
             className={`w-7 h-7  flex items-center justify-center text-center rounded-md cursor-pointer ${
-              isSelected
-                ? "bg-accent text-offWhite"
-                : inRange
-                ? "bg-accent/30 text-textWhite"
-                : "hover:bg-tertiary"
+              isSelected ? "bg-accent text-offWhite" : inRange ? "bg-accent/30 text-textWhite" : "hover:bg-tertiary"
             }`}
             onClick={() => handleDateClick(date)}
           >
-            <span className = "my-auto mx-auto">{date}</span>
+            <span className="my-auto mx-auto">{date}</span>
           </div>
         </div>
-
-      
       );
     }
 
@@ -122,12 +97,12 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     for (let i = 1; i <= remainingDays; i++) {
       daysArray.push(
         <div className="py-[1.5px] w-full flex items-center justify-center">
-        <div
-          key={`next-${i}`}
-          className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
-        >
-           <span className = "my-auto mx-auto">{i}</span>
-        </div>
+          <div
+            key={`next-${i}`}
+            className="w-7 h-7 flex items-center  justify-center rounded-md text-muted cursor-pointer"
+          >
+            <span className="my-auto mx-auto">{i}</span>
+          </div>
         </div>
       );
     }
@@ -147,7 +122,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   };
 
   return (
-    <div className="bg-secondary w-[250px] rounded-lg border border-shadowGray px-2 py-2">
+    <div className="bg-white dark:bg-zinc-900  w-[250px] rounded-lg border border-shadowGray px-2 py-2">
       <div className="flex justify-between items-center text-offWhite">
         <button
           onClick={handlePrevMonth}

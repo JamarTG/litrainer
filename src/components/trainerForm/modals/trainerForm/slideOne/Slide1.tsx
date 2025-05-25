@@ -29,9 +29,9 @@ const SlideOne: FC<SlideOneProps> = ({
       <div className="grid gap-4 ">
         <div className="flex justify-between">
           <div className="grid gap-2">
-            <h1 className="text-landingText text-sm text-offWhite">Username</h1>
+            <h1 className="text-landingText  text-sm text-offWhite">Username</h1>
             <input
-              className="flex  w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
+              className="flex text-[#222] w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
               placeholder="JamariTheGreat"
               value={formData.username}
               name="username"
@@ -43,7 +43,7 @@ const SlideOne: FC<SlideOneProps> = ({
               Max number of games
             </h1>
             <input
-              className="flex  w-full  bg-secondary   h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
+              className="flex w-full bg-secondary text-[#222] h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
               placeholder="10"
               value={formData.maxNoGames ?? 1}
               type="number"

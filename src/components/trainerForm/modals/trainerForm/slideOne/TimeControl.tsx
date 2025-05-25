@@ -20,7 +20,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
       <div className="relative w-full flex items-center">
         <input
-          className="flex-1 w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+          className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
           placeholder="Select games"
           value={formData.gameTypes.join(",")}
           onChange={handleInputChange}
@@ -60,8 +60,12 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
                       className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
                       onClick={() => handleGameTypesChange(game)}
                     >
-                      <div className="flex my-auto gap-x-2">
-                        <GameSpeedIcon size="text-2xl" speed={game.toLocaleLowerCase() as GameType} />
+                      <div className="flex text-[#222]  items-center my-auto gap-x-2">
+                        <GameSpeedIcon
+                          size="text-2xl"
+                          speed={game.toLocaleLowerCase() as GameType}
+                        />
+                        {game.toLocaleLowerCase()}
                       </div>
                       <svg
                         viewBox="0 0 16 16"

@@ -87,7 +87,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                   onClick={() => setShowSettings(true)}
                   className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
                 >
-                  <FaGear size={30} />
+                  <FaGear size={25} />
                 </button>
             
             </div>
@@ -110,7 +110,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => dispatch(toggleTheme())}
                 aria-label="Toggle theme"
               >
-                {theme === "light" ? <FaSun size={20} /> : <FaMoon size={20} />}
+                {theme === "light" ? <FaSun size={25} /> : <FaMoon size={25} />}
               </button>
             </div>
             <div className="min-w-96 flex justify-center items-center flex-col gap-4 mt-6">

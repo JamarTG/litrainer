@@ -41,23 +41,30 @@ const GameInfo = () => {
       {showDropdown && (
         <div className="absolute left-1/2 top-full mt-1 z-10 bg-white dark:bg-[#222] border border-gray-300 dark:border-gray-700 rounded shadow-lg p-3 min-w-[280px] text-left transform -translate-x-1/2">
           <div className="flex flex-col gap-2">
-            <div className="text-xs text-gray-700 dark:text-gray-200 space-y-2">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3">
-                  <span className="px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs">
-                    <img src={`/gamePhases/${puzzle.phase}.svg`} className="w-6 h-6 rounded-full" alt={puzzle.phase} title={`Position taken from ${puzzle.phase}`} />
+            <div className="text-xs text-gray-700 dark:text-gray-200">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-3 text-md">
+                  <span className="p-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs">
+                    <img
+                      src={`/gamePhases/${puzzle.phase}.svg`}
+                      className="w-6 h-6 rounded-full"
+                      alt={puzzle.phase}
+                      title={`Position taken from ${puzzle.phase}`}
+                    />
                   </span>
                   <GameSpeedIcon
-                    size="text-2xl"
+                    size="text-3xl"
                     speed={"bullet"}
                   />
-                  <span>{puzzle.rated ? "Rated" : "Casual"}</span>
+                  <span>{puzzle.rated ? "Rated" : "Casual"}</span>-
                   <span>{formatTimeControl(puzzle.clock.initial, puzzle.clock.increment)}</span>
                 </div>
 
-                <p className="text-md mb-5 text-gray-400">
+                <p className="text-md text-gray-400">
                   {getGameStatusDescription(puzzle.status, puzzle.winner === "white" ? puzzle.players.white : puzzle.players.black)}
                 </p>
+
+                <hr className="mb-2" />
               </div>
 
               <div className="flex-col flex justify-center items-start gap-2">
