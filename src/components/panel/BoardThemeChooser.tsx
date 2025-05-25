@@ -14,13 +14,14 @@ const BoardThemeChooser = () => {
       selected={boardTheme}
       onSelect={(value) => dispatch(setBoardTheme(value))}
       getDisplay={(theme) => (
-        <div className="w-8 h-8 flex justify-center items-center">
+        <div className="h-8 flex items-center gap-1">
           <img
             title={theme.name}
             src={theme.thumbnail ?? ""}
             className="w-8 h-4"
             alt={theme.name}
           />
+          {theme.name}
         </div>
       )}
       getOptionKey={(option: { name: string; path: string; thumbnail: string | null }): string => option.name}
