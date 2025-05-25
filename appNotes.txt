@@ -1,3 +1,4 @@
+Computer Shouldn't be playing back
 Add a Modal When No Puzzles are Formed
 Fix Cannot read property of undefined reading color
 Fix or remove the board switch option
