@@ -12,7 +12,7 @@ interface GameSpeedProps {
 const GameSpeed: FC<GameSpeedProps> = ({ timeControl, rated, clock }) => {
   return (
     <div className="flex items-center gap-3">
-      <GameSpeedIcon speed={timeControl} />
+      <GameSpeedIcon size="text-2xl" speed={timeControl} />
       <div className="flex flex-col">
         <p className="capitalize font-medium">{timeControl}</p>
         <p className="text-sm text-gray-500">
