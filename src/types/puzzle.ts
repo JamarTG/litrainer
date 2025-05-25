@@ -16,7 +16,7 @@ export interface Puzzle {
   userMove:{ san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
   opponentMove: { san: string; lan: string; piece: PieceSymbol; source: Square; destination: Square; color: Color; };
   clock: LichessClock;
-  winner?: Color;
+  winner?: "white" | "black";
   moveNumber: number;
   opening: Opening;
   phase: Phase

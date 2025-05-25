@@ -95,7 +95,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
 
         {showSettings && (
           <div className="absolute inset-0 z-10 bg-gray-100 dark:bg-zinc-800 p-4 flex flex-col gap-4 animate-fade-in">
-            <div className="h-8 bg-orange-500 flex items-center justify-between">
+            <div className="h-8 flex items-center justify-between">
               <button
                 onClick={() => setShowSettings(false)}
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
@@ -111,8 +111,8 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 {theme === "light" ? <FaSun size={20} /> : <FaMoon size={20} />}
               </button>
             </div>
-            <div className="min-w-96 flex bg-yellow-600 justify-center items-center flex-col gap-4 mt-6">
-              <div className="flex w-96 bg-green-700 flex-col items-start justify-start">
+            <div className="min-w-96 flex justify-center items-center flex-col gap-4 mt-6">
+              <div className="flex w-96 flex-col items-start justify-start">
                 <AutoSkip />
                 <PieceSetChooser />
                 <BoardThemeChooser />

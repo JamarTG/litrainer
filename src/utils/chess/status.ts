@@ -1,9 +1,6 @@
 import { LichessPlayer } from "../../types/player";
 
 const gameStatusMap: Record<string, (player: string) => string> = {
-  created: () => "The game was created.",
-  started: () => "The game started.",
-  aborted: () => "The game was aborted.",
   mate: (player) => (player ? `${player} won by checkmate.` : "Draw."),
   resign: (player) => (player ? `${player} won by resignation.` : "Draw."),
   stalemate: () => "The game ended in a stalemate.",
