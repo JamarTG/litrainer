@@ -29,10 +29,12 @@ const SubmitButtonWithModal = () => {
 
       <button
         className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-        aria-label="Create New Sesstion"
+        aria-label="Create New Session"
+        title="Create New Session"
         onClick={handleToggleModal}
       >
         <span className="icon text-2xl">&#xe02d;</span>
+        
       </button>
     </div>
   );

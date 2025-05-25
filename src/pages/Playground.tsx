@@ -24,6 +24,7 @@ import { initialFormState } from "../constants/form";
 import { Fields } from "../types/form";
 import useHandleSubmit from "../hooks/useHandleSubmit";
 import GameInfo from "../components/playArea/header/GameInfo";
+import { IoIosArrowBack } from "react-icons/io";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -74,22 +75,21 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
 
-      <div className="relative flex flex-col gap-4 w-full bg-gray-100 dark:bg-zinc-800 p-4 rounded-lg min-h-[500px]">
+      <div className="relative flex flex-col gap-4 w-full bg-gray-100 dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (
           <div className="space-y-4 ">
-            <div className="h-8 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Controls</h2>
-              <div className="flex justify-center items-center rounded-full ">
+            <div className="h-8 flex items-center justify-end">
                 <GameInfo/>
                 <SubmitButtonWithModal />
                 <button
                   aria-label="Settings"
+                  title="Settings"
                   onClick={() => setShowSettings(true)}
                   className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
                 >
                   <FaGear size={20} />
                 </button>
-              </div>
+            
             </div>
             <PuzzleInfo />
           </div>
@@ -102,7 +102,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(false)}
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Back</h2>
+                <IoIosArrowBack size={25} />
               </button>
               <button
                 title="light or dark?"

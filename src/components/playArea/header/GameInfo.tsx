@@ -24,7 +24,7 @@ const GameInfo = () => {
 
   return (
     <div
-      className="relative h-full"
+      className="h-full flex justify-center items-center"
       ref={dropdownRef}
     >
       <button
@@ -33,11 +33,9 @@ const GameInfo = () => {
         onClick={() => setShowDropdown((v) => !v)}
         aria-haspopup="true"
         aria-expanded={showDropdown}
+        title="Game Info"
       >
-        <FaInfoCircle
-          className="text-blue-500"
-          title="Game Info"
-        />
+        <FaInfoCircle className="text-blue-500 text-2xl" />
         <span className="ml-1 text-md">Game Info</span>
       </button>
 
