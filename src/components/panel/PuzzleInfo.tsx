@@ -27,10 +27,10 @@ const PuzzleInfo = () => {
               alt={imageAlt}
             />
             <div className="flex flex-col items-start justify-center text-sm text-gray-800 dark:text-white">
-              <small className="text-sm text-gray-800">
-                <span className="text-xl">{playedMove}</span>
+              <small className="text-sm">
+                <span className="text-xl font-bold">{playedMove}</span>
               </small>
-              <p className="text-gray-600 text-lg">{bestMove}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg">{bestMove}</p>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@ const PuzzleInfo = () => {
                   {" "}
                   You played <span className="text-2xl font-bold">{puzzle.userMove?.san}</span>
                 </span>
-                <p className="text-gray-600 text-lg">Try to find a better move</p>
+                <p className="text-gray-600 dark:text-gray-300 text-lg">Try to find a better move</p>
               </div>
             </div>
           </div>
