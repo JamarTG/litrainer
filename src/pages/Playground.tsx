@@ -1,4 +1,4 @@
-import { FC, MouseEvent, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import { Chess } from "chess.js";
 import { Puzzle } from "../types/puzzle";
 import { useDispatch, useSelector } from "react-redux";

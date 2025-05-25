@@ -17,7 +17,7 @@ const GameInfo = () => {
   useClickOutside(dropdownRef,setShowDropdown,showDropdown)
 
   if (!puzzle) {
-    return <SubmitButtonWithModal>"Click here to get puzzles"</SubmitButtonWithModal>;
+    return <SubmitButtonWithModal/>;
   }
 
   return (
