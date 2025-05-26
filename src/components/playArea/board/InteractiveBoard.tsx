@@ -37,11 +37,11 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
   const boardSize = useThrottledResize(() => calculateBoardSize(window.innerWidth, window.innerHeight), 200);
 
-
   return (
     <BoardPlayerInfo material={material}>
       <div className="relative flex flex-col justify-center items-center gap-2">
         <Chessboard
+          animationDuration={100}
           position={fen}
           onSquareClick={handleSquareClick}
           onPieceDrop={handleMoveAttempt}
