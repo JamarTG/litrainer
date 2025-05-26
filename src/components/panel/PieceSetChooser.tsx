@@ -3,7 +3,7 @@ import { setPieceSet } from "../../redux/slices/piece-set";
 import { PieceSets } from "../../constants/piece";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";
-import { playSelectSound } from "../../lib/sound";
+import { playSelectSound } from "../../libs/sound";
 
 const PieceSetChooser = () => {
   const dispatch = useDispatch();

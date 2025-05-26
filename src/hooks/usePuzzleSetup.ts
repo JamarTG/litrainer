@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
 import { resetFeedback } from "../redux/slices/feedback";
 import { RootState } from "../redux/store";
-import { playSound } from "../lib/sound";
+import { playSound } from "../libs/sound";
 import { setFen } from "../redux/slices/board";
 
 const usePuzzleSetup = () => {
