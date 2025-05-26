@@ -1,33 +1,37 @@
-import { useEffect } from "react";
+import {  useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Chess} from "chess.js";
-import { setClassification, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setSourceSquare } from "../redux/slices/boardSlices";
+import { Chess } from "chess.js";
+import { resetFeedback } from "../redux/slices/feedbackSlices";
 import { RootState } from "../redux/store";
+import { playSound } from "../lib/sound";
+import { setFen } from "../redux/slices/boardSlices";
 
-const usePuzzleSetup = (
-  executeComputerMove: (game: Chess, move: string) => void,
-  game: Chess,
-) => {
+const usePuzzleSetup = () => {
+  const [game, setGame] = useState<Chess>(new Chess());
   const dispatch = useDispatch();
-  const puzzles = useSelector((state: RootState) => state.puzzle.puzzles);
-  const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
 
+  const executeComputerMove = useCallback(
+    (game: Chess, move: string) => {
+      setTimeout(() => {
+        game.move(move);
+        playSound(game);
+        setGame(game);
+        dispatch(setFen(game.fen()));
+      }, 500);
+    },
+    [setGame, dispatch]
+  );
   useEffect(() => {
-    const currentPuzzle = puzzles[puzzleIndex] || puzzles[0];
-    if (!currentPuzzle) return;
-    game.load(currentPuzzle.fen.previous);
+    if (!puzzle) return;
+    game.load(puzzle.fen.previous);
 
-    dispatch(setFen(currentPuzzle.fen.previous));
-    dispatch(setClassification(null));
-    dispatch(setIsPuzzleSolved(false));
-    dispatch(setSourceSquare(null));
-    dispatch(setDestinationSquare(null));
+    dispatch(resetFeedback());
 
-    if (currentPuzzle.opponentMove?.lan) {
-      executeComputerMove(game, currentPuzzle.opponentMove.lan);
-    }
-  }, [puzzleIndex, puzzles, dispatch, game, executeComputerMove]);
+    executeComputerMove(game, puzzle.opponentMove.lan);
+  }, [puzzle, dispatch, game, executeComputerMove]);
+
+  return {game}
 };
 
 export default usePuzzleSetup;

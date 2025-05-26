@@ -1,14 +1,11 @@
 import { MoveClassification } from "../../constants/classification";
-import { Classification } from "../../types/classification";
 import { PositionEvaluation } from "../../types/eval";
 
 const convertMateScore = (mate: number | undefined): number => {
-  const isNoMate = mate === undefined
-  
+  const isNoMate = mate === undefined;
   if (isNoMate) return 0;
-
   const isMateForWhite = mate > 0;
-  
+
   const whiteMateScore = 100000 - mate * 100;
   const blackMateScore = -100000 - mate * 100;
 
@@ -20,7 +17,6 @@ export const getBasicClassification = (
   currentPositionEvaluation: PositionEvaluation,
   move: string
 ): MoveClassification => {
-  
   if (lastPositionEvaluation.bestMove === move) {
     return MoveClassification.Best;
   }
@@ -40,15 +36,4 @@ export const getBasicClassification = (
   if (centipawnDifference >= 20) return MoveClassification.Good;
 
   return MoveClassification.Excellent;
-};
-
-
-
-export const isPositiveClassification = (classificationResult: Classification) => {
-  return (
-    classificationResult === MoveClassification.Best ||
-    classificationResult === MoveClassification.Excellent ||
-    classificationResult === MoveClassification.Good ||
-    classificationResult === MoveClassification.Brilliant
-  );
 };

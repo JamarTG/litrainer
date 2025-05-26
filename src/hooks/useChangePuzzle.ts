@@ -20,7 +20,6 @@ const useChangePuzzle = () => {
     dispatch(setFen(puzzles[puzzleIndex].fen.previous));
     dispatch(setDestinationSquare(null));
     dispatch(setSourceSquare(null));
-    
   }, [puzzleIndex, puzzles, dispatch]);
 };
 

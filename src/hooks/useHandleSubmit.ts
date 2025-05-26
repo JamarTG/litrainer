@@ -7,8 +7,8 @@ import { LichessEvaluation } from "../types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import { userExists } from "../lib/lichess/user";
-import { dateRangeToEpochMillis } from "../utils/date/dateRangeToEpochMillis";
-import { validateDateRange } from "../utils/date/validateDateRange";
+import { dateRangeToEpochMillis } from "../utils/date/date-range-to-EM";
+import { validateDateRange } from "../utils/date/valid-date";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();

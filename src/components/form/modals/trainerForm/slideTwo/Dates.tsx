@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Fields, Sort } from "../../../../../types/form";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
-import { convertDateToReadableFormat } from "../../../../../utils/date/convertDateToReadableFormat";
+import { convertDateToReadableFormat } from "../../../../../utils/date/date-to-readable-format";
 
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

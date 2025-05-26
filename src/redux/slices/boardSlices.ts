@@ -11,28 +11,36 @@ interface MarkerPosition {
   top: number;
 }
 
-
 export interface BoardState {
   fen: string;
   sourceSquare: string | null;
   destinationSquare: string | null;
   moveSquares: MoveSquares;
-  isLoading: boolean;
+  // isLoading: boolean;
   markerPosition: MarkerPosition;
 }
+
+//  dispatch(setClassification(null));
+//     dispatch(setIsPuzzleSolved(false));
+//     dispatch(setFeedback({ best: null, played: null }));
+
+
+
+//     dispatch(setFen(puzzles[puzzleIndex].fen.previous));
+//     dispatch(setDestinationSquare(null));
+//     dispatch(setSourceSquare(null));
 
 const initialState: BoardState = {
   fen: new Chess().fen(),
   sourceSquare: null,
   destinationSquare: null,
   moveSquares: {},
-  isLoading: false,
+
   markerPosition: {
     right: 0,
     top: 0,
   },
 };
-
 
 const boardSlice = createSlice({
   name: "board",
@@ -53,19 +61,16 @@ const boardSlice = createSlice({
     clearMoveSquares(state) {
       state.moveSquares = {};
     },
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
-    },
+    // setIsLoading(state, action: PayloadAction<boolean>) {
+    //   state.isLoading = action.payload;
+    // },
     setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
       state.markerPosition = action.payload;
-    },
-    resetBoard(state) {
-      Object.assign(state, initialState);
     },
   },
 });
 
-export const { setFen, setSourceSquare, setDestinationSquare, setMoveSquares, setMarkerPosition, clearMoveSquares, setIsLoading, resetBoard } =
+export const { setFen, setSourceSquare, setDestinationSquare, setMoveSquares, setMarkerPosition, clearMoveSquares } =
   boardSlice.actions;
 
 export default boardSlice.reducer;

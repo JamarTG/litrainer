@@ -3,11 +3,10 @@ import { useDispatch } from "react-redux";
 import { useCallback, useMemo } from "react";
 import { UciEngine } from "../engine/uciEngine";
 
-import { ClassificationMessage, MoveClassification } from "../constants/classification";
+import { ClassificationMessage, MoveClassification, PositiveClassifications } from "../constants/classification";
 import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setIsLoading, setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
+import { setDestinationSquare, setFen, setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
 import { Classification } from "../types/classification";
-import { isPositiveClassification } from "../utils/chess/classification";
 import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -118,11 +117,13 @@ export const useMoveHandler = (game: Chess) => {
           });
 
           const classification = cachedEvaluation.classification;
-          handleEvaluation(classification, isPositiveClassification(classification));
+          const isPositiveClassification = PositiveClassifications.has(classification);
+
+          handleEvaluation(classification, isPositiveClassification);
           return classification;
         }
 
-        dispatch(setIsLoading(true));
+       
 
         if (!engine?.isReady()) {
           throw new Error("Engine is not initialized");
@@ -144,15 +145,13 @@ export const useMoveHandler = (game: Chess) => {
             })
           );
         });
-
-        handleEvaluation(result.classification, isPositiveClassification(result.classification));
+        const isPositiveClassification = PositiveClassifications.has(result.classification)
+        handleEvaluation(result.classification, isPositiveClassification);
         return result.classification;
       } catch (error) {
         console.error("Error evaluating move quality:", error);
         return null;
-      } finally {
-        dispatch(setIsLoading(false));
-      }
+      } 
     },
     [engine, engineDepth, dispatch, handleEvaluation]
   );
@@ -182,10 +181,9 @@ export const useMoveHandler = (game: Chess) => {
             const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
             const sameJudgement = puzzle?.evaluation.judgment?.name;
 
-            handleEvaluation(
-              isSameMistake ? (sameJudgement as Classification) : classification,
-              isPositiveClassification(classification as Classification)
-            );
+            const isPositiveClassification = PositiveClassifications.has(classification);
+
+            handleEvaluation(isSameMistake ? (sameJudgement as Classification) : classification, isPositiveClassification);
           });
         }, 0);
       }
