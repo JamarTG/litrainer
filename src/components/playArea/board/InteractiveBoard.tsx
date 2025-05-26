@@ -1,16 +1,11 @@
-import { useState, useMemo, FC, useEffect } from "react";
+import { useState, FC, useEffect } from "react";
 import { Chess, Square } from "chess.js";
 import { Materials } from "../../../types/eval";
-import Marker from "./MoveClassificationMarker";
 import BoardPlayerInfo from "../header/BoardPlayerInfo";
 import { useMaterialEffect } from "../../../hooks/useMaterialEffect";
 import { initialPieceCounts } from "../../../constants/piece";
-import CustomPieces from "./CustomPieces";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getCustomSquareStyles } from "../helpers/squareStyles";
-import { calculateBoardSize } from "../../../utils/chess/board";
-import useThrottledResize from "../../../hooks/useThrottledResize";
 import Chessground from "react-chessground";
 
 import "../../../styles/chessground.css";
@@ -59,22 +54,12 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     });
   }, [boardTheme]);
 
-  // Keep local board FEN in sync with redux state
-
-  // Update last move display when redux state changes
   useEffect(() => {
     if (sourceSquare && destinationSquare) {
       setLastMove([sourceSquare, destinationSquare]);
     }
   }, [sourceSquare, destinationSquare]);
 
-  const customSquareStyles = useMemo(
-    () => getCustomSquareStyles(destinationSquare as Square, sourceSquare as Square, classification, moveSquares, isLoading),
-    [destinationSquare, sourceSquare, classification, moveSquares, isLoading]
-  );
-
-  const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
-  const boardSize = useThrottledResize(() => calculateBoardSize(window.innerWidth, window.innerHeight), 200);
 
   const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
 
@@ -128,7 +113,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
         </div>
       </div>
 
-      <Marker boardSize={boardSize} />
+      {/* <Marker boardSize={boardSize} /> */}
     </BoardPlayerInfo>
   );
 };
