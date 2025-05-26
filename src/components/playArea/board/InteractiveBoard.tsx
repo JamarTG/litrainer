@@ -16,12 +16,11 @@ import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../../utils/boardTh
 
 interface BoardComponentProps {
   game: Chess;
-  handleSquareClick: (srcSquare: Square) => void;
   handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, piece: string) => boolean;
-  unhighlightLegalMoves: () => void;
+
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
+const InteractiveChessBoard: FC<BoardComponentProps> = ({ game,handleMoveAttempt}) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const [lastMove, setLastMove] = useState<[string, string] | undefined>();
 

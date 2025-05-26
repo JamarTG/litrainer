@@ -9,7 +9,6 @@ import InteractiveChessBoard from "../components/playArea/board/InteractiveBoard
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
-import { useSquareClickHandler } from "../hooks/useSquareClickHandler";
 import PuzzleInfo from "../components/panel/PuzzleInfo";
 import PieceSetChooser from "../components/panel/PieceSetChooser";
 import BoardThemeChooser from "../components/panel/BoardThemeChooser";
@@ -45,7 +44,6 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useUpdateTheme(theme);
 
   const { handleMoveAttempt } = useMoveHandler(game);
-  const { handleSquareClick, unhighlightLegalMoves } = useSquareClickHandler(game);
 
   const [showSettings, setShowSettings] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
@@ -70,9 +68,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
     <div className="flex gap-6 justify-center items-center flex-wrap min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <InteractiveChessBoard
         game={game}
-        handleSquareClick={handleSquareClick}
         handleMoveAttempt={handleMoveAttempt}
-        unhighlightLegalMoves={unhighlightLegalMoves}
       />
       <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (

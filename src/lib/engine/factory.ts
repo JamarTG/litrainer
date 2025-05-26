@@ -14,6 +14,7 @@ export const pickEngine = (engine: EngineName): UciEngine => {
       return new Stockfish16(false);
     case EngineName.Stockfish16NNUE:
       return new Stockfish16(true);
+    // REMOVED Stockfish11 file..
     case EngineName.Stockfish11:
       return new Stockfish11();
   }
