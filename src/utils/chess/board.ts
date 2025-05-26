@@ -3,23 +3,30 @@ import { BOARD_THEMES } from "../../constants/board";
 
 export const getSquareCoordinates = (
   square: Square,
-  chessBoardSize: number, 
-  boardOrientation: Color
+  boardSize: number,
+  puzzleColor: Color,
+  boardOrientation?: Color
 ) => {
-
+  // Parse the square notation (e.g., "e4" -> file: 4, rank: 3)
   const [fileLetter, rankNumberAsString] = square;
   const fileLetterASCIINumberCode = fileLetter.charCodeAt(0);
   const ASCIINumberCodeForA = "a".charCodeAt(0);
   const rankNumberAsInteger = parseInt(rankNumberAsString, 10);
-  const endRank = 8;
-  const file = fileLetterASCIINumberCode - ASCIINumberCodeForA;
-  const rank = endRank - rankNumberAsInteger
+  
+  const file = fileLetterASCIINumberCode - ASCIINumberCodeForA; // 0-7 (a-h)
+  const rank = 8 - rankNumberAsInteger; // Convert to 0-7 from bottom
+  
   const numberOfSquaresOnRank = 8;
+  const singleSquareSize = boardSize / numberOfSquaresOnRank;
+  
+  // Use the provided orientation, or fall back to puzzle color
+  const effectiveBoardOrientation = boardOrientation || puzzleColor;
+  const isBoardWhiteOriented = effectiveBoardOrientation === "w";
+
+  // Offset constants for centering the marker
   const arbitraryOffsetConstant = 0.3;
-  const singleSquareSize = chessBoardSize / numberOfSquaresOnRank;
   const topOffset = singleSquareSize * arbitraryOffsetConstant;
   const rightOffset = singleSquareSize * arbitraryOffsetConstant;
-  const isBoardWhiteOriented = boardOrientation === "w";
 
   if (isBoardWhiteOriented) {
     return {
@@ -35,13 +42,12 @@ export const getSquareCoordinates = (
 };
 
 export function getBoardBackgroundStyle(boardThemeName: string) {
-    const theme = Object.values(BOARD_THEMES).find(t => t.name === boardThemeName);
-    if (!theme) return {};
-    return {
-      backgroundImage: `url(${theme.path})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    };
+  const theme = Object.values(BOARD_THEMES).find(t => t.name === boardThemeName);
+  if (!theme) return {};
   
-  return {};
+  return {
+    backgroundImage: `url(${theme.path})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  };
 }
