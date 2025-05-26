@@ -35,7 +35,6 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({
     orientation
   );
 
-  // Only render if we have all required data and the board is mounted
   if (!destinationSquare || !classification || !boardRef.current || !markerPosition) {
     return null;
   }
@@ -50,7 +49,7 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({
       style={{ 
         right: markerPosition.right, 
         top: markerPosition.top,
-        transform: 'translate(-15%, 30%)' // Center the marker on the square
+        transform: 'translate(-15%, 30%)' 
       }}
     />
   );
