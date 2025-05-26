@@ -13,7 +13,7 @@ import { calculateBoardSize } from "../../../utils/chess/board";
 import useThrottledResize from "../../../hooks/useThrottledResize";
 import Chessground from "react-chessground";
 
-import "./chessground.css";
+import "../../../styles/chessground.css";
 
 import { isThemeAvailable, loadThemeCSS } from "../../../utils/pieceThemeLoader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../../utils/boardThemeLoader";
