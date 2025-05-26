@@ -1,0 +1,47 @@
+.cg-wrap piece.pawn.white {
+  background-image: url('/pieceSets/dubrovny/wP.svg');
+}
+
+.cg-wrap piece.rook.white {
+  background-image: url('/pieceSets/dubrovny/wR.svg');
+}
+
+.cg-wrap piece.knight.white {
+  background-image: url('/pieceSets/dubrovny/wN.svg');
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url('/pieceSets/dubrovny/wB.svg');
+}
+
+.cg-wrap piece.queen.white {
+  background-image: url('/pieceSets/dubrovny/wQ.svg');
+}
+
+.cg-wrap piece.king.white {
+  background-image: url('/pieceSets/dubrovny/wK.svg');
+}
+
+.cg-wrap piece.pawn.black {
+  background-image: url('/pieceSets/dubrovny/bP.svg');
+}
+
+.cg-wrap piece.rook.black {
+  background-image: url('/pieceSets/dubrovny/bR.svg');
+}
+
+.cg-wrap piece.knight.black {
+  background-image: url('/pieceSets/dubrovny/bN.svg');
+}
+
+.cg-wrap piece.bishop.black {
+  background-image: url('/pieceSets/dubrovny/bB.svg');
+}
+
+.cg-wrap piece.queen.black {
+  background-image: url('/pieceSets/dubrovny/bQ.svg');
+}
+
+.cg-wrap piece.king.black {
+  background-image: url('/pieceSets/dubrovny/bK.svg');
+}

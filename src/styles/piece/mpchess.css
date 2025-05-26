@@ -1,0 +1,47 @@
+.cg-wrap piece.pawn.white {
+  background-image: url('/pieceSets/mpchess/wP.svg');
+}
+
+.cg-wrap piece.rook.white {
+  background-image: url('/pieceSets/mpchess/wR.svg');
+}
+
+.cg-wrap piece.knight.white {
+  background-image: url('/pieceSets/mpchess/wN.svg');
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url('/pieceSets/mpchess/wB.svg');
+}
+
+.cg-wrap piece.queen.white {
+  background-image: url('/pieceSets/mpchess/wQ.svg');
+}
+
+.cg-wrap piece.king.white {
+  background-image: url('/pieceSets/mpchess/wK.svg');
+}
+
+.cg-wrap piece.pawn.black {
+  background-image: url('/pieceSets/mpchess/bP.svg');
+}
+
+.cg-wrap piece.rook.black {
+  background-image: url('/pieceSets/mpchess/bR.svg');
+}
+
+.cg-wrap piece.knight.black {
+  background-image: url('/pieceSets/mpchess/bN.svg');
+}
+
+.cg-wrap piece.bishop.black {
+  background-image: url('/pieceSets/mpchess/bB.svg');
+}
+
+.cg-wrap piece.queen.black {
+  background-image: url('/pieceSets/mpchess/bQ.svg');
+}
+
+.cg-wrap piece.king.black {
+  background-image: url('/pieceSets/mpchess/bK.svg');
+}

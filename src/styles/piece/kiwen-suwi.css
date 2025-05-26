@@ -1,0 +1,47 @@
+.cg-wrap piece.pawn.white {
+  background-image: url('/pieceSets/kiwen-suwi/wP.svg');
+}
+
+.cg-wrap piece.rook.white {
+  background-image: url('/pieceSets/kiwen-suwi/wR.svg');
+}
+
+.cg-wrap piece.knight.white {
+  background-image: url('/pieceSets/kiwen-suwi/wN.svg');
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url('/pieceSets/kiwen-suwi/wB.svg');
+}
+
+.cg-wrap piece.queen.white {
+  background-image: url('/pieceSets/kiwen-suwi/wQ.svg');
+}
+
+.cg-wrap piece.king.white {
+  background-image: url('/pieceSets/kiwen-suwi/wK.svg');
+}
+
+.cg-wrap piece.pawn.black {
+  background-image: url('/pieceSets/kiwen-suwi/bP.svg');
+}
+
+.cg-wrap piece.rook.black {
+  background-image: url('/pieceSets/kiwen-suwi/bR.svg');
+}
+
+.cg-wrap piece.knight.black {
+  background-image: url('/pieceSets/kiwen-suwi/bN.svg');
+}
+
+.cg-wrap piece.bishop.black {
+  background-image: url('/pieceSets/kiwen-suwi/bB.svg');
+}
+
+.cg-wrap piece.queen.black {
+  background-image: url('/pieceSets/kiwen-suwi/bQ.svg');
+}
+
+.cg-wrap piece.king.black {
+  background-image: url('/pieceSets/kiwen-suwi/bK.svg');
+}

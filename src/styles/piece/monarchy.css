@@ -1,0 +1,47 @@
+.cg-wrap piece.pawn.white {
+  background-image: url('/pieceSets/monarchy/wP.svg');
+}
+
+.cg-wrap piece.rook.white {
+  background-image: url('/pieceSets/monarchy/wR.svg');
+}
+
+.cg-wrap piece.knight.white {
+  background-image: url('/pieceSets/monarchy/wN.svg');
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url('/pieceSets/monarchy/wB.svg');
+}
+
+.cg-wrap piece.queen.white {
+  background-image: url('/pieceSets/monarchy/wQ.svg');
+}
+
+.cg-wrap piece.king.white {
+  background-image: url('/pieceSets/monarchy/wK.svg');
+}
+
+.cg-wrap piece.pawn.black {
+  background-image: url('/pieceSets/monarchy/bP.svg');
+}
+
+.cg-wrap piece.rook.black {
+  background-image: url('/pieceSets/monarchy/bR.svg');
+}
+
+.cg-wrap piece.knight.black {
+  background-image: url('/pieceSets/monarchy/bN.svg');
+}
+
+.cg-wrap piece.bishop.black {
+  background-image: url('/pieceSets/monarchy/bB.svg');
+}
+
+.cg-wrap piece.queen.black {
+  background-image: url('/pieceSets/monarchy/bQ.svg');
+}
+
+.cg-wrap piece.king.black {
+  background-image: url('/pieceSets/monarchy/bK.svg');
+}

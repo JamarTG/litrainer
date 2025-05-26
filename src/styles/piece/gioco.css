@@ -1,0 +1,47 @@
+.cg-wrap piece.pawn.white {
+  background-image: url('/pieceSets/gioco/wP.svg');
+}
+
+.cg-wrap piece.rook.white {
+  background-image: url('/pieceSets/gioco/wR.svg');
+}
+
+.cg-wrap piece.knight.white {
+  background-image: url('/pieceSets/gioco/wN.svg');
+}
+
+.cg-wrap piece.bishop.white {
+  background-image: url('/pieceSets/gioco/wB.svg');
+}
+
+.cg-wrap piece.queen.white {
+  background-image: url('/pieceSets/gioco/wQ.svg');
+}
+
+.cg-wrap piece.king.white {
+  background-image: url('/pieceSets/gioco/wK.svg');
+}
+
+.cg-wrap piece.pawn.black {
+  background-image: url('/pieceSets/gioco/bP.svg');
+}
+
+.cg-wrap piece.rook.black {
+  background-image: url('/pieceSets/gioco/bR.svg');
+}
+
+.cg-wrap piece.knight.black {
+  background-image: url('/pieceSets/gioco/bN.svg');
+}
+
+.cg-wrap piece.bishop.black {
+  background-image: url('/pieceSets/gioco/bB.svg');
+}
+
+.cg-wrap piece.queen.black {
+  background-image: url('/pieceSets/gioco/bQ.svg');
+}
+
+.cg-wrap piece.king.black {
+  background-image: url('/pieceSets/gioco/bK.svg');
+}
