@@ -2,7 +2,7 @@ import { useEffect, RefObject } from "react";
 import { Color, Square } from "chess.js";
 import { getSquareCoordinates } from "../utils/chess/board";
 import { useDispatch } from "react-redux";
-import { setMarkerPosition } from "../redux/slices/boardSlices";
+import { setMarkerPosition } from "../redux/slices/board";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,
@@ -15,7 +15,6 @@ export const useMarkerPositionEffect = (
 
   useEffect(() => {
     if (destinationSquare && puzzleColor && boardRef?.current) {
-      // Wait for next frame to ensure board is fully rendered
       requestAnimationFrame(() => {
         const { right, top } = getSquareCoordinates(
           destinationSquare,

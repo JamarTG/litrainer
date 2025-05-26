@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPieceSet } from "../../redux/slices/pieceSetSlices";
+import { setPieceSet } from "../../redux/slices/piece-set";
 import { PIECE_SETS } from "../../constants/pieceSet";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";

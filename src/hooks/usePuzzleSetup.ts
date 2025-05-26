@@ -1,10 +1,10 @@
-import {  useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
-import { resetFeedback } from "../redux/slices/feedbackSlices";
+import { resetFeedback } from "../redux/slices/feedback";
 import { RootState } from "../redux/store";
 import { playSound } from "../lib/sound";
-import { setFen } from "../redux/slices/boardSlices";
+import { setFen } from "../redux/slices/board";
 
 const usePuzzleSetup = () => {
   const [game, setGame] = useState<Chess>(new Chess());
@@ -31,7 +31,7 @@ const usePuzzleSetup = () => {
     executeComputerMove(game, puzzle.opponentMove.lan);
   }, [puzzle, dispatch, game, executeComputerMove]);
 
-  return {game}
+  return { game };
 };
 
 export default usePuzzleSetup;

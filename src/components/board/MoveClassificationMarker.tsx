@@ -26,7 +26,6 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({
     };
   });
 
-  // Pass boardRef and orientation to the hook
   useMarkerPositionEffect(
     destinationSquare as Square, 
     boardSize, 

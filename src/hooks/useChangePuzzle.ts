@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setSourceSquare } from "../redux/slices/boardSlices";
+import { resetFeedback } from "../redux/slices/feedback";
+import { resetBoardState } from "../redux/slices/board";
 
 const useChangePuzzle = () => {
   const puzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
@@ -14,12 +14,8 @@ const useChangePuzzle = () => {
   useEffect(() => {
     if (puzzles.length === 0) return;
 
-    dispatch(setClassification(null));
-    dispatch(setIsPuzzleSolved(false));
-    dispatch(setFeedback({ best: null, played: null }));
-    dispatch(setFen(puzzles[puzzleIndex].fen.previous));
-    dispatch(setDestinationSquare(null));
-    dispatch(setSourceSquare(null));
+    dispatch(resetBoardState());
+    dispatch(resetFeedback());
   }, [puzzleIndex, puzzles, dispatch]);
 };
 
