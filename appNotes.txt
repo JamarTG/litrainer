@@ -1,15 +1,13 @@
+Performance
 Computer Shouldn't be playing back
-Add a Modal When No Puzzles are Formed
 Fix Cannot read property of undefined reading color
 Fix or remove the board switch option
-Make choosers grid layout
 Swap out arrow icons
 Copy to clipboard to be added. download pgn for game and other options
 Need to tell how long ago it was played
 Page When Offline
 Move Classification System
     - Improve on Brilliant
-Mate or Even Best Move doesn't show at the end because there is no next position
 Linkedin
 Github
 Ability to report Bug or Message Creator on Lichess

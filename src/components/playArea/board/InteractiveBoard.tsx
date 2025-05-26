@@ -1,4 +1,4 @@
-import { useState, useMemo, FC, useEffect} from "react";
+import { useState, useMemo, FC, useEffect } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../../types/eval";
@@ -20,50 +20,22 @@ interface BoardComponentProps {
   unhighlightLegalMoves: () => void;
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({
-  game,
-  handleSquareClick,
-  handleMoveAttempt,
-  unhighlightLegalMoves,
-}) => {
+const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-  const [boardSize, setBoardSize] = useState(() =>
-    calculateBoardSize(window.innerWidth, window.innerHeight)
-  );
-
-  const {
-    puzzle,
-    fen,
-    moveSquares,
-    destinationSquare,
-    isPuzzleSolved,
-    isLoading,
-    classification,
-    sourceSquare,
-    pieceSet,
-  } = useSelector((state: RootState) => ({
-    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-    fen: state.board.fen,
-    moveSquares: state.board.moveSquares,
-    isPuzzleSolved: state.feedback.isPuzzleSolved,
-    classification: state.feedback.classification,
-    destinationSquare: state.board.destinationSquare,
-    sourceSquare: state.board.sourceSquare,
-    isLoading: state.board.isLoading,
-    pieceSet: state.pieceSet.set,
-  }));
+  const [boardSize, setBoardSize] = useState(() => calculateBoardSize(window.innerWidth, window.innerHeight));
+  const { fen, moveSquares, destinationSquare, sourceSquare, isLoading } = useSelector((state: RootState) => state.board);
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const { classification, isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
+  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
   useMaterialEffect(game, setMaterial);
 
-  const customSquareStyles = getCustomSquareStyles(
-    destinationSquare as Square,
-    sourceSquare as Square,
-    classification,
-    moveSquares,
-    isLoading
+  const customSquareStyles = useMemo(
+    () => getCustomSquareStyles(destinationSquare as Square, sourceSquare as Square, classification, moveSquares, isLoading),
+    [destinationSquare, sourceSquare, classification, moveSquares, isLoading]
   );
 
-  const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
+  const customPieces = CustomPieces(pieceSet);
 
   useEffect(() => {
     const updateSize = () => {
@@ -76,6 +48,8 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({
 
     return () => window.removeEventListener("resize", updateSize);
   }, []);
+
+  console.log("Rendered");
 
   return (
     <BoardPlayerInfo material={material}>
