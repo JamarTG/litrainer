@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getCustomSquareStyles } from "../helpers/squareStyles";
 import { calculateBoardSize } from "../../../utils/chess/board";
+import useThrottledResize from "../../../hooks/useThrottledResize";
 // import { getBoardBackgroundStyle } from "../../../utils/chess/board";
 
 interface BoardComponentProps {
@@ -22,7 +23,6 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClick, handleMoveAttempt, unhighlightLegalMoves }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-  const [boardSize, setBoardSize] = useState(() => calculateBoardSize(window.innerWidth, window.innerHeight));
   const { fen, moveSquares, destinationSquare, sourceSquare, isLoading } = useSelector((state: RootState) => state.board);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
   const { classification, isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
@@ -35,20 +35,9 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     [destinationSquare, sourceSquare, classification, moveSquares, isLoading]
   );
 
-  const customPieces = CustomPieces(pieceSet);
+  const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
 
-  useEffect(() => {
-    const updateSize = () => {
-      setBoardSize(calculateBoardSize(window.innerWidth, window.innerHeight));
-    };
-
-    window.addEventListener("resize", updateSize);
-
-    updateSize();
-
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
+  const boardSize = useThrottledResize(() => calculateBoardSize(window.innerWidth, window.innerHeight), 200);
   console.log("Rendered");
 
   return (
