@@ -1,6 +1,6 @@
-import { Stockfish16 } from "../../engine/stockfish16";
-import { Stockfish16_1 } from "../../engine/stockfish16_1";
-import { UciEngine } from "../../engine/uciEngine";
+import { Stockfish16 } from "./engine/stockfish16";
+import { Stockfish16_1 } from "./engine/stockfish16_1";
+import { UciEngine } from "./engine/uciEngine";
 import { EngineName } from "../../types/engine";
 
 export const pickEngine = (engine: EngineName): UciEngine => {
@@ -15,7 +15,7 @@ export const pickEngine = (engine: EngineName): UciEngine => {
       return new Stockfish16(true);
     // REMOVED Stockfish11 file..
     // case EngineName.Stockfish11:
-      // return new Stockfish11();
+    // return new Stockfish11();
   }
 };
 
