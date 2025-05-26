@@ -51,8 +51,8 @@ const boardSlice = createSlice({
     setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
       state.markerPosition = action.payload;
     },
-    resetBoardState(state) {
-      state = initialState;
+    resetBoardState() {
+      return initialState;
     },
   },
 });
