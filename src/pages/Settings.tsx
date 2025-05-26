@@ -1,4 +1,4 @@
-import EngineDepthControl from "../components/engine/EngineDepthControl"
+import EngineDepthControl from "../components/panel/EngineDepthControl"
 
 const Settings = () => {
   return (

@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/pieceSets/cardinal/wP.svg');
+  background-image: url('/themes/pieces/cardinal/wP.svg');
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/pieceSets/cardinal/wR.svg');
+  background-image: url('/themes/pieces/cardinal/wR.svg');
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/pieceSets/cardinal/wN.svg');
+  background-image: url('/themes/pieces/cardinal/wN.svg');
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/pieceSets/cardinal/wB.svg');
+  background-image: url('/themes/pieces/cardinal/wB.svg');
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/pieceSets/cardinal/wQ.svg');
+  background-image: url('/themes/pieces/cardinal/wQ.svg');
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/pieceSets/cardinal/wK.svg');
+  background-image: url('/themes/pieces/cardinal/wK.svg');
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/pieceSets/cardinal/bP.svg');
+  background-image: url('/themes/pieces/cardinal/bP.svg');
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/pieceSets/cardinal/bR.svg');
+  background-image: url('/themes/pieces/cardinal/bR.svg');
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/pieceSets/cardinal/bN.svg');
+  background-image: url('/themes/pieces/cardinal/bN.svg');
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/pieceSets/cardinal/bB.svg');
+  background-image: url('/themes/pieces/cardinal/bB.svg');
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/pieceSets/cardinal/bQ.svg');
+  background-image: url('/themes/pieces/cardinal/bQ.svg');
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/pieceSets/cardinal/bK.svg');
+  background-image: url('/themes/pieces/cardinal/bK.svg');
 }

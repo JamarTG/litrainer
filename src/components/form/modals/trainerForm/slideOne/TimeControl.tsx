@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "../../../../../types/form";
-import GameSpeedIcon from "../../../../game/GameSpeedIcon";
+import GameSpeedIcon from "../../../../board/GameSpeedIcon";
 import { games } from "../../../../../constants/game";
 
 interface GamesProps {

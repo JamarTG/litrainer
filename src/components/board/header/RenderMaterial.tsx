@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Materials } from "../../../types/eval";
-import { determineColorLeadingInMaterial } from "../../../utils/chess/material";
 import PieceIcon from "./PieceIcons";
 import { Color } from "chess.js";
+import { Materials } from "../../../types/eval";
+import { determineColorLeadingInMaterial } from "../../../utils/chess/material";
 
 interface RenderMaterialProps {
   material: Materials;

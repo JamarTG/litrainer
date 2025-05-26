@@ -1,161 +1,157 @@
-
-
 export const MARKER_SIZE_RATIO = 16;
-
 
 export const BOARD_THEMES = [
   {
     name: "blue-marble",
-    path: "/boardThemes/blue-marble.jpg",
-    thumbnail: "/boardThemes/blue-marble.thumbnail.jpg"
+    path: "/themes/boards/blue-marble.jpg",
+    thumbnail: "/themes/boards/blue-marble.thumbnail.jpg",
   },
   {
     name: "blue",
-    path: "/boardThemes/blue.png",
-    thumbnail: "/boardThemes/blue.thumbnail.png"
+    path: "/themes/boards/blue.png",
+    thumbnail: "/themes/boards/blue.thumbnail.png",
   },
   {
     name: "blue2",
-    path: "/boardThemes/blue2.jpg",
-    thumbnail: "/boardThemes/blue2.thumbnail.jpg"
+    path: "/themes/boards/blue2.jpg",
+    thumbnail: "/themes/boards/blue2.thumbnail.jpg",
   },
   {
     name: "blue3",
-    path: "/boardThemes/blue3.jpg",
-    thumbnail: "/boardThemes/blue3.thumbnail.jpg"
+    path: "/themes/boards/blue3.jpg",
+    thumbnail: "/themes/boards/blue3.thumbnail.jpg",
   },
   {
     name: "brown",
-    path: "/boardThemes/brown.png",
-    thumbnail: "/boardThemes/brown.thumbnail.png"
+    path: "/themes/boards/brown.png",
+    thumbnail: "/themes/boards/brown.thumbnail.png",
   },
   {
     name: "canvas2",
-    path: "/boardThemes/canvas2.jpg",
-    thumbnail: "/boardThemes/canvas2.thumbnail.jpg"
+    path: "/themes/boards/canvas2.jpg",
+    thumbnail: "/themes/boards/canvas2.thumbnail.jpg",
   },
   {
     name: "green-plastic",
-    path: "/boardThemes/green-plastic.png",
-    thumbnail: "/boardThemes/green-plastic.thumbnail.png"
+    path: "/themes/boards/green-plastic.png",
+    thumbnail: "/themes/boards/green-plastic.thumbnail.png",
   },
   {
     name: "green",
-    path: "/boardThemes/green.png",
-    thumbnail: "/boardThemes/green.thumbnail.png"
+    path: "/themes/boards/green.png",
+    thumbnail: "/themes/boards/green.thumbnail.png",
   },
   {
     name: "grey",
-    path: "/boardThemes/grey.jpg",
-    thumbnail: "/boardThemes/grey.thumbnail.jpg"
+    path: "/themes/boards/grey.jpg",
+    thumbnail: "/themes/boards/grey.thumbnail.jpg",
   },
   {
     name: "horsey",
-    path: "/boardThemes/horsey.jpg",
-    thumbnail: "/boardThemes/horsey.thumbnail.jpg"
+    path: "/themes/boards/horsey.jpg",
+    thumbnail: "/themes/boards/horsey.thumbnail.jpg",
   },
   {
     name: "ic",
-    path: "/boardThemes/ic.png",
-    thumbnail: "/boardThemes/ic.thumbnail.png"
+    path: "/themes/boards/ic.png",
+    thumbnail: "/themes/boards/ic.thumbnail.png",
   },
   {
     name: "leather",
-    path: "/boardThemes/leather.jpg",
-    thumbnail: "/boardThemes/leather.thumbnail.jpg"
+    path: "/themes/boards/leather.jpg",
+    thumbnail: "/themes/boards/leather.thumbnail.jpg",
   },
   {
     name: "maple",
-    path: "/boardThemes/maple.jpg",
-    thumbnail: "/boardThemes/maple.thumbnail.jpg"
+    path: "/themes/boards/maple.jpg",
+    thumbnail: "/themes/boards/maple.thumbnail.jpg",
   },
   {
     name: "maple2",
-    path: "/boardThemes/maple2.jpg",
-    thumbnail: "/boardThemes/maple2.thumbnail.jpg"
+    path: "/themes/boards/maple2.jpg",
+    thumbnail: "/themes/boards/maple2.thumbnail.jpg",
   },
   {
     name: "marble",
-    path: "/boardThemes/marble.jpg",
-    thumbnail: "/boardThemes/marble.thumbnail.jpg"
+    path: "/themes/boards/marble.jpg",
+    thumbnail: "/themes/boards/marble.thumbnail.jpg",
   },
   {
     name: "metal",
-    path: "/boardThemes/metal.jpg",
-    thumbnail: "/boardThemes/metal.thumbnail.jpg"
+    path: "/themes/boards/metal.jpg",
+    thumbnail: "/themes/boards/metal.thumbnail.jpg",
   },
   {
     name: "ncf-board",
-    path: "/boardThemes/ncf-board.png",
-    thumbnail: null 
+    path: "/themes/boards/ncf-board.png",
+    thumbnail: null,
   },
   {
     name: "olive",
-    path: "/boardThemes/olive.jpg",
-    thumbnail: "/boardThemes/olive.thumbnail.jpg"
+    path: "/themes/boards/olive.jpg",
+    thumbnail: "/themes/boards/olive.thumbnail.jpg",
   },
   {
     name: "pink-pyramid",
-    path: "/boardThemes/pink-pyramid.png",
-    thumbnail: "/boardThemes/pink-pyramid.thumbnail.png"
+    path: "/themes/boards/pink-pyramid.png",
+    thumbnail: "/themes/boards/pink-pyramid.thumbnail.png",
   },
   {
     name: "purple-diag",
-    path: "/boardThemes/purple-diag.png",
-    thumbnail: "/boardThemes/purple-diag.thumbnail.png"
+    path: "/themes/boards/purple-diag.png",
+    thumbnail: "/themes/boards/purple-diag.thumbnail.png",
   },
   {
     name: "purple",
-    path: "/boardThemes/purple.png",
-    thumbnail: "/boardThemes/purple.thumbnail.png"
+    path: "/themes/boards/purple.png",
+    thumbnail: "/themes/boards/purple.thumbnail.png",
   },
   {
     name: "wood",
-    path: "/boardThemes/wood.jpg",
-    thumbnail: "/boardThemes/wood.thumbnail.jpg"
+    path: "/themes/boards/wood.jpg",
+    thumbnail: "/themes/boards/wood.thumbnail.jpg",
   },
   {
     name: "wood2",
-    path: "/boardThemes/wood2.jpg",
-    thumbnail: "/boardThemes/wood2.thumbnail.jpg"
+    path: "/themes/boards/wood2.jpg",
+    thumbnail: "/themes/boards/wood2.thumbnail.jpg",
   },
   {
     name: "wood3",
-    path: "/boardThemes/wood3.jpg",
-    thumbnail: "/boardThemes/wood3.thumbnail.jpg"
+    path: "/themes/boards/wood3.jpg",
+    thumbnail: "/themes/boards/wood3.thumbnail.jpg",
   },
   {
     name: "wood4",
-    path: "/boardThemes/wood4.jpg",
-    thumbnail: "/boardThemes/wood4.thumbnail.jpg"
-  }
+    path: "/themes/boards/wood4.jpg",
+    thumbnail: "/themes/boards/wood4.thumbnail.jpg",
+  },
 ];
 
 export const BOARD_THEME_THUMBNAILS: { [name: string]: string | null } = {
-    "blue-marble": "/boardThemes/blue-marble.thumbnail.jpg",
-    "blue": "/boardThemes/blue.thumbnail.png",
-    "blue2": "/boardThemes/blue2.thumbnail.jpg",
-    "blue3": "/boardThemes/blue3.thumbnail.jpg",
-    "brown": "/boardThemes/brown.thumbnail.png",
-    "canvas2": "/boardThemes/canvas2.thumbnail.jpg",
-    "green-plastic": "/boardThemes/green-plastic.thumbnail.png",
-    "green": "/boardThemes/green.thumbnail.png",
-    "grey": "/boardThemes/grey.thumbnail.jpg",
-    "horsey": "/boardThemes/horsey.thumbnail.jpg",
-    "ic": "/boardThemes/ic.thumbnail.png",
-    "leather": "/boardThemes/leather.thumbnail.jpg",
-    "maple": "/boardThemes/maple.thumbnail.jpg",
-    "maple2": "/boardThemes/maple2.thumbnail.jpg",
-    "marble": "/boardThemes/marble.thumbnail.jpg",
-    "metal": "/boardThemes/metal.thumbnail.jpg",
-    "ncf-board": null,
-    "olive": "/boardThemes/olive.thumbnail.jpg",
-    "pink-pyramid": "/boardThemes/pink-pyramid.thumbnail.png",
-    "purple-diag": "/boardThemes/purple-diag.thumbnail.png",
-    "purple": "/boardThemes/purple.thumbnail.png",
-    "wood": "/boardThemes/wood.thumbnail.jpg",
-    "wood2": "/boardThemes/wood2.thumbnail.jpg",
-    "wood3": "/boardThemes/wood3.thumbnail.jpg",
-    "wood4": "/boardThemes/wood4.thumbnail.jpg"
+  "blue-marble": "/themes/boards/blue-marble.thumbnail.jpg",
+  "blue": "/themes/boards/blue.thumbnail.png",
+  "blue2": "/themes/boards/blue2.thumbnail.jpg",
+  "blue3": "/themes/boards/blue3.thumbnail.jpg",
+  "brown": "/themes/boards/brown.thumbnail.png",
+  "canvas2": "/themes/boards/canvas2.thumbnail.jpg",
+  "green-plastic": "/themes/boards/green-plastic.thumbnail.png",
+  "green": "/themes/boards/green.thumbnail.png",
+  "grey": "/themes/boards/grey.thumbnail.jpg",
+  "horsey": "/themes/boards/horsey.thumbnail.jpg",
+  "ic": "/themes/boards/ic.thumbnail.png",
+  "leather": "/themes/boards/leather.thumbnail.jpg",
+  "maple": "/themes/boards/maple.thumbnail.jpg",
+  "maple2": "/themes/boards/maple2.thumbnail.jpg",
+  "marble": "/themes/boards/marble.thumbnail.jpg",
+  "metal": "/themes/boards/metal.thumbnail.jpg",
+  "ncf-board": null,
+  "olive": "/themes/boards/olive.thumbnail.jpg",
+  "pink-pyramid": "/themes/boards/pink-pyramid.thumbnail.png",
+  "purple-diag": "/themes/boards/purple-diag.thumbnail.png",
+  "purple": "/themes/boards/purple.thumbnail.png",
+  "wood": "/themes/boards/wood.thumbnail.jpg",
+  "wood2": "/themes/boards/wood2.thumbnail.jpg",
+  "wood3": "/themes/boards/wood3.thumbnail.jpg",
+  "wood4": "/themes/boards/wood4.thumbnail.jpg",
 };
-

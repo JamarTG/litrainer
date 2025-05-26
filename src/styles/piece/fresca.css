@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/pieceSets/fresca/wP.svg');
+  background-image: url('/themes/pieces/fresca/wP.svg');
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/pieceSets/fresca/wR.svg');
+  background-image: url('/themes/pieces/fresca/wR.svg');
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/pieceSets/fresca/wN.svg');
+  background-image: url('/themes/pieces/fresca/wN.svg');
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/pieceSets/fresca/wB.svg');
+  background-image: url('/themes/pieces/fresca/wB.svg');
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/pieceSets/fresca/wQ.svg');
+  background-image: url('/themes/pieces/fresca/wQ.svg');
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/pieceSets/fresca/wK.svg');
+  background-image: url('/themes/pieces/fresca/wK.svg');
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/pieceSets/fresca/bP.svg');
+  background-image: url('/themes/pieces/fresca/bP.svg');
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/pieceSets/fresca/bR.svg');
+  background-image: url('/themes/pieces/fresca/bR.svg');
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/pieceSets/fresca/bN.svg');
+  background-image: url('/themes/pieces/fresca/bN.svg');
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/pieceSets/fresca/bB.svg');
+  background-image: url('/themes/pieces/fresca/bB.svg');
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/pieceSets/fresca/bQ.svg');
+  background-image: url('/themes/pieces/fresca/bQ.svg');
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/pieceSets/fresca/bK.svg');
+  background-image: url('/themes/pieces/fresca/bK.svg');
 }

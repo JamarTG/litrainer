@@ -46,10 +46,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         </div>
       </button>
       {isOpen && (
-        <ul
-          className="overflow-y-auto max-h-64 gap-10  absolute z-10 mt-2 bg-white dark:bg-gray-800 rounded-md shadow-lg w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 p-2 auto-rows-fr"
-          style={{ display: "grid", gridAutoFlow: "row", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))" }}
-        >
+        <ul className="overflow-y-auto max-h-64 absolute z-10 mt-2 bg-white dark:bg-zinc-800 rounded-md shadow-lg w-full">
           {options.map((option) => (
             <li
               key={getOptionKey(option)}
@@ -57,7 +54,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
                 onSelect(getOptionKey(option));
                 setIsOpen(false);
               }}
-              className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-gray-100 px-4 py-2 flex items-center gap-2 rounded"
+              className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center gap-2 rounded"
               style={{ minWidth: 0 }}
             >
               {getDisplay(option)}

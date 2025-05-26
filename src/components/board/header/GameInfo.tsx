@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { formatTimeControl } from "../../../utils/chess/time";
 import { SiLichess } from "react-icons/si";
 import { IoBookOutline } from "react-icons/io5";
-import SubmitButtonWithModal from "../../trainerForm/SubmitButtonWithModal";
 import useClickOutside from "../../../hooks/useClickOutside";
+import { RootState } from "../../../redux/store";
+import SubmitButtonWithModal from "../../form/SubmitButtonWithModal";
+import { formatTimeControl } from "../../../utils/chess/time";
 import { getGameStatusDescription } from "../../../utils/chess/status";
-import GameSpeedIcon from "../../game/GameSpeedIcon";
+import GameSpeedIcon from "../GameSpeedIcon";
 
 const GameInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -46,7 +46,7 @@ const GameInfo = () => {
                 <div className="flex items-center gap-3 text-md">
                   <span className="p-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs">
                     <img
-                      src={`/gamePhases/${puzzle.phase}.svg`}
+                      src={`/phases/${puzzle.phase}.svg`}
                       className="w-6 h-6 rounded-full"
                       alt={puzzle.phase}
                       title={`Position taken from ${puzzle.phase}`}
@@ -54,7 +54,7 @@ const GameInfo = () => {
                   </span>
                   <GameSpeedIcon
                     size="text-3xl"
-                    speed={"bullet"}
+                    speed={puzzle.timeControl}
                   />
                   <span>{puzzle.rated ? "Rated" : "Casual"}</span>-
                   <span>{formatTimeControl(puzzle.clock.initial, puzzle.clock.increment)}</span>

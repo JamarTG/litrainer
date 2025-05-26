@@ -1,10 +1,10 @@
 import { Square } from "chess.js";
-import { useMarkerPositionEffect } from "../../../hooks/useMarkerPositionEffect";
+import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { MoveClassification, MoveClassificationImages } from "../../../constants/classification";
+import { RootState } from "../../redux/store";
+import { MoveClassification,MoveClassificationImages } from "../../constants/classification";
 import { FC, RefObject } from "react";
-import { MARKER_SIZE_RATIO } from "../../../constants/board";
+import { MARKER_SIZE_RATIO } from "../../constants/board";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
