@@ -1,0 +1,6 @@
+export const LichessURL = {    
+    Base: "https://lichess.org/",
+    Profile: "https://lichess.org/@/",
+    GamesAPI : "https://lichess.org/api/games/user/",
+    Openings: "https://lichess.org/opening/"
+}

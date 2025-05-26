@@ -1,6 +1,8 @@
+import { LichessURL } from "../../constants/urls";
+
 export const userExists = async (username: string): Promise<boolean> => {
   try {
-    const response = await fetch(`https://lichess.org/api/user/${username}`);
+    const response = await fetch(`${LichessURL.GamesAPI}${username}`);
     if (!response.ok) {
       return false;
     }

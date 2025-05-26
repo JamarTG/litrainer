@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setPieceSet } from "../../redux/slices/piece-set";
-import { PIECE_SETS } from "../../constants/pieceSet";
+import { PieceSets } from "../../constants/piece";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";
 import { playSelectSound } from "../../lib/sound";
@@ -11,7 +11,7 @@ const PieceSetChooser = () => {
 
   return (
     <GenericChooser
-      options={PIECE_SETS}
+      options={PieceSets}
       selected={pieceSet}
       onSelect={(value) => {
         dispatch(setPieceSet(value));

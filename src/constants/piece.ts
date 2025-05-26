@@ -9,6 +9,48 @@ export const PieceType = {
   KING: "k",
 } as const;
 
+export const PieceSets = [
+  "alpha",
+  "anarcandy",
+  "caliente",
+  "california",
+  "cardinal",
+  "cburnett",
+  "celtic",
+  "chess7",
+  "chessnut",
+  "companion",
+  "cooke",
+  "dubrovny",
+  "fantasy",
+  "firi",
+  "fresca",
+  "gioco",
+  "governor",
+  "horsey",
+  "icpieces",
+  "kiwen-suwi",
+  "kosal",
+  "leipzig",
+  "letter",
+  "maestro",
+  "merida",
+  "monarchy",
+  "mono",
+  "mpchess",
+  "pirouetti",
+  "pixel",
+  "reillycraig",
+  "rhosgfx",
+  "riohacha",
+  "shapes",
+  "spatial",
+  "staunty",
+  "tatiana",
+  "xkcd"
+];
+
+
 export const PIECE_VALUE = {
   [PieceType.PAWN]: 1,
   [PieceType.KNIGHT]: 3,

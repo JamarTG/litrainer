@@ -1,3 +1,4 @@
+import { LichessURL } from "../constants/urls";
 import { decodeLichessGameResponse } from "../lib/lichess/parsers";
 
 export const fetchAndParseLichessGames = async (
@@ -9,7 +10,7 @@ export const fetchAndParseLichessGames = async (
   playerPerspectiveColor: string,
   preferredGameSpeedCategories: string[]
 ) => {
-  const lichessUserGamesAPIURL = new URL(`https://lichess.org/api/games/user/${lichessUsername}`);
+  const lichessUserGamesAPIURL = new URL(`${LichessURL.GamesAPI}${lichessUsername}`);
 
   lichessUserGamesAPIURL.searchParams.append("since", startTimeEpochMillis);
   lichessUserGamesAPIURL.searchParams.append("until", endTimeEpochMillis);
