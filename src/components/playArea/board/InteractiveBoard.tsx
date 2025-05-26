@@ -36,7 +36,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
 
   const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
   const boardSize = useThrottledResize(() => calculateBoardSize(window.innerWidth, window.innerHeight), 200);
-  console.log("Rendered");
+
 
   return (
     <BoardPlayerInfo material={material}>
