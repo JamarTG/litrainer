@@ -1,4 +1,4 @@
-import { getCurrentDateWithOffset } from "./getCurrentDateWithOffset";
+import { getCurrentDateWithOffset } from "./date-with-offset";
 
 export const validateDateRange = (startDate: string, endDate: string) => {
   const defaultStartDateSevenDaysAgo = getCurrentDateWithOffset(-7);

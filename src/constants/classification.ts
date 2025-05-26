@@ -41,3 +41,10 @@ export const ClassificationMessage: Record<MoveClassification, string> = {
   [MoveClassification.Book]: "is a book move",
   [MoveClassification.Brilliant]: "is a brilliant move",
 };
+
+export const PositiveClassifications = new Set([
+  MoveClassification.Best,
+  MoveClassification.Excellent,
+  MoveClassification.Good,
+  MoveClassification.Brilliant,
+]);

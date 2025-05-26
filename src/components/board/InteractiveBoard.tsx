@@ -7,8 +7,8 @@ import MoveClassificationMarker from "./MoveClassificationMarker";
 import { initialPieceCounts } from "../../constants/piece";
 import { Materials } from "../../types/eval";
 import { RootState } from "../../redux/store";
-import { isThemeAvailable, loadThemeCSS } from "../../utils/pieceThemeLoader";
-import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../utils/boardThemeLoader";
+import { isThemeAvailable, loadThemeCSS } from "../../utils/theme-loaders/piece-theme-loader";
+import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "../../hooks/useMaterialEffect";
 import "../../styles/chessground.css";
 
