@@ -1,3 +1,4 @@
+Promotes to queen regardless of option selected for promotion
 Ensure all parts of the form such as the opening part is working correctly
 Performance
 Computer Shouldn't be playing back

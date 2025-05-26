@@ -74,22 +74,20 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         handleMoveAttempt={handleMoveAttempt}
         unhighlightLegalMoves={unhighlightLegalMoves}
       />
-
       <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (
           <div className="space-y-4 ">
             <div className="relative h-8 flex items-center justify-end">
-                <GameInfo/>
-                <SubmitButtonWithModal />
-                <button
-                  aria-label="Settings"
-                  title="Settings"
-                  onClick={() => setShowSettings(true)}
-                  className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-                >
-                  <FaGear size={25} />
-                </button>
-            
+              <GameInfo />
+              <SubmitButtonWithModal />
+              <button
+                aria-label="Settings"
+                title="Settings"
+                onClick={() => setShowSettings(true)}
+                className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
+              >
+                <FaGear size={25} />
+              </button>
             </div>
             <PuzzleInfo />
           </div>

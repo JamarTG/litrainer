@@ -1,5 +1,6 @@
 import { Chess, Move } from "chess.js";
 import { useDispatch } from "react-redux";
+import { useCallback, useMemo } from "react";
 import { UciEngine } from "../engine/uciEngine";
 
 import { ClassificationMessage, MoveClassification } from "../constants/classification";
@@ -14,92 +15,141 @@ import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
 import { attemptMove } from "../utils/chess/move";
 
+const selectPuzzleData = (state: RootState) => ({
+  fen: state.board.fen,
+  puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+  isPuzzleSolved: state.feedback.isPuzzleSolved
+});
+
+const evaluationCache = new Map<string, { bestMove: string; classification: Classification }>();
+
+const batchMoveUpdate = (dispatch: any, sourceSquare: string, targetSquare: string, fen: string) => {
+  dispatch(setSourceSquare(sourceSquare));
+  dispatch(setDestinationSquare(targetSquare));
+  dispatch(setFen(fen));
+  dispatch(setMoveSquares({}));
+};
+
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
 
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
 
-  const { puzzle, isPuzzleSolved, fen } = useSelector((state: RootState) => {
-    return { fen: state.board.fen, puzzle: state.puzzle.puzzles[state.puzzle.currentIndex], isPuzzleSolved: state.feedback.isPuzzleSolved };
-  });
+  const puzzleData = useSelector(selectPuzzleData);
+  const { puzzle, isPuzzleSolved, fen } = puzzleData;
 
-  const isInOpeningBook = (move: string) => {
+  const isInOpeningBook = useCallback((move: string) => {
+    if (!puzzle?.positionOpening) return false;
+
     const isMoveAccepted = true;
-
-    if (puzzle.positionOpening) {
+    
+    requestIdleCallback(() => {
       dispatch(
         setFeedback({
           best: `${move} is acceptable`,
           played: `${move} ${ClassificationMessage["Book"]} `,
         })
       );
-      handleEvaluation(MoveClassification.Book, isMoveAccepted);
-      return true;
-    }
-    return false;
-  };
+    });
 
-  const handleEvaluation = (classification: Classification | null, solved: boolean) => {
+    handleEvaluation(MoveClassification.Book, isMoveAccepted);
+    return true;
+  }, [puzzle?.positionOpening]);
+
+  const handleEvaluation = useCallback((classification: Classification | null, solved: boolean) => {
     dispatch(setClassification(classification));
     dispatch(setIsPuzzleSolved(solved));
+  }, [dispatch]);
+
+  const getCachedEvaluation = async (cacheKey: string) => {
+    const memoryCache = evaluationCache.get(cacheKey);
+    if (memoryCache) return memoryCache;
+
+    return new Promise<any>((resolve) => {
+      setTimeout(() => {
+        try {
+          const cached = sessionStorage.getItem(cacheKey);
+          const parsed = cached ? JSON.parse(cached) : null;
+          if (parsed) {
+            evaluationCache.set(cacheKey, parsed);
+          }
+          resolve(parsed);
+        } catch {
+          resolve(null);
+        }
+      }, 0);
+    });
   };
 
-  const evaluateMoveQuality = async (fen: string, move: Move) => {
-    dispatch(setIsLoading(true));
+  const setCachedEvaluation = async (cacheKey: string, data: any) => {
+    evaluationCache.set(cacheKey, data);
+    
+    setTimeout(() => {
+      try {
+        sessionStorage.setItem(cacheKey, JSON.stringify(data));
+      } catch (error) {
+        console.warn("Failed to cache evaluation:", error);
+      }
+    }, 0);
+  };
+
+  const evaluateMoveQuality = useCallback(async (fen: string, move: Move) => {
+    const cacheKey = `evaluation_${fen}_${move.lan}`;
+    
     try {
-      const cacheKey = `evaluation_${fen}_${move.lan}`;
-      const cachedEvaluation = sessionStorage.getItem(cacheKey);
+      const cachedEvaluation = await getCachedEvaluation(cacheKey);
 
       if (cachedEvaluation) {
-        const parsedEvaluation = JSON.parse(cachedEvaluation);
-        dispatch(
-          setFeedback({
-            best: `${parsedEvaluation.bestMove} is the best move`,
-            played: `${move.san} ${ClassificationMessage[parsedEvaluation.classification as Classification]} `,
-          })
-        );
+        requestIdleCallback(() => {
+          dispatch(
+            setFeedback({
+              best: `${cachedEvaluation.bestMove} is the best move`,
+              played: `${move.san} ${ClassificationMessage[cachedEvaluation.classification as Classification]} `,
+            })
+          );
+        });
 
-        handleEvaluation(parsedEvaluation.classification, isPositiveClassification(parsedEvaluation.classification));
-        return parsedEvaluation.classification;
+        const classification = cachedEvaluation.classification;
+        handleEvaluation(classification, isPositiveClassification(classification));
+        return classification;
       }
 
-      // If no cached evaluation, proceed with engine evaluation
+      dispatch(setIsLoading(true));
+
       if (!engine?.isReady()) {
         throw new Error("Engine is not initialized");
       }
 
       UciEngine.setDepth(engineDepth);
-
       const result = await engine.evaluateMoveQuality(fen, move.lan);
 
-      sessionStorage.setItem(
-        cacheKey,
-        JSON.stringify({
-          bestMove: result.bestMove,
-          classification: result.classification,
-        })
-      );
+      setCachedEvaluation(cacheKey, {
+        bestMove: result.bestMove,
+        classification: result.classification,
+      });
 
-      dispatch(
-        setFeedback({
-          best: `${result.bestMove} is the best move`,
-          played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
-        })
-      );
+      requestIdleCallback(() => {
+        dispatch(
+          setFeedback({
+            best: `${result.bestMove} is the best move`,
+            played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
+          })
+        );
+      });
 
       handleEvaluation(result.classification, isPositiveClassification(result.classification));
-
       return result.classification;
+
     } catch (error) {
       console.error("Error evaluating move quality:", error);
       return null;
     } finally {
       dispatch(setIsLoading(false));
     }
-  };
+  }, [engine, engineDepth, dispatch, handleEvaluation]);
 
-  const handleMoveAttempt = (sourceSquare: string, targetSquare: string) => {
+  const handleMoveAttempt = useCallback((sourceSquare: string, targetSquare: string) => {
     if (isPuzzleSolved) return false;
 
     const isOpponentsTurn = game.turn() !== puzzle?.userMove.color;
@@ -110,26 +160,31 @@ export const useMoveHandler = (game: Chess) => {
 
     if (isMoveInvalid) return false;
 
-    dispatch(setSourceSquare(sourceSquare));
-    dispatch(setDestinationSquare(targetSquare));
-
-    if (!isInOpeningBook(movePlayedByUser.san)) {
-      evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
-        const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
-        const sameJudgement = puzzle?.evaluation.judgment?.name;
-        handleEvaluation(
-          isSameMistake ? (sameJudgement as Classification) : classification,
-          isPositiveClassification(classification as Classification)
-        );
-      });
-    }
+    const newFen = game.fen();
+    batchMoveUpdate(dispatch, sourceSquare, targetSquare, newFen);
 
     playSound(game);
-    dispatch(setFen(game.fen()));
 
-    setMoveSquares({});
+    if (!isInOpeningBook(movePlayedByUser.san)) {
+
+      setTimeout(() => {
+        evaluateMoveQuality(fen, movePlayedByUser).then((classification) => {
+          const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
+          const sameJudgement = puzzle?.evaluation.judgment?.name;
+
+          handleEvaluation(
+            isSameMistake ? (sameJudgement as Classification) : classification,
+            isPositiveClassification(classification as Classification)
+          );
+        });
+      }, 0);
+    }
+
     return true;
-  };
+  }, [isPuzzleSolved, game, puzzle, dispatch, playSound, isInOpeningBook, evaluateMoveQuality, fen, handleEvaluation]);
 
-  return { handleMoveAttempt, evaluateMoveQuality };
+  return useMemo(() => ({ 
+    handleMoveAttempt, 
+    evaluateMoveQuality 
+  }), [handleMoveAttempt, evaluateMoveQuality]);
 };
