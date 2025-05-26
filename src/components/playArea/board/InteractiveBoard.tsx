@@ -27,9 +27,9 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game,handleMoveAttempt
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
-  const { fen, moveSquares, destinationSquare, sourceSquare, isLoading } = useSelector((state: RootState) => state.board);
+  const { fen, destinationSquare, sourceSquare } = useSelector((state: RootState) => state.board);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
-  const { classification, isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
+  const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
   const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
 

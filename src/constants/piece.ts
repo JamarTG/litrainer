@@ -1,12 +1,3 @@
-import {
-  faChessBishop,
-  faChessKing,
-  faChessKnight,
-  faChessPawn,
-  faChessQueen,
-  faChessRook,
-} from "@fortawesome/free-solid-svg-icons";
-
 export const chessPieceCodes = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 
 export const PieceType = {
