@@ -3,14 +3,20 @@ import { useMarkerPositionEffect } from "../../../hooks/useMarkerPositionEffect"
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../../constants/classification";
-import { FC } from "react";
+import { FC, RefObject } from "react";
 import { MARKER_SIZE_RATIO } from "../../../constants/board";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
+  boardRef: RefObject<HTMLDivElement>;
+  orientation: 'white' | 'black';
 }
 
-const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize }) => {
+const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ 
+  boardSize, 
+  boardRef,
+  orientation 
+}) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
   const { puzzle, classification, destinationSquare } = useSelector((state: RootState) => {
     return {
@@ -20,21 +26,33 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
     };
   });
 
-  useMarkerPositionEffect(destinationSquare as Square, boardSize, puzzle?.userMove.color);
+  // Pass boardRef and orientation to the hook
+  useMarkerPositionEffect(
+    destinationSquare as Square, 
+    boardSize, 
+    puzzle?.userMove.color,
+    boardRef,
+    orientation
+  );
+
+  // Only render if we have all required data and the board is mounted
+  if (!destinationSquare || !classification || !boardRef.current || !markerPosition) {
+    return null;
+  }
 
   return (
-    <>
-      {destinationSquare && classification && (
-        <img
-          src={MoveClassificationImages[classification as keyof typeof MoveClassification]}
-          alt={classification}
-          width={boardSize / MARKER_SIZE_RATIO}
-          height={boardSize / 16}
-          className="absolute"
-          style={{ right: markerPosition.right, top: markerPosition.top }}
-        />
-      )}
-    </>
+    <img
+      src={MoveClassificationImages[classification as keyof typeof MoveClassification]}
+      alt={classification}
+      width={boardSize / MARKER_SIZE_RATIO}
+      height={boardSize / 16}
+      className="absolute pointer-events-none z-10"
+      style={{ 
+        right: markerPosition.right, 
+        top: markerPosition.top,
+        transform: 'translate(-15%, 30%)' // Center the marker on the square
+      }}
+    />
   );
 };
 

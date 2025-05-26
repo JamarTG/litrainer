@@ -1,4 +1,4 @@
-import { useState, FC, useEffect } from "react";
+import { useState, FC, useEffect, useRef } from "react";
 import { Chess, Square } from "chess.js";
 import { Materials } from "../../../types/eval";
 import BoardPlayerInfo from "../header/BoardPlayerInfo";
@@ -9,6 +9,7 @@ import { RootState } from "../../../redux/store";
 import Chessground from "react-chessground";
 
 import "../../../styles/chessground.css";
+import MoveClassificationMarker from "./MoveClassificationMarker";
 
 import { isThemeAvailable, loadThemeCSS } from "../../../utils/pieceThemeLoader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../../utils/boardThemeLoader";
@@ -24,6 +25,9 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const [lastMove, setLastMove] = useState<[string, string] | undefined>();
 
+  const boardRef = useRef<HTMLDivElement>(null);
+  const [boardSize, setBoardSize] = useState<number>(0);
+
   const { fen, moveSquares, destinationSquare, sourceSquare, isLoading } = useSelector((state: RootState) => state.board);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
   const { classification, isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
@@ -32,6 +36,18 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
 
   useMaterialEffect(game, setMaterial);
 
+  useEffect(() => {
+    const updateBoardSize = () => {
+      if (boardRef.current) {
+        setBoardSize(boardRef.current.offsetWidth);
+      }
+    };
+
+    updateBoardSize();
+
+    window.addEventListener("resize", updateBoardSize);
+    return () => window.removeEventListener("resize", updateBoardSize);
+  }, []);
   useEffect(() => {
     if (!isThemeAvailable(pieceSet)) {
       console.warn(`Piece set ${pieceSet} is not available.`);
@@ -59,7 +75,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
       setLastMove([sourceSquare, destinationSquare]);
     }
   }, [sourceSquare, destinationSquare]);
-
 
   const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
 
@@ -99,10 +114,13 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
 
   return (
     <BoardPlayerInfo material={material}>
-      <div className="box">
-        <div className="main-board green merida my-2">
+      <div className="box relative">
+        <div
+          className="main-board green merida my-2"
+          ref={boardRef}
+        >
           <Chessground
-            // className="relative flex flex-col justify-center items-center gap-2"
+            className="relative"
             fen={fen}
             orientation={playerColor}
             turnColor={turnColor()}
@@ -110,10 +128,14 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
             lastMove={lastMove as any}
             onMove={onMove}
           />
+          {/* Move marker inside the board container for proper positioning */}
+          <MoveClassificationMarker
+            boardSize={boardSize}
+            boardRef={boardRef}
+            orientation={playerColor}
+          />
         </div>
       </div>
-
-      {/* <Marker boardSize={boardSize} /> */}
     </BoardPlayerInfo>
   );
 };
