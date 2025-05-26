@@ -1,6 +1,4 @@
-export const MARKER_SIZE_RATIO = 16;
-
-export const BOARD_THEMES = [
+export const BoardThemes = [
   {
     name: "blue-marble",
     path: "/themes/boards/blue-marble.jpg",

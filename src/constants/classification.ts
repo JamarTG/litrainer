@@ -7,7 +7,7 @@ export enum MoveClassification {
   Best       = "Best",
   Book       = "Book",
   Brilliant = "Brilliant"
-}
+};
 
 export const MoveClassificationImages: Record<MoveClassification, string> = {
   [MoveClassification.Book]: "/classification/book.svg",
@@ -18,7 +18,7 @@ export const MoveClassificationImages: Record<MoveClassification, string> = {
   [MoveClassification.Mistake]: "/classification/mistake.svg",
   [MoveClassification.Blunder]: "/classification/blunder.svg",
   [MoveClassification.Brilliant]: "/classificatio/brilliant.svg",
-};
+} as const;
 
 export const ClassificationColors: Record<string, string> = {
   [MoveClassification.Book]: "#a88865",
@@ -29,7 +29,7 @@ export const ClassificationColors: Record<string, string> = {
   [MoveClassification.Mistake]: "#e58f2a",
   [MoveClassification.Blunder]: "#ca3431",
   [MoveClassification.Brilliant]: "#1bada6",
-};
+} as const;
 
 export const ClassificationMessage: Record<MoveClassification, string> = {
   [MoveClassification.Blunder]: "is a blunder",
@@ -40,7 +40,7 @@ export const ClassificationMessage: Record<MoveClassification, string> = {
   [MoveClassification.Best]: "is the best move",
   [MoveClassification.Book]: "is a book move",
   [MoveClassification.Brilliant]: "is a brilliant move",
-};
+} as const;
 
 export const PositiveClassifications = new Set([
   MoveClassification.Best,

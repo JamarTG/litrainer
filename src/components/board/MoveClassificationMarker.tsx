@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification,MoveClassificationImages } from "../../constants/classification";
 import { FC, RefObject } from "react";
-import { MARKER_SIZE_RATIO } from "../../constants/board";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
@@ -42,7 +41,7 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({
     <img
       src={MoveClassificationImages[classification as keyof typeof MoveClassification]}
       alt={classification}
-      width={boardSize / MARKER_SIZE_RATIO}
+      width={boardSize / 16}
       height={boardSize / 16}
       className="absolute pointer-events-none z-10"
       style={{ 

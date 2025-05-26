@@ -9,6 +9,7 @@ import SubmitButtonWithModal from "../../form/SubmitButtonWithModal";
 import { formatTimeControl } from "../../../utils/chess/time";
 import { getGameStatusDescription } from "../../../utils/chess/status";
 import GameSpeedIcon from "../GameSpeedIcon";
+import { LichessURL } from "../../../constants/urls";
 
 const GameInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -69,7 +70,7 @@ const GameInfo = () => {
 
               <div className="flex-col flex justify-center items-start gap-2">
                 <a
-                  href={`https://lichess.org/${puzzle.gameId}#${puzzle.moveNumber}`}
+                  href={`${LichessURL.Base}${puzzle.gameId}#${puzzle.moveNumber}`}
                   className="inline-flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition mr-2"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -80,7 +81,7 @@ const GameInfo = () => {
                 </a>
                 {puzzle.positionOpening ? (
                   <a
-                    href={`https://lichess.org/opening/${puzzle.positionOpening.eco}`}
+                    href={`${LichessURL.Openings}${puzzle.positionOpening.eco}`}
                     className="inline-flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
                     target="_blank"
                     rel="noopener noreferrer"

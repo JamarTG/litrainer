@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import { FC } from "react";
 import { Color } from "chess.js";
 import { RootState } from "../../../redux/store";
-import { PLAYER_ICONS, RATING_DIFF_CLASSES } from "../../../constants/player";
-import { LICHESS_PROFILE_BASE_URL } from "../../../constants/lichess";
+import { RatingDifferenceTextColors } from "../../../constants/player";
+import { PlayerIcons } from "../../../constants/icons";
+import { LichessURL } from "../../../constants/urls";
 
 interface PlayerInfoProps {
   color: Color;
@@ -21,14 +22,18 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   const { rating, provisional, ratingDiff, user } = player;
 
   const colorClass =
-    ratingDiff > 0 ? RATING_DIFF_CLASSES.positive : ratingDiff < 0 ? RATING_DIFF_CLASSES.negative : RATING_DIFF_CLASSES.neutral;
+    ratingDiff > 0
+      ? RatingDifferenceTextColors.positive
+      : ratingDiff < 0
+      ? RatingDifferenceTextColors.negative
+      : RatingDifferenceTextColors.neutral;
   const showDiff = ratingDiff !== undefined && ratingDiff !== 0;
 
   const renderIcon = () => {
     const isLightTheme = theme === "light";
     const isWhite = color === "w";
 
-    const icon = (isLightTheme && isWhite) || (!isLightTheme && !isWhite) ? PLAYER_ICONS.unfilled : PLAYER_ICONS.filled;
+    const icon = (isLightTheme && isWhite) || (!isLightTheme && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
     return (
       <span
@@ -45,7 +50,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
       isPatron && (
         <span
           className="icon text-orange-500"
-          dangerouslySetInnerHTML={{ __html: PLAYER_ICONS.patron }}
+          dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }}
         />
       )
     );
@@ -69,7 +74,7 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
     return (
       <a
         className="text-blue-500"
-        href={`${LICHESS_PROFILE_BASE_URL}${user.name}`}
+        href={`${LichessURL.Profile}${user.name}`}
         target="_blank"
         rel="noopener noreferrer"
       >

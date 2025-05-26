@@ -1,9 +1,9 @@
 import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields, GameType } from "../../../../../types/form";
+import { Fields } from "../../../../../types/form";
 import GameSpeedIcon from "../../../../board/GameSpeedIcon";
-import { games } from "../../../../../constants/game";
+import { TimeControls } from "../../../../../constants/form";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -53,19 +53,19 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
             >
               <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
                 <div className="flex flex-col space-y-0">
-                  {games.map((game) => (
+                  {TimeControls.map((timeControl) => (
                     <button
-                      key={game}
+                      key={timeControl}
                       name="timeControls"
                       className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
-                      onClick={() => handleGameTypesChange(game)}
+                      onClick={() => handleGameTypesChange(timeControl)}
                     >
                       <div className="flex text-[#222]  items-center my-auto gap-x-2">
                         <GameSpeedIcon
                           size="text-2xl"
-                          speed={game.toLocaleLowerCase() as GameType}
+                          speed={timeControl}
                         />
-                        {game.toLocaleLowerCase()}
+                        {timeControl}
                       </div>
                       <svg
                         viewBox="0 0 16 16"
@@ -74,23 +74,13 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
                       >
                         <path
                           d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
-                          fill={` ${
-                            formData.gameTypes.includes(
-                              game.toLocaleLowerCase() as "bullet" | "blitz" | "rapid" | "classical" | "correspondence"
-                            )
-                              ? "#287F71"
-                              : "#424242"
-                          }`}
+                          fill={` ${formData.gameTypes.includes(timeControl) ? "#287F71" : "#424242"}`}
                         />
                         <path
                           d="M5 4a4 4 0 110 8 4 4 0 010-8z"
                           fill="#ffffff"
                           className={`transition transform 0.3s ease ${
-                            formData.gameTypes.includes(
-                              game.toLocaleLowerCase() as "bullet" | "blitz" | "rapid" | "classical" | "correspondence"
-                            )
-                              ? "transform translate-x-[6px]"
-                              : ""
+                            formData.gameTypes.includes(timeControl) ? "transform translate-x-[6px]" : ""
                           }`}
                         />
                       </svg>

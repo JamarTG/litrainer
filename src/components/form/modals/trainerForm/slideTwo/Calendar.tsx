@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { DAYS_OF_WEEK, MONTH_NAMES } from "../../../../../constants/form";
+import { DaysOfTheWeek, MonthsOfTheYear } from "../../../../../constants/date";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
@@ -147,7 +147,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
         </button>
 
         <div className="text-xs py-1">
-          {MONTH_NAMES[currentDate.getMonth()]} {currentDate.getFullYear()}
+          {MonthsOfTheYear[currentDate.getMonth()]} {currentDate.getFullYear()}
         </div>
 
         <button
@@ -174,7 +174,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
       </div>
 
       <div className="grid grid-cols-7 py-2">
-        {DAYS_OF_WEEK.map((day) => (
+        {DaysOfTheWeek.map((day) => (
           <div
             key={day}
             className="flex items-center  justify-center text-xs text-muted w-7"

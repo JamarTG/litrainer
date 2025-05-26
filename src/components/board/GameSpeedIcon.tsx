@@ -1,5 +1,5 @@
 import { GameType } from "../../types/form";
-import { timeControlIcons } from "../../constants/game";
+import { TimeControlIcons } from "../../constants/icons";
 import { FC } from "react";
 
 interface GameSpeedIconProps {
@@ -10,7 +10,7 @@ interface GameSpeedIconProps {
 const GameSpeedIcon: FC<GameSpeedIconProps> = ({ speed , size }) => {
   return (
     <div className="my-auto">
-      <span className={`icon ${size}`}>{timeControlIcons[speed]}</span>
+      <span className={`icon ${size}`}>{TimeControlIcons[speed]}</span>
     </div>
   );
 };

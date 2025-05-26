@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setBoardTheme } from "../../redux/slices/board-style";
-import { BOARD_THEMES } from "../../constants/board";
+import { BoardThemes } from "../../constants/board";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";
 import { playSelectSound } from "../../lib/sound";
@@ -11,7 +11,7 @@ const BoardThemeChooser = () => {
 
   return (
     <GenericChooser
-      options={BOARD_THEMES}
+      options={BoardThemes}
       selected={boardTheme}
       onSelect={(value) => {
         console.log(value, "this");

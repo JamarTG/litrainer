@@ -1,5 +1,5 @@
 import { Color, Square } from "chess.js";
-import { BOARD_THEMES } from "../../constants/board";
+import { BoardThemes } from "../../constants/board";
 
 export const getSquareCoordinates = (
   square: Square,
@@ -39,7 +39,7 @@ export const getSquareCoordinates = (
 };
 
 export function getBoardBackgroundStyle(boardThemeName: string) {
-  const theme = Object.values(BOARD_THEMES).find(t => t.name === boardThemeName);
+  const theme = Object.values(BoardThemes).find(t => t.name === boardThemeName);
   if (!theme) return {};
   
   return {
