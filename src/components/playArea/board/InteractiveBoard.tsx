@@ -1,4 +1,4 @@
-import { useState, useMemo, FC, useEffect } from "react";
+import { useState, useMemo, FC } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { Materials } from "../../../types/eval";
@@ -12,7 +12,6 @@ import { RootState } from "../../../redux/store";
 import { getCustomSquareStyles } from "../helpers/squareStyles";
 import { calculateBoardSize } from "../../../utils/chess/board";
 import useThrottledResize from "../../../hooks/useThrottledResize";
-// import { getBoardBackgroundStyle } from "../../../utils/chess/board";
 
 interface BoardComponentProps {
   game: Chess;
@@ -36,7 +35,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
   );
 
   const customPieces = useMemo(() => CustomPieces(pieceSet), [pieceSet]);
-
   const boardSize = useThrottledResize(() => calculateBoardSize(window.innerWidth, window.innerHeight), 200);
   console.log("Rendered");
 
