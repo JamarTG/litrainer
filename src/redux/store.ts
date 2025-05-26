@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import puzzleReducer from "./slices/puzzleSlices";
-import feedbackReducer from "./slices/feedbackSlices";
-import themeReducer from "./slices/themeSlices";
-import boardReducer from "./slices/boardSlices";
-import pieceSetReducer from "./slices/pieceSetSlices";
-import boardThemeReducer from "./slices/boardThemeSlices";
+import puzzleReducer from "./slices/puzzle";
+import feedbackReducer from "./slices/feedback";
+import themeReducer from "./slices/theme";
+import boardReducer from "./slices/board";
+import pieceSetReducer from "./slices/piece-set";
+import boardThemeReducer from "./slices/board-style";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     theme: themeReducer,
     board: boardReducer,
     pieceSet: pieceSetReducer,
-    boardTheme: boardThemeReducer
+    boardTheme: boardThemeReducer,
   },
 });
 

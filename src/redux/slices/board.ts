@@ -16,19 +16,8 @@ export interface BoardState {
   sourceSquare: string | null;
   destinationSquare: string | null;
   moveSquares: MoveSquares;
-  // isLoading: boolean;
   markerPosition: MarkerPosition;
 }
-
-//  dispatch(setClassification(null));
-//     dispatch(setIsPuzzleSolved(false));
-//     dispatch(setFeedback({ best: null, played: null }));
-
-
-
-//     dispatch(setFen(puzzles[puzzleIndex].fen.previous));
-//     dispatch(setDestinationSquare(null));
-//     dispatch(setSourceSquare(null));
 
 const initialState: BoardState = {
   fen: new Chess().fen(),
@@ -46,31 +35,34 @@ const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
+    updateBoardStates(state, action: PayloadAction<{ sourceSquare: string; destinationSquare: string; fen: string; moveSquares: {} }>) {
+      state.sourceSquare = action.payload.sourceSquare;
+      state.destinationSquare = action.payload.destinationSquare;
+      state.fen = action.payload.fen;
+      state.moveSquares = action.payload.moveSquares;
+    },
     setFen(state, action: PayloadAction<string>) {
       state.fen = action.payload;
     },
-    setSourceSquare(state, action: PayloadAction<string | null>) {
-      state.sourceSquare = action.payload;
-    },
-    setDestinationSquare(state, action: PayloadAction<string | null>) {
-      state.destinationSquare = action.payload;
-    },
-    setMoveSquares(state, action: PayloadAction<MoveSquares>) {
-      state.moveSquares = action.payload;
-    },
+   
     clearMoveSquares(state) {
       state.moveSquares = {};
     },
-    // setIsLoading(state, action: PayloadAction<boolean>) {
-    //   state.isLoading = action.payload;
-    // },
     setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
       state.markerPosition = action.payload;
+    },
+    resetBoardState(state) {
+      state = initialState;
     },
   },
 });
 
-export const { setFen, setSourceSquare, setDestinationSquare, setMoveSquares, setMarkerPosition, clearMoveSquares } =
-  boardSlice.actions;
+export const {
+  setFen,
+  setMarkerPosition,
+  clearMoveSquares,
+  resetBoardState,
+  updateBoardStates,
+} = boardSlice.actions;
 
 export default boardSlice.reducer;
