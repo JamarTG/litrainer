@@ -1,5 +1,5 @@
 import { LichessURL } from "../constants/urls";
-import { decodeLichessGameResponse } from "../lib/lichess/parsers";
+import { decodeLichessGameResponse } from "../libs/lichess/parsers";
 
 export const fetchAndParseLichessGames = async (
   lichessUsername: string,

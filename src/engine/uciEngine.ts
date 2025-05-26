@@ -2,7 +2,7 @@ import { MoveClassification } from "../constants/classification";
 import { EngineName } from "../types/engine";
 import { PositionEvaluation, VariationLineResult } from "../types/eval";
 import { Chess } from "chess.js";
-import { parseEvaluationResults } from "../lib/engine/parsers";
+import { parseEvaluationResults } from "../lib/analysis/parsers";
 import { getBasicClassification } from "../utils/chess/classification";
 
 export abstract class UciEngine {
@@ -27,7 +27,6 @@ export abstract class UciEngine {
     this.engineName = engineName;
     this.worker = new Worker(enginePath);
     this.customEngineInit = customEngineInit;
-
   }
 
   public async init(): Promise<void> {

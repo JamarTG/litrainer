@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { Fields } from "../types/form";
-import { fetchAndParseLichessGames } from "../utils/api";
+import { fetchAndParseLichessGames } from "../api/lichess-api";
 import generatePuzzles from "../lib/lichess/parsers";
 import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import { userExists } from "../lib/lichess/user";
-import { dateRangeToEpochMillis } from "../utils/date/date-range-to-EM";
-import { validateDateRange } from "../utils/date/valid-date";
+import { dateRangeToEpochMillis } from "../utils/date/epoch";
+import { validateDateRange } from "../utils/date/validate-date-range";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
