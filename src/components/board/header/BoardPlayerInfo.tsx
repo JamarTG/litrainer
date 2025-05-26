@@ -24,7 +24,7 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
         material={material}
         hasPuzzle={hasPuzzle}
       />
-
+      
       {children}
 
       <PlayerBadge
