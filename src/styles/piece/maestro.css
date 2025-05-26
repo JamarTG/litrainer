@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/pieceSets/maestro/wP.svg');
+  background-image: url('/themes/pieces/maestro/wP.svg');
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/pieceSets/maestro/wR.svg');
+  background-image: url('/themes/pieces/maestro/wR.svg');
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/pieceSets/maestro/wN.svg');
+  background-image: url('/themes/pieces/maestro/wN.svg');
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/pieceSets/maestro/wB.svg');
+  background-image: url('/themes/pieces/maestro/wB.svg');
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/pieceSets/maestro/wQ.svg');
+  background-image: url('/themes/pieces/maestro/wQ.svg');
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/pieceSets/maestro/wK.svg');
+  background-image: url('/themes/pieces/maestro/wK.svg');
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/pieceSets/maestro/bP.svg');
+  background-image: url('/themes/pieces/maestro/bP.svg');
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/pieceSets/maestro/bR.svg');
+  background-image: url('/themes/pieces/maestro/bR.svg');
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/pieceSets/maestro/bN.svg');
+  background-image: url('/themes/pieces/maestro/bN.svg');
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/pieceSets/maestro/bB.svg');
+  background-image: url('/themes/pieces/maestro/bB.svg');
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/pieceSets/maestro/bQ.svg');
+  background-image: url('/themes/pieces/maestro/bQ.svg');
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/pieceSets/maestro/bK.svg');
+  background-image: url('/themes/pieces/maestro/bK.svg');
 }

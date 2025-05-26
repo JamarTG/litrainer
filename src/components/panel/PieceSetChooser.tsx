@@ -23,7 +23,7 @@ const PieceSetChooser = () => {
           title={setName}
         >
           <img
-            src={`pieceSets/${setName}/wK.svg`}
+            src={`themes/pieces/${setName}/wK.svg`}
             className="w-8"
             alt={setName}
           />

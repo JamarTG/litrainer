@@ -1,8 +1,8 @@
-import { Materials } from "../../../types/eval";
-import PlayerBadge from "../header/PlayerBadge";
+import PlayerBadge from "./PlayerBadge";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 import { FC, ReactNode } from "react";
+import { Materials } from "../../../types/eval";
+import { RootState } from "../../../redux/store";
 
 interface BoardPlayerInfoProps {
   material: Materials;
@@ -12,7 +12,6 @@ interface BoardPlayerInfoProps {
 const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
 
-
   const userColor = puzzle?.userMove.color;
   const opponentColor = puzzle?.opponentMove.color;
 
@@ -20,7 +19,6 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
 
   return (
     <div className="flex flex-col justify-center items-center pt-2">
-      
       <PlayerBadge
         color={opponentColor}
         material={material}
@@ -34,7 +32,6 @@ const BoardPlayerInfo: FC<BoardPlayerInfoProps> = ({ material, children }) => {
         material={material}
         hasPuzzle={hasPuzzle}
       />
-
     </div>
   );
 };

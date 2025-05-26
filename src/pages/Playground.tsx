@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useComputerMove } from "../hooks/useComputerMove";
 import useChangePuzzle from "../hooks/useChangePuzzle";
-import InteractiveChessBoard from "../components/playArea/board/InteractiveBoard";
+import InteractiveChessBoard from "../components/board/InteractiveBoard";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
 import { useMoveHandler } from "../hooks/useMoveHandler";
@@ -16,13 +16,13 @@ import { toggleTheme } from "../redux/slices/themeSlices";
 import useUpdateTheme from "../hooks/useUpdateTheme";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import SubmitButtonWithModal from "../components/trainerForm/SubmitButtonWithModal";
 import AutoSkip from "../components/panel/AutoSkip";
-import TrainerForm from "../components/trainerForm/modals/TrainerForm";
 import { initialFormState } from "../constants/form";
 import { Fields } from "../types/form";
 import useHandleSubmit from "../hooks/useHandleSubmit";
-import GameInfo from "../components/playArea/header/GameInfo";
+import TrainerForm from "../components/form/modals/TrainerForm";
+import SubmitButtonWithModal from "../components/form/SubmitButtonWithModal";
+import GameInfo from "../components/board/header/GameInfo";
 import { IoIosArrowBack } from "react-icons/io";
 
 interface PlayGroundProps {

@@ -1,26 +1,23 @@
 import { useState, FC, useEffect, useRef } from "react";
 import { Chess, Square } from "chess.js";
-import { Materials } from "../../../types/eval";
-import BoardPlayerInfo from "../header/BoardPlayerInfo";
-import { useMaterialEffect } from "../../../hooks/useMaterialEffect";
-import { initialPieceCounts } from "../../../constants/piece";
+import BoardPlayerInfo from "./header/BoardPlayerInfo";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 import Chessground from "react-chessground";
-
-import "../../../styles/chessground.css";
 import MoveClassificationMarker from "./MoveClassificationMarker";
-
-import { isThemeAvailable, loadThemeCSS } from "../../../utils/pieceThemeLoader";
-import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../../utils/boardThemeLoader";
+import { initialPieceCounts } from "../../constants/piece";
+import { Materials } from "../../types/eval";
+import { RootState } from "../../redux/store";
+import { isThemeAvailable, loadThemeCSS } from "../../utils/pieceThemeLoader";
+import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../utils/boardThemeLoader";
+import { useMaterialEffect } from "../../hooks/useMaterialEffect";
+import "../../styles/chessground.css";
 
 interface BoardComponentProps {
   game: Chess;
   handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, piece: string) => boolean;
-
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({ game,handleMoveAttempt}) => {
+const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const [lastMove, setLastMove] = useState<[string, string] | undefined>();
 
@@ -140,3 +137,4 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game,handleMoveAttempt
 };
 
 export default InteractiveChessBoard;
+

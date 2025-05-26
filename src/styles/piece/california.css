@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/pieceSets/california/wP.svg');
+  background-image: url('/themes/pieces/california/wP.svg');
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/pieceSets/california/wR.svg');
+  background-image: url('/themes/pieces/california/wR.svg');
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/pieceSets/california/wN.svg');
+  background-image: url('/themes/pieces/california/wN.svg');
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/pieceSets/california/wB.svg');
+  background-image: url('/themes/pieces/california/wB.svg');
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/pieceSets/california/wQ.svg');
+  background-image: url('/themes/pieces/california/wQ.svg');
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/pieceSets/california/wK.svg');
+  background-image: url('/themes/pieces/california/wK.svg');
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/pieceSets/california/bP.svg');
+  background-image: url('/themes/pieces/california/bP.svg');
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/pieceSets/california/bR.svg');
+  background-image: url('/themes/pieces/california/bR.svg');
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/pieceSets/california/bN.svg');
+  background-image: url('/themes/pieces/california/bN.svg');
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/pieceSets/california/bB.svg');
+  background-image: url('/themes/pieces/california/bB.svg');
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/pieceSets/california/bQ.svg');
+  background-image: url('/themes/pieces/california/bQ.svg');
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/pieceSets/california/bK.svg');
+  background-image: url('/themes/pieces/california/bK.svg');
 }

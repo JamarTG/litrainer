@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/pieceSets/riohacha/wP.svg');
+  background-image: url('/themes/pieces/riohacha/wP.svg');
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/pieceSets/riohacha/wR.svg');
+  background-image: url('/themes/pieces/riohacha/wR.svg');
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/pieceSets/riohacha/wN.svg');
+  background-image: url('/themes/pieces/riohacha/wN.svg');
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/pieceSets/riohacha/wB.svg');
+  background-image: url('/themes/pieces/riohacha/wB.svg');
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/pieceSets/riohacha/wQ.svg');
+  background-image: url('/themes/pieces/riohacha/wQ.svg');
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/pieceSets/riohacha/wK.svg');
+  background-image: url('/themes/pieces/riohacha/wK.svg');
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/pieceSets/riohacha/bP.svg');
+  background-image: url('/themes/pieces/riohacha/bP.svg');
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/pieceSets/riohacha/bR.svg');
+  background-image: url('/themes/pieces/riohacha/bR.svg');
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/pieceSets/riohacha/bN.svg');
+  background-image: url('/themes/pieces/riohacha/bN.svg');
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/pieceSets/riohacha/bB.svg');
+  background-image: url('/themes/pieces/riohacha/bB.svg');
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/pieceSets/riohacha/bQ.svg');
+  background-image: url('/themes/pieces/riohacha/bQ.svg');
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/pieceSets/riohacha/bK.svg');
+  background-image: url('/themes/pieces/riohacha/bK.svg');
 }
