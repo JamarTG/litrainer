@@ -20,7 +20,7 @@ export interface BoardState {
 }
 
 const initialState: BoardState = {
-  fen: new Chess().fen(),
+  fen: "",
   sourceSquare: null,
   destinationSquare: null,
   moveSquares: {},
