@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzleSlices";
+import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzle";
 
 const navButtons = [
   {
@@ -44,9 +44,7 @@ const PuzzleNavigation = () => {
             letterSpacing: "0.03em",
           }}
         >
-          <span className="flex items-center justify-center h-full">
-            {btn.label}
-          </span>
+          <span className="flex items-center justify-center h-full">{btn.label}</span>
         </button>
       ))}
     </div>

@@ -2,10 +2,8 @@ import { Chess, Move } from "chess.js";
 import { useDispatch } from "react-redux";
 import { useCallback, useMemo } from "react";
 import { UciEngine } from "../engine/uciEngine";
-
 import { ClassificationMessage, MoveClassification, PositiveClassifications } from "../constants/classification";
-import { setClassification, setFeedback, setIsPuzzleSolved } from "../redux/slices/feedbackSlices";
-import { setDestinationSquare, setFen, setMoveSquares, setSourceSquare } from "../redux/slices/boardSlices";
+import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "../redux/slices/feedback";
 import { Classification } from "../types/classification";
 import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
@@ -13,6 +11,7 @@ import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
 import { attemptMove } from "../utils/chess/move";
+import { updateBoardStates } from "../redux/slices/board";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,
@@ -21,13 +20,6 @@ const selectPuzzleData = (state: RootState) => ({
 });
 
 const evaluationCache = new Map<string, { bestMove: string; classification: Classification }>();
-
-const batchMoveUpdate = (dispatch: any, sourceSquare: string, targetSquare: string, fen: string) => {
-  dispatch(setSourceSquare(sourceSquare));
-  dispatch(setDestinationSquare(targetSquare));
-  dispatch(setFen(fen));
-  dispatch(setMoveSquares({}));
-};
 
 export const useMoveHandler = (game: Chess) => {
   const dispatch = useDispatch();
@@ -46,9 +38,9 @@ export const useMoveHandler = (game: Chess) => {
 
       requestIdleCallback(() => {
         dispatch(
-          setFeedback({
-            best: `${move} is acceptable`,
-            played: `${move} ${ClassificationMessage["Book"]} `,
+          setFeedbackMoves({
+            bestMove: `${move} is acceptable`,
+            playedMove: `${move} ${ClassificationMessage["Book"]} `,
           })
         );
       });
@@ -109,9 +101,9 @@ export const useMoveHandler = (game: Chess) => {
         if (cachedEvaluation) {
           requestIdleCallback(() => {
             dispatch(
-              setFeedback({
-                best: `${cachedEvaluation.bestMove} is the best move`,
-                played: `${move.san} ${ClassificationMessage[cachedEvaluation.classification as Classification]} `,
+              setFeedbackMoves({
+                bestMove: `${cachedEvaluation.bestMove} is the best move`,
+                playedMove: `${move.san} ${ClassificationMessage[cachedEvaluation.classification as Classification]} `,
               })
             );
           });
@@ -122,8 +114,6 @@ export const useMoveHandler = (game: Chess) => {
           handleEvaluation(classification, isPositiveClassification);
           return classification;
         }
-
-       
 
         if (!engine?.isReady()) {
           throw new Error("Engine is not initialized");
@@ -139,19 +129,19 @@ export const useMoveHandler = (game: Chess) => {
 
         requestIdleCallback(() => {
           dispatch(
-            setFeedback({
-              best: `${result.bestMove} is the best move`,
-              played: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
+            setFeedbackMoves({
+              bestMove: `${result.bestMove} is the best move`,
+              playedMove: `${move.san} ${ClassificationMessage[result.classification as keyof typeof ClassificationMessage]} `,
             })
           );
         });
-        const isPositiveClassification = PositiveClassifications.has(result.classification)
+        const isPositiveClassification = PositiveClassifications.has(result.classification);
         handleEvaluation(result.classification, isPositiveClassification);
         return result.classification;
       } catch (error) {
         console.error("Error evaluating move quality:", error);
         return null;
-      } 
+      }
     },
     [engine, engineDepth, dispatch, handleEvaluation]
   );
@@ -171,7 +161,8 @@ export const useMoveHandler = (game: Chess) => {
       if (isMoveInvalid) return false;
 
       const newFen = game.fen();
-      batchMoveUpdate(dispatch, sourceSquare, targetSquare, newFen);
+
+      dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare, moveSquares: {} }));
 
       playSound(game);
 

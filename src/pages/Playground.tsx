@@ -10,7 +10,7 @@ import { useMoveHandler } from "../hooks/useMoveHandler";
 import PuzzleInfo from "../components/panel/PuzzleInfo";
 import PieceSetChooser from "../components/panel/PieceSetChooser";
 import BoardThemeChooser from "../components/panel/BoardThemeChooser";
-import { toggleTheme } from "../redux/slices/themeSlices";
+import { toggleTheme } from "../redux/slices/theme";
 import useUpdateTheme from "../hooks/useUpdateTheme";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";

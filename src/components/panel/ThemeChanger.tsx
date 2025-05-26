@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { toggleTheme } from "../../redux/slices/themeSlices";
+import { toggleTheme } from "../../redux/slices/theme";
 import useUpdateTheme from "../../hooks/useUpdateTheme";
 import { FaSun, FaMoon } from "react-icons/fa";
 
