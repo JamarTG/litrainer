@@ -3,6 +3,7 @@ import { setBoardTheme } from "../../redux/slices/boardThemeSlices";
 import { BOARD_THEMES } from "../../constants/board";
 import { RootState } from "../../redux/store";
 import GenericChooser from "../shared/GenericChooser";
+import { playSelectSound } from "../../lib/sound";
 
 const BoardThemeChooser = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,10 @@ const BoardThemeChooser = () => {
     <GenericChooser
       options={BOARD_THEMES}
       selected={boardTheme}
-      onSelect={(value) => dispatch(setBoardTheme(value))}
+      onSelect={(value) => {
+        dispatch(setBoardTheme(value))
+        playSelectSound();
+      }}
       getDisplay={(theme) => (
         <div className="h-8 flex items-center gap-1">
           <img
