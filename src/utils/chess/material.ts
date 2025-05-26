@@ -47,7 +47,5 @@ export const determineColorLeadingInMaterial = (material: Materials, color: Colo
     material.w.q * 9 -
     material.b.q * 9;
 
-  
   return (color === "w" && materialDifference >= 0) || (color === "b" && materialDifference < 0) ? Math.abs(materialDifference) : 0;
 };
-

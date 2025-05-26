@@ -5,13 +5,12 @@ import { UciEngine } from "../engine/uciEngine";
 import { ClassificationMessage, MoveClassification, PositiveClassifications } from "../constants/classification";
 import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "../redux/slices/feedback";
 import { Classification } from "../types/classification";
-import { playSound } from "../lib/sound";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEngineContext } from "../context/hooks/useEngineContext";
 import { useDepth } from "../context/hooks/useDepth";
-import { attemptMove } from "../utils/chess/move";
 import { updateBoardStates } from "../redux/slices/board";
+import { playSound } from "../libs/sound";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,
@@ -146,6 +145,20 @@ export const useMoveHandler = (game: Chess) => {
     [engine, engineDepth, dispatch, handleEvaluation]
   );
 
+  const attemptMove = (currentGame: Chess, fromSquare: string, toSquare: string, promotion: string = "q"): Move | null => {
+    try {
+      const move = currentGame.move({
+        from: fromSquare,
+        to: toSquare,
+        promotion,
+      });
+      return move;
+    } catch (error) {
+      console.error("Invalid move attempt:", error);
+      return null;
+    }
+  };
+
   const handleMoveAttempt = useCallback(
     (sourceSquare: string, targetSquare: string) => {
       if (isPuzzleSolved) return false;
@@ -163,7 +176,6 @@ export const useMoveHandler = (game: Chess) => {
       const newFen = game.fen();
 
       dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare, moveSquares: {} }));
-
       playSound(game);
 
       if (!isInOpeningBook(movePlayedByUser.san)) {

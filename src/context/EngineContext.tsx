@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, ReactNode, FC } from "react";
 import { UciEngine } from "../engine/uciEngine";
 import { EngineName } from "../types/engine";
 import { isWasmSupported } from "../engine/shared";
-import { pickEngine } from "../lib/engine/factory";
+import { pickEngine } from "../libs/analysis/factory";
 
 export interface EngineContextProps {
   engine: UciEngine | null;
