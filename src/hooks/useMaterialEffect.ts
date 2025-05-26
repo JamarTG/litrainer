@@ -7,5 +7,5 @@ import { Materials } from "../types/eval";
 export const useMaterialEffect = (game: Chess, setMaterial: (material: Materials) => void) => {
   useEffect(() => {
     setMaterial(calculateMaterialDifference(game));
-  }, [game, setMaterial]);
+  }, [game.fen(), setMaterial]);
 };
