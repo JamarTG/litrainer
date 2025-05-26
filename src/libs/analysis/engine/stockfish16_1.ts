@@ -1,4 +1,4 @@
-import { EngineName } from "../types/engine";
+import { EngineName } from "../../../types/engine";
 import { UciEngine } from "./uciEngine";
 import { isMultiThreadSupported, isWasmSupported } from "./shared";
 
@@ -11,13 +11,8 @@ export class Stockfish16_1 extends UciEngine {
     const multiThreadIsSupported = isMultiThreadSupported();
     if (!multiThreadIsSupported) console.log("Single thread mode");
 
-    const enginePath = `engines/stockfish-16.1/stockfish-16.1${
-      lite ? "-lite" : ""
-    }${multiThreadIsSupported ? "" : "-single"}.js`;
+    const enginePath = `engines/stockfish-16.1/stockfish-16.1${lite ? "-lite" : ""}${multiThreadIsSupported ? "" : "-single"}.js`;
 
-    super(
-      lite ? EngineName.Stockfish16_1Lite : EngineName.Stockfish16_1,
-      enginePath
-    );
+    super(lite ? EngineName.Stockfish16_1Lite : EngineName.Stockfish16_1, enginePath);
   }
 }

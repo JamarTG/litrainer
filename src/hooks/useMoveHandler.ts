@@ -1,7 +1,7 @@
 import { Chess, Move } from "chess.js";
 import { useDispatch } from "react-redux";
 import { useCallback, useMemo } from "react";
-import { UciEngine } from "../engine/uciEngine";
+import { UciEngine } from "../libs/analysis/engine/uciEngine";
 import { ClassificationMessage, MoveClassification, PositiveClassifications } from "../constants/classification";
 import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "../redux/slices/feedback";
 import { Classification } from "../types/classification";
