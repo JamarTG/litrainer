@@ -41,7 +41,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleSquareClic
     <BoardPlayerInfo material={material}>
       <div className="relative flex flex-col justify-center items-center gap-2">
         <Chessboard
-          animationDuration={100}
+          onDragOverSquare={() => {}}
           position={fen}
           onSquareClick={handleSquareClick}
           onPieceDrop={handleMoveAttempt}
