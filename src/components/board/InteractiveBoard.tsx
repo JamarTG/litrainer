@@ -19,13 +19,17 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
- 
 
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
   const { fen } = useSelector((state: RootState) => state.board);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const { puzzle, currentPuzzleIndex } = useSelector((state: RootState) => {
+    return {
+      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+      currentPuzzleIndex: state.puzzle.currentIndex
+    };
+  });
   const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
   const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
@@ -65,7 +69,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
       console.error(`Failed to load board theme CSS for "${boardTheme}":`, err);
     });
   }, [boardTheme]);
-
 
   const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
 
@@ -111,6 +114,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
           ref={boardRef}
         >
           <Chessground
+            key={`puzzle-${currentPuzzleIndex}`}
             className="relative"
             fen={fen}
             orientation={playerColor}
@@ -131,4 +135,3 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
 };
 
 export default InteractiveChessBoard;
-
