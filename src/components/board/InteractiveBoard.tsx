@@ -19,7 +19,7 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-  const [lastMove, setLastMove] = useState<[string, string] | undefined>();
+  const [, setLastMove] = useState<[string, string] | undefined>();
 
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
