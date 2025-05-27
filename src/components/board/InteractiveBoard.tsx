@@ -19,12 +19,12 @@ interface BoardComponentProps {
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
-  const [, setLastMove] = useState<[string, string] | undefined>();
+ 
 
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
-  const { fen, destinationSquare, sourceSquare } = useSelector((state: RootState) => state.board);
+  const { fen } = useSelector((state: RootState) => state.board);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
   const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
@@ -66,11 +66,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     });
   }, [boardTheme]);
 
-  useEffect(() => {
-    if (sourceSquare && destinationSquare) {
-      setLastMove([sourceSquare, destinationSquare]);
-    }
-  }, [sourceSquare, destinationSquare]);
 
   const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
 
