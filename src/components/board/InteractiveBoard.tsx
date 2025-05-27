@@ -26,6 +26,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
 
   const { fen, destinationSquare, sourceSquare } = useSelector((state: RootState) => state.board);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
   const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
   const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
@@ -44,6 +45,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     window.addEventListener("resize", updateBoardSize);
     return () => window.removeEventListener("resize", updateBoardSize);
   }, []);
+
   useEffect(() => {
     if (!isThemeAvailable(pieceSet)) {
       console.warn(`Piece set ${pieceSet} is not available.`);
@@ -69,8 +71,15 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   useEffect(() => {
     if (sourceSquare && destinationSquare) {
       setLastMove([sourceSquare, destinationSquare]);
+    } else {
+      setLastMove(undefined);
     }
   }, [sourceSquare, destinationSquare]);
+
+  // Clear move highlights when puzzle changes
+  useEffect(() => {
+    setLastMove(undefined);
+  }, [currentPuzzleIndex]);
 
   const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
 
@@ -116,15 +125,14 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
           ref={boardRef}
         >
           <Chessground
+            key={`puzzle-${currentPuzzleIndex}`}
             className="relative"
             fen={fen}
             orientation={playerColor}
             turnColor={turnColor()}
             movable={calcMovable()}
-            lastMove={lastMove as any}
             onMove={onMove}
           />
-          {/* Move marker inside the board container for proper positioning */}
           <MoveClassificationMarker
             boardSize={boardSize}
             boardRef={boardRef}
@@ -137,4 +145,3 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
 };
 
 export default InteractiveChessBoard;
-

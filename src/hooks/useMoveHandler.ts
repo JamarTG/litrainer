@@ -175,7 +175,7 @@ export const useMoveHandler = (game: Chess) => {
 
       const newFen = game.fen();
 
-      dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare, moveSquares: {} }));
+      dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare }));
       playSound(game);
 
       if (!isInOpeningBook(movePlayedByUser.san)) {
