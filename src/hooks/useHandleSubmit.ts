@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import { dateRangeToEpochMillis } from "../utils/date/epoch";
 import { validateDateRange } from "../utils/date/validate-date-range";
-import { userExists } from "../libs/lichess/user";
 import generatePuzzles from "../libs/lichess/parsers";
 
 const useSubmitHandler = (formData: Fields) => {
@@ -18,11 +17,6 @@ const useSubmitHandler = (formData: Fields) => {
 
     let { maxNoGames, color, sort } = formData;
     const { username, startDate, endDate, gameTypes } = formData;
-
-    // if (!(await userExists(username))) {
-    //   toast.error("User does not exist.");
-    //   return;
-    // }
 
     if (gameTypes.length === 0) {
       toast.error("Please select at least one game type.");
@@ -65,7 +59,6 @@ const useSubmitHandler = (formData: Fields) => {
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
     } catch (error) {
-      console.log("ran into an error while fetching puzzles:", error);
       console.error("Error:", error);
       toast.error(error instanceof Error ? error.message : "An unexpected error occurred");
     }
