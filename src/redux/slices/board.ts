@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Chess } from "chess.js";
 
 interface MarkerPosition {
   right: number;
@@ -13,7 +14,7 @@ export interface BoardState {
 }
 
 const initialState: BoardState = {
-  fen: "",
+  fen: new Chess().fen(),
   sourceSquare: null,
   destinationSquare: null,
   markerPosition: {
