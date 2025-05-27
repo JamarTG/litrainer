@@ -14,8 +14,8 @@ const useChangePuzzle = () => {
   useEffect(() => {
     if (puzzles.length === 0) return;
 
-    dispatch(resetBoardState());
-    dispatch(resetFeedback());
+    // dispatch(resetBoardState());
+    // dispatch(resetFeedback());
   }, [puzzleIndex, puzzles, dispatch]);
 };
 

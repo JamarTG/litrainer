@@ -30,6 +30,7 @@ interface PlayGroundProps {
 const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useInitPuzzles(puzzles);
   useChangePuzzle();
+
   const { game } = usePuzzleSetup();
 
   const theme = useSelector((state: RootState) => state.theme.theme);
