@@ -2,11 +2,6 @@ import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzle";
 
 const navButtons = [
-  // {
-  //   label: "Retry",
-  //   aria: "Retry Puzzle",
-  //   onClick: undefined,
-  // },
   {
     label: "Previous",
     aria: "Previous Puzzle",
@@ -27,7 +22,7 @@ const PuzzleNavigation = () => {
       {navButtons.map((btn) => (
         <button
           key={btn.aria}
-          onClick={btn.action ? () => dispatch(btn.action!()) : btn.onClick}
+          onClick={() => dispatch(btn.action!())}
           className={`
             rounded-xl font-semibold text-base sm:text-lg
             bg-blue-500 text-white
