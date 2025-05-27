@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux";
 import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzle";
 
 const navButtons = [
-  {
-    label: "Retry",
-    aria: "Retry Puzzle",
-    onClick: undefined,
-  },
+  // {
+  //   label: "Retry",
+  //   aria: "Retry Puzzle",
+  //   onClick: undefined,
+  // },
   {
     label: "Previous",
     aria: "Previous Puzzle",
