@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { Puzzle } from "../types/puzzle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import useChangePuzzle from "../hooks/useChangePuzzle";
 import InteractiveChessBoard from "../components/board/InteractiveBoard";
 import usePuzzleSetup from "../hooks/usePuzzleSetup";
 import useInitPuzzles from "../hooks/useInitPuzzles";
@@ -29,7 +28,6 @@ interface PlayGroundProps {
 
 const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   useInitPuzzles(puzzles);
-  useChangePuzzle();
 
   const { game } = usePuzzleSetup();
 
