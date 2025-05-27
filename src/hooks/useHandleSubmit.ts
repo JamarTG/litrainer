@@ -19,10 +19,10 @@ const useSubmitHandler = (formData: Fields) => {
     let { maxNoGames, color, sort } = formData;
     const { username, startDate, endDate, gameTypes } = formData;
 
-    if (!(await userExists(username))) {
-      toast.error("User does not exist.");
-      return;
-    }
+    // if (!(await userExists(username))) {
+    //   toast.error("User does not exist.");
+    //   return;
+    // }
 
     if (gameTypes.length === 0) {
       toast.error("Please select at least one game type.");
@@ -65,6 +65,7 @@ const useSubmitHandler = (formData: Fields) => {
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
     } catch (error) {
+      console.log("ran into an error while fetching puzzles:", error);
       console.error("Error:", error);
       toast.error(error instanceof Error ? error.message : "An unexpected error occurred");
     }

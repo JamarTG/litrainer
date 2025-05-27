@@ -8,7 +8,8 @@ export const fetchAndParseLichessGames = async (
   maximumNumberOfGamesToFetch: string,
   sortOrderChronologicalOrReverse: string,
   playerPerspectiveColor: string,
-  preferredGameSpeedCategories: string[]
+  preferredGameSpeedCategories: string[],
+  signal?: AbortSignal
 ) => {
   const lichessUserGamesAPIURL = new URL(`${LichessURL.GamesAPI}${lichessUsername}`);
 
@@ -28,7 +29,9 @@ export const fetchAndParseLichessGames = async (
     headers: {
       Accept: "application/x-ndjson",
     },
+    signal,
   };
+
   const lichessUserGamesApiResponse = await fetch(lichessUserGamesAPIURL, lichessApiRequestInitOptions);
 
   if (!lichessUserGamesApiResponse.ok)
