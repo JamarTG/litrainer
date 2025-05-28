@@ -1,6 +1,6 @@
 .cg-wrap {
-  width: 512px;
-  height: 512px;
+  width: 510px;
+  height: 510px;
   position: relative;
   display: block;
 }
@@ -150,4 +150,25 @@ cg-board piece.fading {
 }
 .cg-wrap coords.ranks coord {
   transform: translateY(39%);
+}
+
+@media (max-width: 768px) {
+  .cg-wrap {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-wrap {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cg-wrap {
+    width: 280px;
+    height: 280px;
+  }
 }
