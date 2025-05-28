@@ -48,7 +48,7 @@ const GameInfo = () => {
                   <span className="p-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs">
                     <img
                       src={`/phases/${puzzle.phase}.svg`}
-                      className="w-6 h-6 rounded-full"
+                      className="w-6 h-6 rounded-full bg-white"
                       alt={puzzle.phase}
                       title={`Position taken from ${puzzle.phase}`}
                     />
@@ -65,7 +65,7 @@ const GameInfo = () => {
                   {getGameStatusDescription(puzzle.status, puzzle.winner === "white" ? puzzle.players.white : puzzle.players.black)}
                 </p>
 
-                <hr className="mb-2" />
+                <hr className="mb-2 border-b dark:border-gray-600" />
               </div>
 
               <div className="flex-col flex justify-center items-start gap-2">
