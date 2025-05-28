@@ -17,8 +17,8 @@ const PuzzleInfo = () => {
   const imageAlt = classification ?? puzzle.evaluation.judgment?.name ?? "move quality";
 
   return (
-    <div className="flex flex-col h-96 bg-red-600 justify-start items-center md:justify-center p-2 gap-2">
-      <div className="bg-red-600">
+    <div className="flex flex-col h-96 justify-start items-center md:justify-center p-2 gap-2">
+      <div className="">
         {playedMove && classification ? (
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex items-center gap-2">
