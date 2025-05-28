@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
 
 export interface PieceSetFeedback {
   set: string;
 }
 
 const initialState: PieceSetFeedback = {
-  set: "fresca",
+  set: loadFromLocalStorage("pieceSet", "cburnett"),
 };
 
 const pieceSetSlice = createSlice({
@@ -14,6 +15,7 @@ const pieceSetSlice = createSlice({
   reducers: {
     setPieceSet(state, action: PayloadAction<string>) {
       state.set = action.payload;
+      saveToLocalStorage("pieceSet", action.payload);
     },
   },
 });
