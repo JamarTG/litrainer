@@ -65,8 +65,8 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
       />
       <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (
-          <div className="space-y-4 ">
-            <div className="relative h-8 flex items-center justify-end">
+          <>
+            <div className="relative bh-12 flex items-center justify-end">
               <GameInfo />
               <SubmitButtonWithModal />
               <button
@@ -79,7 +79,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
               </button>
             </div>
             <PuzzleInfo />
-          </div>
+          </>
         )}
 
         {showSettings && (
@@ -100,12 +100,10 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 {theme === "light" ? <FaSun size={25} /> : <FaMoon size={25} />}
               </button>
             </div>
-            <div className="min-w-96 flex justify-center items-center flex-col gap-4 mt-6">
-              <div className="flex w-96 flex-col items-start justify-start">
-                <AutoSkip />
-                <PieceSetChooser />
-                <BoardThemeChooser />
-              </div>
+            <div className="h-96 flex justify-center items-center flex-col gap-4 mt-6">
+              <AutoSkip />
+              <PieceSetChooser />
+              <BoardThemeChooser />
             </div>
           </div>
         )}
