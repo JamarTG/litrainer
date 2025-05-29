@@ -5,6 +5,7 @@ import themeReducer from "./slices/theme";
 import boardReducer from "./slices/board";
 import pieceSetReducer from "./slices/piece-set";
 import boardThemeReducer from "./slices/board-style";
+import engineReducer from "./slices/engine";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     board: boardReducer,
     pieceSet: pieceSetReducer,
     boardTheme: boardThemeReducer,
+    engine:engineReducer
   },
 });
 

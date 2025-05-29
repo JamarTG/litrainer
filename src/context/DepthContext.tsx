@@ -8,7 +8,7 @@ export interface DepthContextType {
 export const DepthContext = createContext<DepthContextType | undefined>(undefined);
 
 export function DepthProvider({ children }: { children: ReactNode }) {
-  const [depth, setDepth] = useState<number>(12); 
+  const [depth, setDepth] = useState<number>(10); 
 
   return (
     <DepthContext.Provider value={{ depth, setDepth }}>

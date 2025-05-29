@@ -1,5 +1,17 @@
-// THIS FUNCTION IS RESERVED FOR LATER IMPLEMENTATION OF BRILLIANT MOVE
+import { Chess } from "chess.js";
 
+export const convertLanToSan = (fen: string, lanMove: string) => {
+  try {
+    const tempGame = new Chess(fen);
+    const move = tempGame.move(lanMove);
+    return move ? move.san : lanMove;
+  } catch (error) {
+    console.error("Error converting LAN to SAN:", error);
+    return lanMove;
+  }
+};
+
+// THIS FUNCTION IS RESERVED FOR LATER IMPLEMENTATION OF BRILLIANT MOVE
 
 // import { Chess, Square } from "chess.js";
 // import { PIECE_VALUE } from "../../constants/piece";

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { nextPuzzle, prevPuzzle } from "../../redux/slices/puzzle";
+import { nextPuzzle, prevPuzzle} from "../../redux/slices/puzzle";
+import { setIsPuzzleSolved } from "../../redux/slices/feedback";
 
 const navButtons = [
   {
@@ -22,7 +23,10 @@ const PuzzleNavigation = () => {
       {navButtons.map((btn) => (
         <button
           key={btn.aria}
-          onClick={() => dispatch(btn.action!())}
+          onClick={() => {
+            dispatch(setIsPuzzleSolved(false));
+            dispatch(btn.action!());
+          }}
           className={`
             rounded-xl font-semibold text-base sm:text-lg
             bg-blue-500 text-white

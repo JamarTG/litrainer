@@ -21,7 +21,7 @@ import TrainerForm from "../components/form/modals/TrainerForm";
 import SubmitButtonWithModal from "../components/form/SubmitButtonWithModal";
 import GameInfo from "../components/board/header/GameInfo";
 import { IoIosArrowBack } from "react-icons/io";
-
+import { setEngineRunning } from "../redux/slices/engine";
 interface PlayGroundProps {
   puzzles: Puzzle[];
 }
@@ -34,6 +34,13 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
 
+  const engineRunning = useSelector((state: RootState) => {
+    return state.engine.isRunning;
+  });
+
+  const isPuzzleSolved = useSelector((state: RootState) => {
+    return state.feedback.isPuzzleSolved;
+  });
   useUpdateTheme(theme);
 
   const { handleMoveAttempt } = useMoveHandler(game);
