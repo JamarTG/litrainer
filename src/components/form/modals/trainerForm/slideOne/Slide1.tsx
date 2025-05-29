@@ -9,11 +9,7 @@ interface SlideOneProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SlideOne: FC<SlideOneProps> = ({
-  formData,
-  setFormData,
-  handleInputChange,
-}) => {
+const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange }) => {
   const handleGameTypesChange = (game: string) => {
     const gameType = game.toLowerCase() as GameType;
     setFormData((prevFormData: Fields) => ({
@@ -40,7 +36,8 @@ const SlideOne: FC<SlideOneProps> = ({
           </div>
           <div className=" grid gap-2">
             <h1 className="text-landingText text-sm text-offWhite">
-              Max # of games
+              Max <span className="inline md:hidden">#{" "}</span>
+              <span className="hidden md:inline">number{" "}</span> of games
             </h1>
             <input
               className="flex w-full bg-secondary text-[#222] h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
@@ -60,7 +57,10 @@ const SlideOne: FC<SlideOneProps> = ({
           formData={formData}
           handleGameTypesChange={handleGameTypesChange}
         />
-        <Colors handleInputChange={handleInputChange} formData={formData} />
+        <Colors
+          handleInputChange={handleInputChange}
+          formData={formData}
+        />
       </div>
     </div>
   );
