@@ -128,9 +128,6 @@ export abstract class UciEngine {
 
     const lastPositionEval = await this.evaluatePosition(fen);
     const currentPositionEval = await this.evaluatePosition(chess.fen());
-
-    console.log(lastPositionEval, currentPositionEval);
-
     const basicClassification = getBasicClassification(lastPositionEval, currentPositionEval, move);
 
     return {

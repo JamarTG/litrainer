@@ -52,7 +52,6 @@ export const useMoveHandler = (game: Chess) => {
       dispatch(setClassification(classification));
       dispatch(setIsPuzzleSolved(solved));
 
-      console.log(bestMove, "here");
       dispatch(
         setFeedbackMoves({
           bestMove: bestMove ? `${bestMove} is the best move` : "Couldn't find better at this depth",

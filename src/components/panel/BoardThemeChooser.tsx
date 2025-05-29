@@ -14,7 +14,6 @@ const BoardThemeChooser = () => {
       options={BoardThemes}
       selected={boardTheme}
       onSelect={(value) => {
-        console.log(value, "this");
         dispatch(setBoardTheme(value));
         playSelectSound();
       }}
