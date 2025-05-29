@@ -27,7 +27,7 @@ const SlideOne: FC<SlideOneProps> = ({
   return (
     <div className="grid gap-6 px-4">
       <div className="grid gap-4 ">
-        <div className="flex justify-between">
+        <div className="flex flex-col gap-2 md:flex-row sm:gap-2 justify-between">
           <div className="grid gap-2">
             <h1 className="text-landingText  text-sm text-offWhite">Username</h1>
             <input
@@ -40,7 +40,7 @@ const SlideOne: FC<SlideOneProps> = ({
           </div>
           <div className=" grid gap-2">
             <h1 className="text-landingText text-sm text-offWhite">
-              Max number of games
+              Max # of games
             </h1>
             <input
               className="flex w-full bg-secondary text-[#222] h-[32px]   outline-none text-textwhite caret-accent   text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted "
