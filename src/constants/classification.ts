@@ -47,4 +47,5 @@ export const PositiveClassifications = new Set([
   MoveClassification.Excellent,
   MoveClassification.Good,
   MoveClassification.Brilliant,
+  
 ]);
