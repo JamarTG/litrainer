@@ -4,7 +4,6 @@ import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 import { LichessURL } from "../../../../../constants/urls";
 import useDebounce from "../../../../../hooks/useDebounceValue";
-import useClickOutside from "../../../../../hooks/useClickOutside";
 
 interface SlideOneProps {
   formData: Fields;
