@@ -99,11 +99,11 @@ export const useMoveHandler = (game: Chess) => {
   };
 
   const handleMoveAttempt = useCallback(
-    (sourceSquare: string, targetSquare: string) => {
+    (sourceSquare: string, targetSquare: string, promotion:string) => {
       if (isPuzzleSolved) return false;
       if (game.turn() !== puzzle?.userMove.color) return false;
 
-      const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare);
+      const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare, promotion);
       if (!movePlayedByUser) return false;
 
       const newFen = game.fen();
