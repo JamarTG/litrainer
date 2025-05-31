@@ -1,6 +1,6 @@
 import { useState, FC, useEffect, useRef } from "react";
 import { Chess, Square } from "chess.js";
-import BoardPlayerInfo from "./header/BoardPlayerInfo";
+import ChessBoardLayout from "../layout/ChessBoard";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
 import MoveClassificationMarker from "./MoveClassificationMarker";
@@ -151,7 +151,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
 
   return (
     <>
-      <BoardPlayerInfo material={material}>
+      <ChessBoardLayout material={material}>
         <div className="box relative">
           <div
             className="main-board green merida my-2"
@@ -182,7 +182,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
             />
           </div>
         </div>
-      </BoardPlayerInfo>
+      </ChessBoardLayout>
 
       <PromotionModal
         isOpen={!!promotionData}
