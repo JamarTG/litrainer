@@ -71,3 +71,18 @@ export const initialPieceCounts = {
   w: createInitialPieceCounts(),
   b: createInitialPieceCounts()
 };
+
+type PieceShortForm = "p" | "b" | "r" | "k" | "n" | "q";
+type PieceLongForm = "pawn" | "bishop" | "rook" | "king" | "knight" | "queen";
+export type PieceShortFormWithoutKing = Exclude<PieceShortForm, 'k'>;
+export type PieceLongFormWithoutKing = Exclude<PieceLongForm, 'king'>;
+
+export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing> = {
+  b: "bishop",
+  p: "pawn",
+  r: "rook",
+  q: "queen",
+  n: "knight"
+} as const;
+
+
