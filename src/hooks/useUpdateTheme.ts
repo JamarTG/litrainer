@@ -1,13 +1,13 @@
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
-const useUpdateTheme = (theme: "dark" | "light") => {
+const useUpdateTheme = (theme: 'dark' | 'light') => {
   useEffect(() => {
-    if (theme === "dark") {
-      document.body.classList.add("dark");
+    if (theme === 'dark') {
+      document.body.classList.add('dark')
     } else {
-      document.body.classList.remove("dark");
+      document.body.classList.remove('dark')
     }
-  }, [theme]);
-};
+  }, [theme])
+}
 
-export default useUpdateTheme;
+export default useUpdateTheme

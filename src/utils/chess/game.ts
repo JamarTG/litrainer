@@ -1,15 +1,15 @@
-import { Chess } from "chess.js";
+import { Chess } from 'chess.js'
 
 export const convertLanToSan = (fen: string, lanMove: string) => {
   try {
-    const tempGame = new Chess(fen);
-    const move = tempGame.move(lanMove);
-    return move ? move.san : lanMove;
+    const tempGame = new Chess(fen)
+    const move = tempGame.move(lanMove)
+    return move ? move.san : lanMove
   } catch (error) {
-    console.error("Error converting LAN to SAN:", error);
-    return lanMove;
+    console.error('Error converting LAN to SAN:', error)
+    return lanMove
   }
-};
+}
 
 // THIS FUNCTION IS RESERVED FOR LATER IMPLEMENTATION OF BRILLIANT MOVE
 

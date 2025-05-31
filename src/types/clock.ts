@@ -1,5 +1,5 @@
 export interface LichessClock {
-  initial: number;
-  increment: number;
-  totalTime: number;
+  initial: number
+  increment: number
+  totalTime: number
 }

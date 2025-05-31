@@ -1,4 +1,4 @@
 export interface Marker {
-  right: number;
-  top: number;
+  right: number
+  top: number
 }

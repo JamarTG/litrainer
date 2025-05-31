@@ -1,31 +1,31 @@
-import { useDispatch } from "react-redux";
-import { nextPuzzle, prevPuzzle} from "../../redux/slices/puzzle";
-import { setIsPuzzleSolved } from "../../redux/slices/feedback";
+import { useDispatch } from 'react-redux'
+import { nextPuzzle, prevPuzzle } from '../../redux/slices/puzzle'
+import { setIsPuzzleSolved } from '../../redux/slices/feedback'
 
 const navButtons = [
   {
-    label: "Previous",
-    aria: "Previous Puzzle",
-    action: prevPuzzle,
+    label: 'Previous',
+    aria: 'Previous Puzzle',
+    action: prevPuzzle
   },
   {
-    label: "Next",
-    aria: "Next Puzzle",
-    action: nextPuzzle,
-  },
-];
+    label: 'Next',
+    aria: 'Next Puzzle',
+    action: nextPuzzle
+  }
+]
 
 const PuzzleNavigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
-    <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
+    <div className='w-full flex flex-row items-center justify-center gap-2 sm:gap-4'>
       {navButtons.map((btn) => (
         <button
           key={btn.aria}
           onClick={() => {
-            dispatch(setIsPuzzleSolved(false));
-            dispatch(btn.action!());
+            dispatch(setIsPuzzleSolved(false))
+            dispatch(btn.action!())
           }}
           className={`
             rounded-xl font-semibold text-base sm:text-lg
@@ -37,17 +37,17 @@ const PuzzleNavigation = () => {
             m-1
           `}
           aria-label={btn.aria}
-          type="button"
+          type='button'
           style={{
-            outline: "none",
-            letterSpacing: "0.03em",
+            outline: 'none',
+            letterSpacing: '0.03em'
           }}
         >
-          <span className="flex items-center justify-center h-full">{btn.label}</span>
+          <span className='flex items-center justify-center h-full'>{btn.label}</span>
         </button>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PuzzleNavigation;
+export default PuzzleNavigation

@@ -1,9 +1,9 @@
-import EngineDepthControl from "../components/panel/EngineDepthControl"
+import EngineDepthControl from '../components/panel/EngineDepthControl'
 
 const Settings = () => {
   return (
     <div>
-      <EngineDepthControl/>
+      <EngineDepthControl />
     </div>
   )
 }
