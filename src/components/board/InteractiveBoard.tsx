@@ -15,7 +15,7 @@ import PromotionModal, { PromotionData } from "./modal/PromotionModal";
 
 interface BoardComponentProps {
   game: Chess;
-  handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, promotion:string) => boolean;
+  handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, promotion: string) => boolean;
 }
 
 const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
@@ -29,7 +29,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   const { puzzle, currentPuzzleIndex } = useSelector((state: RootState) => {
     return {
       puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-      currentPuzzleIndex: state.puzzle.currentIndex
+      currentPuzzleIndex: state.puzzle.currentIndex,
     };
   });
   const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
@@ -107,42 +107,41 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
 
   const isPromotionMove = (from: Square, to: Square): boolean => {
     const piece = game.get(from);
-    if (!piece || piece.type !== 'p') return false;
-    
+    if (!piece || piece.type !== "p") return false;
+
     const fromRank = parseInt(from[1]);
     const toRank = parseInt(to[1]);
-    
+
     // White pawn moving from 7th to 8th rank, or black pawn moving from 2nd to 1st rank
-    return (piece.color === 'w' && fromRank === 7 && toRank === 8) ||
-           (piece.color === 'b' && fromRank === 2 && toRank === 1);
+    return (piece.color === "w" && fromRank === 7 && toRank === 8) || (piece.color === "b" && fromRank === 2 && toRank === 1);
   };
 
   const onMove = (from: string, to: string) => {
     const fromSquare = from as Square;
     const toSquare = to as Square;
-    
+
     // Check if this is a promotion move
     if (isPromotionMove(fromSquare, toSquare)) {
       const movingPiece = game.get(fromSquare);
-      const color = movingPiece?.color === 'w' ? 'white' : 'black';
-      
+      const color = movingPiece?.color === "w" ? "white" : "black";
+
       setPromotionData({
         from: fromSquare,
         to: toSquare,
-        color
+        color,
       });
       return;
     }
-    
+
     // Regular move
-    handleMoveAttempt(fromSquare, toSquare,"");
+    handleMoveAttempt(fromSquare, toSquare, "");
   };
 
   const handlePromotion = (promotionPiece: string) => {
     if (!promotionData) return;
-    
+
     const { from, to } = promotionData;
-    handleMoveAttempt(from, to,promotionPiece);
+    handleMoveAttempt(from, to, promotionPiece);
     setPromotionData(null);
   };
 
@@ -167,6 +166,14 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
               movable={calcMovable()}
               lastMove={undefined}
               onMove={onMove}
+              drawable={{
+                enabled: true,
+                visible: true,
+                defaultSnapToValidMove: true,
+                shapes: [{ orig: "e2", dest: "e4", brush: "green" }],
+              }}
+              highlight={{ lastMove: true, check: true }}
+              addPieceZIndex={true}
             />
             <MoveClassificationMarker
               boardSize={boardSize}
