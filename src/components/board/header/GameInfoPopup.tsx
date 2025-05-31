@@ -1,7 +1,7 @@
 import GameSpeedIcon from "../GameSpeedIcon";
 import { Dispatch, SetStateAction } from "react";
 import { Puzzle } from "../../../types/puzzle";
-import PuzzlePhaseIcon from "./PuzzlePhaseiCON";
+import PuzzlePhaseIcon from "./PuzzlePhaseIcon";
 import RatedOrCasual from "./RatedOrCasual";
 import GameStatus from "./GameStatus";
 import OpeningToPractice from "./OpeningToPractice";
