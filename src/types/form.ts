@@ -1,15 +1,15 @@
 export interface Fields {
-  username: string
-  maxNoGames: number
-  startDate: string
-  endDate: string
-  gameTypes: GameType[]
-  color: Color
-  sort: Sort
+  username: string;
+  maxNoGames: number;
+  startDate: string;
+  endDate: string;
+  gameTypes: GameType[];
+  color: Color;
+  sort: Sort;
 }
 
-export type Sort = 'asc' | 'desc'
+export type Sort = "asc" | "desc";
 
-export type GameType = 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence'
+export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
 
-export type Color = 'black' | 'white' | 'both'
+export type Color = "black" | "white" | "both";

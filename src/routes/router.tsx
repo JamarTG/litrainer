@@ -1,12 +1,12 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
-import Paths from './paths'
-import Playground from '../pages/Playground'
+import { Route, Routes, useLocation } from "react-router-dom";
+import Paths from "./paths";
+import Playground from "../pages/Playground";
 
 export default function Router() {
-  const location = useLocation()
+  const location = useLocation();
   const { puzzles } = location.state || {
-    puzzles: JSON.parse(localStorage.getItem('puzzles') || '[]')
-  }
+    puzzles: JSON.parse(localStorage.getItem("puzzles") || "[]")
+  };
 
   return (
     <>
@@ -14,5 +14,5 @@ export default function Router() {
         <Route path={Paths.HOME} element={<Playground puzzles={puzzles} />} />
       </Routes>
     </>
-  )
+  );
 }

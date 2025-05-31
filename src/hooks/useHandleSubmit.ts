@@ -1,40 +1,40 @@
-import { useNavigate } from 'react-router-dom'
-import { Fields } from '../types/form'
-import { fetchAndParseLichessGames } from '../api/lichess-api'
-import { LichessGameResponse } from '../types/response'
-import { LichessEvaluation } from '../types/eval'
-import { toast } from 'react-hot-toast'
-import { MouseEvent } from 'react'
-import { dateRangeToEpochMillis } from '../utils/date/epoch'
-import { validateDateRange } from '../utils/date/validate-date-range'
-import generatePuzzles from '../libs/lichess/parsers'
+import { useNavigate } from "react-router-dom";
+import { Fields } from "../types/form";
+import { fetchAndParseLichessGames } from "../api/lichess-api";
+import { LichessGameResponse } from "../types/response";
+import { LichessEvaluation } from "../types/eval";
+import { toast } from "react-hot-toast";
+import { MouseEvent } from "react";
+import { dateRangeToEpochMillis } from "../utils/date/epoch";
+import { validateDateRange } from "../utils/date/validate-date-range";
+import generatePuzzles from "../libs/lichess/parsers";
 
 const useSubmitHandler = (formData: Fields) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    let { maxNoGames, color, sort } = formData
-    const { username, startDate, endDate, gameTypes } = formData
+    let { maxNoGames, color, sort } = formData;
+    const { username, startDate, endDate, gameTypes } = formData;
 
     if (gameTypes.length === 0) {
-      toast.error('Please select at least one game type.')
-      return
+      toast.error("Please select at least one game type.");
+      return;
     }
 
-    maxNoGames = maxNoGames || 10
-    color = color || 'both'
-    sort = sort || 'desc'
+    maxNoGames = maxNoGames || 10;
+    color = color || "both";
+    sort = sort || "desc";
 
-    const { isDateRangeValid, normalizedStartDate, normalizedEndDate } = validateDateRange(startDate, endDate)
+    const { isDateRangeValid, normalizedStartDate, normalizedEndDate } = validateDateRange(startDate, endDate);
 
     if (!isDateRangeValid) {
-      toast.error('Invalid date range.')
-      return
+      toast.error("Invalid date range.");
+      return;
     }
 
-    const { startTimeEpochMillis, endTimeEpochMillis } = dateRangeToEpochMillis(normalizedStartDate, normalizedEndDate)
+    const { startTimeEpochMillis, endTimeEpochMillis } = dateRangeToEpochMillis(normalizedStartDate, normalizedEndDate);
 
     try {
       const { games, evaluations } = await fetchAndParseLichessGames(
@@ -45,30 +45,30 @@ const useSubmitHandler = (formData: Fields) => {
         sort,
         color,
         gameTypes
-      )
+      );
 
       const puzzles = generatePuzzles(
         username,
         games as LichessGameResponse[],
         evaluations as unknown as LichessEvaluation[][]
-      )
+      );
 
       if (puzzles.length === 0) {
-        toast.error(`No errors found for ${username} based on the given criteria`)
-        return
+        toast.error(`No errors found for ${username} based on the given criteria`);
+        return;
       }
 
-      localStorage.setItem('puzzles', JSON.stringify(puzzles))
+      localStorage.setItem("puzzles", JSON.stringify(puzzles));
 
-      toast.success(`Found ${puzzles.length} puzzles for ${username}`)
-      navigate('/', { state: { puzzles } })
+      toast.success(`Found ${puzzles.length} puzzles for ${username}`);
+      navigate("/", { state: { puzzles } });
     } catch (error) {
-      console.error('Error:', error)
-      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred')
+      console.error("Error:", error);
+      toast.error(error instanceof Error ? error.message : "An unexpected error occurred");
     }
-  }
+  };
 
-  return handleSubmit
-}
+  return handleSubmit;
+};
 
-export default useSubmitHandler
+export default useSubmitHandler;

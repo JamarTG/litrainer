@@ -1,47 +1,47 @@
 .cg-wrap piece.pawn.white {
-  background-image: url('/themes/pieces/fantasy/wP.svg');
+  background-image: url("/themes/pieces/fantasy/wP.svg");
 }
 
 .cg-wrap piece.rook.white {
-  background-image: url('/themes/pieces/fantasy/wR.svg');
+  background-image: url("/themes/pieces/fantasy/wR.svg");
 }
 
 .cg-wrap piece.knight.white {
-  background-image: url('/themes/pieces/fantasy/wN.svg');
+  background-image: url("/themes/pieces/fantasy/wN.svg");
 }
 
 .cg-wrap piece.bishop.white {
-  background-image: url('/themes/pieces/fantasy/wB.svg');
+  background-image: url("/themes/pieces/fantasy/wB.svg");
 }
 
 .cg-wrap piece.queen.white {
-  background-image: url('/themes/pieces/fantasy/wQ.svg');
+  background-image: url("/themes/pieces/fantasy/wQ.svg");
 }
 
 .cg-wrap piece.king.white {
-  background-image: url('/themes/pieces/fantasy/wK.svg');
+  background-image: url("/themes/pieces/fantasy/wK.svg");
 }
 
 .cg-wrap piece.pawn.black {
-  background-image: url('/themes/pieces/fantasy/bP.svg');
+  background-image: url("/themes/pieces/fantasy/bP.svg");
 }
 
 .cg-wrap piece.rook.black {
-  background-image: url('/themes/pieces/fantasy/bR.svg');
+  background-image: url("/themes/pieces/fantasy/bR.svg");
 }
 
 .cg-wrap piece.knight.black {
-  background-image: url('/themes/pieces/fantasy/bN.svg');
+  background-image: url("/themes/pieces/fantasy/bN.svg");
 }
 
 .cg-wrap piece.bishop.black {
-  background-image: url('/themes/pieces/fantasy/bB.svg');
+  background-image: url("/themes/pieces/fantasy/bB.svg");
 }
 
 .cg-wrap piece.queen.black {
-  background-image: url('/themes/pieces/fantasy/bQ.svg');
+  background-image: url("/themes/pieces/fantasy/bQ.svg");
 }
 
 .cg-wrap piece.king.black {
-  background-image: url('/themes/pieces/fantasy/bK.svg');
+  background-image: url("/themes/pieces/fantasy/bK.svg");
 }

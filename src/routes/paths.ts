@@ -1,7 +1,7 @@
 const Paths = {
-  HOME: '/',
-  SETTINGS: '/settings',
-  HELP: '/help'
-}
+  HOME: "/",
+  SETTINGS: "/settings",
+  HELP: "/help"
+};
 
-export default Paths
+export default Paths;

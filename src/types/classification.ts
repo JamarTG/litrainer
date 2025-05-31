@@ -1,3 +1,3 @@
-import { MoveClassification } from '../constants/classification'
+import { MoveClassification } from "../constants/classification";
 
-export type Classification = keyof typeof MoveClassification
+export type Classification = keyof typeof MoveClassification;

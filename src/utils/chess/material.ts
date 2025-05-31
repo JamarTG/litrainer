@@ -1,16 +1,16 @@
-import { Chess, Color } from 'chess.js'
-import { Materials } from '../../types/eval'
+import { Chess, Color } from "chess.js";
+import { Materials } from "../../types/eval";
 
 export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   const material: Materials = {
     w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     b: { p: 0, n: 0, b: 0, r: 0, q: 0 }
-  }
+  };
 
   for (const rank of currentGame.board()) {
     for (const square of rank) {
-      if (square && square.type !== 'k') {
-        material[square.color][square.type]++
+      if (square && square.type !== "k") {
+        material[square.color][square.type]++;
       }
     }
   }
@@ -21,7 +21,7 @@ export const calculateMaterialDifference = (currentGame: Chess): Materials => {
     b: Math.max(material.w.b - material.b.b, 0),
     r: Math.max(material.w.r - material.b.r, 0),
     q: Math.max(material.w.q - material.b.q, 0)
-  }
+  };
 
   const b = {
     p: Math.max(material.b.p - material.w.p, 0),
@@ -29,10 +29,10 @@ export const calculateMaterialDifference = (currentGame: Chess): Materials => {
     b: Math.max(material.b.b - material.w.b, 0),
     r: Math.max(material.b.r - material.w.r, 0),
     q: Math.max(material.b.q - material.w.q, 0)
-  }
+  };
 
-  return { w, b }
-}
+  return { w, b };
+};
 
 export const determineColorLeadingInMaterial = (material: Materials, color: Color): number => {
   const materialDifference =
@@ -45,9 +45,9 @@ export const determineColorLeadingInMaterial = (material: Materials, color: Colo
     material.w.r * 5 -
     material.b.r * 5 +
     material.w.q * 9 -
-    material.b.q * 9
+    material.b.q * 9;
 
-  return (color === 'w' && materialDifference >= 0) || (color === 'b' && materialDifference < 0)
+  return (color === "w" && materialDifference >= 0) || (color === "b" && materialDifference < 0)
     ? Math.abs(materialDifference)
-    : 0
-}
+    : 0;
+};
