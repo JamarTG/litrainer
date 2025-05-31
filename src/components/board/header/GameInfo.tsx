@@ -19,6 +19,10 @@ const GameInfo = () => {
 
   useClickOutside(dropdownRef, setShowDropdown, showDropdown);
 
+  const toggleShowGameInfo = () => {
+    setShowDropdown((showDropdown) => !showDropdown);
+  };
+
   if (!puzzle) {
     return <SubmitButtonWithModal />;
   }
@@ -28,7 +32,7 @@ const GameInfo = () => {
       <button
         type="button"
         className="inline-flex gap-1 items-center focus:outline-none"
-        onClick={() => setShowDropdown((v) => !v)}
+        onClick={toggleShowGameInfo}
         aria-haspopup="true"
         aria-expanded={showDropdown}
         title="Get Additional Game Info"

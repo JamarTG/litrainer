@@ -26,13 +26,13 @@ const puzzleSlice = createSlice({
     prevPuzzle(state) {
       if (state.currentIndex > 0) state.currentIndex -= 1;
     },
-    jumpToPuzzle(state, action: PayloadAction<number>) {
-      if (action.payload >= 0 && action.payload < state.puzzles.length) {
-        state.currentIndex = action.payload;
-      }
-    }
+    // jumpToPuzzle(state, action: PayloadAction<number>) {
+    //   if (action.payload >= 0 && action.payload < state.puzzles.length) {
+    //     state.currentIndex = action.payload;
+    //   }
+    // }
   }
 });
 
-export const { setPuzzles, nextPuzzle, prevPuzzle, jumpToPuzzle } = puzzleSlice.actions;
+export const { setPuzzles, nextPuzzle, prevPuzzle } = puzzleSlice.actions;
 export default puzzleSlice.reducer;
