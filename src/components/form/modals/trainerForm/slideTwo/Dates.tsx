@@ -98,7 +98,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
 
         {calendarDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div style={{zIndex:80}} ref={calendarDropdown.dropdownRef} className={`shadow-2xl  `}>
+            <div style={{ zIndex: 80 }} ref={calendarDropdown.dropdownRef} className={`shadow-2xl  `}>
               <Calendar onDateSelect={handleDateSelect} />
             </div>,
             document.body
@@ -136,7 +136,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         </div>
         {sortbyDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div style={{zIndex:100}} ref={sortbyDropdown.dropdownRef} className={`shadow-2xl  `}>
+            <div style={{ zIndex: 100 }} ref={sortbyDropdown.dropdownRef} className={`shadow-2xl  `}>
               <SortBy onSortOptionSelect={handleSortOptionSelect} />
             </div>,
             document.body

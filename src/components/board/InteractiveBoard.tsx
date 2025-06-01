@@ -25,7 +25,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
-  const { puzzle, currentPuzzleIndex, fen, isPuzzleSolved, pieceSet, boardTheme} = useSelector((state: RootState) => {
+  const { puzzle, currentPuzzleIndex, fen, isPuzzleSolved, pieceSet, boardTheme } = useSelector((state: RootState) => {
     return {
       fen: state.board.fen,
       puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
@@ -35,7 +35,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
       boardTheme: state.boardTheme.board
     };
   });
-
 
   useMaterialEffect(game, setMaterial);
 

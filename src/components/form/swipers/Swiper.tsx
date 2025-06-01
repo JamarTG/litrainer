@@ -1,4 +1,4 @@
-import { useRef,  useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction } from "react";
+import { useRef, useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
 import List from "../../common/List";

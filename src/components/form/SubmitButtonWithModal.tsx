@@ -33,9 +33,7 @@ const SubmitButtonWithModal = () => {
         title="Create New Session"
         onClick={handleToggleModal}
       >
-
-        <PlusCircle size={25}/>
-
+        <PlusCircle size={25} />
       </button>
     </div>
   );

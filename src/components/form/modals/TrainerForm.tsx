@@ -15,7 +15,7 @@ interface ParamsFormProps {
 
 const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formData, setFormData, handleSubmit }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData: Fields) => ({
@@ -66,7 +66,12 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
 
           <div className="w-full h-full ">
             {/* passing handleSubmit here just to bypass the vercel error of unused variables */}
-            <Swiper handleSubmit={handleSubmit} className=" flex flex-col space-y-4 pt-4" currentSlide={currentSlide} setCurrentSlide={setCurrentSlide}>
+            <Swiper
+              handleSubmit={handleSubmit}
+              className=" flex flex-col space-y-4 pt-4"
+              currentSlide={currentSlide}
+              setCurrentSlide={setCurrentSlide}
+            >
               <SlideOne formData={formData} handleInputChange={handleInputChange} setFormData={setFormData} />
               <SlideTwo handleInputChange={handleInputChange} formData={formData} setFormData={setFormData} />
             </Swiper>

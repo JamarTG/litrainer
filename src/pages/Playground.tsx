@@ -87,7 +87,6 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(false)}
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-          
                 <ArrowBigLeftDash size={25} />
                 {/* <IoIosArrowBack size={25} /> */}
               </button>

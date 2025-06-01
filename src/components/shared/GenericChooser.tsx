@@ -41,7 +41,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
           <p>choose your set</p>
         </div>
 
-        <div onClick={toggleDropdown}  className="flex justify-center items-center w-1/2">
+        <div onClick={toggleDropdown} className="flex justify-center items-center w-1/2">
           <span className="flex-1 flex items-center justify-center">
             <div className="flex gap-1">
               {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}

@@ -1,6 +1,6 @@
 import { nextPuzzle, prevPuzzle } from "../redux/slices/puzzle";
 import { NavButton } from "../types/nav";
-import { StepForward, StepBack} from "lucide-react";
+import { StepForward, StepBack } from "lucide-react";
 
 export const navButtons: NavButton[] = [
   {
@@ -9,7 +9,7 @@ export const navButtons: NavButton[] = [
     action: prevPuzzle
   },
   {
-    label: <StepForward size={25}/>,
+    label: <StepForward size={25} />,
     aria: "Next Puzzle",
     action: nextPuzzle
   }
