@@ -11,7 +11,7 @@ import { useDepth } from "../context/hooks/useDepth";
 import { updateBoardStates } from "../redux/slices/board";
 import { playSound } from "../libs/sound";
 import { setEngineRunning } from "../redux/slices/engine";
-import { convertLanToSan } from "../utils/chess/game";
+import { convertLanToSan } from "../utils/move";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,

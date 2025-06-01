@@ -2,7 +2,7 @@ import { FC } from "react";
 import PieceIcon from "./PieceIcons";
 import { Color } from "chess.js";
 import { Materials } from "../../../types/eval";
-import { determineColorLeadingInMaterial } from "../../../utils/chess/material";
+import { determineColorLeadingInMaterial } from "../../../utils/material";
 import { pieceLongFormWithoutKing } from "../../../constants/piece";
 import { PieceShortFormWithoutKing } from "../../../types/piece";
 import { typedEntries } from "../../../utils/object";

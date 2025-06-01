@@ -5,9 +5,8 @@ import { LichessGameResponse } from "../types/response";
 import { LichessEvaluation } from "../types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
-import { dateRangeToEpochMillis } from "../utils/date/epoch";
-import { validateDateRange } from "../utils/date/validate-date-range";
 import generatePuzzles from "../libs/lichess/parsers";
+import { dateRangeToEpochMillis, validateDateRange } from "../utils/date";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();

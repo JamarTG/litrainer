@@ -1,4 +1,4 @@
-import { ColorLongForm } from "../../types/player";
+import { ColorLongForm } from "../types/player";
 
 const BASE_PIECE_THEMES_URL = "./../../../../public/themes/pieces/";
 

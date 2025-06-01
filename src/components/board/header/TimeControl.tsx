@@ -1,5 +1,5 @@
 import { Puzzle } from "../../../types/puzzle";
-import { formatTimeControl } from "../../../utils/chess/time";
+import { formatTimeControl } from "../../../utils/time";
 
 interface TimeControlProps {
   initialTime: Puzzle["clock"]["initial"];

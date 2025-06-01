@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { promotionPieces } from "../../../constants/piece";
-import { constructPromotionPieceURL } from "../../../utils/chess/promotion";
+import { constructPromotionPieceURL } from "../../../utils/promotion";
 import { ColorLongForm } from "../../../types/player";
 import List from "../../common/List";
 import { PromotionPiece } from "../../../types/piece";
