@@ -8,10 +8,22 @@ const AutoSkip = () => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-2">
-      <h2>AutoSkip Puzzle</h2>
-      <input type="checkbox" checked={isChecked} onChange={() => handleToggleSwitch()} />
-    </div>
+    <>
+      <div className="w-1/2">
+        <h2>Enable AutoSkip</h2>
+      </div>
+
+      <button
+        onClick={handleToggleSwitch}
+        className={`${
+          isChecked ? "justify-end" : "justify-start"
+        } ${
+          isChecked ? "bg-green-500" : "bg-gray-500"
+        } w-12  h-6 p-0 m-auto  rounded-full flex transition duration-500 shadow-2xl`}
+      >
+        <span className={`bg-gray-300 transition duration-500 rounded-full w-1/2 h-full m-0 p-0 shadow-xl`}></span>
+      </button>
+    </>
   );
 };
 

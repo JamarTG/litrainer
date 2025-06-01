@@ -25,7 +25,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         onSelect(getOptionKey(option));
         setIsOpen(false);
       }}
-      className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center gap-2 rounded"
+      className="cursor-pointer left-lg h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center overflow-hidden gap-2 rounded w-80 max-w-96"
       style={{ minWidth: 0 }}
     >
       {getDisplay(option)}
@@ -36,9 +36,12 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
       ref={dropdownRef}
       className="rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
     >
-      <button onClick={toggleDropdown} className="gap-5 p-1 flex items-center justify-center rounded-md transition">
-        <p>Choose your set</p>
-        <div className="flex justify-center items-center">
+      <button className="w-96 bg-green flex items-center rounded-md transition">
+        <div className="flex justify-start w-1/2">
+          <p>Choose your set</p>
+        </div>
+
+        <div onClick={toggleDropdown}  className="flex justify-center items-center w-1/2">
           <span className="flex-1 flex items-center justify-center">
             <div className="flex gap-1">
               {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}
@@ -51,8 +54,9 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
           </span>
         </div>
       </button>
+
       {isOpen && (
-        <ul className="overflow-y-auto max-h-64 absolute z-10 mt-2 bg-white dark:bg-zinc-800 rounded-md shadow-lg w-full">
+        <ul className="overflow-y-auto max-h-32 max-w-96 absolute z-10 mt-2 bg-white dark:bg-zinc-800 rounded-md shadow-lg ">
           <List items={options} renderItem={renderGenericChooserOption} />
         </ul>
       )}
