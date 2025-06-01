@@ -10,6 +10,8 @@ export interface LichessPlayer {
   provisional?: boolean;
 }
 
+export type ColorLongForm = "white" | "black";
+
 interface LichessUserMetaData {
   name: string;
   flair: string;

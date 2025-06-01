@@ -4,6 +4,7 @@ import { LichessGameResponse } from "../../types/response";
 import { PositionOpening, Puzzle } from "../../types/puzzle";
 import { GameType } from "../../types/form";
 import openings from "./openings";
+import { ColorLongForm } from "../../types/player";
 
 export const decodeLichessGameResponse = async (response: Response) => {
   if (!response.body) {
@@ -124,7 +125,7 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
         };
 
         if (game.winner) {
-          puzzle.winner = game.winner as "white" | "black";
+          puzzle.winner = game.winner as ColorLongForm;
         }
 
         res.push(puzzle);

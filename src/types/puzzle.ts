@@ -2,7 +2,7 @@ import { Color, PieceSymbol, Square } from "chess.js";
 import { LichessClock } from "./clock";
 import { LichessEvaluation } from "./eval";
 import { GameType } from "./form";
-import { LichessPlayers } from "./player";
+import { ColorLongForm, LichessPlayers } from "./player";
 
 export interface Puzzle {
   evaluation: LichessEvaluation;
@@ -30,7 +30,7 @@ export interface Puzzle {
     color: Color;
   };
   clock: LichessClock;
-  winner?: "white" | "black";
+  winner?: ColorLongForm;
   moveNumber: number;
   gameOpening: Opening;
   phase: Phase;

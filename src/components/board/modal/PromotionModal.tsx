@@ -2,11 +2,14 @@ import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { promotionPieces } from "../../../constants/piece";
+import { constructPromotionPieceURL } from "../../../utils/chess/promotion";
+import { ColorLongForm } from "../../../types/player";
 
 export interface PromotionData {
   from: Square;
   to: Square;
-  color: "white" | "black";
+  color: ColorLongForm;
 }
 
 const PromotionModal: FC<{
@@ -20,62 +23,21 @@ const PromotionModal: FC<{
   const { color } = promotionData;
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
-  const pieces = [
-    {
-      piece: "q",
-      name: "Queen",
-      element: (
-        <img
-          src={`./../../../../public/themes/pieces/${pieceSet}/${color[0].toLocaleLowerCase()}Q.svg`}
-          className="w-16"
-        />
-      )
-    },
-    {
-      piece: "r",
-      name: "Rook",
-      element: (
-        <img
-          src={`./../../../../public/themes/pieces/${pieceSet}/${color[0].toLocaleLowerCase()}R.svg`}
-          className="w-16"
-        />
-      )
-    },
-    {
-      piece: "b",
-      name: "Bishop",
-      element: (
-        <img
-          src={`./../../../../public/themes/pieces/${pieceSet}/${color[0].toLocaleLowerCase()}B.svg`}
-          className="w-16"
-        />
-      )
-    },
-    {
-      piece: "n",
-      name: "Knight",
-      element: (
-        <img
-          src={`./../../../../public/themes/pieces/${pieceSet}/${color[0].toLocaleLowerCase()}N.svg`}
-          className="w-16"
-        />
-      )
-    }
-  ];
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Choose promotion piece</h3>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
-          {pieces.map(({ piece, name, element }) => (
+          {promotionPieces.map(({ piece, name }) => (
             <button
               key={piece}
               onClick={() => onPromote(piece)}
               className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
             >
-              <span className="group-hover:scale-110 transition-transform">{element}</span>
+              <span className="group-hover:scale-110 transition-transform">
+                <img src={constructPromotionPieceURL(pieceSet, color)} alt={name} className="w-16" />
+              </span>
               <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
             </button>
           ))}

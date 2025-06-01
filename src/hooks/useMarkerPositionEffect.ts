@@ -2,13 +2,14 @@ import { useEffect, RefObject } from "react";
 import { Color, Square } from "chess.js";
 import { useDispatch } from "react-redux";
 import { setMarkerPosition } from "../redux/slices/board";
+import { ColorLongForm } from "../types/player";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,
   boardSize: number,
   puzzleColor?: Color,
   boardRef?: RefObject<HTMLDivElement>,
-  orientation?: "white" | "black"
+  orientation?: ColorLongForm
 ) => {
   const dispatch = useDispatch();
 

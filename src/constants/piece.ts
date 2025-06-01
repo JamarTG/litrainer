@@ -86,3 +86,21 @@ export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLo
 } as const;
 
 
+export const promotionPieces = [
+    {
+      piece: "q",
+      name: "Queen",
+    },
+    {
+      piece: "r",
+      name: "Rook",
+    },
+    {
+      piece: "b",
+      name: "Bishop",
+    },
+    {
+      piece: "n",
+      name: "Knight",
+    }
+  ];

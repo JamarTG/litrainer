@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
 import { FC, RefObject } from "react";
+import { ColorLongForm } from "../../types/player";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
   boardRef: RefObject<HTMLDivElement>;
-  orientation: "white" | "black";
+  orientation: ColorLongForm;
 }
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
