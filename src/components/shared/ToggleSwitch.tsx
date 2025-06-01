@@ -7,7 +7,7 @@ interface ToggleSwitchProps {
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ handleToggleSwitch, isOn }) => {
   return (
-    <button onClick={handleToggleSwitch}>
+    <button className="w-full flex justify-end" onClick={handleToggleSwitch}>
       <svg viewBox="0 0 16 16" height="35" width="35">
         <path d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z" fill={` ${isOn ? "#287F71" : "#424242"}`} />
         <path

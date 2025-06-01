@@ -13,8 +13,10 @@ const AutoSkip = () => {
       <div className="w-1/2">
         <h2>enable autoskip</h2>
       </div>
-
-      <ToggleSwitch handleToggleSwitch={handleToggleSwitch} isOn={isChecked} />
+      <div className="w-1/2">
+        {" "}
+        <ToggleSwitch handleToggleSwitch={handleToggleSwitch} isOn={isChecked} />
+      </div>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import List from "../common/List";
+import { ChevronDown } from "lucide-react";
 
 interface GenericChooserProps<T> {
   label?: string;
@@ -25,8 +26,8 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         onSelect(getOptionKey(option));
         setIsOpen(false);
       }}
-      className="cursor-pointer left-lg h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center overflow-hidden gap-2 rounded w-80 max-w-96"
-      style={{ minWidth: 0 }}
+      className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center overflow-hidden gap-2 rounded w-64 "
+    
     >
       {getDisplay(option)}
     </li>
@@ -34,29 +35,25 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
   return (
     <div
       ref={dropdownRef}
-      className="rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
+      className="flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
     >
-      <button className="w-72 bg-green flex items-center rounded-md transition">
+      <button className="w-72 flex items-center rounded-md transition">
         <div className="flex justify-start w-1/2">
           <p>choose your set</p>
         </div>
 
-        <div onClick={toggleDropdown} className="flex justify-center items-center w-1/2">
+        <div onClick={toggleDropdown} className="flex justify-between items-center h-8 w-40">
           <span className="flex-1 flex items-center justify-center">
             <div className="flex gap-1">
               {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}
             </div>
           </span>
-          <span className="ml-2" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M5.23 7.21a1 1 0 0 1 1.42 0L10 10.59l3.35-3.38a1 1 0 1 1 1.42 1.42l-4.06 4.09a1 1 0 0 1-1.42 0L5.23 8.63a1 1 0 0 1 0-1.42z" />
-            </svg>
-          </span>
+          <ChevronDown />
         </div>
       </button>
 
       {isOpen && (
-        <ul className="overflow-y-auto max-h-32 max-w-96 absolute z-10 mt-2 bg-white dark:bg-zinc-800 rounded-md shadow-lg ">
+        <ul className="overflow-y-auto max-h-32 max-w-72 absolute top-6 z-10 mt-2 bg-white dark:bg-zinc-900 shadow-lg ">
           <List items={options} renderItem={renderGenericChooserOption} />
         </ul>
       )}
