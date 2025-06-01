@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, MouseEventHandler, ReactNode, FC } from "react";
+import { useRef,  useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
 import List from "../../common/List";
@@ -7,11 +7,12 @@ interface SwiperProps {
   children: ReactNode[];
   className?: string;
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
+  currentSlide: number;
+  setCurrentSlide: Dispatch<SetStateAction<number>>;
 }
 
-const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit }) => {
+const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSlide, setCurrentSlide }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const scrollToSlide = (index: number) => {
     if (containerRef.current) {
@@ -20,27 +21,31 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit }) => {
         behavior: "smooth"
       });
     }
-    setCurrentIndex(index);
+    setCurrentSlide(index);
   };
 
   useEffect(() => {
     const handleResize = () => {
-      scrollToSlide(currentIndex);
+      scrollToSlide(currentSlide);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [currentIndex]);
+  }, [currentSlide]);
 
   const handlePrev = () => {
-    if (currentIndex > 0) scrollToSlide(currentIndex - 1);
+    if (currentSlide > 0) scrollToSlide(currentSlide - 1);
   };
 
   const handleNext = () => {
-    if (currentIndex < children.length - 1) scrollToSlide(currentIndex + 1);
+    if (currentSlide < children.length - 1) scrollToSlide(currentSlide + 1);
   };
 
   const renderChild = (child: ReactNode, index: number) => (
-    <div key={index} className="flex-shrink-0  w-full" style={{ width: "100%" }}>
+    <div
+      key={index}
+      className="flex-shrink-0 w-full"
+      style={{ width: "100%", display: index === currentSlide ? "block" : "none" }}
+    >
       {child}
     </div>
   );
@@ -54,15 +59,15 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit }) => {
       <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
         <ProgressIndicator
           children={children}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
+          currentIndex={currentSlide}
+          setCurrentIndex={setCurrentSlide}
           scrollToSlide={scrollToSlide}
         />
 
         <NavigationButtons
           handlePrev={handlePrev}
           handleNext={handleNext}
-          currentIndex={currentIndex}
+          currentIndex={currentSlide}
           length={children.length}
           handleSubmit={handleSubmit}
         />
