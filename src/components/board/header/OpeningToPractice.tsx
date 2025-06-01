@@ -1,4 +1,5 @@
-import { IoBookOutline } from "react-icons/io5";
+
+import { BookOpen } from "lucide-react";
 import { LichessURL } from "../../../constants/urls";
 import { Puzzle } from "../../../types/puzzle";
 
@@ -17,7 +18,7 @@ const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }
           rel="noopener noreferrer"
           title={`Explore ${positionOpening.name}`}
         >
-          <IoBookOutline size={20} />
+          <BookOpen size={20} />
           <span>Practice This Opening</span>
         </a>
       ) : null}
