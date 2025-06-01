@@ -1,6 +1,7 @@
 import React from "react";
 import { LichessURL } from "../../../constants/urls";
 import { Puzzle } from "../../../types/puzzle";
+import LichessIcon from "../../shared/LichessIcon";
 
 interface ViewGameProps {
   gameId: Puzzle["gameId"];
@@ -16,7 +17,7 @@ const ViewGame: React.FC<ViewGameProps> = ({ gameId, moveNumber }) => {
       rel="noopener noreferrer"
       title="View game on Lichess"
     >
-      
+      <LichessIcon size={25} />
       <span>View Game on Lichess.org</span>
     </a>
   );
