@@ -5,6 +5,7 @@ import { Fields, GameType } from "../../../../../types/form";
 import GameSpeedIcon from "../../../../board/GameSpeedIcon";
 import { TimeControls } from "../../../../../constants/form";
 import List from "../../../../common/List";
+import ToggleSwitch from "../../../../shared/ToggleSwitch";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -16,6 +17,8 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
   const gamesDropdown = usePopperDropDown();
 
   const renderTimeControl = (timeControl: GameType) => (
+
+    // <ToggleSwitch />
     <button
       key={timeControl}
       name="timeControls"
@@ -26,19 +29,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
         <GameSpeedIcon size="text-2xl" speed={timeControl} />
         {timeControl}
       </div>
-      <svg viewBox="0 0 16 16" height="35" width="35">
-        <path
-          d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
-          fill={` ${formData.gameTypes.includes(timeControl) ? "#287F71" : "#424242"}`}
-        />
-        <path
-          d="M5 4a4 4 0 110 8 4 4 0 010-8z"
-          fill="#ffffff"
-          className={`transition transform 0.3s ease ${
-            formData.gameTypes.includes(timeControl) ? "transform translate-x-[6px]" : ""
-          }`}
-        />
-      </svg>
+      <ToggleSwitch isOn={formData.gameTypes.includes(timeControl)} />
     </button>
   );
 

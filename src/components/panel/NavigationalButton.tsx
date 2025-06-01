@@ -5,9 +5,10 @@ import { useDispatch } from "react-redux";
 
 interface NavigationalButtonProps {
   btn: NavButton;
+  icon?: React.ReactNode; // optional icon prop
 }
 
-const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn }) => {
+const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn, icon }) => {
   const dispatch = useDispatch();
 
   const navigationalClickHandler = () => {
@@ -19,23 +20,28 @@ const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn }) => {
     <button
       key={btn.aria}
       onClick={navigationalClickHandler}
-      className={`
-                rounded-xl font-semibold text-base sm:text-lg
-                bg-blue-500 text-white
-                hover:bg-blue-600
-                active:scale-95 active:ring-2 active:ring-purple-300
-                transition
-                w-24 h-14 sm:w-24 sm:h-12
-                m-1
-              `}
+      className="
+        bg-accent 
+        rounded-lg 
+        text-sm 
+        text-textwhite 
+        flex 
+        items-center 
+        h-[32px] 
+        px-3 
+        max-w-fit 
+        cursor-pointer 
+        hover:bg-accent/90 
+        active:scale-95 
+        transition 
+        shadow-sm 
+        focus:outline-none
+      "
       aria-label={btn.aria}
       type="button"
-      style={{
-        outline: "none",
-        letterSpacing: "0.03em"
-      }}
     >
-      <span className="flex items-center justify-center h-full">{btn.label}</span>
+      {icon && <span className="mr-2 flex items-center text-textwhite">{icon}</span>}
+      <span>{btn.label}</span>
     </button>
   );
 };

@@ -38,7 +38,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
     >
       <button className="w-96 bg-green flex items-center rounded-md transition">
         <div className="flex justify-start w-1/2">
-          <p>Choose your set</p>
+          <p>choose your set</p>
         </div>
 
         <div onClick={toggleDropdown}  className="flex justify-center items-center w-1/2">
