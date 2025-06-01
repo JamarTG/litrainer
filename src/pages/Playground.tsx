@@ -88,7 +88,6 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
                 <ArrowBigLeftDash size={25} />
-                {/* <IoIosArrowBack size={25} /> */}
               </button>
               <button
                 title="light or dark?"
@@ -100,15 +99,15 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
               </button>
             </div>
             <div className="flex h-full justify-center items-center">
-              <div className="w-full max-w-lg h-96 flex justify-center items-center border border-zinc-200 dark:border-zinc-600 rounded-md flex-col gap-4 mt-6">
+              <div className="w-full max-w-md h-96 flex justify-center items-center border border-zinc-200 dark:border-zinc-600 rounded-md flex-col gap-4 mt-6">
                 <div className="flex flex-col justify-center items-center  rounded-md p-4 gap-5">
-                  <div className="flex w-full justify-start items-center">
+                  <div className="flex w-72 justify-start items-center">
                     <AutoSkip />
                   </div>
-                  <div className="flex w-full justify-start items-center">
+                  <div className="flex w-72 justify-start items-center">
                     <PieceSetChooser />
                   </div>
-                  <div className="flex w-full justify-start items-center">
+                  <div className="flex w-72 justify-start items-center">
                     <BoardThemeChooser />
                   </div>
                 </div>

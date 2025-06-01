@@ -36,7 +36,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
       ref={dropdownRef}
       className="rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
     >
-      <button className="w-96 bg-green flex items-center rounded-md transition">
+      <button className="w-72 bg-green flex items-center rounded-md transition">
         <div className="flex justify-start w-1/2">
           <p>choose your set</p>
         </div>
