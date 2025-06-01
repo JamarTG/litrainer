@@ -14,9 +14,7 @@ const PieceIcon: FC<PieceIconProps> = ({ piece, size = 24 }) => {
     return null;
   }
 
-  return <div style={{ width: size, height: size }}>
-    {cloneElement(svg, { width: size, height: size })}
-  </div>;
+  return <div style={{ width: size, height: size }}>{cloneElement(svg, { width: size, height: size })}</div>;
 };
 
 export default PieceIcon;

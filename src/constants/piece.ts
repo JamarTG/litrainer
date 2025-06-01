@@ -74,7 +74,7 @@ export const initialPieceCounts = {
   b: createInitialPieceCounts()
 };
 
-export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing>  = {
+export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing> = {
   b: "bishop",
   p: "pawn",
   r: "rook",

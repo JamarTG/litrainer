@@ -11,14 +11,14 @@ interface PlayerInfoProps {
 }
 
 const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
-  const { puzzle, theme } = useSelector((state: RootState) => {
+  const { puzzle, theme, player } = useSelector((state: RootState) => {
     return {
       theme: state.theme.theme,
-      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex]
+      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+      player: state.puzzle.puzzles[state.puzzle.currentIndex].players[color === "w" ? "white" : "black"]
     };
   });
 
-  const player = puzzle.players[color === "w" ? "white" : "black"];
   const { rating, provisional, ratingDiff, user } = player;
 
   const colorClass =

@@ -1,7 +1,6 @@
 import { nextPuzzle, prevPuzzle } from "../redux/slices/puzzle";
 import { NavButton } from "../types/nav";
 
-
 export const navButtons: NavButton[] = [
   {
     label: "Previous",

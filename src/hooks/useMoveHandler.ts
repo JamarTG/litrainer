@@ -22,8 +22,7 @@ const selectPuzzleData = (state: RootState) => ({
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
-  const puzzleData = useSelector(selectPuzzleData);
-  const { puzzle, isPuzzleSolved, fen } = puzzleData;
+  const { puzzle, isPuzzleSolved, fen } = useSelector(selectPuzzleData);
 
   const dispatch = useDispatch();
 

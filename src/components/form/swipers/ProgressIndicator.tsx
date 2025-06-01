@@ -14,7 +14,7 @@ const ProgressIndicator: FC<ProgressIndicatorProps> = ({ children, currentIndex,
     scrollToSlide(index);
   };
 
-  const renderChild = (_: ReactNode, index:number) => (
+  const renderChild = (_: ReactNode, index: number) => (
     <button
       key={index}
       onClick={() => handleIndicatorClick(index)}

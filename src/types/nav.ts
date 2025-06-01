@@ -1,5 +1,5 @@
 export interface NavButton {
-    label : string
-    aria : string,
-    action: Function
+  label: string;
+  aria: string;
+  action: Function;
 }

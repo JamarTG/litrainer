@@ -79,8 +79,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     if (isPuzzleSolved) {
       return {
         free: false,
-        dests: new Map(),
-        color: undefined as any
+        dests: new Map()
       };
     }
 
