@@ -25,16 +25,17 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
-  const { fen } = useSelector((state: RootState) => state.board);
-  const { puzzle, currentPuzzleIndex } = useSelector((state: RootState) => {
+  const { puzzle, currentPuzzleIndex, fen, isPuzzleSolved, pieceSet, boardTheme} = useSelector((state: RootState) => {
     return {
+      fen: state.board.fen,
       puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-      currentPuzzleIndex: state.puzzle.currentIndex
+      currentPuzzleIndex: state.puzzle.currentIndex,
+      isPuzzleSolved: state.feedback.isPuzzleSolved,
+      pieceSet: state.pieceSet.set,
+      boardTheme: state.boardTheme.board
     };
   });
-  const { isPuzzleSolved } = useSelector((state: RootState) => state.feedback);
-  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
-  const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
+
 
   useMaterialEffect(game, setMaterial);
 
@@ -111,7 +112,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     const fromRank = parseInt(from[1]);
     const toRank = parseInt(to[1]);
 
-    // White pawn moving from 7th to 8th rank, or black pawn moving from 2nd to 1st rank
     return (
       (piece.color === "w" && fromRank === 7 && toRank === 8) || (piece.color === "b" && fromRank === 2 && toRank === 1)
     );
@@ -121,7 +121,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     const fromSquare = from as Square;
     const toSquare = to as Square;
 
-    // Check if this is a promotion move
     if (isPromotionMove(fromSquare, toSquare)) {
       const movingPiece = game.get(fromSquare);
       const color = movingPiece?.color === "w" ? "white" : "black";
@@ -134,7 +133,6 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
       return;
     }
 
-    // Regular move
     handleMoveAttempt(fromSquare, toSquare, "");
   };
 
