@@ -56,7 +56,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   }
 
   return (
-    <div className="flex gap-6 justify-center items-center flex-wrap min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
+    <div className="flex gap-6 justify-center items-center flex-wrap h-full min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <InteractiveChessBoard game={game} handleMoveAttempt={handleMoveAttempt} />
       <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
         {!showSettings && (
