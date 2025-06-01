@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import { FaInfoCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import useClickOutside from "../../../hooks/useClickOutside";
 import { RootState } from "../../../redux/store";
 import SubmitButtonWithModal from "../../form/SubmitButtonWithModal";
 import GameInfoPopup from "./GameInfoPopup";
+import { Info } from "lucide-react";
 
 const GameInfo = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -32,7 +32,7 @@ const GameInfo = () => {
         aria-expanded={showPopup}
         title="Get Additional Game Info"
       >
-        <FaInfoCircle className="text-2xl" />
+        <Info size={25} />
       </button>
 
       <GameInfoPopup showPopup={showPopup} setShowPopup={setShowPopup} puzzle={activePuzzle} />

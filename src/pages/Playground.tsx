@@ -11,8 +11,7 @@ import PieceSetChooser from "../components/panel/PieceSetChooser";
 import BoardThemeChooser from "../components/panel/BoardThemeChooser";
 import { toggleTheme } from "../redux/slices/theme";
 import useUpdateTheme from "../hooks/useUpdateTheme";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { FaGear } from "react-icons/fa6";
+import { Moon, Sun, Settings, ArrowBigLeftDash } from "lucide-react";
 import AutoSkip from "../components/panel/AutoSkip";
 import { initialFormState } from "../constants/form";
 import { Fields } from "../types/form";
@@ -20,7 +19,7 @@ import useHandleSubmit from "../hooks/useHandleSubmit";
 import TrainerForm from "../components/form/modals/TrainerForm";
 import SubmitButtonWithModal from "../components/form/SubmitButtonWithModal";
 import GameInfo from "../components/board/header/GameInfo";
-import { IoIosArrowBack } from "react-icons/io";
+// import
 interface PlayGroundProps {
   puzzles: Puzzle[];
 }
@@ -71,7 +70,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(true)}
                 className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
               >
-                <FaGear size={25} />
+                <Settings size={25} />
               </button>
             </div>
             <PuzzleInfo />
@@ -88,7 +87,9 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(false)}
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-                <IoIosArrowBack size={25} />
+          
+                <ArrowBigLeftDash size={25} />
+                {/* <IoIosArrowBack size={25} /> */}
               </button>
               <button
                 title="light or dark?"
@@ -96,7 +97,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => dispatch(toggleTheme())}
                 aria-label="Toggle theme"
               >
-                {theme === "light" ? <FaSun size={25} /> : <FaMoon size={25} />}
+                {theme === "light" ? <Sun size={25} /> : <Moon size={25} />}
               </button>
             </div>
             <div className="flex h-full justify-center items-center">

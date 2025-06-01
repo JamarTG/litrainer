@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 export interface NavButton {
-  label: string;
+  label: ReactNode;
   aria: string;
   action: Function;
 }
