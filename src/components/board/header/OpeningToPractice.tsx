@@ -1,9 +1,9 @@
 import { IoBookOutline } from "react-icons/io5";
 import { LichessURL } from "../../../constants/urls";
-import { PositionOpening } from "../../../types/puzzle";
+import { Puzzle } from "../../../types/puzzle";
 
 interface OpeningToPracticeProps {
-  positionOpening: PositionOpening;
+  positionOpening: Puzzle["positionOpening"];
 }
 
 const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }) => {
