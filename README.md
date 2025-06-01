@@ -1,31 +1,76 @@
-# Litrainer - Learn From Your Mistakes 2.0
+# [litrainer](http://litrainer.vercel.app/)
 
-## Preview
+![image](https://github.com/user-attachments/assets/87762cae-f0e4-4232-8b68-3e2eb021496a)
 
-![image](https://github.com/user-attachments/assets/43519748-0a04-43de-bfc2-722b2cc7275d)
+
+A chess improvement tool based on Lichess’s **Learn from your mistakes** feature extended with custom themes, detailed move feedback and recommended opening study links.
+
+The tool uses the [Lichess API](https://lichess.org/api) to grab your in-game mistakes and serves them in the form of chess puzzles.
+
+---
 
 ## Features
 
-- **Puzzle Format Games**: Play games in a puzzle format in bulk, allowing you to practice and learn from multiple mistakes efficiently.
-- **Time Period Specification**: Specify a time period to filter games so that you can focus on recent games or any other time frame.
+### Move Feedback with Classification
 
-## How It Works
+Each move is analyzed and classified using a system inspired by Chess.com:
 
-1. Gathers data from game in the specified time period for the specified user
-2. Collects FENs of positions where the errors (inaccuracies, blunders and mistakes) occurred
-3. Serves all of the puzzles in 1 large collection
+- Blunder  
+- Mistake  
+- Inaccuracy  
+- Good  
+- Excellent  
+- Best  
 
-#### NOTE : Only games that you have analyzed will be included. After playing, simply click the button displayed below:
 
-![image](https://github.com/user-attachments/assets/236e2af8-8fe5-4e04-861f-e1589cdad4da)
+### Customizable Board and Pieces
+
+Choose from Lichess’s available board themes and piece styles.
+
+### Opening Recommendations
+
+When a mistake occurs in the opening phase, it identifies the relevant opening and provides a direct link to the [Lichess Opening Explorer](https://lichess.org/analysis#explorer).
+
+
+### Game Filtering
+
+Analyze games based on filters such as:
+
+- Player name  
+- Date range  
+- Time control
+- Max number of games to select from
+- Color
+- Order to select puzzles
+
+More to be added later..
+
+### Game Links
+
+Each puzzle providesdes a direct link to view the full game on [lichess.org](https://lichess.org).
+
+### Game Metadata
+
+Additional game details include:
+- Rating difference (points lost or gained)
+- Time control  
+- Game Phase of Puzzle
+- Termination of Game
+---
+
+## Tech Stack
+
+The application relies on the Lichess API to fetch games and PGN data. Engine evaluations are performed using Stockfish 16 currently. Cached positions from Lichess API as well. The interactive board uses react-chessground. 
+
+Other Tools: TypeScript, React, Tailwind CSS.
+
+---
 
 ## Installation
 
-1. Install the dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the application
-   ```bash
-   npm run dev
-   ```
+```bash
+git clone https://github.com/JamarTG/litrainer.git
+cd litrainer
+npm install
+npm run dev
+```
