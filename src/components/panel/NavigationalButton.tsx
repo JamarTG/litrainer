@@ -34,7 +34,6 @@ const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn, icon }) =>
         hover:bg-accent/90 
         active:scale-95 
         transition 
-        shadow-sm 
         focus:outline-none
       "
       aria-label={btn.aria}
