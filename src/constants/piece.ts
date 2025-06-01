@@ -1,3 +1,5 @@
+import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/piece";
+
 export const chessPieceCodes = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 
 export const PieceType = {
@@ -72,12 +74,7 @@ export const initialPieceCounts = {
   b: createInitialPieceCounts()
 };
 
-type PieceShortForm = "p" | "b" | "r" | "k" | "n" | "q";
-type PieceLongForm = "pawn" | "bishop" | "rook" | "king" | "knight" | "queen";
-export type PieceShortFormWithoutKing = Exclude<PieceShortForm, 'k'>;
-export type PieceLongFormWithoutKing = Exclude<PieceLongForm, 'king'>;
-
-export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing> = {
+export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing>  = {
   b: "bishop",
   p: "pawn",
   r: "rook",
@@ -85,22 +82,21 @@ export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLo
   n: "knight"
 } as const;
 
-
-export const promotionPieces = [
-    {
-      piece: "q",
-      name: "Queen",
-    },
-    {
-      piece: "r",
-      name: "Rook",
-    },
-    {
-      piece: "b",
-      name: "Bishop",
-    },
-    {
-      piece: "n",
-      name: "Knight",
-    }
-  ];
+export const promotionPieces: PromotionPiece[] = [
+  {
+    piece: "q",
+    name: "Queen"
+  },
+  {
+    piece: "r",
+    name: "Rook"
+  },
+  {
+    piece: "b",
+    name: "Bishop"
+  },
+  {
+    piece: "n",
+    name: "Knight"
+  }
+];

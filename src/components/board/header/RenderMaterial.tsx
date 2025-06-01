@@ -3,8 +3,10 @@ import PieceIcon from "./PieceIcons";
 import { Color } from "chess.js";
 import { Materials } from "../../../types/eval";
 import { determineColorLeadingInMaterial } from "../../../utils/chess/material";
-import { pieceLongFormWithoutKing, PieceShortFormWithoutKing } from "../../../constants/piece";
+import { pieceLongFormWithoutKing } from "../../../constants/piece";
+import { PieceShortFormWithoutKing } from "../../../types/piece";
 import { typedEntries } from "../../../utils/object";
+import List from "../../common/List";
 
 interface RenderMaterialProps {
   material: Materials;
@@ -19,12 +21,14 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   const renderPieces = ([piece, count]: [PieceShortFormWithoutKing, number]) => {
     const weHavePiece = count > 0;
     const numberOfPiecesArray = Array.from({ length: count });
+
     return (
       weHavePiece && (
         <div key={piece} className="flex">
-          {numberOfPiecesArray.map((_, i) => (
-            <PieceIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={PIECE_ICON_SIZE} />
-          ))}
+          <List
+            items={numberOfPiecesArray}
+            renderItem={(_, i) => <PieceIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={PIECE_ICON_SIZE} />}
+          />
         </div>
       )
     );
@@ -36,7 +40,7 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
 
   return (
     <div className="flex justify-center items-center ">
-      {typedEntries(materialColorToRender).map(renderPieces)}
+      <List items={typedEntries(materialColorToRender)} renderItem={renderPieces} />
       {positionOrNegativeCount}
       {materialCountString}
     </div>

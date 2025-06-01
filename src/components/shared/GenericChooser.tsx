@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import List from "../common/List";
 
 interface GenericChooserProps<T> {
   label?: string;
@@ -16,6 +17,20 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   useClickOutside(dropdownRef, setIsOpen, isOpen);
+
+  const renderGenericChooserOption = (option: T) => (
+    <li
+      key={getOptionKey(option)}
+      onClick={() => {
+        onSelect(getOptionKey(option));
+        setIsOpen(false);
+      }}
+      className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center gap-2 rounded"
+      style={{ minWidth: 0 }}
+    >
+      {getDisplay(option)}
+    </li>
+  );
   return (
     <div
       ref={dropdownRef}
@@ -38,19 +53,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
       </button>
       {isOpen && (
         <ul className="overflow-y-auto max-h-64 absolute z-10 mt-2 bg-white dark:bg-zinc-800 rounded-md shadow-lg w-full">
-          {options.map((option) => (
-            <li
-              key={getOptionKey(option)}
-              onClick={() => {
-                onSelect(getOptionKey(option));
-                setIsOpen(false);
-              }}
-              className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center gap-2 rounded"
-              style={{ minWidth: 0 }}
-            >
-              {getDisplay(option)}
-            </li>
-          ))}
+          <List items={options} renderItem={renderGenericChooserOption} />
         </ul>
       )}
     </div>

@@ -1,9 +1,10 @@
 import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields } from "../../../../../types/form";
+import { Fields, GameType } from "../../../../../types/form";
 import GameSpeedIcon from "../../../../board/GameSpeedIcon";
 import { TimeControls } from "../../../../../constants/form";
+import List from "../../../../common/List";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -13,6 +14,33 @@ interface GamesProps {
 
 const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formData }) => {
   const gamesDropdown = usePopperDropDown();
+
+  const renderTimeControl = (timeControl: GameType) => (
+    <button
+      key={timeControl}
+      name="timeControls"
+      className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
+      onClick={() => handleGameTypesChange(timeControl)}
+    >
+      <div className="flex text-[#222]  items-center my-auto gap-x-2">
+        <GameSpeedIcon size="text-2xl" speed={timeControl} />
+        {timeControl}
+      </div>
+      <svg viewBox="0 0 16 16" height="35" width="35">
+        <path
+          d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
+          fill={` ${formData.gameTypes.includes(timeControl) ? "#287F71" : "#424242"}`}
+        />
+        <path
+          d="M5 4a4 4 0 110 8 4 4 0 010-8z"
+          fill="#ffffff"
+          className={`transition transform 0.3s ease ${
+            formData.gameTypes.includes(timeControl) ? "transform translate-x-[6px]" : ""
+          }`}
+        />
+      </svg>
+    </button>
+  );
 
   return (
     <div className="grid gap-2">
@@ -50,32 +78,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
             <div ref={gamesDropdown.dropdownRef} className="z-50 bg-white shadow-2xl">
               <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
                 <div className="flex flex-col space-y-0">
-                  {TimeControls.map((timeControl) => (
-                    <button
-                      key={timeControl}
-                      name="timeControls"
-                      className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
-                      onClick={() => handleGameTypesChange(timeControl)}
-                    >
-                      <div className="flex text-[#222]  items-center my-auto gap-x-2">
-                        <GameSpeedIcon size="text-2xl" speed={timeControl} />
-                        {timeControl}
-                      </div>
-                      <svg viewBox="0 0 16 16" height="35" width="35">
-                        <path
-                          d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z"
-                          fill={` ${formData.gameTypes.includes(timeControl) ? "#287F71" : "#424242"}`}
-                        />
-                        <path
-                          d="M5 4a4 4 0 110 8 4 4 0 010-8z"
-                          fill="#ffffff"
-                          className={`transition transform 0.3s ease ${
-                            formData.gameTypes.includes(timeControl) ? "transform translate-x-[6px]" : ""
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  ))}
+                  <List items={TimeControls} renderItem={renderTimeControl} />
                 </div>
               </div>
             </div>,

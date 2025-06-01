@@ -5,6 +5,8 @@ import { RootState } from "../../../redux/store";
 import { promotionPieces } from "../../../constants/piece";
 import { constructPromotionPieceURL } from "../../../utils/chess/promotion";
 import { ColorLongForm } from "../../../types/player";
+import List from "../../common/List";
+import { PromotionPiece } from "../../../types/piece";
 
 export interface PromotionData {
   from: Square;
@@ -23,24 +25,26 @@ const PromotionModal: FC<{
   const { color } = promotionData;
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
+  const renderPromotionPiece = ({ piece, name }: PromotionPiece) => (
+    <button
+      key={piece}
+      onClick={() => onPromote(piece)}
+      className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
+    >
+      <span className="group-hover:scale-110 transition-transform">
+        <img src={constructPromotionPieceURL(pieceSet, color)} alt={name} className="w-16" />
+      </span>
+      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
+    </button>
+  );
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Choose promotion piece</h3>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
-          {promotionPieces.map(({ piece, name }) => (
-            <button
-              key={piece}
-              onClick={() => onPromote(piece)}
-              className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
-            >
-              <span className="group-hover:scale-110 transition-transform">
-                <img src={constructPromotionPieceURL(pieceSet, color)} alt={name} className="w-16" />
-              </span>
-              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
-            </button>
-          ))}
+          <List items={promotionPieces} renderItem={renderPromotionPiece} />
         </div>
 
         <button

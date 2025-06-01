@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { DaysOfTheWeek, MonthsOfTheYear } from "../../../../../constants/date";
+import List from "../../../../common/List";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
@@ -116,6 +117,12 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     return daysArray;
   };
 
+  const renderDay = (day: (typeof DaysOfTheWeek)[number]) => (
+    <div key={day} className="flex items-center  justify-center text-xs text-muted w-7">
+      {day}
+    </div>
+  );
+
   const handleApply = () => {
     setStartDate(tempStartDate);
     setEndDate(tempEndDate);
@@ -162,11 +169,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
       </div>
 
       <div className="grid grid-cols-7 py-2">
-        {DaysOfTheWeek.map((day) => (
-          <div key={day} className="flex items-center  justify-center text-xs text-muted w-7">
-            {day}
-          </div>
-        ))}
+        <List items={DaysOfTheWeek} renderItem={renderDay} />
       </div>
 
       <div className="grid grid-cols-7 text-xs text-offWhite ">{renderDays()}</div>

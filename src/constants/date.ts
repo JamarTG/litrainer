@@ -1,4 +1,4 @@
-export const DaysOfTheWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const;
+export const DaysOfTheWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 export const MonthsOfTheYear = [
   "January",
   "February",

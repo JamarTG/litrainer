@@ -4,6 +4,7 @@ import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 import { LichessURL } from "../../../../../constants/urls";
 import useDebounce from "../../../../../hooks/useDebounceValue";
+import List from "../../../../common/List";
 
 interface SlideOneProps {
   formData: Fields;
@@ -42,6 +43,20 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
     setKeyboardHoverOption(-1);
   };
 
+  const firstFiveAutoCompletedUsers = autoCompletedUsers.slice(0, 5);
+
+  const renderAutoCompletedUser = (username: string, index: number) => (
+    <div
+      key={username}
+      className={`px-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 ${
+        index === keyboardHoverOption ? "bg-gray-100 dark:bg-zinc-700" : ""
+      }`}
+      onClick={() => updateFormUsername(username)}
+      onMouseEnter={() => setKeyboardHoverOption(index)}
+    >
+      {username}
+    </div>
+  );
   return (
     <div className="grid gap-6 px-4">
       <div className="grid gap-4 ">
@@ -76,18 +91,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
               />
               {autoCompletedUsers.length > 0 && (
                 <div className="absolute pb-5 text-sm dark:bg-zinc-800 dark:text-white bg-white flex flex-col w-full max-h-50 overflow-auto rounded-md z-50">
-                  {autoCompletedUsers.slice(0, 5).map((username, index) => (
-                    <div
-                      key={username}
-                      className={`px-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 ${
-                        index === keyboardHoverOption ? "bg-gray-100 dark:bg-zinc-700" : ""
-                      }`}
-                      onClick={() => updateFormUsername(username)}
-                      onMouseEnter={() => setKeyboardHoverOption(index)}
-                    >
-                      {username}
-                    </div>
-                  ))}
+                  <List items={firstFiveAutoCompletedUsers} renderItem={renderAutoCompletedUser} />
                 </div>
               )}
             </div>

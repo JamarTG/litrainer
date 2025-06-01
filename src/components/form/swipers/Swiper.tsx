@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, MouseEventHandler, ReactNode, FC } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
+import List from "../../common/List";
 
 interface SwiperProps {
   children: ReactNode[];
@@ -38,14 +39,16 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit }) => {
     if (currentIndex < children.length - 1) scrollToSlide(currentIndex + 1);
   };
 
+  const renderChild = (child: ReactNode, index: number) => (
+    <div key={index} className="flex-shrink-0  w-full" style={{ width: "100%" }}>
+      {child}
+    </div>
+  );
+
   return (
     <div className={`  ${className}`}>
       <div ref={containerRef} className="flex transition-transform duration-300 overflow-hidden w-full">
-        {children.map((child, index) => (
-          <div key={index} className="flex-shrink-0  w-full" style={{ width: "100%" }}>
-            {child}
-          </div>
-        ))}
+        <List items={children} renderItem={renderChild} />
       </div>
 
       <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
