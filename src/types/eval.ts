@@ -32,7 +32,7 @@ export interface Materials {
   b: Material;
 }
 
-interface Material {
+export interface Material {
   p: number;
   n: number;
   b: number;
