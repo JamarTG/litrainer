@@ -118,7 +118,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   };
 
   const renderDay = (day: (typeof DaysOfTheWeek)[number]) => (
-    <div key={day} className="flex items-center  justify-center text-xs text-muted w-7">
+    <div key={day} className="flex items-center justify-center text-xs text-muted w-7">
       {day}
     </div>
   );
@@ -135,7 +135,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900  w-[250px] rounded-lg border border-shadowGray px-2 py-2">
+    <div className=" bg-white dark:bg-zinc-900  w-[250px] rounded-lg border border-shadowGray px-2 py-2">
       <div className="flex justify-between items-center text-offWhite">
         <button onClick={handlePrevMonth} className="rounded-md bg-secondary border border-shadowGray h-7 w-7">
           <svg viewBox="0 0 512 512" fill="currentColor" height="1em" width="1em" className="mx-auto">

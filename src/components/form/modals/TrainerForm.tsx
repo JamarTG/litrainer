@@ -32,7 +32,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
 
   return (
     <Portal>
-      <div style={{ zIndex: 100 }} className="fixed inset-0  flex justify-center items-center modal-backdrop">
+      <div style={{ zIndex: 70 }} className="fixed inset-0  flex justify-center items-center modal-backdrop">
         <div className="fixed inset-0 z-40"></div>
         <div
           ref={modalRef}

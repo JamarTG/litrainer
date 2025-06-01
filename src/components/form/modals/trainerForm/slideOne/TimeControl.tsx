@@ -48,7 +48,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
       <div className="relative w-full flex items-center">
         <input
-          className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+          className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
           placeholder="Select games"
           value={formData.gameTypes.join(",")}
           onChange={handleInputChange}
@@ -75,7 +75,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
         {gamesDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={gamesDropdown.dropdownRef} className="z-50 bg-white shadow-2xl">
+            <div ref={gamesDropdown.dropdownRef} style={{ zIndex: 80 }} className="bg-white shadow-2xl">
               <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
                 <div className="flex flex-col space-y-0">
                   <List items={TimeControls} renderItem={renderTimeControl} />

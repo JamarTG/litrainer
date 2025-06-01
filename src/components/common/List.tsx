@@ -4,7 +4,7 @@ interface ListProps<T> {
 }
 
 const List = <T,>({ items, renderItem }: ListProps<T>) => {
-  return <div>{items.map(renderItem)}</div>;
+  return <>{items.map(renderItem)}</>;
 };
 
 export default List;

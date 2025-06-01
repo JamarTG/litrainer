@@ -43,7 +43,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
 
         <div className="relative w-[250px] flex items-center justify-center ">
           <input
-            className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
             value={convertDateToReadableFormat(formData.startDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -70,7 +70,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         </div>
         <div className="relative w-[250px] flex items-center mt-2">
           <input
-            className="flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
             value={convertDateToReadableFormat(formData.endDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -98,7 +98,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
 
         {calendarDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={calendarDropdown.dropdownRef} className={`z-50 shadow-2xl  `}>
+            <div style={{zIndex:80}} ref={calendarDropdown.dropdownRef} className={`shadow-2xl  `}>
               <Calendar onDateSelect={handleDateSelect} />
             </div>,
             document.body
@@ -109,12 +109,13 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         <h1 className="text-landingText text-sm text-offWhite">Order Games</h1>
         <div className="relative  flex items-center">
           <input
-            className="flex text-[#222] w-full h-[32px]   outline-none caret-accent  rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
+            className="cursor-pointer  flex text-[#222] w-full h-[32px]   outline-none caret-accent  rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
             placeholder="Ascending"
             value={sortOption}
             onChange={handleInputChange}
             ref={sortbyDropdown.triggerRef}
             onClick={sortbyDropdown.toggleDropdown}
+            readOnly
           />
           <svg
             width="1em"
@@ -135,7 +136,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         </div>
         {sortbyDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={sortbyDropdown.dropdownRef} className={`z-50 shadow-2xl  `}>
+            <div style={{zIndex:100}} ref={sortbyDropdown.dropdownRef} className={`shadow-2xl  `}>
               <SortBy onSortOptionSelect={handleSortOptionSelect} />
             </div>,
             document.body
