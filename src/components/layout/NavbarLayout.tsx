@@ -1,14 +1,16 @@
 import { PropsWithChildren } from "react";
 import LichessIcon from "../shared/LichessIcon";
+import "../../../public/themes/pieces/alpha/bB.svg"
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <section>
-      <nav className="flex justify-between items-center p-2 border-b dark:border-zinc-700">
+    <section className="relative min-h-screen bg-white dark:bg-zinc-900">
+      <nav className="flex p-2 justify-between items-center border-b dark:border-zinc-700 z-20 relative">
         <a href="https://lichess.org/api" target="_blank" className="text-2xl flex justify-center items-center gap-2">
-          <LichessIcon size={40} />
-          <h2 className="text-lg flex justify-center items-center font-semibold logo-font gap-1">
-            <span className="text-sm hidden md:flex">Powered by</span>lichess.org API
+          <LichessIcon size={30} />
+          <h2 className="text-sm flex justify-center items-center font-semibold logo-font gap-1">
+            <span className="text-xs ">Powered by </span>
+            <span className="font-semibold">lichess API</span>
           </h2>
         </a>
         <div>
@@ -17,8 +19,8 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               <a href="https://github.com/JamarTG/litrainer" target="_blank">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
+                  width="20"
+                  height="20"
                   fill="currentColor"
                   className="bi bi-github"
                   viewBox="0 0 16 16"
@@ -30,7 +32,20 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
           </ul>
         </div>
       </nav>
-      <main>{children}</main>
+
+      {/* Watermark background */}
+      <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
+        <div className="flex flex-col items-center">
+    
+           <img src="../../../public/themes/pieces/alpha/bB.svg" width={800} alt="Watermark" className="absolute w-40 opacity-5 dark:invert" />
+         
+
+    
+        </div>
+      </div>
+
+      {/* Main content */}
+      <main className="relative z-10">{children}</main>
     </section>
   );
 };

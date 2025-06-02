@@ -80,7 +80,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         {showSettings && (
           <div
             style={{ zIndex: 100 }}
-            className="absolute inset-0 bg-gray-100 dark:bg-zinc-800 p-4 flex flex-col gap-4 animate-fade-in"
+            className="absolute inset-0 bg-gray-100 dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in h-screen"
           >
             <div className="h-8 flex items-center justify-between">
               <button
