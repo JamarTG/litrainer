@@ -1,3 +1,10 @@
+![License](https://img.shields.io/github/license/JamarTG/litrainer)
+![Issues](https://img.shields.io/github/issues/JamarTG/litrainer)
+![Last Commit](https://img.shields.io/github/last-commit/JamarTG/litrainer)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)
+![Deploy](https://img.shields.io/badge/deployed-vercel-000?logo=vercel)
+
 # [litrainer](http://litrainer.vercel.app/)
 
 ![image](https://github.com/user-attachments/assets/87762cae-f0e4-4232-8b68-3e2eb021496a)
