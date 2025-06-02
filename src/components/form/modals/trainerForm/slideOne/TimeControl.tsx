@@ -24,7 +24,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
       className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
       onClick={() => handleGameTypesChange(timeControl)}
     >
-      <div className="flex text-[#222]  items-center my-auto gap-x-2">
+      <div className="flex text-[#000] dark:text-[#fff] items-center my-auto gap-x-2">
         <GameSpeedIcon size="text-2xl" speed={timeControl} />
         {timeControl}
       </div>
@@ -65,12 +65,10 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
         {gamesDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={gamesDropdown.dropdownRef} style={{ zIndex: 80 }} className="bg-white shadow-2xl">
-              <div className="bg-secondary w-[386px] rounded-lg border border-shadowGray px-2 py-2">
+            <div ref={gamesDropdown.dropdownRef} style={{ zIndex: 80 }} className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200">
                 <div className="flex flex-col space-y-0">
                   <List items={TimeControls} renderItem={renderTimeControl} />
                 </div>
-              </div>
             </div>,
             document.body
           )}

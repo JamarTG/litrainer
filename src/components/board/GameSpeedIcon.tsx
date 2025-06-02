@@ -10,7 +10,7 @@ interface GameSpeedIconProps {
 const GameSpeedIcon: FC<GameSpeedIconProps> = ({ speed, size }) => {
   return (
     <div className="my-auto">
-      <span className={`icon ${size} text-zinc-600`}>{TimeControlIcons[speed]}</span>
+      <span className={`icon ${size} text-[#000] dark:text-[#fff]`}>{TimeControlIcons[speed]}</span>
     </div>
   );
 };
