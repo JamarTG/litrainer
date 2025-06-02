@@ -12,17 +12,19 @@ import { updateBoardStates } from "../redux/slices/board";
 import { playSound } from "../libs/sound";
 import { setEngineRunning } from "../redux/slices/engine";
 import { convertLanToSan } from "../utils/move";
+import { nextPuzzle } from "../redux/slices/puzzle";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,
   puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-  isPuzzleSolved: state.feedback.isPuzzleSolved
+  isPuzzleSolved: state.feedback.isPuzzleSolved,
+  autoSkip: state.puzzle.autoSkip
 });
 
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
-  const { puzzle, isPuzzleSolved, fen } = useSelector(selectPuzzleData);
+  const { puzzle, isPuzzleSolved, fen, autoSkip } = useSelector(selectPuzzleData);
 
   const dispatch = useDispatch();
 
@@ -120,13 +122,26 @@ export const useMoveHandler = (game: Chess) => {
         const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
         const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
         handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
+
+        if (autoSkip) {
+          setTimeout(() => dispatch(nextPuzzle()), 1200); // delay for visibility
+        }
+
         return true;
       } else if (!isInOpeningBook(movePlayedByUser)) {
         evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
           handleEvaluation(bestMove, movePlayedByUser, classification, true);
+
+          if (autoSkip) {
+            setTimeout(() => dispatch(nextPuzzle()), 1200); // delay to allow user to see feedback
+          }
         });
 
         return true;
+      }
+
+      if (autoSkip) {
+        setTimeout(() => dispatch(nextPuzzle()), 1200);
       }
 
       return true;

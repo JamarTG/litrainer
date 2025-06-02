@@ -1,11 +1,13 @@
-import { useState } from "react";
 import ToggleSwitch from "../shared/ToggleSwitch";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAutoSkip } from "../../redux/slices/puzzle";
+import { RootState } from "../../redux/store";
 
 const AutoSkip = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(true);
-
+  const autoSkipOn = useSelector((state: RootState) => state.puzzle.autoSkip);
+  const dispatch = useDispatch();
   const handleToggleSwitch = () => {
-    setIsChecked((isChecked) => !isChecked);
+    dispatch(toggleAutoSkip());
   };
 
   return (
@@ -15,7 +17,7 @@ const AutoSkip = () => {
       </div>
       <div className="w-1/2">
         {" "}
-        <ToggleSwitch handleToggleSwitch={handleToggleSwitch} isOn={isChecked} />
+        <ToggleSwitch handleToggleSwitch={handleToggleSwitch} isOn={autoSkipOn} />
       </div>
     </>
   );

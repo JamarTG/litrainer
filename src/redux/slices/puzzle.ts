@@ -4,11 +4,13 @@ import { Puzzle } from "../../types/puzzle";
 export interface PuzzleState {
   puzzles: Puzzle[];
   currentIndex: number;
+  autoSkip: boolean;
 }
 
 const initialState: PuzzleState = {
   puzzles: [],
-  currentIndex: 0
+  currentIndex: 0,
+  autoSkip: JSON.parse(localStorage.getItem("autoSkip") ?? "true")
 };
 
 const puzzleSlice = createSlice({
@@ -25,6 +27,10 @@ const puzzleSlice = createSlice({
 
     prevPuzzle(state) {
       if (state.currentIndex > 0) state.currentIndex -= 1;
+    },
+    toggleAutoSkip(state) {
+      state.autoSkip = !state.autoSkip;
+      localStorage.setItem("autoSkip", JSON.stringify(state.autoSkip));
     }
     // jumpToPuzzle(state, action: PayloadAction<number>) {
     //   if (action.payload >= 0 && action.payload < state.puzzles.length) {
@@ -34,5 +40,5 @@ const puzzleSlice = createSlice({
   }
 });
 
-export const { setPuzzles, nextPuzzle, prevPuzzle } = puzzleSlice.actions;
+export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip } = puzzleSlice.actions;
 export default puzzleSlice.reducer;
