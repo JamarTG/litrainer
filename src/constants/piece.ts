@@ -38,7 +38,7 @@ export const PieceSets = [
   "maestro",
   "merida",
   "monarchy",
-  "mono",
+  // "mono",
   "mpchess",
   "pirouetti",
   "pixel",
