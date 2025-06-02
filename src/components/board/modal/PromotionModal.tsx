@@ -3,7 +3,6 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { promotionPieces } from "../../../constants/piece";
-import { constructPromotionPieceURL } from "../../../utils/promotion";
 import { ColorLongForm } from "../../../types/player";
 import List from "../../common/List";
 import { PromotionPiece } from "../../../types/piece";
@@ -32,7 +31,8 @@ const PromotionModal: FC<{
       className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
     >
       <span className="group-hover:scale-110 transition-transform">
-        <img src={constructPromotionPieceURL(pieceSet, color)} alt={name} className="w-16" />
+
+        <img src={`../../../../public/themes/pieces/${pieceSet}/${color[0]}${piece.toLocaleUpperCase()}.svg`} alt={name} className="w-16" />
       </span>
       <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
     </button>
