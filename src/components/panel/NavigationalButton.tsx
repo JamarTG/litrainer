@@ -1,8 +1,7 @@
 import React from "react";
 import { NavButton } from "../../types/nav";
 import { setIsPuzzleSolved } from "../../redux/slices/feedback";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 interface NavigationalButtonProps {
@@ -13,6 +12,7 @@ interface NavigationalButtonProps {
 const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn, icon }) => {
   const dispatch = useDispatch();
   const engineIsRunning = useSelector((state: RootState) => state.engine.isRunning);
+
   const navigationalClickHandler = () => {
     dispatch(setIsPuzzleSolved(false));
     dispatch(btn.action!());
@@ -42,7 +42,7 @@ const NavigationalButton: React.FC<NavigationalButtonProps> = ({ btn, icon }) =>
       aria-label={btn.aria}
       type="button"
     >
-      {icon && <span className="mr-2 flex items-center text-textwhite">{icon}</span>}
+      {icon && <span className={"mr-2 flex items-center"}>{icon}</span>}
       <span>{btn.label}</span>
     </button>
   );
