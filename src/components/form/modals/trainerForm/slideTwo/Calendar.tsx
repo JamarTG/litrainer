@@ -48,6 +48,18 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     return current >= tempStartDate && current <= tempEndDate;
   };
 
+  const isStartDate = (date: number) => {
+    if (!tempStartDate) return false;
+    const current = new Date(currentDate.getFullYear(), currentDate.getMonth(), date);
+    return current.getTime() === tempStartDate.getTime();
+  };
+
+  const isEndDate = (date: number) => {
+    if (!tempEndDate) return false;
+    const current = new Date(currentDate.getFullYear(), currentDate.getMonth(), date);
+    return current.getTime() === tempEndDate.getTime();
+  };
+
   const renderDays = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -73,25 +85,27 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     }
 
     for (let date = 1; date <= daysInMonth; date++) {
-      const isSelected =
-        (tempStartDate &&
-          tempStartDate.getDate() === date &&
-          tempStartDate.getMonth() === month &&
-          tempStartDate.getFullYear() === year) ||
-        (tempEndDate &&
-          tempEndDate.getDate() === date &&
-          tempEndDate.getMonth() === month &&
-          tempEndDate.getFullYear() === year);
-
+      const isStart = isStartDate(date);
+      const isEnd = isEndDate(date);
       const inRange = isWithinRange(date);
+
+      let dateClasses = "hover:bg-tertiary";
+
+      if (isStart && isEnd) {
+        dateClasses = "bg-zinc-800 dark:bg-zinc-700 text-white";
+      } else if (isStart) {
+        dateClasses = "bg-zinc-600 dark:bg-slate-800  text-white";
+      } else if (isEnd) {
+        dateClasses = "bg-zinc-600 dark:bg-slate-800  text-white";
+      } else if (inRange) {
+        dateClasses = "bg-zinc-800/50 dark:bg-slate-500/50  text-white";
+      }
 
       daysArray.push(
         <div className="py-[1.5px] w-full flex items-center justify-center">
           <div
             key={date}
-            className={`w-7 h-7  flex items-center justify-center text-center rounded-md cursor-pointer ${
-              isSelected ? "bg-accent text-offWhite" : inRange ? "bg-accent/30 text-textWhite" : "hover:bg-tertiary"
-            }`}
+            className={`w-7 h-7  flex items-center justify-center text-center rounded-md cursor-pointer ${dateClasses}`}
             onClick={() => handleDateClick(date)}
           >
             <span className="my-auto mx-auto">{date}</span>

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Puzzle } from "../../types/puzzle";
+import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
 
 export interface PuzzleState {
   puzzles: Puzzle[];
@@ -10,7 +11,7 @@ export interface PuzzleState {
 const initialState: PuzzleState = {
   puzzles: [],
   currentIndex: 0,
-  autoSkip: JSON.parse(localStorage.getItem("autoSkip") ?? "true")
+  autoSkip: loadFromLocalStorage("autoSkip", "true") === "true"
 };
 
 const puzzleSlice = createSlice({
@@ -30,7 +31,7 @@ const puzzleSlice = createSlice({
     },
     toggleAutoSkip(state) {
       state.autoSkip = !state.autoSkip;
-      localStorage.setItem("autoSkip", JSON.stringify(state.autoSkip));
+      saveToLocalStorage("autoSkip",state.autoSkip);
     }
     // jumpToPuzzle(state, action: PayloadAction<number>) {
     //   if (action.payload >= 0 && action.payload < state.puzzles.length) {

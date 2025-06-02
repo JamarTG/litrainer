@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import generatePuzzles from "../libs/lichess/parsers";
 import { dateRangeToEpochMillis, validateDateRange } from "../utils/date";
+import { saveToLocalStorage } from "../utils/storage";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const useSubmitHandler = (formData: Fields) => {
         return;
       }
 
-      localStorage.setItem("puzzles", JSON.stringify(puzzles));
+      saveToLocalStorage("puzzle", puzzles);
 
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });
