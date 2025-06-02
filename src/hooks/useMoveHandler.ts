@@ -21,6 +21,15 @@ const selectPuzzleData = (state: RootState) => ({
   autoSkip: state.puzzle.autoSkip
 });
 
+const ATTEMPTED_PUZZLE_DELAY_TIME = 1500;
+
+const PositiveClassifications = new Set([
+  "Best",
+  "Excellent",
+  "Good",
+  "Brilliant"
+]);
+
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
   const { depth: engineDepth } = useDepth();
@@ -105,49 +114,65 @@ export const useMoveHandler = (game: Chess) => {
   };
 
   const handleMoveAttempt = useCallback(
-    (sourceSquare: string, targetSquare: string, promotion: string) => {
-      if (isPuzzleSolved) return false;
-      if (game.turn() !== puzzle?.userMove.color) return false;
+  (sourceSquare: string, targetSquare: string, promotion: string) => {
+    if (isPuzzleSolved) return false;
+    if (game.turn() !== puzzle?.userMove.color) return false;
 
-      const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare, promotion);
-      if (!movePlayedByUser) return false;
+    const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare, promotion);
+    if (!movePlayedByUser) return false;
 
-      const newFen = game.fen();
-      dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare }));
-      playSound(game);
+    const newFen = game.fen();
+    dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare }));
+    playSound(game);
 
-      const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
+    const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
 
-      if (isSameMistake) {
-        const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
-        const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
-        handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
-
-        if (autoSkip) {
-          setTimeout(() => dispatch(nextPuzzle()), 1200); // delay for visibility
-        }
-
-        return true;
-      } else if (!isInOpeningBook(movePlayedByUser)) {
-        evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
-          handleEvaluation(bestMove, movePlayedByUser, classification, true);
-
-          if (autoSkip) {
-            setTimeout(() => dispatch(nextPuzzle()), 1200); // delay to allow user to see feedback
-          }
-        });
-
-        return true;
-      }
-
-      if (autoSkip) {
-        setTimeout(() => dispatch(nextPuzzle()), 1200);
-      }
+    if (isSameMistake) {
+      const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
+      const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
+      handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
 
       return true;
-    },
-    [isPuzzleSolved, game, puzzle, dispatch, playSound, isInOpeningBook, evaluateMoveQuality, fen, handleEvaluation]
-  );
+    }
+
+    if (!isInOpeningBook(movePlayedByUser)) {
+      evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
+        console.log("Evaluated Classification:", classification);
+        console.log("Is classification positive?", classification && PositiveClassifications.has(classification));
+
+        handleEvaluation(bestMove, movePlayedByUser, classification, true);
+
+        if (autoSkip && classification && PositiveClassifications.has(classification)) {
+          console.log("AutoSkip: true | Positive classification -> skipping");
+          setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+        } else {
+          console.log("AutoSkip: false OR classification not positive -> not skipping");
+        }
+      });
+
+      return true;
+    }
+
+    if (autoSkip) {
+      setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+    }
+
+    return true;
+  },
+  [
+    isPuzzleSolved,
+    game,
+    puzzle,
+    dispatch,
+    playSound,
+    isInOpeningBook,
+    evaluateMoveQuality,
+    fen,
+    handleEvaluation,
+    autoSkip
+  ]
+);
+
 
   return useMemo(() => ({ handleMoveAttempt, evaluateMoveQuality }), [handleMoveAttempt, evaluateMoveQuality]);
 };
