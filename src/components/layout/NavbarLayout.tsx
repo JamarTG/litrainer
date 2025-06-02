@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 import LichessIcon from "../shared/LichessIcon";
-import "../../../public/themes/pieces/alpha/bB.svg"
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -33,18 +32,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
       </nav>
 
-      {/* Watermark background */}
-      <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
-        <div className="flex flex-col items-center">
-    
-           <img src="../../../public/themes/pieces/alpha/bB.svg" width={800} alt="Watermark" className="absolute w-40 opacity-5 dark:invert" />
-         
-
-    
-        </div>
-      </div>
-
-      {/* Main content */}
       <main className="relative z-10">{children}</main>
     </section>
   );

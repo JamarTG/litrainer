@@ -32,7 +32,8 @@ const PromotionModal: FC<{
     >
       <span className="group-hover:scale-110 transition-transform">
 
-        <img src={`../../../../public/themes/pieces/${pieceSet}/${color[0]}${piece.toLocaleUpperCase()}.svg`} alt={name} className="w-16" />
+        <img src={`/themes/pieces/${pieceSet}/${color[0]}${piece.toLocaleUpperCase()}.svg`} alt={name} className="w-16" />
+
       </span>
       <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
     </button>
