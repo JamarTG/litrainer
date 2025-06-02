@@ -6,7 +6,7 @@ export interface PieceSetFeedback {
 }
 
 const initialState: PieceSetFeedback = {
-  set: loadFromLocalStorage("pieceSet", "cburnett")
+  set: loadFromLocalStorage("pieceSet", "pirouetti")
 };
 
 const pieceSetSlice = createSlice({
