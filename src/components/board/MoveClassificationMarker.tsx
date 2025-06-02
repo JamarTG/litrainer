@@ -3,7 +3,7 @@ import { useMarkerPositionEffect } from "../../hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { MoveClassification, MoveClassificationImages } from "../../constants/classification";
-import { FC, RefObject } from "react";
+import { FC, RefObject, useEffect, useState } from "react";
 import { ColorLongForm } from "../../types/player";
 
 interface MoveClassificationMarkerProps {
@@ -14,15 +14,23 @@ interface MoveClassificationMarkerProps {
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
-  const { puzzle, classification, destinationSquare } = useSelector((state: RootState) => {
-    return {
-      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-      classification: state.feedback.classification,
-      destinationSquare: state.board.destinationSquare
-    };
-  });
+  const { puzzle, classification, destinationSquare } = useSelector((state: RootState) => ({
+    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
+    classification: state.feedback.classification,
+    destinationSquare: state.board.destinationSquare
+  }));
+
+  const [visible, setVisible] = useState(false);
 
   useMarkerPositionEffect(destinationSquare as Square, boardSize, puzzle?.userMove.color, boardRef, orientation);
+
+  useEffect(() => {
+    if (destinationSquare && classification) {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  }, [destinationSquare, classification]);
 
   if (!destinationSquare || !classification || !boardRef.current || !markerPosition) {
     return null;
@@ -34,7 +42,9 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
       alt={classification}
       width={boardSize / 16}
       height={boardSize / 16}
-      className="absolute pointer-events-none z-10"
+      className={`absolute pointer-events-none z-10 transition-opacity duration-500 ease-in-out ${
+        visible ? "opacity-90" : "opacity-0"
+      }`}
       style={{
         right: markerPosition.right,
         top: markerPosition.top,
