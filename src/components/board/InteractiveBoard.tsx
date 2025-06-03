@@ -79,8 +79,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     if (isPuzzleSolved) {
       return {
         free: false,
-        dests: new Map(),
-        color: undefined
+        dests: new Map()
       };
     }
 
@@ -97,8 +96,8 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     return {
       free: false,
       dests,
-      color: playerColor
-    };
+      color: playerColor as any
+    } 
   };
 
   const turnColor = () => {
