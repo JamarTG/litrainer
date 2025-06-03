@@ -43,13 +43,8 @@ const puzzleSlice = createSlice({
           ...initialState
         };
       }
-      state.redoTrigger += 1; // Keep this if other components need to react
+      state.redoTrigger += 1; 
     }
-    // jumpToPuzzle(state, action: PayloadAction<number>) {
-    //   if (action.payload >= 0 && action.payload < state.puzzles.length) {
-    //     state.currentIndex = action.payload;
-    //   }
-    // }
   }
 });
 
