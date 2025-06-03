@@ -12,7 +12,7 @@ interface MoveClassificationMarkerProps {
   orientation: ColorLongForm;
 }
 
-const MARKER_Z_INDEX = 200;
+const MARKER_Z_INDEX = 95;
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
