@@ -61,8 +61,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
       <InteractiveChessBoard game={game} handleMoveAttempt={handleMoveAttempt} />
       <div
         className=" bg-zinc-300 
-  flex flex-col gap-4 w-full min-w-[250px] min-h-[500px] p-4 rounded-sm shadow-xs
-  bg-[#e7e3e3] border border-gray-400
+  flex flex-col gap-4 w-full min-w-[250px] min-h-[500px] p-4 rounded-sm shadow-xs border border-gray-400
   dark:bg-[#222] dark:border-gray-700
 "
       >
@@ -117,7 +116,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                   <div className="flex w-72 justify-start items-center">
                     <BoardThemeChooser />
                   </div>
-                   <div className="flex w-72 justify-start items-center">
+                  <div className="flex w-72 justify-start items-center">
                     <EngineDepthControl />
                   </div>
                 </div>

@@ -47,5 +47,5 @@ export const useMarkerPositionEffect = (
         dispatch(setMarkerPosition(position));
       });
     }
-  }, [destinationSquare, dispatch, boardSize, puzzleColor, boardRef?.current, orientation]);
+  }, [destinationSquare, dispatch, boardSize, puzzleColor, boardRef, orientation]);
 };

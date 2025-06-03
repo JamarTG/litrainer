@@ -10,7 +10,7 @@ import { RootState } from "@/redux/store";
 import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "@/hooks/useMaterialEffect";
-import "@/styles/chessground.css"
+import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./modal/PromotionModal";
 
 interface BoardComponentProps {
@@ -79,7 +79,8 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     if (isPuzzleSolved) {
       return {
         free: false,
-        dests: new Map()
+        dests: new Map(),
+        color: undefined
       };
     }
 
@@ -96,7 +97,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     return {
       free: false,
       dests,
-      color: playerColor as any
+      color: playerColor
     };
   };
 

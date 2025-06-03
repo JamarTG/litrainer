@@ -4,7 +4,7 @@ import LichessIcon from "../shared/LichessIcon";
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <section className="relative min-h-screen dark:bg-zinc-900  ">
-      <nav className="hidden sm:flex flex p-2 pb-6 justify-between items-center z-20 relative">
+      <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <div>
           <div className="flex justify-center items-center gap-2">
             <a

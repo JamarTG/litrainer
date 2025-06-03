@@ -164,7 +164,6 @@ export const useMoveHandler = (game: Chess) => {
     game,
     puzzle,
     dispatch,
-    playSound,
     isInOpeningBook,
     evaluateMoveQuality,
     fen,

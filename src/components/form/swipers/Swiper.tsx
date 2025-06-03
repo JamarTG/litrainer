@@ -1,4 +1,4 @@
-import { useRef, useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction } from "react";
+import { useRef, useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction, useCallback } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
 import List from "@/components/common/List";
@@ -14,7 +14,7 @@ interface SwiperProps {
 const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSlide, setCurrentSlide }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToSlide = (index: number) => {
+  const scrollToSlide = useCallback((index: number) => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
         left: index * containerRef.current.offsetWidth,
@@ -22,7 +22,7 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSli
       });
     }
     setCurrentSlide(index);
-  };
+  }, [setCurrentSlide]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,7 +30,7 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSli
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [currentSlide]);
+  }, [currentSlide, scrollToSlide]);
 
   const handlePrev = () => {
     if (currentSlide > 0) scrollToSlide(currentSlide - 1);

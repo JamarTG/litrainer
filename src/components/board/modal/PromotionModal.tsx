@@ -19,9 +19,6 @@ const PromotionModal: FC<{
   onPromote: (piece: string) => void;
   onCancel: VoidFunction;
 }> = ({ isOpen, promotionData, onPromote, onCancel }) => {
-  if (!isOpen || !promotionData) return null;
-
-  const { color } = promotionData;
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
   const renderPromotionPiece = ({ piece, name }: PromotionPiece) => (
@@ -31,13 +28,19 @@ const PromotionModal: FC<{
       className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
     >
       <span className="group-hover:scale-110 transition-transform">
-
-        <img src={`/themes/pieces/${pieceSet}/${color[0]}${piece.toLocaleUpperCase()}.svg`} alt={name} className="w-16" />
-
+        <img
+          src={`/themes/pieces/${pieceSet}/${color[0]}${piece.toLocaleUpperCase()}.svg`}
+          alt={name}
+          className="w-16"
+        />
       </span>
       <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{name}</span>
     </button>
   );
+
+  if (!isOpen || !promotionData) return null;
+
+  const { color } = promotionData;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

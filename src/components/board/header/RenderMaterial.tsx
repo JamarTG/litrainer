@@ -16,7 +16,7 @@ interface RenderMaterialProps {
 const PIECE_ICON_SIZE = 18;
 
 const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
-  let materialCount = determineColorLeadingInMaterial(material, color);
+  const materialCount = determineColorLeadingInMaterial(material, color);
 
   const renderPieces = ([piece, count]: [PieceShortFormWithoutKing, number]) => {
     const weHavePiece = count > 0;
