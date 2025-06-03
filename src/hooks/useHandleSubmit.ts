@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { Fields } from "../types/form";
-import { fetchAndParseLichessGames } from "../api/lichess-api";
-import { LichessGameResponse } from "../types/response";
-import { LichessEvaluation } from "../types/eval";
+import { Fields } from "@/types/form";
+import { fetchAndParseLichessGames } from "@/api/lichess-api";
+import { LichessGameResponse } from "@/types/response";
+import { LichessEvaluation } from "@/types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
-import generatePuzzles from "../libs/lichess/parsers";
-import { dateRangeToEpochMillis, validateDateRange } from "../utils/date";
-import { saveToLocalStorage } from "../utils/storage";
+import generatePuzzles from "@/libs/lichess/parsers";
+import { dateRangeToEpochMillis, validateDateRange } from "@/utils/date";
+import { saveToLocalStorage } from "@/utils/storage";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();

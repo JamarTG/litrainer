@@ -1,4 +1,4 @@
-import { Sort } from "../../../../../types/form";
+import { Sort } from "@/types/form";
 
 const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: Sort) => void }) => {
   return (

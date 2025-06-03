@@ -1,10 +1,10 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState, useRef } from "react";
-import { Fields, GameType } from "../../../../../types/form";
+import { Fields, GameType } from "@/types/form";
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
-import { LichessURL } from "../../../../../constants/urls";
-import useDebounce from "../../../../../hooks/useDebounceValue";
-import List from "../../../../common/List";
+import { LichessURL } from "@/constants/urls";
+import useDebounce from "@/hooks/useDebounceValue";
+import List from "@/components/common/List";
 
 interface SlideOneProps {
   formData: Fields;

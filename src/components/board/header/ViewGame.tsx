@@ -1,7 +1,7 @@
 import React from "react";
-import { LichessURL } from "../../../constants/urls";
-import { Puzzle } from "../../../types/puzzle";
-import LichessIcon from "../../shared/LichessIcon";
+import { LichessURL } from "@/constants/urls";
+import { Puzzle } from "@/types/puzzle";
+import LichessIcon from "@/components/shared/LichessIcon";
 
 interface ViewGameProps {
   gameId: Puzzle["gameId"];

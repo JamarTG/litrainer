@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Puzzle } from "../../types/puzzle";
-import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
+import { Puzzle } from "@/types/puzzle";
+import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 
 export interface PuzzleState {
   puzzles: Puzzle[];

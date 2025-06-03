@@ -2,7 +2,7 @@ import RenderMaterial from "./RenderMaterial";
 import { FC } from "react";
 import PlayerHeader from "./PlayerHeader";
 import { Color } from "chess.js";
-import { Materials } from "../../../types/eval";
+import { Materials } from "@/types/eval";
 
 interface PlayerBadgeProps {
   color: Color;

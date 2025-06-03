@@ -1,7 +1,7 @@
 import { useRef, useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
-import List from "../../common/List";
+import List from "@/components/common/List";
 
 interface SwiperProps {
   children: ReactNode[];

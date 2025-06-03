@@ -1,8 +1,8 @@
 import React from "react";
-import { NavButton } from "../../types/nav";
-import { setIsPuzzleSolved } from "../../redux/slices/feedback";
+import { NavButton } from "@/types/nav";
+import { setIsPuzzleSolved } from "@/redux/slices/feedback";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "@/redux/store";
 
 interface NavigationalButtonProps {
   btn: NavButton;

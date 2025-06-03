@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loadFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
+import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 
 export type Theme = "light" | "dark";
 

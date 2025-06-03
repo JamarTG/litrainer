@@ -1,18 +1,18 @@
 import { Chess, Move } from "chess.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
-import { UciEngine } from "../libs/analysis/engine/uciEngine";
-import { ClassificationMessage } from "../constants/classification";
-import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "../redux/slices/feedback";
-import { Classification } from "../types/classification";
-import { RootState, store } from "../redux/store";
-import { useEngineContext } from "../context/hooks/useEngineContext";
-import { useDepth } from "../context/hooks/useDepth";
-import { updateBoardStates } from "../redux/slices/board";
-import { playSound } from "../libs/sound";
-import { setEngineRunning } from "../redux/slices/engine";
-import { convertLanToSan } from "../utils/move";
-import { nextPuzzle } from "../redux/slices/puzzle";
+import { UciEngine } from "@/libs/analysis/engine/uciEngine";
+import { ClassificationMessage } from "@/constants/classification";
+import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "@/redux/slices/feedback";
+import { Classification } from "@/types/classification";
+import { RootState, store } from "@/redux/store";
+import { useEngineContext } from "@/context/hooks/useEngineContext";
+import { useDepth } from "@/context/hooks/useDepth";
+import { updateBoardStates } from "@/redux/slices/board";
+import { playSound } from "@/libs/sound";
+import { setEngineRunning } from "@/redux/slices/engine";
+import { convertLanToSan } from "@/utils/move";
+import { nextPuzzle } from "@/redux/slices/puzzle";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,

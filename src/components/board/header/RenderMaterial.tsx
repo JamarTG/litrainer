@@ -1,12 +1,12 @@
 import { FC } from "react";
 import PieceIcon from "./PieceIcons";
 import { Color } from "chess.js";
-import { Materials } from "../../../types/eval";
-import { determineColorLeadingInMaterial } from "../../../utils/material";
-import { pieceLongFormWithoutKing } from "../../../constants/piece";
-import { PieceShortFormWithoutKing } from "../../../types/piece";
-import { typedEntries } from "../../../utils/object";
-import List from "../../common/List";
+import { Materials } from "@/types/eval";
+import { determineColorLeadingInMaterial } from "@/utils/material";
+import { pieceLongFormWithoutKing } from "@/constants/piece";
+import { PieceShortFormWithoutKing } from "@/types/piece";
+import { typedEntries } from "@/utils/object";
+import List from "@/components/common/List";
 
 interface RenderMaterialProps {
   material: Materials;

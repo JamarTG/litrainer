@@ -1,5 +1,5 @@
 import { FC, MouseEventHandler, MouseEvent } from "react";
-import Button from "../../shared/Button";
+import Button from "@/components/shared/Button";
 
 interface NavigationButtonsProps {
   handlePrev: () => void;

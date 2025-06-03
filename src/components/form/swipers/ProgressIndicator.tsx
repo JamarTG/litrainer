@@ -1,5 +1,5 @@
 import { Dispatch, FC, ReactNode, SetStateAction } from "react";
-import List from "../../common/List";
+import List from "@/components/common/List";
 
 interface ProgressIndicatorProps {
   children: ReactNode[];

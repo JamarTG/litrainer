@@ -1,4 +1,4 @@
-import { LichessPlayer } from "../types/player";
+import { LichessPlayer } from "@/types/player";
 
 const gameStatusMap: Record<string, (player: string) => string> = {
   mate: (player) => (player ? `${player} won by checkmate.` : "Draw."),

@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { FC } from "react";
 import { Color } from "chess.js";
-import { RootState } from "../../../redux/store";
-import { RatingDifferenceTextColors } from "../../../constants/player";
-import { PlayerIcons } from "../../../constants/icons";
-import { LichessURL } from "../../../constants/urls";
+import { RootState } from "@/redux/store";
+import { RatingDifferenceTextColors } from "@/constants/player";
+import { PlayerIcons } from "@/constants/icons";
+import { LichessURL } from "@/constants/urls";
 
 interface PlayerInfoProps {
   color: Color;

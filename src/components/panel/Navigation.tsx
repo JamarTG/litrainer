@@ -1,6 +1,6 @@
-import { useAppDispatch } from "../../redux/hooks/useAppDispatch";
-import { nextPuzzle, prevPuzzle, redoPuzzle } from "../../redux/slices/puzzle";
-import { resetFeedback } from "../../redux/slices/feedback";
+import { useAppDispatch } from "@/redux/hooks/useAppDispatch";
+import { nextPuzzle, prevPuzzle, redoPuzzle } from "@/redux/slices/puzzle";
+import { resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, Redo } from "lucide-react";
 
 const PuzzleNavigation = () => {

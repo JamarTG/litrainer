@@ -1,8 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Paths from "./paths";
-import Playground from "../pages/Playground";
-import NavbarLayout from "../components/layout/NavbarLayout";
-import test from "./../test.json";
+import Playground from "@/pages/Playground";
+import NavbarLayout from "@/components/layout/NavbarLayout";
+import test from "@/test.json";
 
 export default function Router() {
   const location = useLocation();

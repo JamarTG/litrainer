@@ -1,7 +1,7 @@
 
 import { BookOpen } from "lucide-react";
-import { LichessURL } from "../../../constants/urls";
-import { Puzzle } from "../../../types/puzzle";
+import { LichessURL } from "@/constants/urls";
+import { Puzzle } from "@/types/puzzle";
 
 interface OpeningToPracticeProps {
   positionOpening: Puzzle["positionOpening"];

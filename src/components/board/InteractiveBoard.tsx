@@ -4,13 +4,13 @@ import ChessBoardLayout from "../layout/ChessBoardLayout";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
 import MoveClassificationMarker from "./MoveClassificationMarker";
-import { initialPieceCounts } from "../../constants/piece";
-import { Materials } from "../../types/eval";
-import { RootState } from "../../redux/store";
-import { isThemeAvailable, loadThemeCSS } from "../../utils/theme-loaders/piece-theme-loader";
-import { isBoardThemeAvailable, loadBoardThemeCSS } from "../../utils/theme-loaders/board-theme-loader";
-import { useMaterialEffect } from "../../hooks/useMaterialEffect";
-import "../../styles/chessground.css";
+import { initialPieceCounts } from "@/constants/piece";
+import { Materials } from "@/types/eval";
+import { RootState } from "@/redux/store";
+import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-theme-loader";
+import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
+import { useMaterialEffect } from "@/hooks/useMaterialEffect";
+import "@/styles/chessground.css"
 import PromotionModal, { PromotionData } from "./modal/PromotionModal";
 
 interface BoardComponentProps {

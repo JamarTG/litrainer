@@ -1,11 +1,11 @@
 import { ChangeEvent, FC } from "react";
-import usePopperDropDown from "../../../../../hooks/usePopperDropDown";
+import usePopperDropDown from "@/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields, GameType } from "../../../../../types/form";
-import GameSpeedIcon from "../../../../board/GameSpeedIcon";
-import { TimeControls } from "../../../../../constants/form";
-import List from "../../../../common/List";
-import ToggleSwitch from "../../../../shared/ToggleSwitch";
+import { Fields, GameType } from "@/types/form";
+import GameSpeedIcon from "@/components/board/GameSpeedIcon";
+import { TimeControls } from "@/constants/form";
+import List from "@/components/common/List";
+import ToggleSwitch from "@/components/shared/ToggleSwitch";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

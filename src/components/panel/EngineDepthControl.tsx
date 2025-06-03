@@ -1,6 +1,5 @@
-import { EngineDepth } from "../../constants/engine";
-import { useDepth } from "../../context/hooks/useDepth";
-// import "../../styles/slider.css"; // import the custom slider CSS
+import { EngineDepth } from "@/constants/engine";
+import { useDepth } from "@/context/hooks/useDepth";
 
 const EngineDepthControl = () => {
   const { depth, setDepth } = useDepth();

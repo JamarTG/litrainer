@@ -1,8 +1,8 @@
 import { useState } from "react";
 import TrainerForm from "./modals/TrainerForm";
-import { Fields } from "../../types/form";
-import { initialFormState } from "../../constants/form";
-import useHandleSubmit from "../../hooks/useHandleSubmit";
+import { Fields } from "@/types/form";
+import { initialFormState } from "@/constants/form";
+import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { PlusCircle } from "lucide-react";
 
 const SubmitButtonWithModal = () => {

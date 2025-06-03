@@ -1,5 +1,5 @@
 import { Chess, Color } from "chess.js";
-import { Materials } from "../types/eval";
+import { Materials } from "@/types/eval";
 
 export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   const countBoardMaterial = (currentGame: Chess) => {

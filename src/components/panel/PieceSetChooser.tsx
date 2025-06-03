@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPieceSet } from "../../redux/slices/piece-set";
-import { PieceSets } from "../../constants/piece";
-import { RootState } from "../../redux/store";
+import { setPieceSet } from "@/redux/slices/piece-set";
+import { PieceSets } from "@/constants/piece";
+import { RootState } from "@/redux/store";
 import GenericChooser from "../shared/GenericChooser";
-import { playSelectSound } from "../../libs/sound";
+import { playSelectSound } from "@/libs/sound";
 
 const PieceSetChooser = () => {
   const dispatch = useDispatch();

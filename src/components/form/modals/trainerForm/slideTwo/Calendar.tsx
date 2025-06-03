@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { DaysOfTheWeek, MonthsOfTheYear } from "../../../../../constants/date";
-import List from "../../../../common/List";
+import { DaysOfTheWeek, MonthsOfTheYear } from "@/constants/date";
+import List from "@/components/common/List";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;

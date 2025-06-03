@@ -1,8 +1,8 @@
-import { MoveClassification } from "../../../constants/classification";
+import { MoveClassification } from "@/constants/classification";
 import { getBasicClassification } from "../evaluation";
 import { parseEvaluationResults } from "../parsers";
-import { EngineName } from "../../../types/engine";
-import { PositionEvaluation, VariationLineResult } from "../../../types/eval";
+import { EngineName } from "@/types/engine";
+import { PositionEvaluation, VariationLineResult } from "@/types/eval";
 import { Chess } from "chess.js";
 
 export abstract class UciEngine {

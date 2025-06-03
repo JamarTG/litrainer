@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { MoveClassificationImages, MoveClassification } from "../../constants/classification";
+import { RootState } from "@/redux/store";
+import { MoveClassificationImages, MoveClassification } from "@/constants/classification";
 import Navigation from "./Navigation";
 
 const PuzzleInfo = () => {

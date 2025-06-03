@@ -1,11 +1,11 @@
 import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { promotionPieces } from "../../../constants/piece";
-import { ColorLongForm } from "../../../types/player";
-import List from "../../common/List";
-import { PromotionPiece } from "../../../types/piece";
+import { RootState } from "@/redux/store";
+import { promotionPieces } from "@/constants/piece";
+import { ColorLongForm } from "@/types/player";
+import List from "@/components/common/List";
+import { PromotionPiece } from "@/types/piece";
 
 export interface PromotionData {
   from: Square;

@@ -1,5 +1,5 @@
-import { getGameStatusDescription } from "../../../utils/status";
-import { Puzzle } from "../../../types/puzzle";
+import { getGameStatusDescription } from "@/utils/status";
+import { Puzzle } from "@/types/puzzle";
 
 interface GameStatusProps {
   gameStatus: Puzzle["status"];

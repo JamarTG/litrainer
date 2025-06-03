@@ -1,8 +1,8 @@
 import { useEffect, RefObject } from "react";
 import { Color, Square } from "chess.js";
 import { useDispatch } from "react-redux";
-import { setMarkerPosition } from "../redux/slices/board";
-import { ColorLongForm } from "../types/player";
+import { setMarkerPosition } from "@/redux/slices/board";
+import { ColorLongForm } from "@/types/player";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,

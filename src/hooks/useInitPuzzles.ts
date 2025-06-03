@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPuzzles } from "../redux/slices/puzzle";
-import { Puzzle } from "../types/puzzle";
+import { setPuzzles } from "@/redux/slices/puzzle";
+import { Puzzle } from "@/types/puzzle";
 
 const useInitPuzzles = (puzzles: Puzzle[]) => {
   const dispatch = useDispatch();

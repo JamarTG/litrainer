@@ -1,8 +1,8 @@
 import PlayerBadge from "../board/header/PlayerBadge";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
-import { Materials } from "../../types/eval";
-import { RootState } from "../../redux/store";
+import { Materials } from "@/types/eval";
+import { RootState } from "@/redux/store";
 import { Color } from "chess.js";
 
 interface ChessBoardLayoutProps {
