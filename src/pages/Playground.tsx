@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Puzzle } from "@/types/puzzle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -20,6 +20,7 @@ import TrainerForm from "@/components/form/modals/TrainerForm";
 import SubmitButtonWithModal from "@/components/form/SubmitButtonWithModal";
 import GameInfo from "@/components/board/header/GameInfo";
 import EngineDepthControl from "@/components/panel/EngineDepthControl";
+import WebsiteLoader from "@/components/common/WebsiteLoader";
 // import
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -54,6 +55,22 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         handleSubmit={handleSubmit}
       />
     );
+  }
+
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const intervalId = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  if (loading) {
+    return <WebsiteLoader />;
   }
 
   return (
