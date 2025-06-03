@@ -42,7 +42,7 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
       alt={classification}
       width={boardSize / 16}
       height={boardSize / 16}
-      className={`absolute pointer-events-none z-10 transition-opacity duration-500 ease-in-out ${
+      className={`absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
         visible ? "opacity-90" : "opacity-0"
       }`}
       style={{
