@@ -11,6 +11,7 @@ const EngineDepthControl = () => {
         <label htmlFor="engine-depth" className="whitespace-nowrap">
           engine depth
         </label>
+        
         <input
           id="engine-depth"
           type="range"
@@ -22,6 +23,7 @@ const EngineDepthControl = () => {
         />
         <span className="text-sm text-gray-300 w-6 text-right">{depth}</span>
       </div>
+      <small className="text-red-500">higher depth = slower eval</small>
     </div>
   );
 };
