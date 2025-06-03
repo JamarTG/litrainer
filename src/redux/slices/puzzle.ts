@@ -6,12 +6,14 @@ export interface PuzzleState {
   puzzles: Puzzle[];
   currentIndex: number;
   autoSkip: boolean;
+  redoTrigger: number;
 }
 
 const initialState: PuzzleState = {
   puzzles: [],
   currentIndex: 0,
-  autoSkip: loadFromLocalStorage("autoSkip", "true") === "true"
+  autoSkip: loadFromLocalStorage("autoSkip", "true") === "true",
+  redoTrigger: 0
 };
 
 const puzzleSlice = createSlice({
@@ -31,7 +33,17 @@ const puzzleSlice = createSlice({
     },
     toggleAutoSkip(state) {
       state.autoSkip = !state.autoSkip;
-      saveToLocalStorage("autoSkip",state.autoSkip);
+      saveToLocalStorage("autoSkip", state.autoSkip);
+    },
+    redoPuzzle(state) {
+      const currentPuzzle = state.puzzles[state.currentIndex];
+      if (currentPuzzle && initialState) {
+        state.puzzles[state.currentIndex] = {
+          ...currentPuzzle,
+          ...initialState
+        };
+      }
+      state.redoTrigger += 1; // Keep this if other components need to react
     }
     // jumpToPuzzle(state, action: PayloadAction<number>) {
     //   if (action.payload >= 0 && action.payload < state.puzzles.length) {
@@ -41,5 +53,5 @@ const puzzleSlice = createSlice({
   }
 });
 
-export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip } = puzzleSlice.actions;
+export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip, redoPuzzle } = puzzleSlice.actions;
 export default puzzleSlice.reducer;

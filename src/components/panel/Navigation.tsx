@@ -1,16 +1,43 @@
-import List from "../common/List";
-import { navButtons } from "../../constants/nav";
-import { NavButton } from "../../types/nav";
-import NavigationalButton from "./NavigationalButton";
+import { useAppDispatch } from "../../redux/hooks/useAppDispatch";
+import { nextPuzzle, prevPuzzle, redoPuzzle } from "../../redux/slices/puzzle";
+import { resetFeedback } from "../../redux/slices/feedback";
+import { StepForward, StepBack, Redo } from "lucide-react";
 
 const PuzzleNavigation = () => {
-  const renderNavButton = (btn: NavButton) => {
-    return <NavigationalButton btn={btn} />;
+  const dispatch = useAppDispatch();
+
+  const handlePrev = () => dispatch(prevPuzzle());
+  const handleNext = () => dispatch(nextPuzzle());
+  const handleRedo = () => {
+    dispatch(resetFeedback());
+    dispatch(redoPuzzle());
   };
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
-      <List items={navButtons} renderItem={renderNavButton} />
+      <button
+        aria-label="Previous Puzzle"
+        onClick={handlePrev}
+        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+      >
+        <StepBack size={25} />
+      </button>
+
+      <button
+        aria-label="Next Puzzle"
+        onClick={handleNext}
+        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+      >
+        <StepForward size={25} />
+      </button>
+
+      <button
+        aria-label="Redo Puzzle"
+        onClick={handleRedo}
+        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+      >
+        <Redo size={25} />
+      </button>
     </div>
   );
 };
