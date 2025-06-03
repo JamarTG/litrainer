@@ -58,7 +58,13 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   return (
     <div className="flex gap-6 justify-center items-center flex-wrap h-full min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <InteractiveChessBoard game={game} handleMoveAttempt={handleMoveAttempt} />
-      <div className="flex flex-col gap-4 w-full bg-gray-100 min-w-[250px] dark:bg-[#222] border dark:border-gray-700 p-4 rounded-sm min-h-[500px]">
+      <div
+        className=" bg-zinc-300 
+  flex flex-col gap-4 w-full min-w-[250px] min-h-[500px] p-4 rounded-sm shadow-xs
+  bg-[#e7e3e3] border border-gray-400
+  dark:bg-[#222] dark:border-gray-700
+"
+      >
         {!showSettings && (
           <>
             <div className="relative bh-12 flex items-center justify-end">
@@ -80,7 +86,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
         {showSettings && (
           <div
             style={{ zIndex: 100 }}
-            className="absolute inset-0 bg-gray-100 dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in h-screen"
+            className="absolute inset-0 bg-[#e7e3e3] dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in h-screen"
           >
             <div className="h-8 flex items-center justify-between">
               <button
@@ -99,7 +105,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
               </button>
             </div>
             <div className="flex h-full justify-center items-center">
-              <div className="w-full max-w-md h-96 flex justify-center items-center border border-zinc-200 dark:border-zinc-600 rounded-md flex-col gap-4 mt-6">
+              <div className="w-full max-w-md h-96 flex justify-center items-center  dark:border-zinc-600 rounded-md flex-col gap-4 mt-6">
                 <div className="flex flex-col justify-center items-center  rounded-md p-4 gap-5">
                   <div className="flex w-72 justify-start items-center">
                     <AutoSkip />
