@@ -37,13 +37,10 @@ const puzzleSlice = createSlice({
     },
     redoPuzzle(state) {
       const currentPuzzle = state.puzzles[state.currentIndex];
-      if (currentPuzzle && initialState) {
-        state.puzzles[state.currentIndex] = {
-          ...currentPuzzle,
-          ...initialState
-        };
-      }
-      state.redoTrigger += 1; 
+      state.puzzles[state.currentIndex] = {
+        ...currentPuzzle
+      };
+      state.redoTrigger += 1;
     }
   }
 });
