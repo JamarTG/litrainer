@@ -12,6 +12,8 @@ interface MoveClassificationMarkerProps {
   orientation: ColorLongForm;
 }
 
+const MARKER_Z_INDEX = 200;
+
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
   const { puzzle, classification, destinationSquare } = useSelector((state: RootState) => ({
@@ -48,7 +50,8 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
       style={{
         right: markerPosition.right,
         top: markerPosition.top,
-        transform: "translate(-15%, 30%)"
+        transform: "translate(-15%, 30%)",
+        zIndex: MARKER_Z_INDEX
       }}
     />
   );
