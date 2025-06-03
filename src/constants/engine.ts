@@ -1,5 +1,5 @@
 export const EngineDepth = {
-  Min: 1,
-  Max: 20,
+  Min: 8,
+  Max: 25,
   Default: 12
 } as const;

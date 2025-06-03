@@ -19,6 +19,7 @@ import useHandleSubmit from "../hooks/useHandleSubmit";
 import TrainerForm from "../components/form/modals/TrainerForm";
 import SubmitButtonWithModal from "../components/form/SubmitButtonWithModal";
 import GameInfo from "../components/board/header/GameInfo";
+import EngineDepthControl from "../components/panel/EngineDepthControl";
 // import
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -115,6 +116,9 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                   </div>
                   <div className="flex w-72 justify-start items-center">
                     <BoardThemeChooser />
+                  </div>
+                   <div className="flex w-72 justify-start items-center">
+                    <EngineDepthControl />
                   </div>
                 </div>
               </div>

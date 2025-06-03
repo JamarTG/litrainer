@@ -1,32 +1,27 @@
 import { EngineDepth } from "../../constants/engine";
 import { useDepth } from "../../context/hooks/useDepth";
+// import "../../styles/slider.css"; // import the custom slider CSS
 
 const EngineDepthControl = () => {
   const { depth, setDepth } = useDepth();
 
   return (
-    <div className="w-2/5">
-      <div>
+    <div className="w-full max-w-md">
+      <div className="flex items-center gap-4">
+        <label htmlFor="engine-depth" className="whitespace-nowrap">
+          engine depth
+        </label>
         <input
+          id="engine-depth"
           type="range"
           min={EngineDepth.Min}
           max={EngineDepth.Max}
           value={depth}
           onChange={(e) => setDepth(Number(e.target.value))}
-          className="w-full h-3 rounded-full appearance-none cursor-pointer bg-gray-700 accent-teal-400"
-          style={{
-            WebkitAppearance: "none",
-            appearance: "none",
-            height: "6px",
-            borderRadius: "999px",
-            background: "linear-gradient(to right, rgba(45, 212, 191, 1) 0%, rgba(45, 212, 191, 0.7) 100%)",
-            outline: "none",
-            transition: "background 0.15s ease-in-out"
-          }}
+          className="custom-slider flex-1"
         />
-        {depth}
+        <span className="text-sm text-gray-300 w-6 text-right">{depth}</span>
       </div>
-      <p className="mt-3 text-md w-full">Adjust the depth of the chess engine analysis.</p>
     </div>
   );
 };
