@@ -25,7 +25,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               </svg>
             </a>
 
-            <a href="https://lichess.org/inbox/JamariTheGreat" target="_blank" className="flex justify-center text-zinc-600 dark:text-zinc-200 items-center gap-2 px-4 py-2 rounded-md border border-gray-400 bg-zinc-300 dark:bg-[#222] dark:border-gray-700"><LichessIcon size={25} /> Message Me </a>
+            <a href="https://lichess.org/inbox/JamariTheGreat" target="_blank" className="flex justify-center text-zinc-600 dark:text-zinc-200 items-center gap-2 px-4 py-2 rounded-md border border-gray-400 bg-zinc-300 dark:bg-[#222] dark:border-gray-700"><LichessIcon size={25} />message me </a>
           </div>
         </div>
       </nav>

@@ -21,7 +21,7 @@ const EngineDepthControl = () => {
           onChange={(e) => setDepth(Number(e.target.value))}
           className="custom-slider flex-1"
         />
-        <span className="text-sm text-gray-300 w-6 text-right">{depth}</span>
+        <span className="text-sm dark:text-zinc-600 w-6 text-right">{depth}</span>
       </div>
       <small className="text-red-500">higher depth = slower eval</small>
     </div>

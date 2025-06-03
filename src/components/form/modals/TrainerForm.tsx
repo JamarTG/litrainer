@@ -56,7 +56,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
                     </svg>
                   </button>
                 </div>
-                <p className="text-muted text-xs">Customize your training session with the details below</p>
+                <p className="text-muted text-xs text-red-500">Note: Only analyzed games are included</p>
               </div>
             </div>
             <div className="pt-5">
