@@ -15,10 +15,11 @@ const PuzzleNavigation = () => {
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
+      
       <button
         aria-label="Previous Puzzle"
         onClick={handlePrev}
-        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+        className="p-2 rounded-xl bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-700"
       >
         <StepBack size={25} />
       </button>
@@ -26,7 +27,7 @@ const PuzzleNavigation = () => {
       <button
         aria-label="Next Puzzle"
         onClick={handleNext}
-        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+        className="p-2 rounded-xl bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-700"
       >
         <StepForward size={25} />
       </button>
@@ -34,7 +35,7 @@ const PuzzleNavigation = () => {
       <button
         aria-label="Redo Puzzle"
         onClick={handleRedo}
-        className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+        className="p-2 rounded-xl bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-700"
       >
         <Redo size={25} />
       </button>
