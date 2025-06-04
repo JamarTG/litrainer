@@ -1,14 +1,14 @@
 import { ICON_SIZES } from "@/components/constants";
-import AutoSkip from "@/components/panel/sections/settings/AutoSkip";
-import BoardThemeChooser from "@/components/panel/sections/settings/BoardThemeChooser";
-import EngineDepthControl from "@/components/panel/sections/settings/EngineDepthControl";
-import PieceSetChooser from "@/components/panel/sections/settings/PieceSetChooser";
 import { toggleTheme } from "@/redux/slices/theme";
 import { RootState } from "@/redux/store";
 import { ArrowBigLeftDash, Moon, Sun } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import BoardThemeChooser from "./BoardThemeChooser";
+import PieceSetChooser from "./PieceSetChooser";
+import AutoSkip from "./AutoSkip";
+import EngineDepthControl from "./EngineDepthControl";
 
 interface SettingsProps {
   setShowSettings: Dispatch<SetStateAction<boolean>>;

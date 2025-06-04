@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FC, MouseEventHandler, SetStateAction, useRef, useState } from "react";
 import { Fields } from "@/types/form";
-import Swiper from "../swipers/Swiper";
+import Swiper from "./swipers/Swiper";
 import Portal from "./Portal";
 import SlideOne from "./slides/slide-one/Slide1";
 import SlideTwo from "./slides/slide-two/Slide2";
