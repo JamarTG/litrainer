@@ -50,7 +50,12 @@ Open an issue and let's chat about it. No idea is too small or too big.
 2.  Do your thing
 3.  Commit: git commit -m "did a thing"
 4.  Push and make a PR
-    
+
+Lint & Format
+-------------
+Code quality is managed by ESLint and Prettier. Run `npm run setup` to configure
+your environment to automatically lint and format your staged changes on each commit.
+You can optionally pass `--no-verify` to skip the pre-commit hook. Ex: `git commit -m "fix bug" --no-verify`
 
 Guidelines (but not rules)
 --------------------------

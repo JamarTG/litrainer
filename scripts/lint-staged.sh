@@ -19,9 +19,7 @@ if ! echo "$FILES" | xargs ./node_modules/.bin/eslint --fix; then
   exit 1
 fi
 
-# Re-stage fixed files
 echo "$FILES" | xargs git add
 
 echo "✅ Pre-commit formatting complete."
 exit 0
-# commet
