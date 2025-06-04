@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Pawn, Knight, Bishop, Queen, Rook } from "./pieces";
+import { Pawn, Knight, Bishop, Queen, Rook } from "./pieces/_index";
 
 interface MaterialIndicatorIconProps {
   piece: keyof typeof PIECE_COMPONENTS;

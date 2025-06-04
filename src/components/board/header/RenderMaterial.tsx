@@ -1,5 +1,4 @@
 import { FC } from "react";
-import MaterialIndicatorIcon from "./MaterialIndicatorIcon";
 import { Color } from "chess.js";
 import { Materials } from "@/types/eval";
 import { determineColorLeadingInMaterial } from "@/utils/material";
@@ -8,6 +7,7 @@ import { PieceShortFormWithoutKing } from "@/types/piece";
 import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
 import { ICON_SIZES } from "@/components/constants";
+import MaterialIndicatorIcon from "./MaterialIndicatorIcon";
 
 interface RenderMaterialProps {
   material: Materials;
@@ -17,6 +17,9 @@ interface RenderMaterialProps {
 
 const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   const materialCount = determineColorLeadingInMaterial(material, color);
+  const positionOrNegativeCount = materialCount > 0 ? "+" : "";
+  const materialCountString = materialCount || "";
+  const materialColorToRender = color === "b" ? material.b : material.w;
 
   const renderPieces = ([piece, count]: [PieceShortFormWithoutKing, number]) => {
     const weHavePiece = count > 0;
@@ -33,10 +36,6 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
       )
     );
   };
-
-  const positionOrNegativeCount = materialCount > 0 ? "+" : "";
-  const materialCountString = materialCount || "";
-  const materialColorToRender = color === "b" ? material.b : material.w;
 
   return (
     <div className="flex justify-center items-center ">

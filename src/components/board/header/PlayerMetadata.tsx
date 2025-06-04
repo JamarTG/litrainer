@@ -6,11 +6,11 @@ import { RatingDifferenceTextColors } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LichessURL } from "@/constants/urls";
 
-interface PlayerInfoProps {
+interface PlayerMetaDataProps {
   color: Color;
 }
 
-const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
+const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
   const { puzzle, theme, player } = useSelector((state: RootState) => {
     return {
       theme: state.theme.theme,
@@ -89,4 +89,4 @@ const PlayerHeader: FC<PlayerInfoProps> = ({ color }) => {
   );
 };
 
-export default PlayerHeader;
+export default PlayerMetaData;

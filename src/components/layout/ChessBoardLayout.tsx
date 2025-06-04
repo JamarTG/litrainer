@@ -1,4 +1,4 @@
-import PlayerBadge from "../board/header/PlayerBadge";
+import PlayerBadge from "../board/header/_index";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Materials } from "@/types/eval";

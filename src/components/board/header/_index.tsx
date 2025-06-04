@@ -1,6 +1,6 @@
 import RenderMaterial from "./RenderMaterial";
 import { FC } from "react";
-import PlayerHeader from "./PlayerHeader";
+import PlayerHeader from "./PlayerMetadata";
 import { Color } from "chess.js";
 import { Materials } from "@/types/eval";
 
@@ -15,8 +15,7 @@ const PlayerBadge: FC<PlayerBadgeProps> = ({ color, material, hasPuzzle }) => {
 
   return (
     <div
-      className={`rounded-${color === "w" ? "b" : "t"}-md w-full text-center p-1 text-sm
-                    dark:text-white flex justify-center items-center gap-5`}
+      className={`rounded-${color === "w" ? "b" : "t"}-md w-full text-center p-1 text-sm dark:text-white flex justify-center items-center gap-5`}
     >
       <PlayerHeader color={color} />
       <RenderMaterial material={material} color={color} />
