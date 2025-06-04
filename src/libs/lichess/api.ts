@@ -12,11 +12,10 @@ type QueryOptions = {
 };
 
 export const getLichessGames = async (queryOptions: QueryOptions) => {
-  // Create URL
+
   const url = new URL(LichessURL.GamesAPI + queryOptions.username);
   const params = url.searchParams;
 
-  // Add User Params
   params.append("since", queryOptions.since);
   params.append("until", queryOptions.until);
   params.append("max", queryOptions.max);
