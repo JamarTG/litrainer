@@ -4,7 +4,7 @@ import ChessBoardLayout from "../layout/ChessBoardLayout";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
 import type { Color } from "chessground/types";
-import MoveClassificationMarker from "./overlay/MoveClassificationMarker";
+import MoveClassificationMarker from "./overlay/ClassificationMarker";
 import { initialPieceCounts } from "@/constants/piece";
 import { Materials } from "@/types/eval";
 import { RootState } from "@/redux/store";
@@ -12,7 +12,7 @@ import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-them
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "@/hooks/useMaterialEffect";
 import "@/styles/chessground.css";
-import PromotionModal, { PromotionData } from "./overlay/PromotionModal";
+import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
 
 interface BoardComponentProps {
   game: Chess;

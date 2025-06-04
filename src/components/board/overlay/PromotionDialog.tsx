@@ -13,12 +13,14 @@ export interface PromotionData {
   color: ColorLongForm;
 }
 
-const PromotionModal: FC<{
+interface PromotionDialogProps {
   isOpen: boolean;
   promotionData: PromotionData | null;
   onPromote: (piece: string) => void;
   onCancel: VoidFunction;
-}> = ({ isOpen, promotionData, onPromote, onCancel }) => {
+}
+
+const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPromote, onCancel }) => {
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
 
   if (!isOpen || !promotionData) return null;
@@ -63,4 +65,4 @@ const PromotionModal: FC<{
   );
 };
 
-export default PromotionModal;
+export default PromotionDialog;
