@@ -1,6 +1,6 @@
 import { useState, FC, useEffect, useRef } from "react";
 import { Chess, Square } from "chess.js";
-import ChessBoardLayout from "../layout/ChessBoardLayout";
+import ChessBoardLayout from "../layout/ChessBoard";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
 import type { Color } from "chessground/types";
