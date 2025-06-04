@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import LichessIcon from "../shared/LichessIcon";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
