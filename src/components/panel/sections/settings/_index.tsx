@@ -1,8 +1,8 @@
 import { ICON_SIZES } from "@/components/constants";
-import AutoSkip from "@/components/panel/main-buttons/settings/AutoSkip";
-import BoardThemeChooser from "@/components/panel/main-buttons/settings/BoardThemeChooser";
-import EngineDepthControl from "@/components/panel/main-buttons/settings/EngineDepthControl";
-import PieceSetChooser from "@/components/panel/main-buttons/settings/PieceSetChooser";
+import AutoSkip from "@/components/panel/sections/settings/AutoSkip";
+import BoardThemeChooser from "@/components/panel/sections/settings/BoardThemeChooser";
+import EngineDepthControl from "@/components/panel/sections/settings/EngineDepthControl";
+import PieceSetChooser from "@/components/panel/sections/settings/PieceSetChooser";
 import { toggleTheme } from "@/redux/slices/theme";
 import { RootState } from "@/redux/store";
 import { ArrowBigLeftDash, Moon, Sun } from "lucide-react";
