@@ -1,20 +1,32 @@
-import { cloneElement, FC } from "react";
-import PIECE_SVGS from "./PieceSVGs";
+import { FC } from "react";
+import { Pawn, Knight, Bishop, Queen, Rook } from "./pieces";
 
 interface MaterialIndicatorIconProps {
-  piece: keyof typeof PIECE_SVGS;
+  piece: keyof typeof PIECE_COMPONENTS;
   size?: number;
 }
 
-const MaterialIndicatorIcon: FC<MaterialIndicatorIconProps> = ({ piece, size = 24 }) => {
-  const svg = PIECE_SVGS[piece];
+const PIECE_COMPONENTS = {
+  bishop: Bishop,
+  knight: Knight,
+  pawn: Pawn,
+  queen: Queen,
+  rook: Rook
+} as const;
 
-  if (!svg) {
+const MaterialIndicatorIcon: FC<MaterialIndicatorIconProps> = ({ piece, size = 20 }) => {
+  const PieceComponent = PIECE_COMPONENTS[piece];
+
+  if (!PieceComponent) {
     console.error(`Invalid piece type: ${piece}`);
     return null;
   }
 
-  return <div style={{ width: size, height: size }}>{cloneElement(svg, { width: size, height: size })}</div>;
+  return (
+    <div style={{ width: size, height: size }}>
+      <PieceComponent />
+    </div>
+  );
 };
 
 export default MaterialIndicatorIcon;
