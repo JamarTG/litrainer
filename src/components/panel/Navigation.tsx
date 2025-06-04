@@ -44,7 +44,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200 ${
           isFirstPuzzle
             ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-700 active:scale-95'
+            : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
         }`}
       >
         <StepBack size={25} />
@@ -57,7 +57,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200 ${
           !hasAttempted
             ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95'
+            : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95'
         }`}
       >
         <RotateCcw size={25} />
@@ -70,7 +70,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200 ${
           isLastPuzzle
             ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-700 active:scale-95'
+            : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
         }`}
       >
         <StepForward size={25} />
