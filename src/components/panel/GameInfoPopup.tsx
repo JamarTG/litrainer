@@ -1,22 +1,25 @@
 import { Dispatch, SetStateAction } from "react";
-import { Puzzle } from "@/types/puzzle";
-import GameSpeedIcon from "../GameSpeedIcon";
+import GameSpeedIcon from "../board/GameSpeedIcon";
 import { ICON_SIZES } from "@/components/constants";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
   setShowPopup: Dispatch<SetStateAction<boolean>>;
-  puzzle: Puzzle;
 }
 
-const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup, puzzle }) => {
-  if (!showPopup) return null;
+const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }) => {
+  
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
 
   const { phase, timeControl, rated, status, winner, players, gameId, moveNumber, positionOpening } = puzzle;
 
   const ratedLabel = rated ? "Rated" : "Casual";
   const phaseLabel = phase;
   const timeLabel = timeControl;
+
+  if (!showPopup) return null;
 
   return (
     <div className="absolute left-1/2 top-full mt-2 z-20 transform -translate-x-1/2 min-w-[300px] max-w-sm w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-xl shadow-lg p-4">

@@ -1,12 +1,12 @@
 import { cloneElement, FC } from "react";
-import PIECE_SVGS from "./PieceSVGMapping";
+import PIECE_SVGS from "./PieceSVGs";
 
-interface PieceIconProps {
+interface MaterialIndicatorIconProps {
   piece: keyof typeof PIECE_SVGS;
   size?: number;
 }
 
-const PieceIcon: FC<PieceIconProps> = ({ piece, size = 24 }) => {
+const MaterialIndicatorIcon: FC<MaterialIndicatorIconProps> = ({ piece, size = 24 }) => {
   const svg = PIECE_SVGS[piece];
 
   if (!svg) {
@@ -17,4 +17,4 @@ const PieceIcon: FC<PieceIconProps> = ({ piece, size = 24 }) => {
   return <div style={{ width: size, height: size }}>{cloneElement(svg, { width: size, height: size })}</div>;
 };
 
-export default PieceIcon;
+export default MaterialIndicatorIcon;

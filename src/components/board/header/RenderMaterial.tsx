@@ -1,5 +1,5 @@
 import { FC } from "react";
-import PieceIcon from "./PieceIcons";
+import MaterialIndicatorIcon from "./MaterialIndicatorIcon";
 import { Color } from "chess.js";
 import { Materials } from "@/types/eval";
 import { determineColorLeadingInMaterial } from "@/utils/material";
@@ -27,7 +27,7 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
         <div key={piece} className="flex">
           <List
             items={numberOfPiecesArray}
-            renderItem={(_, i) => <PieceIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={ICON_SIZES.SMALL} />}
+            renderItem={(_, i) => <MaterialIndicatorIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={ICON_SIZES.SMALL} />}
           />
         </div>
       )

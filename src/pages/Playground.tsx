@@ -18,7 +18,7 @@ import { Fields } from "@/types/form";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import TrainerForm from "@/components/form/modals/TrainerForm";
 import SubmitButtonWithModal from "@/components/form/SubmitButtonWithModal";
-import GameInfo from "@/components/board/header/GameInfo";
+import GameInfo from "@/components/panel/GameInfo";
 import EngineDepthControl from "@/components/panel/EngineDepthControl";
 import WebsiteLoader from "@/components/common/WebsiteLoader";
 import { ICON_SIZES } from "@/components/constants";

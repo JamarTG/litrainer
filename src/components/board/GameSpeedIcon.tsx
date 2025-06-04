@@ -8,7 +8,7 @@ interface GameSpeedIconProps {
 }
 
 const GameSpeedIcon: FC<GameSpeedIconProps> = ({ speed, size }) => {
-  return <span style={{ fontSize: size }}>{TimeControlIcons[speed]}</span>;
+  return <span className="icon" style={{ fontSize: size }}>{TimeControlIcons[speed]}</span>;
 };
 
 export default GameSpeedIcon;

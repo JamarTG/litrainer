@@ -17,7 +17,7 @@ const SubmitButtonWithModal = () => {
   };
 
   return (
-    <div>
+    <div className="bg-red-500">
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
