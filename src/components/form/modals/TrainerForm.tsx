@@ -2,8 +2,8 @@ import { ChangeEvent, Dispatch, FC, MouseEventHandler, SetStateAction, useRef, u
 import { Fields } from "@/types/form";
 import Swiper from "../swipers/Swiper";
 import Portal from "./Portal";
-import SlideOne from "./trainerForm/slideOne/Slide1";
-import SlideTwo from "./trainerForm/slideTwo/Slide2";
+import SlideOne from "./trainer-form/slide-one/Slide1";
+import SlideTwo from "./trainer-form/slide-two/Slide2";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
