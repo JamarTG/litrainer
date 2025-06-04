@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Fields } from "@/types/form";
-import { fetchAndParseLichessGames } from "@/api/lichess-api";
+import { getLichessGames } from "@/libs/lichess/api";
 import { LichessGameResponse } from "@/types/response";
 import { LichessEvaluation } from "@/types/eval";
 import { toast } from "react-hot-toast";
@@ -15,17 +15,13 @@ const useSubmitHandler = (formData: Fields) => {
   const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { maxNoGames, color, sort } = formData;
+    let { maxNoGames = 10, color = "both", sort = "desc" } = formData;
     const { username, startDate, endDate, gameTypes } = formData;
 
     if (gameTypes.length === 0) {
       toast.error("Please select at least one game type.");
       return;
     }
-
-    maxNoGames = maxNoGames || 10;
-    color = color || "both";
-    sort = sort || "desc";
 
     const { isDateRangeValid, normalizedStartDate, normalizedEndDate } = validateDateRange(startDate, endDate);
 
@@ -37,20 +33,20 @@ const useSubmitHandler = (formData: Fields) => {
     const { startTimeEpochMillis, endTimeEpochMillis } = dateRangeToEpochMillis(normalizedStartDate, normalizedEndDate);
 
     try {
-      const { games, evaluations } = await fetchAndParseLichessGames(
+      const result = await getLichessGames({
         username,
-        startTimeEpochMillis,
-        endTimeEpochMillis,
-        maxNoGames.toString(),
+        since: startTimeEpochMillis,
+        until: endTimeEpochMillis,
+        max: maxNoGames.toString(),
         sort,
         color,
-        gameTypes
-      );
+        perfType: gameTypes
+      });
 
       const puzzles = generatePuzzles(
         username,
-        games as LichessGameResponse[],
-        evaluations as unknown as LichessEvaluation[][]
+        result?.games as LichessGameResponse[],
+        result?.evaluations as unknown as LichessEvaluation[][]
       );
 
       if (puzzles.length === 0) {

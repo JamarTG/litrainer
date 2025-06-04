@@ -1,0 +1,44 @@
+import { LichessURL } from "@/constants/urls";
+import { parseGames } from "@/libs/lichess/parsers";
+
+type QueryOptions = {
+  username: string;
+  since: string;
+  until: string;
+  max: string;
+  sort: string;
+  color: string;
+  perfType: string[];
+};
+
+export const getLichessGames = async (queryOptions: QueryOptions) => {
+  // Create URL
+  const url = new URL(LichessURL.GamesAPI + queryOptions.username);
+  const params = url.searchParams;
+
+  // Add User Params
+  params.append("since", queryOptions.since);
+  params.append("until", queryOptions.until);
+  params.append("max", queryOptions.max);
+  params.append("sort", queryOptions.sort);
+  params.append("color", queryOptions.color);
+  params.append("perfType", queryOptions.perfType.join(","));
+  params.append("evals", "true");
+  params.append("analysed", "true");
+  params.append("division", "true");
+  params.append("finished", "true");
+  params.append("opening", "true");
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/x-ndjson"
+    }
+  });
+  
+  if (!response.ok) throw new Error(`Response status: ${response.status}`);
+
+  const games = await parseGames(response);
+  if (!games) throw new Error("No games for those params");
+
+  return games;
+};

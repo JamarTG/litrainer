@@ -6,10 +6,9 @@ import { GameType } from "@/types/form";
 import openings from "./openings";
 import { ColorLongForm } from "@/types/player";
 
-export const decodeLichessGameResponse = async (response: Response) => {
-  if (!response.body) {
-    return;
-  }
+export const parseGames = async (response: Response) => {
+  if (!response.body) return;
+  
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let result = "";
@@ -20,10 +19,10 @@ export const decodeLichessGameResponse = async (response: Response) => {
     result += gameInfo;
   }
 
-  const unParsedGames = result.split("\n").filter((unParsedGame) => unParsedGame.trim() !== "");
-  const evaluations: string[] = unParsedGames.map((unParsedGame) => JSON.parse(unParsedGame).analysis);
+  const games = result.split("\n").filter((game) => game.trim() !== "");
+  const evaluations: string[] = games.map((game) => JSON.parse(game).analysis);
 
-  const parsedGames: LichessGameResponse[] = unParsedGames.map((line) => {
+  const parsedGames: LichessGameResponse[] = games.map((line) => {
     const game = JSON.parse(line);
 
     return {
@@ -44,6 +43,8 @@ export const decodeLichessGameResponse = async (response: Response) => {
 
   return { evaluations, games: parsedGames };
 };
+
+
 
 const generatePuzzles = (username: string, games: LichessGameResponse[], evaluations: LichessEvaluation[][]) => {
   const standardGames = games.filter((game) => game.variant === "standard");
