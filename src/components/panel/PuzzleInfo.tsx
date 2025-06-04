@@ -23,47 +23,52 @@ const PuzzleInfo = () => {
   const isAttempted = !!(playedMove && classification);
 
   return (
-    <div className="flex flex-col flex-1 justify-start items-center md:justify-center p-2 gap-4 transition-all duration-300 ease-in-out min-h-44">
-      <div className="flex items-center gap-3 px-8 py-2 w-full max-w-md rounded-sm  border border-zinc-400 dark:border-zinc-700">
-        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 relative">
+    <div className="flex flex-col flex-1 justify-start items-center md:justify-center p-4 gap-6 min-h-48 rounded-lg transition-all duration-300 ease-in-out">
+      <div className="flex items-center gap-4 w-full max-w-md border border-zinc-400 dark:border-zinc-700 rounded-md p-4 bg-zinc-200/75 dark:bg-zinc-800">
+        <div className="w-12 h-12 relative flex-shrink-0 rounded-full bg-zinc-200 dark:bg-zinc-700 shadow-inner flex items-center justify-center overflow-hidden">
           <img
             src={initialImageSrc}
-            width={40}
-            height={40}
+            width={54}
+            height={54}
             alt={initialImageAlt}
             className={`absolute transition-opacity duration-500 ease-in-out ${
               isAttempted ? 'opacity-0' : 'opacity-100'
             }`}
+            style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.2))" }}
           />
-
           <img
             src={finalImageSrc}
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             alt={finalImageAlt}
             className={`absolute transition-opacity duration-500 ease-in-out ${
               isAttempted ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.4))" }}
           />
         </div>
 
-        <div className="flex flex-col text-sm text-gray-800 dark:text-white justify-between flex-1 min-w-0">
-          <span className="text-sm leading-tight text-gray-600 dark:text-gray-400">
+        {/* Text info */}
+        <div className="flex flex-col flex-1 min-w-0">
+          <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 tracking-wide">
             {isAttempted ? "Your Move" : "You Played"}
           </span>
-          <span className="text-xl font-bold leading-tight truncate mb-2">
+          <span className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white truncate">
             {isAttempted ? playedMove : puzzle.userMove?.san ?? "--"}
           </span>
-          <span className="text-sm text-gray-600 dark:text-gray-400 leading-tight">
+          <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 tracking-wide mt-3">
             {isAttempted ? "Best Move" : "Find a better move"}
           </span>
-          <span className="text-lg leading-tight truncate">
+          <span className="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
             {isAttempted ? bestMove : "\u00A0"}
           </span>
         </div>
       </div>
 
-      <Navigation />
+      {/* Navigation with some top margin */}
+      <div className="w-full max-w-md mt-4">
+        <Navigation />
+      </div>
     </div>
   );
 };
