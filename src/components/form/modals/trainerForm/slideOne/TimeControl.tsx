@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "@/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import { Fields, GameType } from "@/types/form";
-import GameSpeedIcon from "@/components/board/GameSpeedIcon";
+import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
 import { TimeControls } from "@/constants/form";
 import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
@@ -66,10 +66,14 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
         {gamesDropdown.isOpen &&
           ReactDOM.createPortal(
-            <div ref={gamesDropdown.dropdownRef} style={{ zIndex: 80 }} className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200">
-                <div className="flex flex-col space-y-0">
-                  <List items={TimeControls} renderItem={renderTimeControl} />
-                </div>
+            <div
+              ref={gamesDropdown.dropdownRef}
+              style={{ zIndex: 80 }}
+              className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200"
+            >
+              <div className="flex flex-col space-y-0">
+                <List items={TimeControls} renderItem={renderTimeControl} />
+              </div>
             </div>,
             document.body
           )}

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Puzzle } from "@/types/puzzle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import InteractiveChessBoard from "@/components/board/InteractiveBoard";
+import InteractiveChessBoard from "@/components/board/_index";
 import usePuzzleSetup from "@/hooks/usePuzzleSetup";
 import useInitPuzzles from "@/hooks/useInitPuzzles";
 import { useMoveHandler } from "@/hooks/useMoveHandler";

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import GameSpeedIcon from "../board/GameSpeedIcon";
+import GameSpeedIcon from "../shared/GameSpeedIcon";
 import { ICON_SIZES } from "@/components/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -10,7 +10,6 @@ interface GameInfoPopupProps {
 }
 
 const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }) => {
-  
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
 
   const { phase, timeControl, rated, status, winner, players, gameId, moveNumber, positionOpening } = puzzle;

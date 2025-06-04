@@ -17,7 +17,7 @@ const SubmitButtonWithModal = () => {
   };
 
   return (
-    <div className="bg-red-500">
+    <>
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -36,7 +36,7 @@ const SubmitButtonWithModal = () => {
       >
         <PlusCircle size={ICON_SIZES.MEDIUM} />
       </button>
-    </div>
+    </>
   );
 };
 
