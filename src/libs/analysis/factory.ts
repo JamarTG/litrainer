@@ -26,6 +26,7 @@ export const isWasmSupported = (): boolean => {
       if (module instanceof WebAssembly.Module) return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
     }
   } catch (e) {
+    console.info(e);
     return false;
   }
   return false;

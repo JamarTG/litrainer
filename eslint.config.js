@@ -5,6 +5,9 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 
 export default tseslint.config(
+  {
+    ignores: ["**/*.css", "**/*.cjs", "**/build/**", "**/public/**", "**/dist/**"]
+  },
   eslint.configs.recommended,
   tseslint.configs.recommended,
   reactHooks.configs["recommended-latest"],
