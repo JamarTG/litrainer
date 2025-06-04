@@ -7,7 +7,6 @@ const GameInfo = () => {
   const [showPopup, setShowPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
- 
   useClickOutside(dropdownRef, setShowPopup, showPopup);
 
   const toggleGameInfoPopup = () => setShowPopup((showPopup) => !showPopup);

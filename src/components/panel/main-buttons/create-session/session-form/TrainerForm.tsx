@@ -2,8 +2,8 @@ import { ChangeEvent, Dispatch, FC, MouseEventHandler, SetStateAction, useRef, u
 import { Fields } from "@/types/form";
 import Swiper from "../swipers/Swiper";
 import Portal from "./Portal";
-import SlideOne from "./trainer-form/slide-one/Slide1";
-import SlideTwo from "./trainer-form/slide-two/Slide2";
+import SlideOne from "./slides/slide-one/Slide1";
+import SlideTwo from "./slides/slide-two/Slide2";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
@@ -65,7 +65,6 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
           </div>
 
           <div className="w-full h-full ">
-            {/* passing handleSubmit here just to bypass the vercel error of unused variables */}
             <Swiper
               handleSubmit={handleSubmit}
               className=" flex flex-col space-y-4 pt-4"

@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Paths from "./paths";
 import Playground from "@/pages/Playground";
-import NavbarLayout from "@/components/layout/NavbarLayout";
+import NavbarLayout from "@/components/layout/Navbar";
 import test from "@/test.json";
 
 export default function Router() {

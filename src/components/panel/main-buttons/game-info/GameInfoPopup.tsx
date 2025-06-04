@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import GameSpeedIcon from "../shared/GameSpeedIcon";
+import GameSpeedIcon from "../../../shared/GameSpeedIcon";
 import { ICON_SIZES } from "@/components/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -71,11 +71,10 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
           </a>
 
           {positionOpening && (
-            <p className="text-xs">{/* <span className="font-semibold">Opening:</span> {positionOpening} */}</p>
+            <p className="text-xs"><span className="font-semibold">Opening:</span> {positionOpening.name} </p>
           )}
         </div>
 
-        {/* Close Button */}
         <button
           onClick={() => setShowPopup(false)}
           className="self-end mt-2 text-xs font-medium text-blue-600 hover:text-blue-500 transition-colors"

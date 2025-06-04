@@ -10,12 +10,10 @@ const PuzzleInfo = () => {
 
   if (!puzzle) return null;
 
-  // Initial icon (from puzzle evaluation)
   const initialImageSrc = MoveClassificationImages[puzzle.evaluation.judgment?.name as keyof typeof MoveClassification];
   const initialImageAlt = puzzle.evaluation.judgment?.name ?? "move quality";
 
-  // Final icon (from user's classification)
-  const finalImageSrc = classification 
+  const finalImageSrc = classification
     ? MoveClassificationImages[classification as keyof typeof MoveClassification]
     : initialImageSrc;
   const finalImageAlt = classification ?? initialImageAlt;
@@ -32,7 +30,7 @@ const PuzzleInfo = () => {
             height={54}
             alt={initialImageAlt}
             className={`absolute transition-opacity duration-500 ease-in-out ${
-              isAttempted ? 'opacity-0' : 'opacity-100'
+              isAttempted ? "opacity-0" : "opacity-100"
             }`}
             style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.2))" }}
           />
@@ -42,19 +40,18 @@ const PuzzleInfo = () => {
             height={48}
             alt={finalImageAlt}
             className={`absolute transition-opacity duration-500 ease-in-out ${
-              isAttempted ? 'opacity-100' : 'opacity-0'
+              isAttempted ? "opacity-100" : "opacity-0"
             }`}
             style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.4))" }}
           />
         </div>
 
-        {/* Text info */}
         <div className="flex flex-col flex-1 min-w-0">
           <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 tracking-wide">
             {isAttempted ? "Your Move" : "You Played"}
           </span>
           <span className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white truncate">
-            {isAttempted ? playedMove : puzzle.userMove?.san ?? "--"}
+            {isAttempted ? playedMove : (puzzle.userMove?.san ?? "--")}
           </span>
           <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 tracking-wide mt-3">
             {isAttempted ? "Best Move" : "Find a better move"}
@@ -65,7 +62,6 @@ const PuzzleInfo = () => {
         </div>
       </div>
 
-      {/* Navigation with some top margin */}
       <div className="w-full max-w-md mt-4">
         <Navigation />
       </div>
