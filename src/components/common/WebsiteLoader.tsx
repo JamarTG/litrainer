@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
-
 const ChessLoader: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Initializing board...");
 
   const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
-
-  const loadingMessages = ["Initializing board...", "Positioning pieces...", "Ready to train!"];
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -23,6 +20,7 @@ const ChessLoader: React.FC = () => {
     }, 50);
 
     const textInterval = setInterval(() => {
+      const loadingMessages = ["Initializing board...", "Positioning pieces...", "Ready to train!"];
       setLoadingText((prev) => {
         const currentIndex = loadingMessages.indexOf(prev);
         return loadingMessages[(currentIndex + 1) % loadingMessages.length];
@@ -34,7 +32,6 @@ const ChessLoader: React.FC = () => {
       clearInterval(textInterval);
     };
   }, []);
-
 
   return (
     <>

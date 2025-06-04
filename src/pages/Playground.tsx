@@ -44,6 +44,17 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   const [formData, setFormData] = useState<Fields>(initialFormState);
 
   const handleSubmit = useHandleSubmit(formData);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const intervalId = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   if (puzzles.length === 0) {
     return (
@@ -56,18 +67,6 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
       />
     );
   }
-
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const intervalId = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
 
   if (loading) {
     return <WebsiteLoader />;

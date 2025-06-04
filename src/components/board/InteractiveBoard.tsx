@@ -3,6 +3,7 @@ import { Chess, Square } from "chess.js";
 import ChessBoardLayout from "../layout/ChessBoardLayout";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
+import type { Color } from "chessground/types";
 import MoveClassificationMarker from "./MoveClassificationMarker";
 import { initialPieceCounts } from "@/constants/piece";
 import { Materials } from "@/types/eval";
@@ -73,7 +74,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     });
   }, [boardTheme]);
 
-  const playerColor = puzzle?.userMove.color === "w" ? "white" : "black";
+  const playerColor: Color = puzzle?.userMove.color === "w" ? "white" : "black";
 
   const calcMovable = () => {
     if (isPuzzleSolved) {
@@ -96,11 +97,11 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     return {
       free: false,
       dests,
-      color: playerColor as any
-    } 
+      color: playerColor
+    };
   };
 
-  const turnColor = () => {
+  const turnColor = (): Color => {
     return game.turn() === "w" ? "white" : "black";
   };
 
