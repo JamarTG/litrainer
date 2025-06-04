@@ -6,8 +6,8 @@ Quick Start
 -----------
 1.  Fork the repo
 2.  Clone it: git clone https://github.com/JamarTG/litrainer.git
-3.  Install stuff: npm install
-4.  Run it: npm run dev
+3.  npm install
+4.  npm run dev
 5.  Make changes and submit a PR
     
 
