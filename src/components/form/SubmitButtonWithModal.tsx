@@ -4,6 +4,7 @@ import { Fields } from "@/types/form";
 import { initialFormState } from "@/constants/form";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { PlusCircle } from "lucide-react";
+import { ICON_SIZES } from "../constants";
 
 const SubmitButtonWithModal = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -33,7 +34,7 @@ const SubmitButtonWithModal = () => {
         title="Create New Session"
         onClick={handleToggleModal}
       >
-        <PlusCircle size={25} />
+        <PlusCircle size={ICON_SIZES.MEDIUM} />
       </button>
     </div>
   );

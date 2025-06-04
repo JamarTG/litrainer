@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store";
 import { nextPuzzle, prevPuzzle, redoPuzzle } from "@/redux/slices/puzzle";
 import { resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
+import { ICON_SIZES } from "../constants";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
@@ -47,7 +48,7 @@ const PuzzleNavigation = () => {
             : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
         }`}
       >
-        <StepBack size={25} />
+        <StepBack size={ICON_SIZES.MEDIUM} />
       </button>
 
       <button
@@ -60,7 +61,7 @@ const PuzzleNavigation = () => {
             : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95'
         }`}
       >
-        <RotateCcw size={25} />
+        <RotateCcw size={ICON_SIZES.MEDIUM} />
       </button>
 
       <button
@@ -73,7 +74,7 @@ const PuzzleNavigation = () => {
             : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
         }`}
       >
-        <StepForward size={25} />
+        <StepForward size={ICON_SIZES.MEDIUM} />
       </button>
     </div>
   );

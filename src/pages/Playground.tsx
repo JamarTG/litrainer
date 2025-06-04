@@ -21,6 +21,7 @@ import SubmitButtonWithModal from "@/components/form/SubmitButtonWithModal";
 import GameInfo from "@/components/board/header/GameInfo";
 import EngineDepthControl from "@/components/panel/EngineDepthControl";
 import WebsiteLoader from "@/components/common/WebsiteLoader";
+import { ICON_SIZES } from "@/components/constants";
 // import
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -92,7 +93,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(true)}
                 className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
               >
-                <Settings size={25} />
+                <Settings size={ICON_SIZES.MEDIUM} />
               </button>
             </div>
             <PuzzleInfo />
@@ -109,7 +110,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => setShowSettings(false)}
                 className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-                <ArrowBigLeftDash size={25} />
+                <ArrowBigLeftDash size={ICON_SIZES.MEDIUM} />
               </button>
               <button
                 title="light or dark?"
@@ -117,7 +118,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
                 onClick={() => dispatch(toggleTheme())}
                 aria-label="Toggle theme"
               >
-                {theme === "light" ? <Sun size={25} /> : <Moon size={25} />}
+                {theme === "light" ? <Sun size={ICON_SIZES.MEDIUM} /> : <Moon size={ICON_SIZES.MEDIUM} />}
               </button>
             </div>
             <div className="flex h-full justify-center items-center">

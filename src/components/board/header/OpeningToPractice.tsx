@@ -2,6 +2,7 @@
 import { BookOpen } from "lucide-react";
 import { LichessURL } from "@/constants/urls";
 import { Puzzle } from "@/types/puzzle";
+import { ICON_SIZES } from "@/components/constants";
 
 interface OpeningToPracticeProps {
   positionOpening: Puzzle["positionOpening"];
@@ -18,7 +19,7 @@ const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }
           rel="noopener noreferrer"
           title={`Explore ${positionOpening.name}`}
         >
-          <BookOpen size={20} />
+          <BookOpen size={ICON_SIZES.SMALL} />
           <span>Practice This Opening</span>
         </a>
       ) : null}

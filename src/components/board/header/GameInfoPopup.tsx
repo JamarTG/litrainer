@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Puzzle } from "@/types/puzzle";
 import GameSpeedIcon from "../GameSpeedIcon";
+import { ICON_SIZES } from "@/components/constants";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
@@ -35,7 +36,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup, 
 
           <div className="flex items-center gap-2">
             <span className="text-lg">
-              <GameSpeedIcon speed={puzzle.timeControl} size={"text-2xl"} />
+              <GameSpeedIcon speed={puzzle.timeControl} size={ICON_SIZES.MEDIUM} />
             </span>
             <span>{ratedLabel}</span>
             <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">{timeLabel}</span>

@@ -7,13 +7,13 @@ import { pieceLongFormWithoutKing } from "@/constants/piece";
 import { PieceShortFormWithoutKing } from "@/types/piece";
 import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
+import { ICON_SIZES } from "@/components/constants";
 
 interface RenderMaterialProps {
   material: Materials;
   color: Color;
 }
 
-const PIECE_ICON_SIZE = 18;
 
 const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   const materialCount = determineColorLeadingInMaterial(material, color);
@@ -27,7 +27,7 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
         <div key={piece} className="flex">
           <List
             items={numberOfPiecesArray}
-            renderItem={(_, i) => <PieceIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={PIECE_ICON_SIZE} />}
+            renderItem={(_, i) => <PieceIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={ICON_SIZES.SMALL} />}
           />
         </div>
       )

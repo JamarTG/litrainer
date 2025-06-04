@@ -4,15 +4,11 @@ import { FC } from "react";
 
 interface GameSpeedIconProps {
   speed: GameType;
-  size: "text-xs" | "text-sm" | "text-base" | "text-lg" | "text-xl" | "text-2xl" | "text-3xl" | "text-4xl";
+  size: number;
 }
 
 const GameSpeedIcon: FC<GameSpeedIconProps> = ({ speed, size }) => {
-  return (
-    <div className="my-auto">
-      <span className={`icon ${size} text-[#000] dark:text-[#fff]`}>{TimeControlIcons[speed]}</span>
-    </div>
-  );
+  return <span style={{ fontSize: size }}>{TimeControlIcons[speed]}</span>;
 };
 
 export default GameSpeedIcon;
