@@ -7,12 +7,12 @@ import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "@/redux/
 import { Classification } from "@/types/classification";
 import { RootState, store } from "@/redux/store";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
-import { useDepth } from "@/context/hooks/useDepth";
 import { updateBoardStates } from "@/redux/slices/board";
 import { playSound } from "@/libs/sound";
 import { setEngineRunning } from "@/redux/slices/engine";
 import { convertLanToSan } from "@/utils/move";
 import { nextPuzzle } from "@/redux/slices/puzzle";
+import { Root } from "react-dom/client";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,
@@ -23,16 +23,11 @@ const selectPuzzleData = (state: RootState) => ({
 
 const ATTEMPTED_PUZZLE_DELAY_TIME = 1500;
 
-const PositiveClassifications = new Set([
-  "Best",
-  "Excellent",
-  "Good",
-  "Brilliant"
-]);
+const PositiveClassifications = new Set(["Best", "Excellent", "Good", "Brilliant"]);
 
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
-  const { depth: engineDepth } = useDepth();
+  const engineDepth = useSelector((state: RootState) => state.engine.depth);
   const { puzzle, isPuzzleSolved, fen, autoSkip } = useSelector(selectPuzzleData);
 
   const dispatch = useDispatch();
@@ -114,64 +109,53 @@ export const useMoveHandler = (game: Chess) => {
   };
 
   const handleMoveAttempt = useCallback(
-  (sourceSquare: string, targetSquare: string, promotion: string) => {
-    if (isPuzzleSolved) return false;
-    if (game.turn() !== puzzle?.userMove.color) return false;
+    (sourceSquare: string, targetSquare: string, promotion: string) => {
+      if (isPuzzleSolved) return false;
+      if (game.turn() !== puzzle?.userMove.color) return false;
 
-    const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare, promotion);
-    if (!movePlayedByUser) return false;
+      const movePlayedByUser = attemptMove(game, sourceSquare, targetSquare, promotion);
+      if (!movePlayedByUser) return false;
 
-    const newFen = game.fen();
-    dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare }));
-    playSound(game);
+      const newFen = game.fen();
+      dispatch(updateBoardStates({ fen: newFen, sourceSquare, destinationSquare: targetSquare }));
+      playSound(game);
 
-    const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
+      const isSameMistake = movePlayedByUser.lan === puzzle?.userMove.lan;
 
-    if (isSameMistake) {
-      const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
-      const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
-      handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
+      if (isSameMistake) {
+        const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
+        const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
+        handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
+
+        return true;
+      }
+
+      if (!isInOpeningBook(movePlayedByUser)) {
+        evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
+          console.log("Evaluated Classification:", classification);
+          console.log("Is classification positive?", classification && PositiveClassifications.has(classification));
+
+          handleEvaluation(bestMove, movePlayedByUser, classification, true);
+
+          if (autoSkip && classification && PositiveClassifications.has(classification)) {
+            console.log("AutoSkip: true | Positive classification -> skipping");
+            setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+          } else {
+            console.log("AutoSkip: false OR classification not positive -> not skipping");
+          }
+        });
+
+        return true;
+      }
+
+      if (autoSkip) {
+        setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+      }
 
       return true;
-    }
-
-    if (!isInOpeningBook(movePlayedByUser)) {
-      evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
-        console.log("Evaluated Classification:", classification);
-        console.log("Is classification positive?", classification && PositiveClassifications.has(classification));
-
-        handleEvaluation(bestMove, movePlayedByUser, classification, true);
-
-        if (autoSkip && classification && PositiveClassifications.has(classification)) {
-          console.log("AutoSkip: true | Positive classification -> skipping");
-          setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
-        } else {
-          console.log("AutoSkip: false OR classification not positive -> not skipping");
-        }
-      });
-
-      return true;
-    }
-
-    if (autoSkip) {
-      setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
-    }
-
-    return true;
-  },
-  [
-    isPuzzleSolved,
-    game,
-    puzzle,
-    dispatch,
-    isInOpeningBook,
-    evaluateMoveQuality,
-    fen,
-    handleEvaluation,
-    autoSkip
-  ]
-);
-
+    },
+    [isPuzzleSolved, game, puzzle, dispatch, isInOpeningBook, evaluateMoveQuality, fen, handleEvaluation, autoSkip]
+  );
 
   return useMemo(() => ({ handleMoveAttempt, evaluateMoveQuality }), [handleMoveAttempt, evaluateMoveQuality]);
 };
