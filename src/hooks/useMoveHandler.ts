@@ -12,7 +12,6 @@ import { playSound } from "@/libs/sound";
 import { setEngineRunning } from "@/redux/slices/engine";
 import { convertLanToSan } from "@/utils/move";
 import { nextPuzzle } from "@/redux/slices/puzzle";
-import { Root } from "react-dom/client";
 
 const selectPuzzleData = (state: RootState) => ({
   fen: state.board.fen,
