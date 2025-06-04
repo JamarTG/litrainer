@@ -1,11 +1,6 @@
-import GameSpeedIcon from "@/components/board/GameSpeedIcon";
 import { Dispatch, SetStateAction } from "react";
 import { Puzzle } from "@/types/puzzle";
-import PuzzlePhaseIcon from "./PuzzlePhaseIcon";
-import RatedOrCasual from "./RatedOrCasual";
-import GameStatus from "./GameStatus";
-import OpeningToPractice from "./OpeningToPractice";
-import ViewGame from "./ViewGame";
+import GameSpeedIcon from "../GameSpeedIcon";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
@@ -14,35 +9,74 @@ interface GameInfoPopupProps {
 }
 
 const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup, puzzle }) => {
-  if (!showPopup) return;
+  if (!showPopup) return null;
+
+  const { phase, timeControl, rated, status, winner, players, gameId, moveNumber, positionOpening } = puzzle;
+
+  const ratedLabel = rated ? "Rated" : "Casual";
+  const phaseLabel = phase;
+  const timeLabel = timeControl;
 
   return (
-    <div className="absolute left-1/2 top-full mt-1 z-10 bg-white dark:bg-[#222] border border-gray-300 dark:border-gray-700 rounded shadow-lg p-3 min-w-[280px] text-left transform -translate-x-1/2">
-      <div className="flex flex-col gap-2">
-        <div className="text-xs text-gray-700 dark:text-gray-200">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3 text-md">
-              <PuzzlePhaseIcon gamePhase={puzzle.phase} />
-              <GameSpeedIcon size="text-3xl" speed={puzzle.timeControl} />
-              <RatedOrCasual isRatedGame={puzzle.rated} />
-            </div>
-
-            <GameStatus
-              gameStatus={puzzle.status}
-              gameWinner={puzzle.winner}
-              whitePlayer={puzzle.players.white}
-              blackPlayer={puzzle.players.black}
+    <div className="absolute left-1/2 top-full mt-2 z-20 transform -translate-x-1/2 min-w-[300px] max-w-sm w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-xl shadow-lg p-4">
+      <div className="flex flex-col gap-4 text-sm text-gray-800 dark:text-gray-200">
+        <div className="flex flex-col w-2/3 items-start gap-2">
+          <div className="flex items-center gap-2">
+            <img
+              src={`/phases/${phase}.svg`}
+              alt={`${phase} icon`}
+              title={`Position taken from ${phase}`}
+              className="w-6 h-6 rounded-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 p-0.5"
             />
-
-            <hr className="mb-2 border-b dark:border-gray-600" />
+            <span className="text-xs tracking-wide">
+              {phaseLabel[0].toLocaleUpperCase() + phaseLabel.slice(1) + " Position"}
+            </span>
           </div>
 
-          <div className="flex-col flex justify-center items-start gap-2">
-            <ViewGame gameId={puzzle.gameId} moveNumber={puzzle.moveNumber} />
-            {puzzle.positionOpening && <OpeningToPractice positionOpening={puzzle.positionOpening} />}
+          <div className="flex items-center gap-2">
+            <span className="text-lg">
+              <GameSpeedIcon speed={puzzle.timeControl} size={"text-2xl"} />
+            </span>
+            <span>{ratedLabel}</span>
+            <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">{timeLabel}</span>
           </div>
         </div>
-        <button className="mt-2 text-xs text-blue-500 hover:text-blue-400" onClick={() => setShowPopup(false)}>
+
+        <div className="text-xs">
+          <p className="font-medium text-zinc-700 dark:text-zinc-300">
+            {status === "draw"
+              ? "Game ended in a draw"
+              : winner
+                ? `Winner: ${winner === "white" ? players.white.user.name : players.black.user.name}`
+                : "Game ongoing"}
+          </p>
+          <p className="text-zinc-500 dark:text-zinc-400">
+            White: {players.white.user.name} — Black: {players.black.user.name}
+          </p>
+        </div>
+
+        <hr className="border-t dark:border-zinc-700" />
+
+        <div className="flex flex-col gap-2">
+          <a
+            href={`https://lichess.org/${gameId}#${moveNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 dark:text-blue-400 hover:underline text-xs"
+          >
+            View Full Game ↗
+          </a>
+
+          {positionOpening && (
+            <p className="text-xs">{/* <span className="font-semibold">Opening:</span> {positionOpening} */}</p>
+          )}
+        </div>
+
+        {/* Close Button */}
+        <button
+          onClick={() => setShowPopup(false)}
+          className="self-end mt-2 text-xs font-medium text-blue-600 hover:text-blue-500 transition-colors"
+        >
           Close
         </button>
       </div>
