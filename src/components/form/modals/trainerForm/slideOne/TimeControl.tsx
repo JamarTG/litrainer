@@ -6,6 +6,7 @@ import GameSpeedIcon from "@/components/board/GameSpeedIcon";
 import { TimeControls } from "@/constants/form";
 import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
+import { ICON_SIZES } from "@/components/constants";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -25,7 +26,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
       onClick={() => handleGameTypesChange(timeControl)}
     >
       <div className="flex text-[#000] dark:text-[#fff] items-center my-auto gap-x-2">
-        <GameSpeedIcon size="text-2xl" speed={timeControl} />
+        <GameSpeedIcon size={ICON_SIZES.MEDIUM} speed={timeControl} />
         {timeControl}
       </div>
       <ToggleSwitch isOn={formData.gameTypes.includes(timeControl)} />
