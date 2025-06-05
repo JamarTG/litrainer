@@ -11,8 +11,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               target="_blank"
               className="flex justify-center text-zinc-600 dark:text-zinc-200 items-center gap-2 px-4 py-2 rounded-md border border-gray-400 bg-zinc-300 dark:bg-[#222] dark:border-gray-700"
             >
-              <p className="hidden md:block text-md">contribute or ⭐</p>
-
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
