@@ -13,7 +13,7 @@ import GameInfo from "@/components/panel/header/game-info/_index";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { Settings as SettingsIcon } from "lucide-react";
 import ChessLoader from "@/components/common/ChessLoader";
-import { ICON_SIZES } from "@/components/constants";
+import { ICON_SIZES } from "@/constants/ui";
 import TrainerForm from "@/components/panel/header/new-session/form/TrainerForm";
 import Settings from "@/components/panel/header/settings/_index";
 import CreateNewSession from "@/components/panel/header/new-session/_index";

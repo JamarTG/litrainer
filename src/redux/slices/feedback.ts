@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Classification } from "@/constants/classification";
+import { Classification } from "@/types/classification";
 
 export interface FeedbackState {
   classification: Classification | null;

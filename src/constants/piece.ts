@@ -82,7 +82,7 @@ export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLo
   n: "knight"
 } as const;
 
-export const promotionPieces: PromotionPiece[] = [
+export const PROMOTION_PIECES: PromotionPiece[] = [
   {
     piece: "q",
     name: "Queen"

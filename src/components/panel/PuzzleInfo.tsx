@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { MoveClassificationImages, MoveClassification } from "@/constants/classification";
+import { CLASSIFICATION_IMAGES } from "@/constants/classification";
+import { MoveClassification, Classification } from "@/types/classification";
 import Navigation from "./Navigation";
 
 const PuzzleInfo = () => {
@@ -12,11 +13,11 @@ const PuzzleInfo = () => {
 
   if (!puzzle) return null;
 
-  const initialImageSrc = MoveClassificationImages[puzzle.evaluation.judgment?.name as keyof typeof MoveClassification];
+  const initialImageSrc = CLASSIFICATION_IMAGES[puzzle.evaluation.judgment?.name as Classification];
   const initialImageAlt = puzzle.evaluation.judgment?.name ?? "move quality";
 
   const finalImageSrc = classification
-    ? MoveClassificationImages[classification as keyof typeof MoveClassification]
+    ? CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]
     : initialImageSrc;
   const finalImageAlt = classification ?? initialImageAlt;
 

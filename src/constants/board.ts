@@ -1,4 +1,4 @@
-export const BoardThemes = [
+export const BOARD_THEMES = [
   {
     name: "blue-marble",
     path: "/themes/boards/blue-marble.jpg",
@@ -125,31 +125,3 @@ export const BoardThemes = [
     thumbnail: "/themes/boards/wood4.thumbnail.jpg"
   }
 ];
-
-export const BOARD_THEME_THUMBNAILS: { [name: string]: string | null } = {
-  "blue-marble": "/themes/boards/blue-marble.thumbnail.jpg",
-  blue: "/themes/boards/blue.thumbnail.png",
-  blue2: "/themes/boards/blue2.thumbnail.jpg",
-  blue3: "/themes/boards/blue3.thumbnail.jpg",
-  brown: "/themes/boards/brown.thumbnail.png",
-  canvas2: "/themes/boards/canvas2.thumbnail.jpg",
-  "green-plastic": "/themes/boards/green-plastic.thumbnail.png",
-  green: "/themes/boards/green.thumbnail.png",
-  grey: "/themes/boards/grey.thumbnail.jpg",
-  horsey: "/themes/boards/horsey.thumbnail.jpg",
-  ic: "/themes/boards/ic.thumbnail.png",
-  leather: "/themes/boards/leather.thumbnail.jpg",
-  maple: "/themes/boards/maple.thumbnail.jpg",
-  maple2: "/themes/boards/maple2.thumbnail.jpg",
-  marble: "/themes/boards/marble.thumbnail.jpg",
-  metal: "/themes/boards/metal.thumbnail.jpg",
-  "ncf-board": null,
-  olive: "/themes/boards/olive.thumbnail.jpg",
-  "pink-pyramid": "/themes/boards/pink-pyramid.thumbnail.png",
-  "purple-diag": "/themes/boards/purple-diag.thumbnail.png",
-  purple: "/themes/boards/purple.thumbnail.png",
-  wood: "/themes/boards/wood.thumbnail.jpg",
-  wood2: "/themes/boards/wood2.thumbnail.jpg",
-  wood3: "/themes/boards/wood3.thumbnail.jpg",
-  wood4: "/themes/boards/wood4.thumbnail.jpg"
-};

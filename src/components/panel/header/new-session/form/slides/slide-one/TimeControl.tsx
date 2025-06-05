@@ -5,7 +5,7 @@ import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
 import { TimeControls } from "@/constants/form";
 import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
-import { ICON_SIZES } from "@/components/constants";
+import { ICON_SIZES } from "@/constants/ui";
 import { Fields, GameType } from "@/types/lichess";
 
 interface GamesProps {

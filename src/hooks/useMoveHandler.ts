@@ -2,7 +2,8 @@ import { Chess, Move } from "chess.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
-import { Classification, ClassificationMessage } from "@/constants/classification";
+import { Classification, MoveClassification } from "@/types/classification";
+import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
 import { setClassification, setFeedbackMoves, setIsPuzzleSolved } from "@/redux/slices/feedback";
 import { RootState, store } from "@/redux/store";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
@@ -30,14 +31,14 @@ export const useMoveHandler = (game: Chess) => {
     (move: Move) => {
       if (!puzzle?.positionOpening) return false;
 
-      dispatch(setClassification("Book"));
+      dispatch(setClassification(MoveClassification.Book));
       dispatch(setIsPuzzleSolved(true));
 
       requestIdleCallback(() => {
         dispatch(
           setFeedbackMoves({
             bestMove: `${move} is acceptable`,
-            playedMove: `${move} ${ClassificationMessage["Book"]}`
+            playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.Book]}`
           })
         );
       });
@@ -54,7 +55,7 @@ export const useMoveHandler = (game: Chess) => {
       dispatch(
         setFeedbackMoves({
           bestMove: bestMove ? `${bestMove} is the best move` : "Repeated Error",
-          playedMove: `${movePlayedByUser.san} ${ClassificationMessage[classification!] || "Unknown"}`
+          playedMove: `${movePlayedByUser.san} ${CLASSIFICATION_MESSAGES[classification!] || MoveClassification.Unknown}`
         })
       );
     },
@@ -119,7 +120,7 @@ export const useMoveHandler = (game: Chess) => {
       if (isSameMistake) {
         const lichessProvidedClassification = puzzle?.evaluation.judgment?.name || null;
         const bestMove = convertLanToSan(puzzle.fen.current, puzzle.evaluation.best ?? "");
-        handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification, false);
+        handleEvaluation(bestMove, movePlayedByUser, lichessProvidedClassification as Classification, false);
 
         return true;
       }

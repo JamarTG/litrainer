@@ -6,7 +6,7 @@ import { pieceLongFormWithoutKing } from "@/constants/piece";
 import { PieceShortFormWithoutKing } from "@/types/chess";
 import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
-import { ICON_SIZES } from "@/components/constants";
+import { ICON_SIZES } from "@/constants/ui";
 import MaterialIndicatorIcon from "./MaterialIndicatorIcon";
 
 interface RenderMaterialProps {

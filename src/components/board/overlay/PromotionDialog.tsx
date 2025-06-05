@@ -2,7 +2,7 @@ import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { promotionPieces } from "@/constants/piece";
+import { PROMOTION_PIECES } from "@/constants/piece";
 import List from "@/components/common/List";
 import { PromotionPiece } from "@/types/chess";
 import { ColorLongForm } from "@/types/lichess";
@@ -50,7 +50,7 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPr
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Choose promotion piece</h3>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <List items={promotionPieces} renderItem={renderPromotionOption} />
+          <List items={PROMOTION_PIECES} renderItem={renderPromotionOption} />
         </div>
 
         <button

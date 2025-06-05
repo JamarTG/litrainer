@@ -1,4 +1,4 @@
-import { ICON_SIZES } from "@/components/constants";
+import { ICON_SIZES } from "@/constants/ui";
 import { ArrowBigLeftDash } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import BoardThemeChooser from "./BoardThemeChooser";

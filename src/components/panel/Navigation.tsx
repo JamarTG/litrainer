@@ -4,11 +4,11 @@ import { RootState } from "@/redux/store";
 import { nextPuzzle, prevPuzzle, redoPuzzle } from "@/redux/slices/puzzle";
 import { resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
-import { ICON_SIZES } from "../constants";
+import { ICON_SIZES } from "../../constants/ui";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
-  
+
   const { currentIndex, puzzles } = useSelector((state: RootState) => state.puzzle);
   const { playedMove } = useSelector((state: RootState) => state.feedback);
 
@@ -37,15 +37,14 @@ const PuzzleNavigation = () => {
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
-      
       <button
         aria-label="Previous Puzzle"
         onClick={handlePrev}
         disabled={isFirstPuzzle}
         className={`p-2 rounded-xl transition-all duration-200 ${
           isFirstPuzzle
-            ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
+            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+            : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
         }`}
       >
         <StepBack size={ICON_SIZES.MEDIUM} />
@@ -57,8 +56,8 @@ const PuzzleNavigation = () => {
         disabled={!hasAttempted}
         className={`p-2 rounded-xl transition-all duration-200 ${
           !hasAttempted
-            ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95'
+            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+            : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95"
         }`}
       >
         <RotateCcw size={ICON_SIZES.MEDIUM} />
@@ -70,8 +69,8 @@ const PuzzleNavigation = () => {
         disabled={isLastPuzzle}
         className={`p-2 rounded-xl transition-all duration-200 ${
           isLastPuzzle
-            ? 'bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed'
-            : 'bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95'
+            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+            : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
         }`}
       >
         <StepForward size={ICON_SIZES.MEDIUM} />

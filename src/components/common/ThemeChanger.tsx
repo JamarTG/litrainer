@@ -1,4 +1,4 @@
-import { ICON_SIZES } from "@/components/constants";
+import { ICON_SIZES } from "@/constants/ui";
 import { toggleTheme } from "@/redux/slices/theme";
 import { RootState } from "@/redux/store";
 import { Moon, Sun } from "lucide-react";
