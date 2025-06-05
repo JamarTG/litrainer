@@ -27,7 +27,7 @@ export const MoveClassificationImages: Record<MoveClassification, string> = {
   [MoveClassification.Inaccuracy]: "/classification/inaccuracy.svg",
   [MoveClassification.Mistake]: "/classification/mistake.svg",
   [MoveClassification.Blunder]: "/classification/blunder.svg",
-  [MoveClassification.Brilliant]: "/classificatio/brilliant.svg"
+  [MoveClassification.Brilliant]: "/classification/brilliant.svg"
 } as const;
 
 export const ClassificationColors: Record<string, string> = {

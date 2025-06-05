@@ -12,13 +12,6 @@ import { setEngineRunning } from "@/redux/slices/engine";
 import { convertLanToSan } from "@/utils/move";
 import { nextPuzzle } from "@/redux/slices/puzzle";
 
-const selectPuzzleData = (state: RootState) => ({
-  fen: state.board.fen,
-  puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-  isPuzzleSolved: state.feedback.isPuzzleSolved,
-  autoSkip: state.puzzle.autoSkip
-});
-
 const ATTEMPTED_PUZZLE_DELAY_TIME = 1500;
 
 const PositiveClassifications = new Set(["Best", "Excellent", "Good", "Brilliant"]);
@@ -26,7 +19,10 @@ const PositiveClassifications = new Set(["Best", "Excellent", "Good", "Brilliant
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
   const engineDepth = useSelector((state: RootState) => state.engine.depth);
-  const { puzzle, isPuzzleSolved, fen, autoSkip } = useSelector(selectPuzzleData);
+  const fen = useSelector((state: RootState) => state.board.fen);
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
+  const autoSkip = useSelector((state: RootState) => state.puzzle.autoSkip);
 
   const dispatch = useDispatch();
 
@@ -130,16 +126,10 @@ export const useMoveHandler = (game: Chess) => {
 
       if (!isInOpeningBook(movePlayedByUser)) {
         evaluateMoveQuality(fen, movePlayedByUser).then(({ classification, bestMove }) => {
-          console.log("Evaluated Classification:", classification);
-          console.log("Is classification positive?", classification && PositiveClassifications.has(classification));
-
           handleEvaluation(bestMove, movePlayedByUser, classification, true);
 
           if (autoSkip && classification && PositiveClassifications.has(classification)) {
-            console.log("AutoSkip: true | Positive classification -> skipping");
             setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
-          } else {
-            console.log("AutoSkip: false OR classification not positive -> not skipping");
           }
         });
 

@@ -4,9 +4,11 @@ import { MoveClassificationImages, MoveClassification } from "@/constants/classi
 import Navigation from "./Navigation";
 
 const PuzzleInfo = () => {
-  const { classification, playedMove, bestMove, puzzle } = useSelector((state: RootState) => {
-    return { ...state.feedback, puzzle: state.puzzle.puzzles[state.puzzle.currentIndex] };
-  });
+  const classification = useSelector((state: RootState) => state.feedback.classification);
+  const playedMove = useSelector((state: RootState) => state.feedback.playedMove);
+  const bestMove = useSelector((state: RootState) => state.feedback.bestMove);
+  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[currentPuzzleIndex]);
 
   if (!puzzle) return null;
 

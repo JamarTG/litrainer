@@ -11,13 +11,12 @@ interface ChessBoardLayoutProps {
 }
 
 const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ material, children }) => {
-  const { hasActivePuzzle, playerColor, opponentColor } = useSelector((state: RootState) => {
-    return {
-      hasActivePuzzle: Boolean(state.puzzle.puzzles[state.puzzle.currentIndex]),
-      playerColor: state.puzzle.puzzles[state.puzzle.currentIndex]?.userMove.color,
-      opponentColor: state.puzzle.puzzles[state.puzzle.currentIndex]?.opponentMove.color
-    };
-  });
+  const currentPuzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+
+  const hasActivePuzzle = Boolean(currentPuzzle);
+  const playerColor = currentPuzzle?.userMove.color;
+  const opponentColor = currentPuzzle?.opponentMove.color;
+
   const renderPlayerBadge = (color: Color) => {
     return <PlayerBadge color={color} material={material} hasPuzzle={hasActivePuzzle} />;
   };

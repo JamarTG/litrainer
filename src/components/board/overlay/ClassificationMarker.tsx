@@ -15,11 +15,9 @@ interface MoveClassificationMarkerProps {
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
-  const { puzzle, classification, destinationSquare } = useSelector((state: RootState) => ({
-    puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-    classification: state.feedback.classification,
-    destinationSquare: state.board.destinationSquare
-  }));
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const classification = useSelector((state: RootState) => state.feedback.classification);
+  const destinationSquare = useSelector((state: RootState) => state.board.destinationSquare);
 
   const [visible, setVisible] = useState(false);
 

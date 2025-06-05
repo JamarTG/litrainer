@@ -11,13 +11,12 @@ interface PlayerMetaDataProps {
 }
 
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
-  const { puzzle, theme, player } = useSelector((state: RootState) => {
-    return {
-      theme: state.theme.theme,
-      puzzle: state.puzzle.puzzles[state.puzzle.currentIndex],
-      player: state.puzzle.puzzles[state.puzzle.currentIndex].players[color === "w" ? "white" : "black"]
-    };
-  });
+  const theme = useSelector((state: RootState) => state.theme.theme);
+  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
+  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[currentPuzzleIndex]);
+  const player = useSelector(
+    (state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]?.players[color === "w" ? "white" : "black"]
+  );
 
   const { rating, provisional, ratingDiff, user } = player;
 
