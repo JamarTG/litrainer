@@ -1,10 +1,13 @@
 import { Chess } from "chess.js";
-import { LichessEvaluation } from "@/types/eval";
-import { LichessGameResponse } from "@/types/response";
-import { PositionOpening, Puzzle } from "@/types/lichess";
-import { GameType } from "@/types/form";
+import {
+  ColorLongForm,
+  GameType,
+  LichessEvaluation,
+  LichessGameResponse,
+  PositionOpening,
+  Puzzle
+} from "@/types/lichess";
 import openings from "./openings";
-import { ColorLongForm } from "@/types/player";
 
 export const parseGames = async (response: Response) => {
   if (!response.body) return;
