@@ -5,14 +5,13 @@ import { RootState } from "@/redux/store";
 import { MoveClassification, MoveClassificationImages } from "@/constants/classification";
 import { FC, RefObject, useEffect, useState } from "react";
 import { ColorLongForm } from "@/types/lichess";
+import { Z_INDEX } from "@/components/constants";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
   boardRef: RefObject<HTMLDivElement>;
   orientation: ColorLongForm;
 }
-
-const MARKER_Z_INDEX = 95;
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
   const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
@@ -43,21 +42,21 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
   if (!destinationSquare || !classification || !boardRef.current || !markerPosition) {
     return null;
   }
+  const squareSize = boardSize / 16;
 
   return (
     <img
       src={MoveClassificationImages[classification as keyof typeof MoveClassification]}
       alt={classification}
-      width={boardSize / 16}
-      height={boardSize / 16}
-      className={`absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
+      width={squareSize}
+      height={squareSize}
+      className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
         visible ? "opacity-90" : "opacity-0"
       }`}
       style={{
         right: markerPosition.right,
         top: markerPosition.top,
-        transform: "translate(-15%, 30%)",
-        zIndex: MARKER_Z_INDEX
+        zIndex: Z_INDEX.MARKER
       }}
     />
   );

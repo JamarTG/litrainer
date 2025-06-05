@@ -13,6 +13,7 @@ import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/
 import { useMaterialEffect } from "@/hooks/useMaterialEffect";
 import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
+import { ColorLongForm } from "@/types/lichess";
 
 interface BoardComponentProps {
   game: Chess;
@@ -74,8 +75,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     });
   }, [boardTheme]);
 
-  const playerColor: Color = puzzle?.userMove.color === "w" ? "white" : "black";
-
+  const playerColorLongForm = puzzle?.userMove.color == "w" ? "white" : "black";
   const calcMovable = () => {
     if (isPuzzleSolved) {
       return {
@@ -97,7 +97,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
     return {
       free: false,
       dests,
-      color: playerColor
+      color: playerColorLongForm as ColorLongForm
     };
   };
 
@@ -157,7 +157,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
               key={`puzzle-${currentPuzzleIndex}`}
               className="relative"
               fen={fen}
-              orientation={playerColor}
+              orientation={playerColorLongForm}
               turnColor={turnColor()}
               movable={calcMovable()}
               lastMove={undefined}
@@ -171,7 +171,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
               highlight={{ lastMove: true, check: true }}
               addPieceZIndex={true}
             />
-            <MoveClassificationMarker boardSize={boardSize} boardRef={boardRef} orientation={playerColor} />
+            <MoveClassificationMarker boardSize={boardSize} boardRef={boardRef} orientation={playerColorLongForm} />
           </div>
         </div>
       </ChessBoardLayout>

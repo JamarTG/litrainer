@@ -1,4 +1,4 @@
-import { PieceSymbol, Square } from "chess.js";
+import { Color, PieceSymbol, Square } from "chess.js";
 
 export interface LichessEvaluation {
   eval: number;
@@ -24,7 +24,7 @@ export type Sort = "asc" | "desc";
 
 export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
 
-export type Color = ColorLongForm | "both";
+// export type Color = ColorLongForm | "both";
 
 export interface LichessPlayers {
   white: LichessPlayer;

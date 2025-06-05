@@ -3,9 +3,9 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { promotionPieces } from "@/constants/piece";
-import { ColorLongForm } from "@/types/player";
 import List from "@/components/common/List";
 import { PromotionPiece } from "@/types/chess";
+import { ColorLongForm } from "@/types/lichess";
 
 export interface PromotionData {
   from: Square;
