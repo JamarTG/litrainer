@@ -151,11 +151,10 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   return (
     <>
       <ChessBoardLayout material={material}>
-        <div className="box relative">
-          <div className="main-board green merida my-2" ref={boardRef}>
+        <div className="box relative rounded-">
+          <div className="main-board green merida my-2 " ref={boardRef}>
             <Chessground
               key={`puzzle-${currentPuzzleIndex}`}
-              className="relative"
               fen={fen}
               orientation={playerColorLongForm}
               turnColor={turnColor()}
