@@ -9,7 +9,7 @@ export class Stockfish16_1 extends UciEngine {
     }
 
     const multiThreadIsSupported = isMultiThreadSupported();
-    if (!multiThreadIsSupported) console.log("Single thread mode");
+    // if (!multiThreadIsSupported) console.log("Single thread mode");
 
     const enginePath = `engines/stockfish-16.1/stockfish-16.1${lite ? "-lite" : ""}${multiThreadIsSupported ? "" : "-single"}.js`;
 

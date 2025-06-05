@@ -1,6 +1,6 @@
 import { MoveClassification } from "@/types/classification";
-import { getBasicClassification } from "../evaluation";
-import { parseEvaluationResults } from "../parsers";
+import { getBasicClassification } from "../evaluation/_index.ts";
+import { parseEvaluationResults } from "./parsers";
 import { EngineName, PositionEvaluation, VariationLineResult } from "@/types/engine";
 import { Chess } from "chess.js";
 

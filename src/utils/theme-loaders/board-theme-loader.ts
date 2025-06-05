@@ -36,7 +36,7 @@ export const loadBoardThemeCSS = async (themeName: string): Promise<void> => {
     if (boardModules[themeName as keyof typeof boardModules]) {
       await boardModules[themeName as keyof typeof boardModules]();
       loadedBoardThemes.add(themeName);
-      console.log(`Board theme "${themeName}" loaded successfully`);
+      // console.log(`Board theme "${themeName}" loaded successfully`);
     } else {
       console.warn(`Board theme "${themeName}" not found in boardModules`);
     }

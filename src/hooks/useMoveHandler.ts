@@ -55,7 +55,7 @@ export const useMoveHandler = (game: Chess) => {
       dispatch(
         setFeedbackMoves({
           bestMove: bestMove ? `${bestMove} is the best move` : "Repeated Error",
-          playedMove: `${movePlayedByUser.san} ${CLASSIFICATION_MESSAGES[classification!] || MoveClassification.Unknown}`
+          playedMove: `${movePlayedByUser.san} ${CLASSIFICATION_MESSAGES[classification!]}`
         })
       );
     },

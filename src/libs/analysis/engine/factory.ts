@@ -1,7 +1,7 @@
-import { Stockfish16 } from "./engine/stockfish16";
-import { Stockfish16_1 } from "./engine/stockfish16_1";
-import { UciEngine } from "./engine/uciEngine";
 import { EngineName } from "@/types/engine";
+import { Stockfish16_1 } from "./stockfish16_1";
+import { Stockfish16 } from "./stockfish16";
+import { UciEngine } from "./uciEngine";
 
 export const pickEngine = (engine: EngineName): UciEngine => {
   switch (engine) {

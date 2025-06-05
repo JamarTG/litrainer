@@ -7,6 +7,15 @@ export const getBasicClassification = (
   move: string
 ): MoveClassification => {
   if (lastPositionEvaluation.bestMove === move) {
+    const cp1 = lastPositionEvaluation?.lines?.[0]?.cp ?? 0;
+    const cp2 = lastPositionEvaluation?.lines?.[1]?.cp ?? 0;
+
+    const cpDiff = Math.abs(cp1 - cp2);
+    console.log(cpDiff, "ceni");
+    if (cpDiff >= 70) {
+      return MoveClassification.Great;
+    }
+
     return MoveClassification.Best;
   }
   const currentCentipawn = currentPositionEvaluation.lines[0].mate

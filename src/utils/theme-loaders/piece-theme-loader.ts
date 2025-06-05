@@ -51,7 +51,7 @@ export const loadThemeCSS = async (themeName: string): Promise<void> => {
     if (themeModules[themeName as keyof typeof themeModules]) {
       await themeModules[themeName as keyof typeof themeModules]();
       loadedThemes.add(themeName);
-      console.log(`Theme "${themeName}" loaded successfully`);
+      // console.log(`Theme "${themeName}" loaded successfully`);
     } else {
       console.warn(`Theme "${themeName}" not found in themeModules`);
     }

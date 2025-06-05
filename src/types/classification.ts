@@ -6,7 +6,7 @@ export enum MoveClassification {
   Excellent = "Excellent",
   Best = "Best",
   Book = "Book",
-  Unknown = "Unknown"
+  Great = "Great"
 }
 
 export type Classification =
@@ -17,4 +17,4 @@ export type Classification =
   | MoveClassification.Excellent
   | MoveClassification.Best
   | MoveClassification.Book
-  | MoveClassification.Unknown;
+  | MoveClassification.Great;

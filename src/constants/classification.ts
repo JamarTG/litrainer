@@ -2,13 +2,13 @@ import { MoveClassification } from "@/types/classification";
 
 export const CLASSIFICATION_IMAGES: Record<MoveClassification, string> = {
   [MoveClassification.Book]: "/classification/book.svg",
+  [MoveClassification.Great]: "/classification/great.svg",
   [MoveClassification.Best]: "/classification/best.svg",
   [MoveClassification.Excellent]: "/classification/excellent.svg",
   [MoveClassification.Good]: "/classification/good.svg",
   [MoveClassification.Inaccuracy]: "/classification/inaccuracy.svg",
   [MoveClassification.Mistake]: "/classification/mistake.svg",
-  [MoveClassification.Blunder]: "/classification/blunder.svg",
-  [MoveClassification.Unknown]: "/classification/blunder.svg"
+  [MoveClassification.Blunder]: "/classification/blunder.svg"
 } as const;
 
 export const CLASSIFICATION_COLORS: Record<string, string> = {
@@ -29,5 +29,5 @@ export const CLASSIFICATION_MESSAGES: Record<MoveClassification, string> = {
   [MoveClassification.Excellent]: "is an excellent move",
   [MoveClassification.Best]: "is the best move",
   [MoveClassification.Book]: "is a book move",
-  [MoveClassification.Unknown]: "could not be classified"
+  [MoveClassification.Great]: "is a great move"
 } as const;
