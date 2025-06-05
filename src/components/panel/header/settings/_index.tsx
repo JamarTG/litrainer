@@ -1,10 +1,6 @@
 import { ICON_SIZES } from "@/components/constants";
-import { toggleTheme } from "@/redux/slices/theme";
-import { RootState } from "@/redux/store";
-import { ArrowBigLeftDash, Moon, Sun } from "lucide-react";
+import { ArrowBigLeftDash } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import BoardThemeChooser from "./BoardThemeChooser";
 import PieceSetChooser from "./PieceSetChooser";
 import AutoSkip from "./AutoSkip";
@@ -16,9 +12,6 @@ interface SettingsProps {
 }
 
 const Settings: React.FC<SettingsProps> = ({ showSettings, setShowSettings }) => {
-  const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.theme.theme);
-
   if (!showSettings) return;
 
   return (
@@ -32,14 +25,6 @@ const Settings: React.FC<SettingsProps> = ({ showSettings, setShowSettings }) =>
           className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
         >
           <ArrowBigLeftDash size={ICON_SIZES.MEDIUM} />
-        </button>
-        <button
-          title="light or dark?"
-          className="w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-          onClick={() => dispatch(toggleTheme())}
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <Sun size={ICON_SIZES.MEDIUM} /> : <Moon size={ICON_SIZES.MEDIUM} />}
         </button>
       </div>
       <div className="flex h-full justify-center items-center">

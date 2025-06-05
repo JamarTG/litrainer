@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import ThemeChanger from "../common/ThemeChanger";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -6,6 +7,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <div>
           <div className="flex justify-center items-center gap-2">
+            <ThemeChanger />
             <a
               href="https://github.com/JamarTG/litrainer"
               target="_blank"
