@@ -1,10 +1,10 @@
-import { Square } from "chess.js";
+import { Color, Square } from "chess.js";
 import { useMarkerPositionEffect } from "@/hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { MoveClassification, MoveClassificationImages } from "@/constants/classification";
 import { FC, RefObject, useEffect, useState } from "react";
-import { ColorLongForm } from "@/types/player";
+import { ColorLongForm } from "@/types/lichess";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
@@ -24,7 +24,13 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
 
   const [visible, setVisible] = useState(false);
 
-  useMarkerPositionEffect(destinationSquare as Square, boardSize, puzzle?.userMove.color, boardRef, orientation);
+  useMarkerPositionEffect(
+    destinationSquare as Square,
+    boardSize,
+    puzzle?.userMove.color[0].toLocaleLowerCase() as Color,
+    boardRef,
+    orientation
+  );
 
   useEffect(() => {
     if (destinationSquare && classification) {

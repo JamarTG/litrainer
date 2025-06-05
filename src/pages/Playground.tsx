@@ -9,9 +9,8 @@ import { useMoveHandler } from "@/hooks/useMoveHandler";
 import PuzzleInfo from "@/components/panel/PuzzleInfo";
 import useUpdateTheme from "@/hooks/useUpdateTheme";
 import { initialFormState } from "@/constants/form";
-
+import GameInfo from "@/components/panel/header/game-info/_index";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
-import GameInfo from "@/components/panel/main-buttons/game-info/_index";
 import { Settings as SettingsIcon } from "lucide-react";
 import ChessLoader from "@/components/common/ChessLoader";
 import { ICON_SIZES } from "@/components/constants";

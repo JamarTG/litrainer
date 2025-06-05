@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { Fields } from "@/types/form";
 import { getLichessGames } from "@/libs/lichess/api";
-import { LichessGameResponse } from "@/types/response";
-import { LichessEvaluation } from "@/types/eval";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import generatePuzzles from "@/libs/lichess/parsers";
 import { dateRangeToEpochMillis, validateDateRange } from "@/utils/date";
 import { saveToLocalStorage } from "@/utils/storage";
+import { Fields, LichessEvaluation, LichessGameResponse } from "@/types/lichess";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
@@ -15,7 +13,7 @@ const useSubmitHandler = (formData: Fields) => {
   const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    let { maxNoGames = 10, color = "both", sort = "desc" } = formData;
+    const { maxNoGames = 10, color = "both", sort = "desc" } = formData;
     const { username, startDate, endDate, gameTypes } = formData;
 
     if (gameTypes.length === 0) {
