@@ -1,12 +1,4 @@
-export type Classification =
-  | "Blunder"
-  | "Mistake"
-  | "Inaccuracy"
-  | "Good"
-  | "Excellent"
-  | "Best"
-  | "Book"
-  | "Brilliant";
+export type Classification = "Blunder" | "Mistake" | "Inaccuracy" | "Good" | "Excellent" | "Best" | "Book";
 
 export enum MoveClassification {
   Blunder = "Blunder",
@@ -15,8 +7,7 @@ export enum MoveClassification {
   Good = "Good",
   Excellent = "Excellent",
   Best = "Best",
-  Book = "Book",
-  Brilliant = "Brilliant"
+  Book = "Book"
 }
 
 export const MoveClassificationImages: Record<MoveClassification, string> = {
@@ -26,8 +17,7 @@ export const MoveClassificationImages: Record<MoveClassification, string> = {
   [MoveClassification.Good]: "/classification/good.svg",
   [MoveClassification.Inaccuracy]: "/classification/inaccuracy.svg",
   [MoveClassification.Mistake]: "/classification/mistake.svg",
-  [MoveClassification.Blunder]: "/classification/blunder.svg",
-  [MoveClassification.Brilliant]: "/classification/brilliant.svg"
+  [MoveClassification.Blunder]: "/classification/blunder.svg"
 } as const;
 
 export const ClassificationColors: Record<string, string> = {
@@ -37,8 +27,7 @@ export const ClassificationColors: Record<string, string> = {
   [MoveClassification.Good]: "#96af8b",
   [MoveClassification.Inaccuracy]: "#f7c045",
   [MoveClassification.Mistake]: "#e58f2a",
-  [MoveClassification.Blunder]: "#ca3431",
-  [MoveClassification.Brilliant]: "#1bada6"
+  [MoveClassification.Blunder]: "#ca3431"
 } as const;
 
 export const ClassificationMessage: Record<MoveClassification, string> = {
@@ -48,6 +37,5 @@ export const ClassificationMessage: Record<MoveClassification, string> = {
   [MoveClassification.Good]: "is a good move",
   [MoveClassification.Excellent]: "is an excellent move",
   [MoveClassification.Best]: "is the best move",
-  [MoveClassification.Book]: "is a book move",
-  [MoveClassification.Brilliant]: "is a brilliant move"
+  [MoveClassification.Book]: "is a book move"
 } as const;
