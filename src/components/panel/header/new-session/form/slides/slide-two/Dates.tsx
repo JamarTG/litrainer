@@ -1,10 +1,10 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import usePopperDropDown from "@/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields, Sort } from "@/types/form";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
 import { convertDateToReadableFormat } from "@/utils/date";
+import { Fields, Sort } from "@/types/lichess";
 
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

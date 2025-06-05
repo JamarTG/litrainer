@@ -16,7 +16,7 @@ export interface Fields {
   startDate: string;
   endDate: string;
   gameTypes: GameType[];
-  color: Color;
+  color: ColorLongForm | "both";
   sort: Sort;
 }
 

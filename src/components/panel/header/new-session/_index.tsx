@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TrainerForm from "./form/TrainerForm";
-import { Fields } from "@/types/form";
+import { Fields } from "@/types/lichess";
 import { initialFormState } from "@/constants/form";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { PlusCircle } from "lucide-react";

@@ -1,4 +1,4 @@
-import { VariationLineEvaluation, PositionEvaluation } from "@/types/eval";
+import { PositionEvaluation, VariationLineEvaluation } from "@/types/engine";
 
 export const parseEvaluationResults = (results: string[], whiteToPlay: boolean): PositionEvaluation => {
   const parsedResults: PositionEvaluation = {

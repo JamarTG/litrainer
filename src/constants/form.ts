@@ -1,4 +1,4 @@
-import { Fields, GameType } from "../types/form";
+import { GameType, Fields } from "@/types/lichess";
 
 export const TimeControls = ["bullet", "blitz", "rapid", "classical", "correspondence"] as GameType[];
 

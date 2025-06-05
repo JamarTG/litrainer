@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from "react";
-import { Fields } from "@/types/form";
+import { Fields } from "@/types/lichess";
 
 interface ColorsProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

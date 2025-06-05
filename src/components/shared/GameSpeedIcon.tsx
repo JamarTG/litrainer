@@ -1,4 +1,4 @@
-import { GameType } from "@/types/form";
+import { GameType } from "@/types/lichess";
 import { TimeControlIcons } from "@/constants/icons";
 import { FC } from "react";
 
@@ -8,7 +8,11 @@ interface GameSpeedIconProps {
 }
 
 const GameSpeedIcon: FC<GameSpeedIconProps> = ({ speed, size }) => {
-  return <span className="icon" style={{ fontSize: size }}>{TimeControlIcons[speed]}</span>;
+  return (
+    <span className="icon" style={{ fontSize: size }}>
+      {TimeControlIcons[speed]}
+    </span>
+  );
 };
 
 export default GameSpeedIcon;

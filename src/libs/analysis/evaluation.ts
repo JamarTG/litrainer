@@ -1,5 +1,5 @@
 import { MoveClassification } from "@/constants/classification";
-import { PositionEvaluation } from "@/types/eval";
+import { PositionEvaluation } from "@/types/engine";
 
 export const getBasicClassification = (
   lastPositionEvaluation: PositionEvaluation,

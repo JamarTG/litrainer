@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction } from "react";
-import { Fields } from "@/types/form";
 import Dates from "./Dates";
+import { Fields } from "@/types/lichess";
 
 interface SlideTwoProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

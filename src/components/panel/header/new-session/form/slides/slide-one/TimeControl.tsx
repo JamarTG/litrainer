@@ -1,12 +1,12 @@
 import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "@/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
-import { Fields, GameType } from "@/types/form";
 import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
 import { TimeControls } from "@/constants/form";
 import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
 import { ICON_SIZES } from "@/components/constants";
+import { Fields, GameType } from "@/types/lichess";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;

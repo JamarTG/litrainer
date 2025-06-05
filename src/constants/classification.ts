@@ -1,3 +1,13 @@
+export type Classification =
+  | "Blunder"
+  | "Mistake"
+  | "Inaccuracy"
+  | "Good"
+  | "Excellent"
+  | "Best"
+  | "Book"
+  | "Brilliant";
+
 export enum MoveClassification {
   Blunder = "Blunder",
   Mistake = "Mistake",
