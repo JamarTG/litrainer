@@ -1,4 +1,4 @@
-import { Puzzle } from "@/types/puzzle";
+import { Puzzle } from "@/types/lichess";
 
 interface RatedOrCasualProps {
   isRatedGame: Puzzle["rated"];
@@ -13,11 +13,7 @@ const RatedOrCasual: React.FC<RatedOrCasualProps> = ({ isRatedGame }) => {
     : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
 
   return (
-    <span
-      className={`text-lg ${baseClasses} ${ratedClasses}`}
-      aria-label={`${label} Game`}
-      title={`${label} Game`}
-    >
+    <span className={`text-lg ${baseClasses} ${ratedClasses}`} aria-label={`${label} Game`} title={`${label} Game`}>
       {label}
     </span>
   );

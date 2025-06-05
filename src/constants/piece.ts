@@ -1,4 +1,4 @@
-import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/piece";
+import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/chess";
 
 export const chessPieceCodes = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 

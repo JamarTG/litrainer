@@ -1,4 +1,4 @@
-import { Puzzle } from "@/types/puzzle";
+import { Puzzle } from "@/types/lichess";
 
 interface PuzzlePhaseIconProps {
   gamePhase: Puzzle["phase"];

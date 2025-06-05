@@ -5,7 +5,7 @@ import { RootState } from "@/redux/store";
 import { promotionPieces } from "@/constants/piece";
 import { ColorLongForm } from "@/types/player";
 import List from "@/components/common/List";
-import { PromotionPiece } from "@/types/piece";
+import { PromotionPiece } from "@/types/chess";
 
 export interface PromotionData {
   from: Square;
@@ -26,7 +26,6 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPr
   if (!isOpen || !promotionData) return null;
 
   const { color } = promotionData;
-
 
   const renderPromotionOption = ({ piece, name }: PromotionPiece) => (
     <button

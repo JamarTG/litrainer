@@ -1,14 +1,14 @@
 import { Chess } from "chess.js";
 import { LichessEvaluation } from "@/types/eval";
 import { LichessGameResponse } from "@/types/response";
-import { PositionOpening, Puzzle } from "@/types/puzzle";
+import { PositionOpening, Puzzle } from "@/types/lichess";
 import { GameType } from "@/types/form";
 import openings from "./openings";
 import { ColorLongForm } from "@/types/player";
 
 export const parseGames = async (response: Response) => {
   if (!response.body) return;
-  
+
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let result = "";
@@ -43,8 +43,6 @@ export const parseGames = async (response: Response) => {
 
   return { evaluations, games: parsedGames };
 };
-
-
 
 const generatePuzzles = (username: string, games: LichessGameResponse[], evaluations: LichessEvaluation[][]) => {
   const standardGames = games.filter((game) => game.variant === "standard");

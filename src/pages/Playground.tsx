@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Puzzle } from "@/types/puzzle";
+import { Fields, Puzzle } from "@/types/lichess";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import InteractiveChessBoard from "@/components/board/_index";
@@ -9,7 +9,7 @@ import { useMoveHandler } from "@/hooks/useMoveHandler";
 import PuzzleInfo from "@/components/panel/PuzzleInfo";
 import useUpdateTheme from "@/hooks/useUpdateTheme";
 import { initialFormState } from "@/constants/form";
-import { Fields } from "@/types/form";
+
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import GameInfo from "@/components/panel/main-buttons/game-info/_index";
 import { Settings as SettingsIcon } from "lucide-react";

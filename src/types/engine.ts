@@ -5,3 +5,22 @@ export enum EngineName {
   Stockfish16 = "stockfish_16"
   // Stockfish11 = "stockfish_11", [SCRIPT REMOVED]
 }
+
+export interface PositionEvaluation {
+  bestMove?: string;
+  opening?: string;
+  lines: VariationLineEvaluation[];
+}
+
+export interface VariationLineResult {
+  move: string;
+  eval: number;
+}
+
+export interface VariationLineEvaluation {
+  pv: string[];
+  cp?: number;
+  mate?: number;
+  depth: number;
+  multiPv: number;
+}

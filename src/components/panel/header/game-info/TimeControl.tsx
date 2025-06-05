@@ -1,4 +1,4 @@
-import { Puzzle } from "@/types/puzzle";
+import { Puzzle } from "@/types/lichess";
 import { formatTimeControl } from "@/utils/time";
 
 interface TimeControlProps {

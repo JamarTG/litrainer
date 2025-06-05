@@ -1,6 +1,6 @@
 import React from "react";
 import { LichessURL } from "@/constants/urls";
-import { Puzzle } from "@/types/puzzle";
+import { Puzzle } from "@/types/lichess";
 import LichessIcon from "@/components/shared/LichessIcon";
 import { ICON_SIZES } from "@/components/constants";
 

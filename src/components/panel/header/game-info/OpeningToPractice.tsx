@@ -1,7 +1,6 @@
-
 import { BookOpen } from "lucide-react";
 import { LichessURL } from "@/constants/urls";
-import { Puzzle } from "@/types/puzzle";
+import { Puzzle } from "@/types/lichess";
 import { ICON_SIZES } from "@/components/constants";
 
 interface OpeningToPracticeProps {

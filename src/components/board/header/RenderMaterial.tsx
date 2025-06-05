@@ -3,7 +3,7 @@ import { Color } from "chess.js";
 import { Materials } from "@/types/eval";
 import { determineColorLeadingInMaterial } from "@/utils/material";
 import { pieceLongFormWithoutKing } from "@/constants/piece";
-import { PieceShortFormWithoutKing } from "@/types/piece";
+import { PieceShortFormWithoutKing } from "@/types/chess";
 import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
 import { ICON_SIZES } from "@/components/constants";
@@ -13,7 +13,6 @@ interface RenderMaterialProps {
   material: Materials;
   color: Color;
 }
-
 
 const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
   const materialCount = determineColorLeadingInMaterial(material, color);
@@ -30,7 +29,9 @@ const RenderMaterial: FC<RenderMaterialProps> = ({ material, color }) => {
         <div key={piece} className="flex">
           <List
             items={numberOfPiecesArray}
-            renderItem={(_, i) => <MaterialIndicatorIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={ICON_SIZES.SMALL} />}
+            renderItem={(_, i) => (
+              <MaterialIndicatorIcon key={i} piece={pieceLongFormWithoutKing[piece]} size={ICON_SIZES.SMALL} />
+            )}
           />
         </div>
       )
