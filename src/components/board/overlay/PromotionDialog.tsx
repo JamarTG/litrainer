@@ -6,6 +6,7 @@ import { PROMOTION_PIECES } from "@/constants/piece";
 import List from "@/components/common/List";
 import { PromotionPiece } from "@/types/chess";
 import { ColorLongForm } from "@/types/lichess";
+import { Z_INDEX } from "@/constants/ui";
 
 export interface PromotionData {
   from: Square;
@@ -45,7 +46,10 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPr
   );
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div
+      style={{ zIndex: Z_INDEX.PROMOTION_DIALOG }}
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Choose promotion piece</h3>
 

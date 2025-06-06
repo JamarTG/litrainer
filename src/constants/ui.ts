@@ -5,5 +5,6 @@ export const ICON_SIZES = {
 };
 
 export const Z_INDEX = {
-  MARKER: 95
+  MARKER: 80,
+  PROMOTION_DIALOG: 80
 };
