@@ -4,7 +4,7 @@ import { RootState } from "@/redux/store";
 import { nextPuzzle, prevPuzzle, redoPuzzle } from "@/redux/slices/puzzle";
 import { resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
-import { ICON_SIZES } from "../../constants/ui";
+import { ICON_SIZES } from "@/constants/ui";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();

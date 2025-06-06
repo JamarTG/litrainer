@@ -4,7 +4,7 @@ import { Fields } from "@/types/lichess";
 import { initialFormState } from "@/constants/form";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { PlusCircle } from "lucide-react";
-import { ICON_SIZES } from "../../../../constants/ui";
+import { ICON_SIZES } from "@/constants/ui";
 
 const CreateNewSession = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
