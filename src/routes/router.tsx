@@ -3,11 +3,12 @@ import Paths from "./paths";
 import Playground from "@/pages/Playground";
 import NavbarLayout from "@/components/layout/Navbar";
 import test from "@/test.json";
+import { loadFromLocalStorage } from "@/utils/storage";
 
 export default function Router() {
   const location = useLocation();
   const { puzzles } = location.state || {
-    puzzles: JSON.parse(localStorage.getItem("puzzles") || JSON.stringify(test))
+    puzzles: loadFromLocalStorage("puzzles", test)
   };
 
   return (
