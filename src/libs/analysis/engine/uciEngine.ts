@@ -22,6 +22,10 @@ export abstract class UciEngine {
     return this.depth;
   }
 
+  public getName = () => {
+    return this.engineName;
+  };
+
   constructor(engineName: EngineName, enginePath: string, customEngineInit?: () => Promise<void>) {
     this.engineName = engineName;
     this.worker = new Worker(enginePath);

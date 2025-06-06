@@ -9,14 +9,11 @@ import { useMoveHandler } from "@/hooks/useMoveHandler";
 import PuzzleInfo from "@/components/panel/PuzzleInfo";
 import useUpdateTheme from "@/hooks/useUpdateTheme";
 import { initialFormState } from "@/constants/form";
-import GameInfo from "@/components/panel/header/game-info/_index";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
-import { Settings as SettingsIcon } from "lucide-react";
 import ChessLoader from "@/components/common/ChessLoader";
-import { ICON_SIZES } from "@/constants/ui";
 import TrainerForm from "@/components/panel/header/new-session/form/TrainerForm";
 import Settings from "@/components/panel/header/settings/_index";
-import CreateNewSession from "@/components/panel/header/new-session/_index";
+import PanelHeader from "../components/panel/_index";
 
 interface PlayGroundProps {
   puzzles: Puzzle[];
@@ -70,28 +67,11 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   return (
     <div className="flex gap-6 justify-center items-center flex-wrap h-full min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <InteractiveChessBoard game={game} handleMoveAttempt={handleMoveAttempt} />
-      <div
-        className=" bg-zinc-300 
-  flex flex-col gap-4 w-full min-w-[250px] min-h-[500px] p-4 rounded-sm shadow-xs border border-gray-400
-  dark:bg-[#222] dark:border-gray-700
-"
-      >
+      <div className=" bg-zinc-300 flex flex-col gap-4 w-full min-w-[250px] min-h-[500px] p-4 rounded-sm shadow-xs border border-gray-400 dark:bg-[#222] dark:border-gray-700">
         <>
-          <div className="relative bh-12 flex items-center justify-end">
-            <GameInfo />
-            <CreateNewSession />
-            <button
-              aria-label="Settings"
-              title="Settings"
-              onClick={() => setShowSettings(true)}
-              className="w-16 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-            >
-              <SettingsIcon size={ICON_SIZES.MEDIUM} />
-            </button>
-          </div>
+          <PanelHeader setShowSettings={setShowSettings} />
           <PuzzleInfo />
         </>
-
         <Settings showSettings={showSettings} setShowSettings={setShowSettings} />
       </div>
     </div>
