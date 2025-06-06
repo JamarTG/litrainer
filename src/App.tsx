@@ -12,8 +12,8 @@ const App = () => {
     <Provider store={store}>
       <Toaster />
       <BrowserRouter>
-        <EngineProvider initialEngineName={EngineName.Stockfish16_1Lite}>
-            <Router />
+        <EngineProvider initialEngineName={EngineName.Stockfish17LiteSingleThreaded}>
+          <Router />
         </EngineProvider>
       </BrowserRouter>
     </Provider>

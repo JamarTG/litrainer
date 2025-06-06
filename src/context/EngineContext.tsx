@@ -21,7 +21,7 @@ export const EngineProvider: FC<{
   useEffect(() => {
     if (!engineName) return;
 
-    if (engineName !== EngineName.Stockfish16_1Lite && !isWasmSupported()) {
+    if (!isWasmSupported()) {
       return;
     }
 
