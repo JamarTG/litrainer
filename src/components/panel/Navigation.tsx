@@ -8,6 +8,7 @@ import { ICON_SIZES } from "../../constants/ui";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
+  const isEngineRunning = useSelector((state: RootState) => state.engine.isRunning);
 
   const { currentIndex, puzzles } = useSelector((state: RootState) => state.puzzle);
   const { playedMove } = useSelector((state: RootState) => state.feedback);
@@ -40,9 +41,9 @@ const PuzzleNavigation = () => {
       <button
         aria-label="Previous Puzzle"
         onClick={handlePrev}
-        disabled={isFirstPuzzle}
+        disabled={isFirstPuzzle || isEngineRunning}
         className={`p-2 rounded-xl transition-all duration-200 ${
-          isFirstPuzzle
+          isFirstPuzzle || isEngineRunning
             ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
             : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
         }`}
@@ -66,9 +67,9 @@ const PuzzleNavigation = () => {
       <button
         aria-label="Next Puzzle"
         onClick={handleNext}
-        disabled={isLastPuzzle}
+        disabled={isLastPuzzle || isEngineRunning}
         className={`p-2 rounded-xl transition-all duration-200 ${
-          isLastPuzzle
+          isLastPuzzle || isEngineRunning
             ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
             : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
         }`}

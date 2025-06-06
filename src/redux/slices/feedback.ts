@@ -15,7 +15,7 @@ const initialState: FeedbackState = {
   isPuzzleSolved: false
 };
 
-interface FeedbackMove {
+export interface Feedback {
   bestMove: string | null;
   playedMove: string | null;
 }
@@ -27,7 +27,7 @@ const feedbackSlice = createSlice({
     setClassification(state, action: PayloadAction<Classification | null>) {
       state.classification = action.payload;
     },
-    setFeedbackMoves(state, action: PayloadAction<FeedbackMove>) {
+    setFeedback(state, action: PayloadAction<Feedback>) {
       state.bestMove = action.payload.bestMove;
       state.playedMove = action.payload.playedMove;
     },
@@ -43,5 +43,5 @@ const feedbackSlice = createSlice({
   }
 });
 
-export const { setClassification, setFeedbackMoves, setIsPuzzleSolved, resetFeedback } = feedbackSlice.actions;
+export const { setClassification, setFeedback, setIsPuzzleSolved, resetFeedback } = feedbackSlice.actions;
 export default feedbackSlice.reducer;
