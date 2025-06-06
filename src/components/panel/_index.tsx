@@ -21,13 +21,13 @@ const PanelHeader: React.FC<PanelHeaderProps> = ({ setShowSettings }) => {
   return (
     <div className="relative bh-12 dark:text-zinc-400 flex items-center justify-between">
       <div className="flex gap-1">
-        <div className="flex flex-row gap-2 justify-center items-center text-sm">
+        <div className="flex flex-row gap-2 justify-center items-center text-xs">
           <img src={stockfishPng} width={40} height={40} alt={engineName} />
           {isEngineRunning ? (
             <p>evaluating move ...</p>
           ) : (
             <div className="flex flex-col justify-start">
-              <p className="text-sm">{engineName}</p>
+              <p>{engineName}</p>
               <p>depth {engineDepth}</p>
             </div>
           )}
