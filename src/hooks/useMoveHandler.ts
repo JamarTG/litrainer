@@ -188,9 +188,8 @@ export const useMoveHandler = (game: Chess) => {
 
   return useMemo(
     () => ({
-      handleMoveAttempt,
-      evaluateMoveQuality
+      handleMoveAttempt
     }),
-    [handleMoveAttempt, evaluateMoveQuality]
+    [handleMoveAttempt]
   );
 };
