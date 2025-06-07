@@ -4,19 +4,21 @@ import { RootState } from "@/redux/store";
 import { Moon, Sun } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { isDarkModeActive } from "@/redux/slices/theme";
 
 const ThemeChanger = () => {
   const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  const isDarkMode = useSelector((state: RootState) => isDarkModeActive(state.theme));
+  const toggleAppTheme = () => dispatch(toggleTheme());
 
   return (
     <button
       title="light or dark?"
       className="w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
-      onClick={() => dispatch(toggleTheme())}
+      onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
-      {theme === "light" ? <Sun size={ICON_SIZES.MEDIUM} /> : <Moon size={ICON_SIZES.MEDIUM} />}
+      {isDarkMode ? <Moon size={ICON_SIZES.MEDIUM} /> : <Sun size={ICON_SIZES.MEDIUM} />}
     </button>
   );
 };

@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { Fields, Puzzle } from "@/types/lichess";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import InteractiveChessBoard from "@/components/board/_index";
 import usePuzzleSetup from "@/hooks/usePuzzleSetup";
 import useInitPuzzles from "@/hooks/useInitPuzzles";
@@ -24,9 +22,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
 
   const { game } = usePuzzleSetup();
 
-  const theme = useSelector((state: RootState) => state.theme.theme);
-
-  useUpdateTheme(theme);
+  useUpdateTheme();
 
   const { handleMoveAttempt } = useMoveHandler(game);
 

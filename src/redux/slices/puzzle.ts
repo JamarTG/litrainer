@@ -45,5 +45,6 @@ const puzzleSlice = createSlice({
   }
 });
 
+
 export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip, redoPuzzle } = puzzleSlice.actions;
 export default puzzleSlice.reducer;

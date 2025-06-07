@@ -5,13 +5,17 @@ import { RootState } from "@/redux/store";
 import { RatingDifferenceTextColors } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LichessURL } from "@/constants/urls";
+import { isDarkModeActive } from "@/redux/slices/theme";
 
 interface PlayerMetaDataProps {
   color: Color;
 }
 
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  
+  const isDarkMode = useSelector((state: RootState) => {
+    return isDarkModeActive(state.theme);
+  });
   const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
   const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[currentPuzzleIndex]);
   const player = useSelector(
@@ -19,6 +23,9 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
   );
 
   const { rating, provisional, ratingDiff, user } = player;
+
+  // is it light theme?
+  // what player?
 
   const colorClass =
     ratingDiff > 0
@@ -29,10 +36,9 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
   const showDiff = ratingDiff !== undefined && ratingDiff !== 0;
 
   const renderIcon = () => {
-    const isLightTheme = theme === "light";
     const isWhite = color === "w";
 
-    const icon = (isLightTheme && isWhite) || (!isLightTheme && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
+    const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
     return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
   };
