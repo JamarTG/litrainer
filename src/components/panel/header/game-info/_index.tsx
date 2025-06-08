@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import GameInfoPopup from "./GameInfoPopup";
 import GameInfoButton from "./GameInfoButton";
 
-const GameInfo = () => {
+const GameInfoTriggerButton = () => {
   const [showPopup, setShowPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -19,4 +19,4 @@ const GameInfo = () => {
   );
 };
 
-export default GameInfo;
+export default GameInfoTriggerButton;

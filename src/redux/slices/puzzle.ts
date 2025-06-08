@@ -56,7 +56,6 @@ export const getPlayerByShortColor = (color: Color) => (state: RootState) => {
 
 export const isFirstPuzzle = (state: RootState) => state.puzzle.currentIndex == 0;
 export const isLastPuzzle = (state: RootState) => state.puzzle.currentIndex >= state.puzzle.puzzles.length - 1;
-
 export const getUserColor = (state: RootState) => getPuzzle(state).userMove.color[0].toLocaleLowerCase();
 
 // export const ge

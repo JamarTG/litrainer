@@ -48,5 +48,6 @@ export const getBestMove = (state: RootState) => state.feedback.bestMove;
 export const getIsPuzzleSolved = (state: RootState) => state.feedback.isPuzzleSolved;
 export const getClassification = (state: RootState) => state.feedback.classification;
 export const getPlayedMove = (state: RootState) => state.feedback.playedMove;
+export const hasAttempted = (state: RootState) => !!state.feedback.playedMove;
 export const { setClassification, setFeedback, setIsPuzzleSolved, resetFeedback } = feedbackSlice.actions;
 export default feedbackSlice.reducer;

@@ -19,12 +19,12 @@ import { getBoardTheme } from "@/redux/slices/board-style";
 import { getFen } from "@/redux/slices/board";
 import { getIsPuzzleSolved } from "@/redux/slices/feedback";
 
-interface BoardComponentProps {
+interface ChessBoardProps {
   game: Chess;
   handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, promotion: string) => boolean;
 }
 
-const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttempt }) => {
+const ChessBoard: FC<ChessBoardProps> = ({ game, handleMoveAttempt }) => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
 
@@ -184,4 +184,4 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   );
 };
 
-export default InteractiveChessBoard;
+export default ChessBoard;

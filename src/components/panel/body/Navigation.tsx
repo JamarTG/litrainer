@@ -7,7 +7,7 @@ import {
   prevPuzzle,
   redoPuzzle
 } from "@/redux/slices/puzzle";
-import { getPlayedMove, resetFeedback } from "@/redux/slices/feedback";
+import { hasAttempted, resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
 import { ICON_SIZES } from "@/constants/ui";
 import { getEngineState } from "@/redux/slices/engine";
@@ -16,26 +16,25 @@ const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
 
   const isEngineRunning = useSelector(getEngineState);
-  const playedMove = useSelector(getPlayedMove);
+
   const isFirstPuzzle = useSelector(onFirstPuzzle);
   const isLastPuzzle = useSelector(onLastPuzzle);
-  const hasAttempted = !!playedMove;
+  const attemptedPuzzle = useSelector(hasAttempted);
 
   const handlePrev = () => {
-    if (!isFirstPuzzle) {
-      dispatch(resetFeedback());
-      dispatch(prevPuzzle());
-    }
+    if (isFirstPuzzle) return;
+    dispatch(resetFeedback());
+    dispatch(prevPuzzle());
   };
 
   const handleNext = () => {
-    if (!isLastPuzzle) {
-      dispatch(resetFeedback());
-      dispatch(nextPuzzle());
-    }
+    if (isLastPuzzle) return;
+    dispatch(resetFeedback());
+    dispatch(nextPuzzle());
   };
 
   const handleRedo = () => {
+    if (!attemptedPuzzle) return;
     dispatch(resetFeedback());
     dispatch(redoPuzzle());
   };
@@ -58,9 +57,9 @@ const PuzzleNavigation = () => {
       <button
         aria-label="Redo Current Puzzle"
         onClick={handleRedo}
-        disabled={!hasAttempted}
+        disabled={!attemptedPuzzle}
         className={`p-2 rounded-xl transition-all duration-200 ${
-          !hasAttempted
+          !attemptedPuzzle
             ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
             : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95"
         }`}

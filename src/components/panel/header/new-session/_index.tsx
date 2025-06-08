@@ -6,7 +6,7 @@ import useHandleSubmit from "@/hooks/useHandleSubmit";
 import { PlusCircle } from "lucide-react";
 import { ICON_SIZES } from "@/constants/ui";
 
-const CreateNewSession = () => {
+const NewSessionTriggerButton = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<Fields>(initialFormState);
 
@@ -40,4 +40,4 @@ const CreateNewSession = () => {
   );
 };
 
-export default CreateNewSession;
+export default NewSessionTriggerButton;
