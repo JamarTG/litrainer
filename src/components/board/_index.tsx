@@ -7,7 +7,7 @@ import type { Color } from "chessground/types";
 import MoveClassificationMarker from "./overlay/ClassificationMarker";
 import { initialPieceCounts } from "@/constants/piece";
 import { Materials } from "@/types/eval";
-import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-theme-loader";
+import { isPieceSetAvailable, loadPieceSetCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "@/components/board/hooks/useMaterialEffect";
 import "@/styles/chessground.css";
@@ -54,12 +54,12 @@ const ChessBoard = () => {
   }, []);
 
   useEffect(() => {
-    if (!isThemeAvailable(pieceSet)) {
+    if (!isPieceSetAvailable(pieceSet)) {
       console.warn(`Piece set ${pieceSet} is not available.`);
       return;
     }
 
-    loadThemeCSS(pieceSet).catch((err) => {
+    loadPieceSetCSS(pieceSet).catch((err) => {
       console.error(`Failed to load theme CSS for ${pieceSet}:`, err);
     });
   }, [pieceSet]);

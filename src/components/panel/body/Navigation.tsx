@@ -45,11 +45,12 @@ const PuzzleNavigation = () => {
         aria-label="Previous Puzzle"
         onClick={handlePrev}
         disabled={isFirstPuzzle || isEngineRunning}
-        className={`p-2 rounded-xl transition-all duration-200 ${
-          isFirstPuzzle || isEngineRunning
-            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
-            : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
-        }`}
+        className={`p-2 rounded-xl transition-all duration-200
+    ${
+      isFirstPuzzle || isEngineRunning
+        ? "text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        : "hover:bg-gray-100 dark:hover:bg-zinc-700 active:scale-95"
+    }`}
       >
         <StepBack size={ICON_SIZES.MEDIUM} />
       </button>
@@ -71,11 +72,12 @@ const PuzzleNavigation = () => {
         aria-label="Next Puzzle"
         onClick={handleNext}
         disabled={isLastPuzzle || isEngineRunning}
-        className={`p-2 rounded-xl transition-all duration-200 ${
-          isLastPuzzle || isEngineRunning
-            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
-            : "bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-700 active:scale-95"
-        }`}
+        className={`p-2 rounded-xl transition-all duration-200
+    ${
+      isLastPuzzle || isEngineRunning
+        ? "text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        : "hover:bg-gray-100 dark:hover:bg-zinc-700 active:scale-95"
+    }`}
       >
         <StepForward size={ICON_SIZES.MEDIUM} />
       </button>
