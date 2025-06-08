@@ -1,20 +1,24 @@
 import { useAppDispatch } from "@/redux/hooks/useAppDispatch";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { nextPuzzle, prevPuzzle, redoPuzzle } from "@/redux/slices/puzzle";
-import { resetFeedback } from "@/redux/slices/feedback";
+import {
+  isFirstPuzzle as onFirstPuzzle,
+  isLastPuzzle as onLastPuzzle,
+  nextPuzzle,
+  prevPuzzle,
+  redoPuzzle
+} from "@/redux/slices/puzzle";
+import { getPlayedMove, resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
 import { ICON_SIZES } from "@/constants/ui";
+import { getEngineState } from "@/redux/slices/engine";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
-  const isEngineRunning = useSelector((state: RootState) => state.engine.isRunning);
 
-  const { currentIndex, puzzles } = useSelector((state: RootState) => state.puzzle);
-  const { playedMove } = useSelector((state: RootState) => state.feedback);
-
-  const isFirstPuzzle = currentIndex === 0;
-  const isLastPuzzle = currentIndex === puzzles.length - 1;
+  const isEngineRunning = useSelector(getEngineState);
+  const playedMove = useSelector(getPlayedMove);
+  const isFirstPuzzle = useSelector(onFirstPuzzle);
+  const isLastPuzzle = useSelector(onLastPuzzle);
   const hasAttempted = !!playedMove;
 
   const handlePrev = () => {

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Chess } from "chess.js";
+import { RootState } from "../store";
 
 interface MarkerPosition {
   right: number;
@@ -45,6 +46,9 @@ const boardSlice = createSlice({
   }
 });
 
+export const getFen = (state: RootState) => state.board.fen;
+export const getMarkerPosition = (state: RootState) => state.board.markerPosition;
+export const getDestinationSquare = (state: RootState) => state.board.destinationSquare;
 export const { setFen, setMarkerPosition, resetBoardState, updateBoardStates } = boardSlice.actions;
 
 export default boardSlice.reducer;

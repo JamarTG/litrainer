@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
+import { RootState } from "../store";
 
 export interface BoardThemeState {
   board: string;
@@ -20,5 +21,6 @@ const boardThemeSlice = createSlice({
   }
 });
 
+export const getBoardTheme = (state: RootState) => state.boardTheme.board;
 export const { setBoardTheme } = boardThemeSlice.actions;
 export default boardThemeSlice.reducer;

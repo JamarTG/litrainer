@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
+import { RootState } from "../store";
 
 export interface PieceSetFeedback {
   set: string;
@@ -20,5 +21,6 @@ const pieceSetSlice = createSlice({
   }
 });
 
+export const getPieceSet = (state: RootState) => state.pieceSet.set;
 export const { setPieceSet } = pieceSetSlice.actions;
 export default pieceSetSlice.reducer;

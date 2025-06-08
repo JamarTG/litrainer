@@ -1,5 +1,6 @@
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export interface EngineState {
   isRunning: boolean;
@@ -25,5 +26,7 @@ const engineSlice = createSlice({
   }
 });
 
-export const { setEngineRunning, setDepth} = engineSlice.actions;
+export const getEngineDepth = (state: RootState) => state.engine.depth;
+export const getEngineState = (state: RootState) => state.engine.isRunning;
+export const { setEngineRunning, setDepth } = engineSlice.actions;
 export default engineSlice.reducer;

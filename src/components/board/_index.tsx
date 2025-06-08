@@ -7,13 +7,17 @@ import type { Color } from "chessground/types";
 import MoveClassificationMarker from "./overlay/ClassificationMarker";
 import { initialPieceCounts } from "@/constants/piece";
 import { Materials } from "@/types/eval";
-import { RootState } from "@/redux/store";
 import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "@/hooks/useMaterialEffect";
 import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
 import { ColorLongForm } from "@/types/lichess";
+import { getPuzzle } from "@/redux/slices/puzzle";
+import { getPieceSet } from "@/redux/slices/piece-set";
+import { getBoardTheme } from "@/redux/slices/board-style";
+import { getFen } from "@/redux/slices/board";
+import { getIsPuzzleSolved } from "@/redux/slices/feedback";
 
 interface BoardComponentProps {
   game: Chess;
@@ -27,12 +31,11 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
   const boardRef = useRef<HTMLDivElement>(null);
   const [boardSize, setBoardSize] = useState<number>(0);
 
-  const fen = useSelector((state: RootState) => state.board.fen);
-  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
-  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
-  const boardTheme = useSelector((state: RootState) => state.boardTheme.board);
+  const fen = useSelector(getFen);
+  const puzzle = useSelector(getPuzzle);
+  const isPuzzleSolved = useSelector(getIsPuzzleSolved);
+  const pieceSet = useSelector(getPieceSet);
+  const boardTheme = useSelector(getBoardTheme);
 
   useMaterialEffect(game, setMaterial);
 
@@ -150,7 +153,7 @@ const InteractiveChessBoard: FC<BoardComponentProps> = ({ game, handleMoveAttemp
         <div className="box relative rounded-">
           <div className="main-board green merida my-2 " ref={boardRef}>
             <Chessground
-              key={`puzzle-${currentPuzzleIndex}`}
+              key={`puzzle-${fen}`}
               fen={fen}
               orientation={playerColorLongForm}
               turnColor={turnColor()}

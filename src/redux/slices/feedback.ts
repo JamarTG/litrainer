@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Classification } from "@/types/classification";
+import { RootState } from "../store";
 
 export interface FeedbackState {
   classification: Classification | null;
@@ -43,5 +44,9 @@ const feedbackSlice = createSlice({
   }
 });
 
+export const getBestMove = (state: RootState) => state.feedback.bestMove;
+export const getIsPuzzleSolved = (state: RootState) => state.feedback.isPuzzleSolved;
+export const getClassification = (state: RootState) => state.feedback.classification;
+export const getPlayedMove = (state: RootState) => state.feedback.playedMove;
 export const { setClassification, setFeedback, setIsPuzzleSolved, resetFeedback } = feedbackSlice.actions;
 export default feedbackSlice.reducer;

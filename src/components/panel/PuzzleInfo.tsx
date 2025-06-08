@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification, Classification } from "@/types/classification";
 import Navigation from "./Navigation";
+import { getPuzzle } from "@/redux/slices/puzzle";
+import { getBestMove, getClassification, getPlayedMove } from "@/redux/slices/feedback";
 
 const PuzzleInfo = () => {
-  const classification = useSelector((state: RootState) => state.feedback.classification);
-  const playedMove = useSelector((state: RootState) => state.feedback.playedMove);
-  const bestMove = useSelector((state: RootState) => state.feedback.bestMove);
-  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[currentPuzzleIndex]);
+  const classification = useSelector(getClassification);
+  const playedMove = useSelector(getPlayedMove);
+  const bestMove = useSelector(getBestMove);
+  const puzzle = useSelector(getPuzzle);
 
   if (!puzzle) return null;
 

@@ -1,31 +1,27 @@
 import { useSelector } from "react-redux";
 import { FC } from "react";
 import { Color } from "chess.js";
-import { RootState } from "@/redux/store";
 import { RatingDifferenceTextColors } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LichessURL } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
+import { getPlayerByShortColor, getPuzzle } from "@/redux/slices/puzzle";
 
 interface PlayerMetaDataProps {
   color: Color;
 }
 
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
-  
-  const isDarkMode = useSelector((state: RootState) => {
-    return isDarkModeActive(state.theme);
-  });
-  const currentPuzzleIndex = useSelector((state: RootState) => state.puzzle.currentIndex);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[currentPuzzleIndex]);
-  const player = useSelector(
-    (state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]?.players[color === "w" ? "white" : "black"]
-  );
+  const isDarkMode = useSelector(isDarkModeActive);
+  const puzzle = useSelector(getPuzzle);
+  const player = useSelector(getPlayerByShortColor(color));
 
-  const { rating, provisional, ratingDiff, user } = player;
-
-  // is it light theme?
-  // what player?
+  const rating = player.rating;
+  const ratingDiff = player.ratingDiff;
+  const isPatron = player.user.patron;
+  const title = player.user.title;
+  const isRatingProvisional = player.provisional;
+  const username = player.user.name;
 
   const colorClass =
     ratingDiff > 0
@@ -37,27 +33,23 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
 
   const renderIcon = () => {
     const isWhite = color === "w";
-
     const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
     return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
   };
 
   const renderPatronWing = () => {
-    const isPatron = color === "w" ? puzzle?.players.white.user.patron : puzzle?.players.black.user.patron;
-
     return (
       isPatron && <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />
     );
   };
 
   const renderPlayerTitle = () => {
-    const playerTitle = color === "w" ? puzzle?.players.white.user.title : puzzle?.players.black.user.title;
     return (
       <>
-        {playerTitle && (
+        {title && (
           <p className="text-orange-400">
-            {playerTitle}
+            {title}
             {"  "}
           </p>
         )}
@@ -67,7 +59,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
 
   const renderPlayerName = () => {
     return (
-      <a className="text-blue-500" href={`${LichessURL.Profile}${user.name}`} target="_blank" rel="noopener noreferrer">
+      <a className="text-blue-500" href={`${LichessURL.Profile}${username}`} target="_blank" rel="noopener noreferrer">
         {color === "w" ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
       </a>
     );
@@ -77,7 +69,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
     return (
       <p className="text-gray-400 ml-1">
         ({rating}
-        {provisional && "?"}){" "}
+        {isRatingProvisional && "?"}){" "}
         {showDiff && <span className={colorClass}>{ratingDiff > 0 ? `+${ratingDiff}` : ratingDiff}</span>}
       </p>
     );

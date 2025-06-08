@@ -1,6 +1,5 @@
 import { ICON_SIZES } from "@/constants/ui";
 import { toggleTheme } from "@/redux/slices/theme";
-import { RootState } from "@/redux/store";
 import { Moon, Sun } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -8,7 +7,7 @@ import { isDarkModeActive } from "@/redux/slices/theme";
 
 const ThemeChanger = () => {
   const dispatch = useDispatch();
-  const isDarkMode = useSelector((state: RootState) => isDarkModeActive(state.theme));
+  const isDarkMode = useSelector(isDarkModeActive);
   const toggleAppTheme = () => dispatch(toggleTheme());
 
   return (

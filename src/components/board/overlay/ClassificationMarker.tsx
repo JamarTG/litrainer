@@ -1,12 +1,13 @@
-import { Color, Square } from "chess.js";
+import { Square } from "chess.js";
 import { useMarkerPositionEffect } from "@/hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/types/classification";
 import { FC, RefObject, useEffect, useState } from "react";
 import { ColorLongForm } from "@/types/lichess";
 import { Z_INDEX } from "@/constants/ui";
+import { getClassification } from "@/redux/slices/feedback";
+import { getDestinationSquare, getMarkerPosition } from "@/redux/slices/board";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
@@ -15,20 +16,13 @@ interface MoveClassificationMarkerProps {
 }
 
 const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
-  const markerPosition = useSelector((state: RootState) => state.board.markerPosition);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
-  const classification = useSelector((state: RootState) => state.feedback.classification);
-  const destinationSquare = useSelector((state: RootState) => state.board.destinationSquare);
+  const markerPosition = useSelector(getMarkerPosition);
+  const classification = useSelector(getClassification);
+  const destinationSquare = useSelector(getDestinationSquare);
 
   const [visible, setVisible] = useState(false);
 
-  useMarkerPositionEffect(
-    destinationSquare as Square,
-    boardSize,
-    puzzle?.userMove.color[0].toLocaleLowerCase() as Color,
-    boardRef,
-    orientation
-  );
+  useMarkerPositionEffect(destinationSquare as Square, boardSize, boardRef, orientation);
 
   useEffect(() => {
     if (destinationSquare && classification) {

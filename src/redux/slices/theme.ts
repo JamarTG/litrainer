@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
+import { RootState } from "../store";
 
 export type Theme = "light" | "dark";
 
@@ -25,7 +26,7 @@ const themeSlice = createSlice({
   }
 });
 
-export const isDarkModeActive = (state: ThemeState) => state.theme == "dark";
+export const isDarkModeActive = (state: RootState) => state.theme.theme == "dark";
 
 export const { toggleTheme, setTheme } = themeSlice.actions;
 export default themeSlice.reducer;

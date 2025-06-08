@@ -11,7 +11,7 @@ import { updateBoardStates } from "@/redux/slices/board";
 import { playSound } from "@/libs/sound";
 import { setEngineRunning } from "@/redux/slices/engine";
 import { attemptMove, convertLanToSan } from "@/utils/move";
-import { nextPuzzle } from "@/redux/slices/puzzle";
+import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
 import { ATTEMPTED_PUZZLE_DELAY_TIME } from "@/constants/time";
 
 const POSITIVE_CLASSIFICATIONS = new Set<string>(["Best", "Excellent", "Good", "Great"]);
@@ -27,7 +27,7 @@ export const useMoveHandler = (game: Chess) => {
 
   const engineDepth = useSelector((state: RootState) => state.engine.depth);
   const fen = useSelector((state: RootState) => state.board.fen);
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const puzzle = useSelector(getPuzzle);
   const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
   const autoSkip = useSelector((state: RootState) => state.puzzle.autoSkip);
 

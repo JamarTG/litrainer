@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
 import { resetFeedback } from "@/redux/slices/feedback";
-import { RootState } from "@/redux/store";
 import { playSound } from "@/libs/sound";
 import { setFen } from "@/redux/slices/board";
+import { getPuzzle } from "@/redux/slices/puzzle";
 
 const usePuzzleSetup = () => {
   const [game, setGame] = useState<Chess>(new Chess());
   const dispatch = useDispatch();
-  const puzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
+  const puzzle = useSelector(getPuzzle);
 
   const executeComputerMove = useCallback(
     (game: Chess, move: string) => {

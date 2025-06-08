@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 import stockfishPng from "../../../public/sf.png";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { getEngineDepth, getEngineState } from "@/redux/slices/engine";
 
 interface PanelHeaderProps {
   setShowSettings: Dispatch<SetStateAction<boolean>>;
@@ -15,8 +15,8 @@ interface PanelHeaderProps {
 const PanelHeader: React.FC<PanelHeaderProps> = ({ setShowSettings }) => {
   const { engine } = useEngineContext();
   const engineName = engine?.getName();
-  const isEngineRunning = useSelector((state: RootState) => state.engine.isRunning);
-  const engineDepth = useSelector((state: RootState) => state.engine.depth);
+  const isEngineRunning = useSelector(getEngineState);
+  const engineDepth = useSelector(getEngineDepth);
 
   return (
     <div className="relative bh-12 dark:text-zinc-400 flex items-center justify-between">

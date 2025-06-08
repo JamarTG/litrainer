@@ -1,12 +1,12 @@
 import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { PROMOTION_PIECES } from "@/constants/piece";
 import List from "@/components/common/List";
 import { PromotionPiece } from "@/types/chess";
 import { ColorLongForm } from "@/types/lichess";
 import { Z_INDEX } from "@/constants/ui";
+import { getPieceSet } from "@/redux/slices/piece-set";
 
 export interface PromotionData {
   from: Square;
@@ -22,7 +22,7 @@ interface PromotionDialogProps {
 }
 
 const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPromote, onCancel }) => {
-  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
+  const pieceSet = useSelector(getPieceSet);
 
   if (!isOpen || !promotionData) return null;
 

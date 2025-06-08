@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { getPieceSet } from "@/redux/slices/piece-set";
 
 const ChessLoader: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Initializing board...");
 
-  const pieceSet = useSelector((state: RootState) => state.pieceSet.set);
+  const pieceSet = useSelector(getPieceSet);
 
   useEffect(() => {
     const progressInterval = setInterval(() => {

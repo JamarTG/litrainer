@@ -2,8 +2,8 @@ import PlayerBadge from "../board/header/_index";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Materials } from "@/types/eval";
-import { RootState } from "@/redux/store";
 import { Color } from "chess.js";
+import { getPuzzle } from "@/redux/slices/puzzle";
 
 interface ChessBoardLayoutProps {
   material: Materials;
@@ -11,8 +11,7 @@ interface ChessBoardLayoutProps {
 }
 
 const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ material, children }) => {
-  const currentPuzzle = useSelector((state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex]);
-
+  const currentPuzzle = useSelector(getPuzzle);
   const hasActivePuzzle = Boolean(currentPuzzle);
   const playerColor = currentPuzzle?.userMove.color;
   const opponentColor = currentPuzzle?.opponentMove.color;

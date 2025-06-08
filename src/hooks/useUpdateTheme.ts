@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 
 const useUpdateTheme = () => {
-  const isDarkMode = useSelector((state: RootState) => {
-    return isDarkModeActive(state.theme);
-  });
+  const isDarkMode = useSelector(isDarkModeActive);
 
   useEffect(() => {
     if (isDarkMode) {
