@@ -40,25 +40,68 @@ const themeModules = {
   xkcd: () => import("@/styles/piece/xkcd.css")
 };
 
-const loadedThemes = new Set<string>();
+const THEME_STYLE_ID = "chess-piece-theme";
+let currentTheme: string | null = null;
+
+const pieceSelectors = [
+  ".cg-wrap piece.pawn.white",
+  ".cg-wrap piece.rook.white",
+  ".cg-wrap piece.knight.white",
+  ".cg-wrap piece.bishop.white",
+  ".cg-wrap piece.queen.white",
+  ".cg-wrap piece.king.white",
+  ".cg-wrap piece.pawn.black",
+  ".cg-wrap piece.rook.black",
+  ".cg-wrap piece.knight.black",
+  ".cg-wrap piece.bishop.black",
+  ".cg-wrap piece.queen.black",
+  ".cg-wrap piece.king.black"
+];
+
+const pieceFiles = ["wP", "wR", "wN", "wB", "wQ", "wK", "bP", "bR", "bN", "bB", "bQ", "bK"];
+
+const generateThemeCSS = (themeName: string): string => {
+  return pieceSelectors
+    .map((selector, index) => {
+      const pieceFile = pieceFiles[index];
+      return `${selector} { background-image: url("/themes/pieces/${themeName}/${pieceFile}.svg"); }`;
+    })
+    .join("\n");
+};
 
 export const loadThemeCSS = async (themeName: string): Promise<void> => {
-  if (loadedThemes.has(themeName)) {
+  if (currentTheme === themeName) {
     return;
   }
 
   try {
-    if (themeModules[themeName as keyof typeof themeModules]) {
-      await themeModules[themeName as keyof typeof themeModules]();
-      loadedThemes.add(themeName);
-      // console.log(`Theme "${themeName}" loaded successfully`);
-    } else {
+    if (!themeModules[themeName as keyof typeof themeModules]) {
       console.warn(`Theme "${themeName}" not found in themeModules`);
+      return;
     }
+
+    // Remove existing theme style
+    const existingStyle = document.getElementById(THEME_STYLE_ID);
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+
+    // Create new style element with theme CSS
+    const styleElement = document.createElement("style");
+    styleElement.id = THEME_STYLE_ID;
+    styleElement.textContent = generateThemeCSS(themeName);
+    document.head.appendChild(styleElement);
+
+    currentTheme = themeName;
+    console.log(`Theme "${themeName}" applied`);
   } catch (error) {
     console.error(`Failed to load theme: "${themeName}"`, error);
     throw error;
   }
+};
+
+export const getCurrentTheme = (): string | null => {
+  return currentTheme;
 };
 
 export const availableThemes = Object.keys(themeModules);
