@@ -1,14 +1,12 @@
-import { setDepth } from "@/redux/slices/engine";
-import { RootState } from "@/redux/store";
+import { getEngineDepth, setDepth } from "@/redux/slices/engine";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const EngineDepthControl = () => {
   const dispatch = useDispatch();
-  const depth = useSelector((state: RootState) => state.engine.depth);
+  const depth = useSelector(getEngineDepth);
 
   const adjustEngineDepthHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  
     dispatch(setDepth(Number(e.target.value)));
   };
 
