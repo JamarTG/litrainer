@@ -48,7 +48,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isFirstPuzzle || isEngineRunning
-        ? "bg-zinc-200/75 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        ? " dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
         : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
@@ -61,7 +61,7 @@ const PuzzleNavigation = () => {
         disabled={!attemptedPuzzle}
         className={`p-2 rounded-xl transition-all duration-200 ${
           !attemptedPuzzle
-            ? " bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+            ? " dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
             : " text-gray-600 dark:text-gray-300 dark:hover:bg-zinc-700 hover:bg-gray-200 active:scale-95"
         }`}
       >
@@ -75,7 +75,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isLastPuzzle || isEngineRunning
-        ? "bg-zinc-200/75 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        ? "dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
         : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
