@@ -2,6 +2,7 @@ import { BookOpen } from "lucide-react";
 import { LichessURL } from "@/constants/urls";
 import { Puzzle } from "@/types/lichess";
 import { ICON_SIZES } from "@/constants/ui";
+import { Fragment } from "react/jsx-runtime";
 
 interface OpeningToPracticeProps {
   positionOpening: Puzzle["positionOpening"];
@@ -9,7 +10,7 @@ interface OpeningToPracticeProps {
 
 const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }) => {
   return (
-    <>
+    <Fragment>
       {positionOpening ? (
         <a
           href={`${LichessURL.Openings}${positionOpening.eco}`}
@@ -22,7 +23,7 @@ const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }
           <span>Practice This Opening</span>
         </a>
       ) : null}
-    </>
+    </Fragment>
   );
 };
 

@@ -3,6 +3,7 @@ import stockfishPng from "../../../../public/sf.png";
 import { useSelector } from "react-redux";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { EngineName } from "@/types/engine";
+import { Fragment } from "react/jsx-runtime";
 
 const renderStockfishImage = (engineName: string) => {
   return <img src={stockfishPng} width={40} height={40} alt={engineName} />;
@@ -10,7 +11,7 @@ const renderStockfishImage = (engineName: string) => {
 
 const renderStockfishInfo = (engineName: EngineName, engineDepth: number, isEngineRunning: boolean) => {
   return (
-    <>
+    <Fragment>
       {isEngineRunning ? (
         <p>evaluating move ...</p>
       ) : (
@@ -19,7 +20,7 @@ const renderStockfishInfo = (engineName: EngineName, engineDepth: number, isEngi
           <p>depth {engineDepth}</p>
         </div>
       )}
-    </>
+    </Fragment>
   );
 };
 

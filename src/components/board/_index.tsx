@@ -1,4 +1,4 @@
-import { useState, FC, useEffect, useRef } from "react";
+import { useState, FC, useEffect, useRef, Fragment } from "react";
 import { Chess, Square } from "chess.js";
 import ChessBoardLayout from "../layout/ChessBoard";
 import { useSelector } from "react-redux";
@@ -148,7 +148,7 @@ const ChessBoard: FC<ChessBoardProps> = ({ game, handleMoveAttempt }) => {
   };
 
   return (
-    <>
+    <Fragment>
       <ChessBoardLayout material={material}>
         <div className="box relative rounded-">
           <div className="main-board green merida my-2 " ref={boardRef}>
@@ -180,7 +180,7 @@ const ChessBoard: FC<ChessBoardProps> = ({ game, handleMoveAttempt }) => {
         onPromote={handlePromotion}
         onCancel={handlePromotionCancel}
       />
-    </>
+    </Fragment>
   );
 };
 

@@ -31,7 +31,7 @@ const NavigationButtons: FC<NavigationButtonsProps> = ({
       </Button>
 
       <Button onClick={submitHandler} variant="secondary">
-        {currentIndex === length - 1 ? <>Submit</> : <>Continue</>}
+        {currentIndex === length - 1 ? "Submit" : "Continue"}
       </Button>
     </div>
   );

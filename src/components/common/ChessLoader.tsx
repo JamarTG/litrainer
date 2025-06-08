@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { getPieceSet } from "@/redux/slices/piece-set";
 
@@ -34,7 +34,7 @@ const ChessLoader: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <Fragment>
       <div className="fixed inset-0 bg-gradient-to-br from-zinc-100 via-zinc-200 to-zinc-300 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-700 flex items-center justify-center overflow-hidden">
         <div className="relative z-10 text-center max-w-md mx-auto px-6">
           <div className="mb-8">
@@ -76,7 +76,7 @@ const ChessLoader: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 

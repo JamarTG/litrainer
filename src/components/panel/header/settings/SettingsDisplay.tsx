@@ -14,7 +14,7 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
   return (
     <div
       style={{ zIndex: 100 }}
-      className="absolute inset-0 bg-[#e7e3e3] dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in h-screen"
+      className="absolute w-full min-h-[499px] inset-0 bg-[#e7e3e3] dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in"
     >
       <div className="h-8 flex items-center justify-between">
         <button

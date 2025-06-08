@@ -1,12 +1,12 @@
 import { ICON_SIZES } from "@/constants/ui";
 import { SettingsIcon } from "lucide-react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import SettingsDisplay from "./SettingsDisplay";
 
 const SettingsTriggerButton = () => {
   const [showSettings, setShowSettings] = useState(false);
   return (
-    <div>
+    <Fragment>
       <button
         aria-label="Settings"
         title="Settings"
@@ -17,7 +17,7 @@ const SettingsTriggerButton = () => {
       </button>
 
       {showSettings && <SettingsDisplay setShowSettings={setShowSettings} />}
-    </div>
+    </Fragment>
   );
 };
 

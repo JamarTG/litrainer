@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import TrainerForm from "./form/TrainerForm";
 import { Fields } from "@/types/lichess";
 import { initialFormState } from "@/constants/form";
@@ -17,7 +17,7 @@ const NewSessionTriggerButton = () => {
   };
 
   return (
-    <>
+    <Fragment>
       {isModalOpen && (
         <TrainerForm
           isModalOpen={isModalOpen}
@@ -36,7 +36,7 @@ const NewSessionTriggerButton = () => {
       >
         <PlusCircle size={ICON_SIZES.MEDIUM} />
       </button>
-    </>
+    </Fragment>
   );
 };
 

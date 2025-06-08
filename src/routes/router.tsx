@@ -4,6 +4,7 @@ import Playground from "@/pages/Playground";
 import NavbarLayout from "@/components/layout/Navbar";
 import test from "@/test.json";
 import { loadFromLocalStorage } from "@/utils/storage";
+import { Fragment } from "react/jsx-runtime";
 
 export default function Router() {
   const location = useLocation();
@@ -12,7 +13,7 @@ export default function Router() {
   };
 
   return (
-    <>
+    <Fragment>
       <Routes>
         <Route
           path={Paths.HOME}
@@ -23,6 +24,6 @@ export default function Router() {
           }
         />
       </Routes>
-    </>
+    </Fragment>
   );
 }

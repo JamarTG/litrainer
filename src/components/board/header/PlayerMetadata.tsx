@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { Color } from "chess.js";
 import { RatingDifferenceTextColors } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
@@ -46,14 +46,14 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
 
   const renderPlayerTitle = () => {
     return (
-      <>
+      <Fragment>
         {title && (
           <p className="text-orange-400">
             {title}
             {"  "}
           </p>
         )}
-      </>
+      </Fragment>
     );
   };
 
