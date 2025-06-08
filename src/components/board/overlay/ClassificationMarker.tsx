@@ -1,5 +1,5 @@
 import { Square } from "chess.js";
-import { useMarkerPositionEffect } from "@/hooks/useMarkerPositionEffect";
+import { useMarkerPositionEffect } from "@/components/board/hooks/useMarkerPositionEffect";
 import { useSelector } from "react-redux";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/types/classification";

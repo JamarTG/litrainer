@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState, useRef 
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 import { LichessURL } from "@/constants/urls";
-import useDebounce from "@/hooks/useDebounceValue";
+import useDebounce from "@/components/panel/hooks/useDebounceValue";
 import List from "@/components/common/List";
 import { Fields, GameType } from "@/types/lichess";
 

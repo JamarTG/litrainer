@@ -1,20 +1,24 @@
-import { ChangeEvent, Dispatch, FC, MouseEventHandler, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { Fields } from "@/types/lichess";
 import Swiper from "./swipers/Swiper";
 import Portal from "./Portal";
 import SlideOne from "./slides/slide-one/Slide1";
 import SlideTwo from "./slides/slide-two/Slide2";
+import { initialFormState } from "@/constants/form";
+import useHandleSubmit from "@/hooks/useHandleSubmit";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  formData: Fields;
-  setFormData: Dispatch<SetStateAction<Fields>>;
-  handleSubmit: MouseEventHandler<HTMLButtonElement>;
+  // formData: Fields;
+  // setFormData: Dispatch<SetStateAction<Fields>>;
+  // handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
 
-const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formData, setFormData, handleSubmit }) => {
+const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [formData, setFormData] = useState<Fields>(initialFormState);
+  const handleSubmit = useHandleSubmit(formData);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,6 +33,8 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen, formDat
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  if (!isModalOpen) return;
 
   return (
     <Portal>

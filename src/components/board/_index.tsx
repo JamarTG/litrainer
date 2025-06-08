@@ -1,5 +1,5 @@
-import { useState, FC, useEffect, useRef, Fragment } from "react";
-import { Chess, Square } from "chess.js";
+import { useState, useEffect, useRef, Fragment } from "react";
+import { Square } from "chess.js";
 import ChessBoardLayout from "../layout/ChessBoard";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
@@ -9,7 +9,7 @@ import { initialPieceCounts } from "@/constants/piece";
 import { Materials } from "@/types/eval";
 import { isThemeAvailable, loadThemeCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
-import { useMaterialEffect } from "@/hooks/useMaterialEffect";
+import { useMaterialEffect } from "@/components/board/hooks/useMaterialEffect";
 import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
 import { ColorLongForm } from "@/types/lichess";
@@ -18,13 +18,10 @@ import { getPieceSet } from "@/redux/slices/piece-set";
 import { getBoardTheme } from "@/redux/slices/board-style";
 import { getFen } from "@/redux/slices/board";
 import { getIsPuzzleSolved } from "@/redux/slices/feedback";
+import usePuzzleSetup from "@/hooks/usePuzzleSetup";
+import { useMoveHandler } from "@/hooks/useMoveHandler";
 
-interface ChessBoardProps {
-  game: Chess;
-  handleMoveAttempt: (sourceSquare: Square, targetSquare: Square, promotion: string) => boolean;
-}
-
-const ChessBoard: FC<ChessBoardProps> = ({ game, handleMoveAttempt }) => {
+const ChessBoard = () => {
   const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
 
@@ -36,6 +33,10 @@ const ChessBoard: FC<ChessBoardProps> = ({ game, handleMoveAttempt }) => {
   const isPuzzleSolved = useSelector(getIsPuzzleSolved);
   const pieceSet = useSelector(getPieceSet);
   const boardTheme = useSelector(getBoardTheme);
+
+  const { game } = usePuzzleSetup();
+
+  const { handleMoveAttempt } = useMoveHandler(game);
 
   useMaterialEffect(game, setMaterial);
 

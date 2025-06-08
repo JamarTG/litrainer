@@ -9,6 +9,8 @@ const useInitPuzzles = (puzzles: Puzzle[]) => {
   useEffect(() => {
     dispatch(setPuzzles(puzzles));
   }, [puzzles, dispatch]);
+
+  return puzzles;
 };
 
 export default useInitPuzzles;

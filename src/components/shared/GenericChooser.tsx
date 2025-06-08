@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "@/components/panel/hooks/useClickOutside";
 import List from "../common/List";
 import { ChevronDown } from "lucide-react";
 
@@ -27,16 +27,12 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         setIsOpen(false);
       }}
       className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center overflow-hidden gap-2 rounded w-64 "
-    
     >
       {getDisplay(option)}
     </li>
   );
   return (
-    <div
-      ref={dropdownRef}
-      className="flex sm:flex-row items-center justify-center sm:items-start gap-4 relative"
-    >
+    <div ref={dropdownRef} className="flex sm:flex-row items-center justify-center sm:items-start gap-4 relative">
       <button className="w-72 flex items-center rounded-md transition">
         <div className="flex justify-start w-1/2">
           <p>choose your set</p>
