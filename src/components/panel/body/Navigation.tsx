@@ -48,8 +48,8 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isFirstPuzzle || isEngineRunning
-        ? "text-gray-300 dark:text-zinc-600 cursor-not-allowed"
-        : "hover:bg-gray-100 dark:hover:bg-zinc-700 active:scale-95"
+        ? "bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
         <StepBack size={ICON_SIZES.MEDIUM} />
@@ -61,8 +61,8 @@ const PuzzleNavigation = () => {
         disabled={!attemptedPuzzle}
         className={`p-2 rounded-xl transition-all duration-200 ${
           !attemptedPuzzle
-            ? "bg-gray-50 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 cursor-not-allowed"
-            : "bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-95"
+            ? " bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+            : " text-gray-600 dark:text-gray-300 dark:hover:bg-zinc-700 hover:bg-gray-200 active:scale-95"
         }`}
       >
         <RotateCcw size={ICON_SIZES.MEDIUM} />
@@ -75,8 +75,8 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isLastPuzzle || isEngineRunning
-        ? "text-gray-300 dark:text-zinc-600 cursor-not-allowed"
-        : "hover:bg-gray-100 dark:hover:bg-zinc-700 active:scale-95"
+        ? "bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
         <StepForward size={ICON_SIZES.MEDIUM} />
