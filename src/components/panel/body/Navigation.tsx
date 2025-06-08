@@ -48,7 +48,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isFirstPuzzle || isEngineRunning
-        ? "bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        ? "bg-zinc-200/75 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
         : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
@@ -75,7 +75,7 @@ const PuzzleNavigation = () => {
         className={`p-2 rounded-xl transition-all duration-200
     ${
       isLastPuzzle || isEngineRunning
-        ? "bg-zinc-200 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
+        ? "bg-zinc-200/75 dark:bg-transparent text-gray-300 dark:text-zinc-600 cursor-not-allowed"
         : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
     }`}
       >
