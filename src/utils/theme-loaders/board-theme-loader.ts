@@ -1,3 +1,5 @@
+import { BOARD_THEMES } from "@/constants/board";
+
 const boardModules = {
   "blue-marble": () => import("@/styles/board/blue-marble.css"),
   blue: () => import("@/styles/board/blue.css"),
@@ -25,21 +27,30 @@ const boardModules = {
   wood4: () => import("@/styles/board/wood4.css")
 };
 
-const loadedBoardThemes = new Set<string>();
+// const loadedBoardThemes = new Set<string>();
+let currentBoardTheme: string | null = null;
 
 export const loadBoardThemeCSS = async (themeName: string): Promise<void> => {
-  if (loadedBoardThemes.has(themeName)) {
+  if (currentBoardTheme === themeName) {
     return;
   }
 
   try {
-    if (boardModules[themeName as keyof typeof boardModules]) {
-      await boardModules[themeName as keyof typeof boardModules]();
-      loadedBoardThemes.add(themeName);
-      // console.log(`Board theme "${themeName}" loaded successfully`);
-    } else {
+    if (!boardModules[themeName as keyof typeof boardModules]) {
       console.warn(`Board theme "${themeName}" not found in boardModules`);
+      return;
     }
+
+    const theme = BOARD_THEMES.find((theme) => theme.name === themeName);
+
+    const cgWrap = document.querySelector(".cg-wrap") as HTMLElement;
+    if (cgWrap) {
+      cgWrap.style.backgroundImage = `url("${theme?.path}")`;
+      cgWrap.style.backgroundSize = "cover";
+    }
+
+    currentBoardTheme = themeName;
+    console.log(`Board theme "${themeName}" applied`);
   } catch (error) {
     console.error(`Failed to load board theme: "${themeName}"`, error);
     throw error;

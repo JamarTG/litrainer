@@ -80,13 +80,11 @@ export const loadThemeCSS = async (themeName: string): Promise<void> => {
       return;
     }
 
-    // Remove existing theme style
     const existingStyle = document.getElementById(THEME_STYLE_ID);
     if (existingStyle) {
       existingStyle.remove();
     }
 
-    // Create new style element with theme CSS
     const styleElement = document.createElement("style");
     styleElement.id = THEME_STYLE_ID;
     styleElement.textContent = generateThemeCSS(themeName);
