@@ -1,5 +1,3 @@
-import { BOARD_THEMES } from "@/constants/board";
-
 const boardModules = {
   "blue-marble": () => import("@/styles/board/blue-marble.css"),
   blue: () => import("@/styles/board/blue.css"),
@@ -27,30 +25,42 @@ const boardModules = {
   wood4: () => import("@/styles/board/wood4.css")
 };
 
-// const loadedBoardThemes = new Set<string>();
 let currentBoardTheme: string | null = null;
 
-export const loadBoardThemeCSS = async (themeName: string): Promise<void> => {
+export const loadBoardThemeCSS = async (themeName: string | null): Promise<void> => {
+  console.log("loadBoardThemeCSS called with:", { currentBoardTheme, themeName });
+
+  if (!themeName) {
+    console.warn(`Board theme is null/undefined, using default`);
+  }
+
   if (currentBoardTheme === themeName) {
+    console.log(`Theme "${themeName}" already loaded, skipping`);
     return;
   }
 
   try {
     if (!boardModules[themeName as keyof typeof boardModules]) {
-      console.warn(`Board theme "${themeName}" not found in boardModules`);
-      return;
+      console.warn(`Board theme "${themeName}" not found in boardModules, using default`);
     }
 
-    const theme = BOARD_THEMES.find((theme) => theme.name === themeName);
+    await boardModules[themeName as keyof typeof boardModules]();
 
-    const cgWrap = document.querySelector(".cg-wrap") as HTMLElement;
-    if (cgWrap) {
-      cgWrap.style.backgroundImage = `url("${theme?.path}")`;
-      cgWrap.style.backgroundSize = "cover";
+    const boardContainer = document.querySelector(".main-board") as HTMLElement;
+
+    if (boardContainer) {
+      availableBoardThemes.forEach((theme) => {
+        boardContainer.classList.remove(`board-theme-${theme}`);
+      });
+
+      boardContainer.classList.add(`board-theme-${themeName}`);
+
+      console.log(`Theme "${themeName}" applied via CSS class`);
+    } else {
+      console.error("Could not find .main-board element to apply theme");
     }
 
     currentBoardTheme = themeName;
-    console.log(`Board theme "${themeName}" applied`);
   } catch (error) {
     console.error(`Failed to load board theme: "${themeName}"`, error);
     throw error;
