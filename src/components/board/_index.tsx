@@ -153,24 +153,26 @@ const ChessBoard = () => {
       <ChessBoardLayout material={material}>
         <div className="box relative rounded-">
           <div className="main-board green merida my-2 " ref={boardRef}>
-            <Chessground
-              key={`puzzle-${fen}`}
-              fen={fen}
-              orientation={playerColorLongForm}
-              turnColor={turnColor()}
-              movable={calcMovable()}
-              lastMove={undefined}
-              onMove={onMove}
-              drawable={{
-                enabled: true,
-                visible: true,
-                defaultSnapToValidMove: true,
-                shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
-              }}
-              highlight={{ lastMove: true, check: true }}
-              addPieceZIndex={true}
-            />
-            <MoveClassificationMarker boardSize={boardSize} boardRef={boardRef} orientation={playerColorLongForm} />
+            <>
+              <Chessground
+                key={`puzzle-${fen}`}
+                fen={fen}
+                orientation={playerColorLongForm}
+                turnColor={turnColor()}
+                movable={calcMovable()}
+                lastMove={undefined}
+                onMove={onMove}
+                drawable={{
+                  enabled: true,
+                  visible: true,
+                  defaultSnapToValidMove: true,
+                  shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
+                }}
+                highlight={{ lastMove: true, check: true }}
+                addPieceZIndex={true}
+              />
+              <MoveClassificationMarker boardSize={boardSize} boardRef={boardRef} orientation={playerColorLongForm} />
+            </>
           </div>
         </div>
       </ChessBoardLayout>

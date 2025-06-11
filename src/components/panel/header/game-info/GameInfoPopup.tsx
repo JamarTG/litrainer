@@ -13,13 +13,13 @@ interface GameInfoPopupProps {
 const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }) => {
   const puzzle = useSelector(getPuzzle);
 
+  if (!puzzle || !showPopup) return;
+
   const { phase, timeControl, rated, status, winner, players, gameId, moveNumber, positionOpening } = puzzle;
 
   const ratedLabel = rated ? "Rated" : "Casual";
   const phaseLabel = phase;
   const timeLabel = timeControl;
-
-  if (!showPopup) return null;
 
   return (
     <div className="absolute left-1/2 top-full mt-2 z-20 transform -translate-x-1/2 min-w-[300px] max-w-sm w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-xl shadow-lg p-4">
