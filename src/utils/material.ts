@@ -42,7 +42,7 @@ export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   return getRelativeMaterialAdvantage(combinedMaterial);
 };
 
-export const determineColorLeadingInMaterial = (materials: Materials, color: Color): number => {
+export const getRelativeMaterial = (materials: Materials, color: Color) => {
   const getMaterialDifferenceOnPieceValue = (materials: Materials) => {
     return (
       materials.w.p -
@@ -58,8 +58,16 @@ export const determineColorLeadingInMaterial = (materials: Materials, color: Col
     );
   };
   const materialDifference = getMaterialDifferenceOnPieceValue(materials);
+
   const whiteHasMaterialAdvantage = color === "w" && materialDifference > 0;
   const blackHasMaterialAdvantage = color === "b" && materialDifference < 0;
 
-  return whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
+  const materialCount = whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
+  const thisPlayerIsUpMaterial = materialCount > 0;
+  const upMaterialSign = thisPlayerIsUpMaterial ? "+" : "";
+
+  return {
+    materialCount,
+    upMaterialSign
+  };
 };

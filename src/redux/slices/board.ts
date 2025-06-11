@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Chess } from "chess.js";
 import { RootState } from "../store";
+import { Materials } from "@/types/eval";
+import { initialPieceCounts } from "@/constants/piece";
 
 interface MarkerPosition {
   right: number;
@@ -12,6 +14,8 @@ export interface BoardState {
   sourceSquare: string | null;
   destinationSquare: string | null;
   markerPosition: MarkerPosition;
+  materials: Materials;
+  materialCalc: number;
 }
 
 const initialState: BoardState = {
@@ -21,7 +25,9 @@ const initialState: BoardState = {
   markerPosition: {
     right: 0,
     top: 0
-  }
+  },
+  materials: initialPieceCounts,
+  materialCalc: 0
 };
 
 const boardSlice = createSlice({
@@ -40,6 +46,12 @@ const boardSlice = createSlice({
     setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
       state.markerPosition = action.payload;
     },
+    updateMaterials(state, action: PayloadAction<Materials>) {
+      state.materials = action.payload;
+    },
+    recalcMaterialCalc(state, action: PayloadAction<number>) {
+      state.materialCalc = action.payload;
+    },
     resetBoardState() {
       return initialState;
     }
@@ -49,6 +61,7 @@ const boardSlice = createSlice({
 export const getFen = (state: RootState) => state.board.fen;
 export const getMarkerPosition = (state: RootState) => state.board.markerPosition;
 export const getDestinationSquare = (state: RootState) => state.board.destinationSquare;
-export const { setFen, setMarkerPosition, resetBoardState, updateBoardStates } = boardSlice.actions;
+export const getMaterials = (state: RootState) => state.board.materials;
+export const { setFen, setMarkerPosition, updateMaterials, resetBoardState, updateBoardStates } = boardSlice.actions;
 
 export default boardSlice.reducer;

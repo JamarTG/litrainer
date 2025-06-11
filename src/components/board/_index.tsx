@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
 import type { Color } from "chessground/types";
 import MoveClassificationMarker from "./overlay/ClassificationMarker";
-import { initialPieceCounts } from "@/constants/piece";
-import { Materials } from "@/types/eval";
 import { isPieceSetAvailable, loadPieceSetCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useMaterialEffect } from "@/components/board/hooks/useMaterialEffect";
@@ -16,13 +14,14 @@ import { ColorLongForm } from "@/types/lichess";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { getPieceSet } from "@/redux/slices/piece-set";
 import { getBoardTheme } from "@/redux/slices/board-style";
-import { getFen } from "@/redux/slices/board";
+import { getFen, getMaterials } from "@/redux/slices/board";
 import { getIsPuzzleSolved } from "@/redux/slices/feedback";
 import usePuzzleSetup from "@/hooks/usePuzzleSetup";
 import { useMoveHandler } from "@/hooks/useMoveHandler";
 
 const ChessBoard = () => {
-  const [material, setMaterial] = useState<Materials>(initialPieceCounts);
+  // const [material, setMaterial] = useState<Materials>(initialPieceCounts);
+  const materials = useSelector(getMaterials);
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
 
   const boardRef = useRef<HTMLDivElement>(null);
@@ -38,7 +37,7 @@ const ChessBoard = () => {
 
   const { handleMoveAttempt } = useMoveHandler(game);
 
-  useMaterialEffect(game, setMaterial);
+  useMaterialEffect(game, fen);
 
   useEffect(() => {
     const updateBoardSize = () => {
@@ -150,7 +149,7 @@ const ChessBoard = () => {
 
   return (
     <Fragment>
-      <ChessBoardLayout material={material}>
+      <ChessBoardLayout materials={materials}>
         <div className="box relative rounded-">
           <div className="main-board green merida my-2 " ref={boardRef}>
             <>

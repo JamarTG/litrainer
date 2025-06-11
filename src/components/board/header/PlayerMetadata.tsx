@@ -6,82 +6,87 @@ import { PlayerIcons } from "@/constants/icons";
 import { LichessURL } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { getPlayerByShortColor, getPuzzle } from "@/redux/slices/puzzle";
+import { LichessPlayer, Puzzle } from "@/types/lichess";
 
 interface PlayerMetaDataProps {
-  color: Color;
+  playerColor: Color;
 }
 
-const PlayerMetaData: FC<PlayerMetaDataProps> = ({ color }) => {
+const renderIcon = (playerColor: Color, isDarkMode: boolean) => {
+  const isWhite = playerColor === "w";
+  const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
+
+  return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
+};
+
+const renderPatronWing = (player: LichessPlayer) => {
+  return (
+    player.user.patron && (
+      <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />
+    )
+  );
+};
+
+const renderPlayerTitle = (player: LichessPlayer) => {
+  return (
+    <Fragment>
+      {player.user.title && (
+        <p className="text-orange-400">
+          {player.user.title}
+          {"  "}
+        </p>
+      )}
+    </Fragment>
+  );
+};
+
+const renderPlayerName = (player: LichessPlayer, playerColor: Color, puzzle: Puzzle) => {
+  return (
+    <a
+      className="text-blue-500"
+      href={`${LichessURL.Profile}${player.user.name}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {playerColor === "w" ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
+    </a>
+  );
+};
+
+const renderPlayerRating = (player: LichessPlayer, showDiff: boolean) => {
+  return (
+    <p className="text-gray-400 ml-1">
+      ({player.rating}
+      {player.provisional && "?"}){" "}
+      {showDiff && (
+        <span
+          className={
+            player.ratingDiff > 0
+              ? RatingDifferenceTextColors.positive
+              : player.ratingDiff < 0
+                ? RatingDifferenceTextColors.negative
+                : RatingDifferenceTextColors.neutral
+          }
+        >
+          {player.ratingDiff > 0 ? `+${player.ratingDiff}` : player.ratingDiff}
+        </span>
+      )}
+    </p>
+  );
+};
+
+const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isDarkMode = useSelector(isDarkModeActive);
   const puzzle = useSelector(getPuzzle);
-  const player = useSelector(getPlayerByShortColor(color));
-
-  const rating = player.rating;
-  const ratingDiff = player.ratingDiff;
-  const isPatron = player.user.patron;
-  const title = player.user.title;
-  const isRatingProvisional = player.provisional;
-  const username = player.user.name;
-
-  const colorClass =
-    ratingDiff > 0
-      ? RatingDifferenceTextColors.positive
-      : ratingDiff < 0
-        ? RatingDifferenceTextColors.negative
-        : RatingDifferenceTextColors.neutral;
-  const showDiff = ratingDiff !== undefined && ratingDiff !== 0;
-
-  const renderIcon = () => {
-    const isWhite = color === "w";
-    const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
-
-    return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
-  };
-
-  const renderPatronWing = () => {
-    return (
-      isPatron && <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />
-    );
-  };
-
-  const renderPlayerTitle = () => {
-    return (
-      <Fragment>
-        {title && (
-          <p className="text-orange-400">
-            {title}
-            {"  "}
-          </p>
-        )}
-      </Fragment>
-    );
-  };
-
-  const renderPlayerName = () => {
-    return (
-      <a className="text-blue-500" href={`${LichessURL.Profile}${username}`} target="_blank" rel="noopener noreferrer">
-        {color === "w" ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
-      </a>
-    );
-  };
-
-  const renderPlayerRating = () => {
-    return (
-      <p className="text-gray-400 ml-1">
-        ({rating}
-        {isRatingProvisional && "?"}){" "}
-        {showDiff && <span className={colorClass}>{ratingDiff > 0 ? `+${ratingDiff}` : ratingDiff}</span>}
-      </p>
-    );
-  };
+  const player = useSelector(getPlayerByShortColor(playerColor));
 
   return (
     <div className="noto player-color flex justify-center items-center gap-1 text-md">
-      {renderIcon()}
-      {renderPatronWing()}
-      {renderPlayerTitle()}
-      {renderPlayerName()}
-      {renderPlayerRating()}
+      {renderIcon(playerColor, isDarkMode)}
+      {renderPatronWing(player)}
+      {renderPlayerTitle(player)}
+      {renderPlayerName(player, playerColor, puzzle)}
+      {renderPlayerRating(player, !!player.ratingDiff)}
     </div>
   );
 };

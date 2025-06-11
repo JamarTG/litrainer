@@ -1,24 +1,24 @@
-import RenderMaterial from "./RenderMaterial";
 import { FC } from "react";
-import PlayerHeader from "./PlayerMetadata";
 import { Color } from "chess.js";
-import { Materials } from "@/types/eval";
+import { Material } from "@/types/eval";
+import PlayerMaterial from "./PlayerMaterial";
+import PlayerMetaData from "./PlayerMetadata";
 
-interface PlayerBadgeProps {
-  color: Color;
-  material: Materials;
+interface HeaderForPlayerProps {
+  playerColor: Color;
+  playerMaterial: Material;
   hasPuzzle: boolean;
 }
 
-const PlayerBadge: FC<PlayerBadgeProps> = ({ color, material, hasPuzzle }) => {
+const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial, hasPuzzle }) => {
   if (!hasPuzzle) return null;
 
   return (
     <div className={`w-full text-center p-1 text-sm dark:text-white flex justify-center items-center gap-5`}>
-      <PlayerHeader color={color} />
-      <RenderMaterial material={material} color={color} />
+      <PlayerMetaData playerColor={playerColor} />
+      <PlayerMaterial playerMaterial={playerMaterial} playerColor={playerColor} />
     </div>
   );
 };
 
-export default PlayerBadge;
+export default HeaderForPlayer;
