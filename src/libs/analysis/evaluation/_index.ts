@@ -11,7 +11,7 @@ export const getBasicClassification = (
     const cp2 = lastPositionEvaluation?.lines?.[1]?.cp ?? 0;
 
     const cpDiff = Math.abs(cp1 - cp2);
-    console.log(cpDiff, "ceni");
+
     if (cpDiff >= 70) {
       return MoveClassification.Great;
     }
