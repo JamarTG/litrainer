@@ -4,6 +4,7 @@ import { ICON_SIZES } from "@/constants/ui";
 import { useSelector } from "react-redux";
 
 import { getPuzzle } from "@/redux/slices/puzzle";
+import { formatTimeControl } from "@/utils/time";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
@@ -42,7 +43,8 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
               <GameSpeedIcon speed={puzzle.timeControl} size={ICON_SIZES.MEDIUM} />
             </span>
             <span>{ratedLabel}</span>
-            <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">{timeLabel}</span>
+            <span className="font-medium capitalize text-zinc-600 dark:text-zinc-400">{timeLabel}</span>
+            {formatTimeControl(puzzle.clock.initial, puzzle.clock.increment)}
           </div>
         </div>
 
@@ -68,7 +70,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
             rel="noopener noreferrer"
             className="text-blue-600 dark:text-blue-400 hover:underline text-xs"
           >
-            View Full Game ↗
+            View Full Game
           </a>
 
           {positionOpening && (
