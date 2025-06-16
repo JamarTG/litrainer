@@ -67,7 +67,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
               <input
                 ref={inputRef}
                 className="flex text-[#222] w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted"
-                placeholder="JamariTheGreat"
+                placeholder="Lichess Username"
                 value={formData.username}
                 onKeyDown={(e) => {
                   if (e.code === "ArrowUp") {
