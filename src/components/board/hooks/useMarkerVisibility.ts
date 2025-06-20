@@ -1,12 +1,8 @@
-import { getDestinationSquare } from "@/redux/slices/board";
-import { getClassification } from "@/redux/slices/feedback";
+import { Classification } from "@/types/classification";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
-const useMarkerVisibility = () => {
+const useMarkerVisibility = (classification: Classification | null, destinationSquare: string | null) => {
   const [shouldMarkerBeVisible, setShouldMarkerBeVisible] = useState(false);
-  const classification = useSelector(getClassification);
-  const destinationSquare = useSelector(getDestinationSquare);
 
   useEffect(() => {
     if (destinationSquare && classification) {

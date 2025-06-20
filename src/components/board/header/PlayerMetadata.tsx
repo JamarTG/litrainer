@@ -5,7 +5,7 @@ import { RatingDifferenceTextColors } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LichessURL } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
-import { getPlayerByShortColor, getPuzzle } from "@/redux/slices/puzzle";
+import { getPuzzle } from "@/redux/slices/puzzle";
 import { LichessPlayer, Puzzle } from "@/types/lichess";
 
 interface PlayerMetaDataProps {
@@ -21,7 +21,7 @@ const renderIcon = (playerColor: Color, isDarkMode: boolean) => {
 
 const renderPatronWing = (player: LichessPlayer) => {
   return (
-    player.user.patron && (
+    player?.user.patron && (
       <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />
     )
   );
@@ -30,9 +30,9 @@ const renderPatronWing = (player: LichessPlayer) => {
 const renderPlayerTitle = (player: LichessPlayer) => {
   return (
     <Fragment>
-      {player.user.title && (
+      {player?.user.title && (
         <p className="text-orange-400">
-          {player.user.title}
+          {player?.user.title}
           {"  "}
         </p>
       )}
@@ -44,7 +44,7 @@ const renderPlayerName = (player: LichessPlayer, playerColor: Color, puzzle: Puz
   return (
     <a
       className="text-blue-500"
-      href={`${LichessURL.Profile}${player.user.name}`}
+      href={`${LichessURL.Profile}${player?.user.name}`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -56,19 +56,19 @@ const renderPlayerName = (player: LichessPlayer, playerColor: Color, puzzle: Puz
 const renderPlayerRating = (player: LichessPlayer, showDiff: boolean) => {
   return (
     <p className="text-gray-400 ml-1">
-      ({player.rating}
-      {player.provisional && "?"}){" "}
+      ({player?.rating}
+      {player?.provisional && "?"}){" "}
       {showDiff && (
         <span
           className={
-            player.ratingDiff > 0
+            player?.ratingDiff > 0
               ? RatingDifferenceTextColors.positive
-              : player.ratingDiff < 0
+              : player?.ratingDiff < 0
                 ? RatingDifferenceTextColors.negative
                 : RatingDifferenceTextColors.neutral
           }
         >
-          {player.ratingDiff > 0 ? `+${player.ratingDiff}` : player.ratingDiff}
+          {player?.ratingDiff > 0 ? `+${player?.ratingDiff}` : player?.ratingDiff}
         </span>
       )}
     </p>
@@ -78,7 +78,8 @@ const renderPlayerRating = (player: LichessPlayer, showDiff: boolean) => {
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isDarkMode = useSelector(isDarkModeActive);
   const puzzle = useSelector(getPuzzle);
-  const player = useSelector(getPlayerByShortColor(playerColor));
+
+  const player = playerColor === "w" ? puzzle?.players.white : puzzle?.players.black;
 
   return (
     <div className="noto player-color flex justify-center items-center gap-1 text-md">
@@ -86,7 +87,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
       {renderPatronWing(player)}
       {renderPlayerTitle(player)}
       {renderPlayerName(player, playerColor, puzzle)}
-      {renderPlayerRating(player, !!player.ratingDiff)}
+      {renderPlayerRating(player, !!player?.ratingDiff)}
     </div>
   );
 };

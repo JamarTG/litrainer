@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Puzzle } from "@/types/lichess";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { RootState } from "../store";
-import { Color } from "chess.js";
 
 export interface PuzzleState {
   puzzles: Puzzle[];
@@ -55,11 +54,6 @@ export const getGameMoves = (state: RootState) => {
     opponentMove: puzzle.opponentMove,
     userMove: puzzle.userMove
   };
-};
-
-export const getPlayerByShortColor = (color: Color) => (state: RootState) => {
-  const puzzle = getPuzzle(state);
-  return puzzle.players[color === "w" ? "white" : "black"];
 };
 
 export const isFirstPuzzle = (state: RootState) => state.puzzle.currentIndex == 0;

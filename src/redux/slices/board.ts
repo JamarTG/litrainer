@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Chess } from "chess.js";
+import { Chess, Square } from "chess.js";
 import { RootState } from "../store";
 import { Materials } from "@/types/eval";
 import { initialPieceCounts } from "@/constants/piece";
@@ -12,7 +12,7 @@ interface MarkerPosition {
 export interface BoardState {
   fen: string;
   sourceSquare: string | null;
-  destinationSquare: string | null;
+  destinationSquare: Square | null;
   markerPosition: MarkerPosition;
   materials: Materials;
   materialCalc: number;
@@ -34,7 +34,7 @@ const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    updateBoardStates(state, action: PayloadAction<{ sourceSquare: string; destinationSquare: string; fen: string }>) {
+    updateBoardStates(state, action: PayloadAction<{ sourceSquare: Square; destinationSquare: Square; fen: string }>) {
       state.sourceSquare = action.payload.sourceSquare;
       state.destinationSquare = action.payload.destinationSquare;
       state.fen = action.payload.fen;
