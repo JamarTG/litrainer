@@ -1,20 +1,24 @@
 import { getGameStatusDescription } from "@/utils/status";
-import { Puzzle } from "@/types/lichess";
+import { ColorLongForm, LichessPlayer } from "@/types/lichess";
 
 interface GameStatusProps {
-  gameStatus: Puzzle["status"];
-  gameWinner: Puzzle["winner"];
-  whitePlayer: Puzzle["players"]["white"];
-  blackPlayer: Puzzle["players"]["black"];
+  gameStatus: string;
+  gameWinner: ColorLongForm;
+  whitePlayer: LichessPlayer;
+  blackPlayer: LichessPlayer;
 }
 
 const GameStatus: React.FC<GameStatusProps> = ({ gameStatus, gameWinner, whitePlayer, blackPlayer }) => {
-  const didWhiteWin = gameWinner === "white";
-  return (
-    <p className="text-md text-gray-400">
-      {getGameStatusDescription(gameStatus, didWhiteWin ? whitePlayer : blackPlayer)}
-    </p>
-  );
+  // status
+  // gameWinner
+  // whitePlayer
+  // blackPlayer
+
+  const getWinner = (gameWinner: ColorLongForm) => {
+    return gameWinner === "white" ? whitePlayer : blackPlayer;
+  };
+
+  return <p className="text-md text-gray-400">{getGameStatusDescription(gameStatus, getWinner(gameWinner))}</p>;
 };
 
 export default GameStatus;

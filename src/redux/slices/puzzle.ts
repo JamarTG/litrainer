@@ -49,6 +49,14 @@ const puzzleSlice = createSlice({
 
 export const getPuzzle = (state: RootState) => state.puzzle.puzzles[state.puzzle.currentIndex];
 
+export const getGameMoves = (state: RootState) => {
+  const puzzle = getPuzzle(state);
+  return {
+    opponentMove: puzzle.opponentMove,
+    userMove: puzzle.userMove
+  };
+};
+
 export const getPlayerByShortColor = (color: Color) => (state: RootState) => {
   const puzzle = getPuzzle(state);
   return puzzle.players[color === "w" ? "white" : "black"];
