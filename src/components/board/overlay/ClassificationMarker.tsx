@@ -1,41 +1,54 @@
 import { Square } from "chess.js";
-import { useMarkerPositionEffect } from "@/components/board/hooks/useMarkerPositionEffect";
+
 import { useSelector } from "react-redux";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/types/classification";
 import { FC, RefObject, useEffect, useState } from "react";
 import { ColorLongForm } from "@/types/lichess";
 import { Z_INDEX } from "@/constants/ui";
-import { getClassification } from "@/redux/slices/feedback";
 import { getDestinationSquare, getMarkerPosition } from "@/redux/slices/board";
+import useMarkerVisibility from "../hooks/useMarkerVisibility";
+import { getClassification } from "@/redux/slices/feedback";
+import { useMarkerPositionEffect } from "../hooks/useMarkerPositionEffect";
 
 interface MoveClassificationMarkerProps {
-  boardSize: number;
   boardRef: RefObject<HTMLDivElement>;
   orientation: ColorLongForm;
 }
 
-const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize, boardRef, orientation }) => {
+const calculateSquareSize = (boardSize: number) => {
+  return boardSize / 16;
+};
+
+const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardRef, orientation }) => {
   const markerPosition = useSelector(getMarkerPosition);
   const classification = useSelector(getClassification);
   const destinationSquare = useSelector(getDestinationSquare);
 
-  const [visible, setVisible] = useState(false);
+  const [boardSize, setBoardSize] = useState<number>(0);
+
+  const { isVisible } = useMarkerVisibility();
 
   useMarkerPositionEffect(destinationSquare as Square, boardSize, boardRef, orientation);
 
   useEffect(() => {
-    if (destinationSquare && classification) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  }, [destinationSquare, classification]);
+    const updateBoardSize = () => {
+      if (boardRef.current) {
+        setBoardSize(boardRef.current.offsetWidth);
+      }
+    };
 
-  if (!destinationSquare || !classification || !boardRef.current || !markerPosition) {
+    updateBoardSize();
+
+    window.addEventListener("resize", updateBoardSize);
+    return () => window.removeEventListener("resize", updateBoardSize);
+  }, []);
+
+  if (!classification) {
     return null;
   }
-  const squareSize = boardSize / 16;
+
+  const squareSize = calculateSquareSize(boardSize);
 
   return (
     <img
@@ -44,7 +57,7 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardSize
       width={squareSize}
       height={squareSize}
       className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
-        visible ? "opacity-90" : "opacity-0"
+        isVisible ? "opacity-90" : "opacity-0"
       }`}
       style={{
         right: markerPosition.right,

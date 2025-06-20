@@ -20,12 +20,10 @@ import usePuzzleSetup from "@/hooks/usePuzzleSetup";
 import { useMoveHandler } from "@/hooks/useMoveHandler";
 
 const ChessBoard = () => {
-  // const [material, setMaterial] = useState<Materials>(initialPieceCounts);
   const materials = useSelector(getMaterials);
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
 
   const boardRef = useRef<HTMLDivElement>(null);
-  const [boardSize, setBoardSize] = useState<number>(0);
 
   const fen = useSelector(getFen);
   const puzzle = useSelector(getPuzzle);
@@ -38,19 +36,6 @@ const ChessBoard = () => {
   const { handleMoveAttempt } = useMoveHandler(game);
 
   useMaterialEffect(game, fen);
-
-  useEffect(() => {
-    const updateBoardSize = () => {
-      if (boardRef.current) {
-        setBoardSize(boardRef.current.offsetWidth);
-      }
-    };
-
-    updateBoardSize();
-
-    window.addEventListener("resize", updateBoardSize);
-    return () => window.removeEventListener("resize", updateBoardSize);
-  }, []);
 
   useEffect(() => {
     if (!isPieceSetAvailable(pieceSet)) {
@@ -170,7 +155,11 @@ const ChessBoard = () => {
                 highlight={{ lastMove: true, check: true }}
                 addPieceZIndex={true}
               />
-              <MoveClassificationMarker boardSize={boardSize} boardRef={boardRef} orientation={playerColorLongForm} />
+              <MoveClassificationMarker
+                boardRef={boardRef}
+                orientation={playerColorLongForm}
+                // boardSize={boardRef.current?.offsetWidth || 400}
+              />
             </>
           </div>
         </div>

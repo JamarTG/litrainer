@@ -12,7 +12,6 @@ type QueryOptions = {
 };
 
 export const getLichessGames = async (queryOptions: QueryOptions) => {
-
   const url = new URL(LichessURL.GamesAPI + queryOptions.username);
   const params = url.searchParams;
 
@@ -33,8 +32,8 @@ export const getLichessGames = async (queryOptions: QueryOptions) => {
       Accept: "application/x-ndjson"
     }
   });
-  
-  if (!response.ok) throw new Error(`Response status: ${response.status}`);
+
+  if (!response.ok) throw new Error(`Response status: ${response}`);
 
   const games = await parseGames(response);
   if (!games) throw new Error("No games for those params");

@@ -5,6 +5,7 @@ import { setMarkerPosition } from "@/redux/slices/board";
 import { ColorLongForm } from "@/types/lichess";
 import { useSelector } from "react-redux";
 import { getUserColor } from "@/redux/slices/puzzle";
+import { calculateMarkerPosition } from "@/utils/marker";
 
 export const useMarkerPositionEffect = (
   destinationSquare: Square | null,
@@ -12,41 +13,25 @@ export const useMarkerPositionEffect = (
   boardRef?: RefObject<HTMLDivElement>,
   orientation?: ColorLongForm
 ) => {
-  const puzzleColor = useSelector(getUserColor);
+  const puzzleColor = useSelector(getUserColor) as ColorLongForm;
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (destinationSquare && puzzleColor && boardRef?.current) {
       requestAnimationFrame(() => {
-        const [fileLetter, rankNumberAsString] = destinationSquare;
-        const fileLetterASCIINumberCode = fileLetter.charCodeAt(0);
-        const ASCIINumberCodeForA = "a".charCodeAt(0);
-        const rankNumberAsInteger = parseInt(rankNumberAsString, 10);
+        if (!destinationSquare) return;
 
-        const file = fileLetterASCIINumberCode - ASCIINumberCodeForA;
-        const rank = 8 - rankNumberAsInteger;
+        const markerPosition = calculateMarkerPosition(
+          destinationSquare,
+          boardSize,
+          puzzleColor,
+          boardRef,
+          orientation
+        );
 
-        const numberOfSquaresOnRank = 8;
-        const singleSquareSize = boardSize / numberOfSquaresOnRank;
-
-        const effectiveBoardOrientation = orientation === "white" ? "w" : orientation === "black" ? "b" : puzzleColor;
-        const isBoardWhiteOriented = effectiveBoardOrientation === "w";
-
-        const arbitraryOffsetConstant = 0.3;
-        const topOffset = singleSquareSize * arbitraryOffsetConstant;
-        const rightOffset = singleSquareSize * arbitraryOffsetConstant;
-
-        const position = isBoardWhiteOriented
-          ? {
-              right: (7 - file) * singleSquareSize - rightOffset,
-              top: rank * singleSquareSize - topOffset
-            }
-          : {
-              right: file * singleSquareSize - rightOffset,
-              top: (7 - rank) * singleSquareSize - topOffset
-            };
-
-        dispatch(setMarkerPosition(position));
+        if (markerPosition) {
+          dispatch(setMarkerPosition({ top: markerPosition.top, right: markerPosition.right }));
+        }
       });
     }
   }, [destinationSquare, dispatch, boardSize, puzzleColor, boardRef, orientation]);
