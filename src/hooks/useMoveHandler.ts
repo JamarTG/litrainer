@@ -1,4 +1,4 @@
-import { Chess, Move } from "chess.js";
+import { Chess, Move, Square } from "chess.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
@@ -130,7 +130,7 @@ export const useMoveHandler = (game: Chess) => {
   );
 
   const updateGameState = useCallback(
-    (game: Chess, sourceSquare: string, targetSquare: string) => {
+    (game: Chess, sourceSquare: Square, targetSquare: Square) => {
       const newFen = game.fen();
       dispatch(
         updateBoardStates({
@@ -145,7 +145,7 @@ export const useMoveHandler = (game: Chess) => {
   );
 
   const handleMoveAttempt = useCallback(
-    (sourceSquare: string, targetSquare: string, promotion: string): boolean => {
+    (sourceSquare: Square, targetSquare: Square, promotion: string): boolean => {
       if (isPuzzleSolved || game.turn() !== puzzle?.userMove.color) {
         return false;
       }

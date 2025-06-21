@@ -60,12 +60,5 @@ export const isFirstPuzzle = (state: RootState) => state.puzzle.currentIndex == 
 export const isLastPuzzle = (state: RootState) => state.puzzle.currentIndex >= state.puzzle.puzzles.length - 1;
 export const getUserColor = (state: RootState) => getPuzzle(state)?.userMove?.color[0]?.toLocaleLowerCase();
 
-// export const ge
-
-// puzzles: Puzzle[];
-//   currentIndex: number;
-//   autoSkip: boolean;
-//   redoTrigger: number;
-
 export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip, redoPuzzle } = puzzleSlice.actions;
 export default puzzleSlice.reducer;
