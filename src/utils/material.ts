@@ -62,12 +62,12 @@ export const getRelativeMaterial = (materials: Materials, color: Color) => {
   const whiteHasMaterialAdvantage = color === "w" && materialDifference > 0;
   const blackHasMaterialAdvantage = color === "b" && materialDifference < 0;
 
-  const materialCount = whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
-  const thisPlayerIsUpMaterial = materialCount > 0;
-  const upMaterialSign = thisPlayerIsUpMaterial ? "+" : "";
+  const materialScore = whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
+  const isPositiveMaterialScore = materialScore > 0;
+  const plusSign = isPositiveMaterialScore ? "+" : "";
 
   return {
-    materialCount,
-    upMaterialSign
+    materialScore,
+    plusSign
   };
 };
