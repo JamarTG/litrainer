@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState, useRef } from "react";
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
-import { LichessURL } from "@/constants/urls";
+import { LICHESS_URLS } from "@/constants/urls";
 import useDebounce from "@/components/panel/hooks/useDebounceValue";
 import List from "@/components/common/List";
 import { Fields, GameType } from "@/types/lichess";
@@ -25,7 +25,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
       return;
     }
     const autoCompleteUser = async () => {
-      const results = await fetch(`${LichessURL.AutoCompleteUser}?term=${debouncedUsername}`);
+      const results = await fetch(`${LICHESS_URLS.AutoCompleteUser}?term=${debouncedUsername}`);
       const data = await results.json();
       setAutoCompletedUsers(data);
       setKeyboardHoverOption(-1);
