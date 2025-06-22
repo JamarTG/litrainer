@@ -1,4 +1,4 @@
-import { ICON_SIZES } from "@/constants/ui";
+import { ICON_SIZES } from "@/constants/icons";
 import { Info } from "lucide-react";
 
 interface GameInfoButtonProps {

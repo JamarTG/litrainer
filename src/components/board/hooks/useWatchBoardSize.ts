@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
 
 const useWatchBoardSize = (boardRef: RefObject<HTMLDivElement>) => {
-  const [boardSize, setBoardSize] = useState<number>(0);
+  const [boardSize, setBoardSize] = useState<number | null>(null);
   useEffect(() => {
     const updateBoardSize = () => {
       if (boardRef.current) {

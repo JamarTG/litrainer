@@ -28,11 +28,11 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardRef,
 
   useMarkerPositionEffect(destinationSquare as Square, boardSize, boardRef, orientation);
 
+  const squareSize = calculateSquareSize(boardSize);
+
   if (!classification) {
     return null;
   }
-
-  const squareSize = calculateSquareSize(boardSize);
 
   return (
     <ShowIf condition={!!classification}>

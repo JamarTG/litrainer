@@ -1,7 +1,7 @@
 import { BookOpen } from "lucide-react";
-import { LichessURL } from "@/constants/urls";
+import { LICHESS_URLS } from "@/constants/urls";
 import { Puzzle } from "@/types/lichess";
-import { ICON_SIZES } from "@/constants/ui";
+import { ICON_SIZES } from "@/constants/icons";
 import { Fragment } from "react/jsx-runtime";
 
 interface OpeningToPracticeProps {
@@ -13,7 +13,7 @@ const OpeningToPractice: React.FC<OpeningToPracticeProps> = ({ positionOpening }
     <Fragment>
       {positionOpening ? (
         <a
-          href={`${LichessURL.Openings}${positionOpening.eco}`}
+          href={`${LICHESS_URLS.Openings}${positionOpening.eco}`}
           className="inline-flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition"
           target="_blank"
           rel="noopener noreferrer"

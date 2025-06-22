@@ -79,7 +79,6 @@ const renderPlayerRating = (player: LichessPlayer, showDiff: boolean) => {
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isDarkMode = useSelector(isDarkModeActive);
   const puzzle = useSelector(getPuzzle);
-
   const player = isWhitePlayerShort(playerColor) ? puzzle?.players.white : puzzle?.players.black;
 
   return (

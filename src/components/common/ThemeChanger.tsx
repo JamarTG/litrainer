@@ -1,9 +1,9 @@
-import { ICON_SIZES } from "@/constants/ui";
 import { toggleTheme } from "@/redux/slices/theme";
 import { Moon, Sun } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { isDarkModeActive } from "@/redux/slices/theme";
+import { ICON_SIZES } from "@/constants/icons";
 
 const ThemeChanger = () => {
   const dispatch = useDispatch();

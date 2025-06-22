@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { DaysOfTheWeek, MonthsOfTheYear } from "@/constants/date";
+import { DAYS_OF_THE_WEEK, MONTHS_OF_THE_YEAR } from "@/constants/date";
 import List from "@/components/common/List";
 
 interface CalendarProps {
@@ -131,7 +131,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
     return daysArray;
   };
 
-  const renderDay = (day: (typeof DaysOfTheWeek)[number]) => (
+  const renderDay = (day: (typeof DAYS_OF_THE_WEEK)[number]) => (
     <div key={day} className="flex items-center justify-center text-xs text-muted w-7">
       {day}
     </div>
@@ -165,7 +165,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
         </button>
 
         <div className="text-xs py-1">
-          {MonthsOfTheYear[currentDate.getMonth()]} {currentDate.getFullYear()}
+          {MONTHS_OF_THE_YEAR[currentDate.getMonth()]} {currentDate.getFullYear()}
         </div>
 
         <button onClick={handleNextMonth} className="rounded-md bg-secondary border border-shadowGray h-7 w-7">
@@ -183,7 +183,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
       </div>
 
       <div className="grid grid-cols-7 py-2">
-        <List items={DaysOfTheWeek} renderItem={renderDay} />
+        <List items={DAYS_OF_THE_WEEK} renderItem={renderDay} />
       </div>
 
       <div className="grid grid-cols-7 text-xs text-offWhite ">{renderDays()}</div>

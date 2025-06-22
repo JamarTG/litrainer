@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const useLoadBoardTheme = () => {
   const boardTheme = useSelector(getBoardTheme);
+
   useEffect(() => {
     if (!isBoardThemeAvailable(boardTheme)) {
       console.warn(`Board theme "${boardTheme}" is not available.`);

@@ -4,7 +4,7 @@ import Swiper from "./swipers/Swiper";
 import Portal from "./Portal";
 import SlideOne from "./slides/slide-one/Slide1";
 import SlideTwo from "./slides/slide-two/Slide2";
-import { initialFormState } from "@/constants/form";
+import { INITIAL_TRAINER_FORM_STATE } from "@/constants/form";
 import useHandleSubmit from "@/hooks/useHandleSubmit";
 
 interface ParamsFormProps {
@@ -17,7 +17,7 @@ interface ParamsFormProps {
 
 const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [formData, setFormData] = useState<Fields>(initialFormState);
+  const [formData, setFormData] = useState<Fields>(INITIAL_TRAINER_FORM_STATE);
   const handleSubmit = useHandleSubmit(formData);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

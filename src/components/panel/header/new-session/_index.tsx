@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import TrainerForm from "./form/TrainerForm";
 import { PlusCircle } from "lucide-react";
-import { ICON_SIZES } from "@/constants/ui";
+import { ICON_SIZES } from "@/constants/icons";
 
 const NewSessionTriggerButton = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

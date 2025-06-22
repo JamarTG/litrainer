@@ -125,3 +125,11 @@ export const BOARD_THEMES = [
     thumbnail: "/themes/boards/wood4.thumbnail.jpg"
   }
 ];
+
+export const DRAWABLE_ENABLED = true;
+export const VISIBLE_ENABLED = true;
+export const DEFAULT_SNAP_TO_VALID_MOVE = true;
+export const SHOW_LAST_MOVE = true;
+export const SHOW_LAST_CHECK = true;
+export const ADD_PIECE_Z_INDEX = true;
+export const FALLBACK_BOARD_SIZE = 400;

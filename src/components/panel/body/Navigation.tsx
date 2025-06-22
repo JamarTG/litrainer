@@ -9,8 +9,9 @@ import {
 } from "@/redux/slices/puzzle";
 import { hasAttempted, resetFeedback } from "@/redux/slices/feedback";
 import { StepForward, StepBack, RotateCcw } from "lucide-react";
-import { ICON_SIZES } from "@/constants/ui";
+
 import { getEngineState } from "@/redux/slices/engine";
+import { ICON_SIZES } from "@/constants/icons";
 
 const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();

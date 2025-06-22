@@ -17,6 +17,15 @@ import useLoadBoardTheme from "./hooks/useLoadBoardTheme";
 import useLoadSet from "./hooks/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
 import { getLongColor } from "@/utils/color";
+import {
+  ADD_PIECE_Z_INDEX,
+  DEFAULT_SNAP_TO_VALID_MOVE,
+  DRAWABLE_ENABLED,
+  FALLBACK_BOARD_SIZE,
+  SHOW_LAST_CHECK,
+  SHOW_LAST_MOVE,
+  VISIBLE_ENABLED
+} from "@/constants/board";
 
 const ChessBoard = () => {
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
@@ -106,18 +115,18 @@ const ChessBoard = () => {
               lastMove={undefined}
               onMove={onMove}
               drawable={{
-                enabled: true,
-                visible: true,
-                defaultSnapToValidMove: true,
+                enabled: DRAWABLE_ENABLED,
+                visible: VISIBLE_ENABLED,
+                defaultSnapToValidMove: DEFAULT_SNAP_TO_VALID_MOVE,
                 shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
               }}
-              highlight={{ lastMove: true, check: true }}
-              addPieceZIndex={true}
+              highlight={{ lastMove: SHOW_LAST_MOVE, check: SHOW_LAST_CHECK }}
+              addPieceZIndex={ADD_PIECE_Z_INDEX}
             />
             <MoveClassificationMarker
               boardRef={boardRef}
               orientation={playerColorLongForm}
-              boardSize={boardRef.current?.offsetWidth || 400}
+              boardSize={boardRef.current?.offsetWidth || FALLBACK_BOARD_SIZE}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { LichessURL } from "@/constants/urls";
+import { LICHESS_URLS } from "@/constants/urls";
 import { parseGames } from "@/libs/lichess/parsers";
 
 type QueryOptions = {
@@ -12,7 +12,7 @@ type QueryOptions = {
 };
 
 export const getLichessGames = async (queryOptions: QueryOptions) => {
-  const url = new URL(LichessURL.GamesAPI + queryOptions.username);
+  const url = new URL(LICHESS_URLS.GamesAPI + queryOptions.username);
   const params = url.searchParams;
 
   params.append("since", queryOptions.since);
