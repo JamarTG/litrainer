@@ -1,5 +1,6 @@
 import { getGameStatusDescription } from "@/utils/status";
 import { ColorLongForm, LichessPlayer } from "@/types/lichess";
+import { isWhitePlayerLong } from "@/utils/color";
 
 interface GameStatusProps {
   gameStatus: string;
@@ -9,13 +10,8 @@ interface GameStatusProps {
 }
 
 const GameStatus: React.FC<GameStatusProps> = ({ gameStatus, gameWinner, whitePlayer, blackPlayer }) => {
-  // status
-  // gameWinner
-  // whitePlayer
-  // blackPlayer
-
   const getWinner = (gameWinner: ColorLongForm) => {
-    return gameWinner === "white" ? whitePlayer : blackPlayer;
+    return isWhitePlayerLong(gameWinner) ? whitePlayer : blackPlayer;
   };
 
   return <p className="text-md text-gray-400">{getGameStatusDescription(gameStatus, getWinner(gameWinner))}</p>;

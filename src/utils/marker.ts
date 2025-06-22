@@ -1,6 +1,7 @@
 import { ColorLongForm } from "@/types/lichess";
 import { Square } from "chess.js";
 import { RefObject } from "react";
+import { isWhiteOrientationLong } from "./color";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {
   const [fileLetter, rankChar] = square;
@@ -11,12 +12,6 @@ const convertSquareToFileRank = (square: Square): [number, number] => {
 
 const determineSquareSize = (boardSize: number): number => {
   return boardSize / 8;
-};
-
-const getOrientation = (orientation: ColorLongForm | undefined, puzzleColor: ColorLongForm): "w" | "b" => {
-  if (orientation === "white") return "w";
-  if (orientation === "black") return "b";
-  return puzzleColor === "white" ? "w" : "b";
 };
 
 const calculateOffset = (squareSize: number): number => {
@@ -35,7 +30,7 @@ export const calculateMarkerPosition = (
 
   const squareSize = determineSquareSize(boardSize);
 
-  const isWhite = getOrientation(orientation, puzzleColor) === "w";
+  const isWhite = isWhiteOrientationLong(orientation || puzzleColor);
 
   const offset = calculateOffset(squareSize);
 

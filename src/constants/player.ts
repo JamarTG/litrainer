@@ -4,4 +4,10 @@ export const RATING_DIFFERENCE_TEXT_COLORS = {
   neutral: "text-gray-500"
 };
 
-export const PLAYER_COLORS = { white: "w", black: "b" } as const;
+export const LONG = { white: "white", black: "black" } as const;
+export const SHORT = { white: "w", black: "b" } as const;
+
+export const PLAYER_COLORS = {
+  LONG,
+  SHORT
+} as const;

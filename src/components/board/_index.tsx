@@ -16,6 +16,7 @@ import { useMoveHandler } from "@/hooks/useMoveHandler";
 import useLoadBoardTheme from "./hooks/useLoadBoardTheme";
 import useLoadSet from "./hooks/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
+import { getLongColor } from "@/utils/color";
 
 const ChessBoard = () => {
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
@@ -34,7 +35,7 @@ const ChessBoard = () => {
   useLoadBoardTheme();
   useLoadSet();
 
-  const playerColorLongForm = puzzle?.userMove.color == "w" ? "white" : "black";
+  const playerColorLongForm = getLongColor(puzzle?.userMove.color);
   const calcMovable = (isPuzzleSolved: boolean) => {
     if (isPuzzleSolved) {
       return {
@@ -66,7 +67,7 @@ const ChessBoard = () => {
 
     if (isPromotionMove(game, fromSquare, toSquare)) {
       const movingPiece = game.get(fromSquare);
-      const color = movingPiece?.color === "w" ? "white" : "black";
+      const color = getLongColor(movingPiece?.color);
 
       setPromotionData({
         from: fromSquare,

@@ -1,7 +1,8 @@
+import { getLongColor, isWhitePieceShort } from "@/utils/color";
 import { Chess, Square } from "chess.js";
 
 export const turnColor = (game: Chess) => {
-  return game.turn() === "w" ? "white" : "black";
+  return getLongColor(game.turn());
 };
 
 export const isPromotionMove = (game: Chess, from: Square, to: Square): boolean => {
@@ -12,6 +13,7 @@ export const isPromotionMove = (game: Chess, from: Square, to: Square): boolean 
   const toRank = parseInt(to[1]);
 
   return (
-    (piece.color === "w" && fromRank === 7 && toRank === 8) || (piece.color === "b" && fromRank === 2 && toRank === 1)
+    (isWhitePieceShort(piece.color) && fromRank === 7 && toRank === 8) ||
+    (piece.color === "b" && fromRank === 2 && toRank === 1)
   );
 };

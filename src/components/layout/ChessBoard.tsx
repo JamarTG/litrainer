@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { getMaterials } from "@/redux/slices/board";
+import { isWhitePlayerShort } from "@/utils/color";
 
 interface ChessBoardLayoutProps {
   children: ReactNode;
@@ -17,7 +18,7 @@ const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ children }) => {
   const materials = useSelector(getMaterials);
 
   const renderHeaderForPlayer = (color: Color) => {
-    const playerMaterial = color === "w" ? materials.w : materials.b;
+    const playerMaterial = isWhitePlayerShort(color) ? materials.w : materials.b;
     return <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />;
   };
 

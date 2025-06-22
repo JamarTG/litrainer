@@ -5,6 +5,7 @@ import { setMarkerPosition } from "@/redux/slices/board";
 import { ColorLongForm } from "@/types/lichess";
 import { useSelector } from "react-redux";
 import { getUserColor } from "@/redux/slices/puzzle";
+import { isWhiteOrientationLong } from "@/utils/color";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {
   const [fileLetter, rankChar] = square;
@@ -17,14 +18,8 @@ const determineSquareSize = (boardSize: number): number => {
   return boardSize / 8;
 };
 
-const getOrientation = (orientation: ColorLongForm | undefined, puzzleColor: ColorLongForm): "w" | "b" => {
-  if (orientation === "white") return "w";
-  if (orientation === "black") return "b";
-  return puzzleColor === "white" ? "w" : "b";
-};
-
 const calculateOffset = (squareSize: number): number => {
-  return 0.3 * squareSize; // Adjust this value as needed for centering
+  return 0.3 * squareSize;
 };
 
 const calculateMarkerPosition = (
@@ -35,15 +30,15 @@ const calculateMarkerPosition = (
   orientation?: ColorLongForm
 ) => {
   if (!destinationSquare || !boardRef?.current) return;
-  // Step 1: Convert square string (e.g. "e4") to file (0–7) and rank (0–7)
+
   const [file, rank] = convertSquareToFileRank(destinationSquare);
-  // Step 2: Determine square size (assuming 8x8 board)
+
   const squareSize = determineSquareSize(boardSize);
-  // Step 3: Determine if the board is white- or black-oriented
-  const isWhite = getOrientation(orientation, puzzleColor) === "w";
-  // Step 4: Offset to adjust image placement (e.g. for centering)
+
+  const isWhite = isWhiteOrientationLong(orientation || puzzleColor);
+
   const offset = calculateOffset(squareSize);
-  // Step 5: Calculate marker position
+
   const top = isWhite ? rank * squareSize - offset : (7 - rank) * squareSize - offset;
   const right = isWhite ? (7 - file) * squareSize - offset : file * squareSize - offset;
   return { top, right };
@@ -65,7 +60,6 @@ export const useMarkerPositionEffect = (
 
         const position = calculateMarkerPosition(destinationSquare, boardSize, puzzleColor, boardRef, orientation);
 
-        // Step 6: Dispatch the position
         if (position) {
           dispatch(setMarkerPosition(position));
         }

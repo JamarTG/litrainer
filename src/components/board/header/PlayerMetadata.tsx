@@ -1,19 +1,20 @@
 import { useSelector } from "react-redux";
 import { FC, Fragment } from "react";
 import { Color } from "chess.js";
-import { RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
+import { PLAYER_COLORS, RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LICHESS_URLS } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { LichessPlayer, Puzzle } from "@/types/lichess";
+import { isWhitePlayerShort } from "@/utils/color";
 
 interface PlayerMetaDataProps {
   playerColor: Color;
 }
 
 const renderIcon = (playerColor: Color, isDarkMode: boolean) => {
-  const isWhite = playerColor === "w";
+  const isWhite = playerColor === PLAYER_COLORS.SHORT.white;
   const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
   return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
@@ -48,7 +49,7 @@ const renderPlayerName = (player: LichessPlayer, playerColor: Color, puzzle: Puz
       target="_blank"
       rel="noopener noreferrer"
     >
-      {playerColor === "w" ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
+      {isWhitePlayerShort(playerColor) ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
     </a>
   );
 };
@@ -79,7 +80,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isDarkMode = useSelector(isDarkModeActive);
   const puzzle = useSelector(getPuzzle);
 
-  const player = playerColor === "w" ? puzzle?.players.white : puzzle?.players.black;
+  const player = isWhitePlayerShort(playerColor) ? puzzle?.players.white : puzzle?.players.black;
 
   return (
     <div className="noto player-color flex justify-center items-center gap-1 text-md">

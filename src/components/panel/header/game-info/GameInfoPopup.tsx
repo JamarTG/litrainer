@@ -1,11 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 import GameSpeedIcon from "../../../shared/GameSpeedIcon";
-import { ICON_SIZES } from "@/constants/ui";
+
 import { useSelector } from "react-redux";
 
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { formatTimeControl } from "@/utils/time";
 import ShowIf from "@/components/common/ShowIf";
+import { isWhitePlayerLong } from "@/utils/color";
+import { ICON_SIZES } from "@/constants/icons";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
@@ -47,7 +49,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
               {status === "draw"
                 ? "Game ended in a draw"
                 : puzzle?.winner
-                  ? `Winner: ${puzzle?.winner === "white" ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}`
+                  ? `Winner: ${isWhitePlayerLong(puzzle?.winner) ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}`
                   : "Game ongoing"}
             </p>
             <p className="text-zinc-500 dark:text-zinc-400">
