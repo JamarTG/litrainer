@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Pawn, Knight, Bishop, Queen, Rook } from "./pieces/_index";
+import { ICON_SIZES } from "@/constants/icons";
 
 interface MaterialPieceIconProps {
   piece: keyof typeof PIECE_COMPONENTS;
@@ -14,7 +15,7 @@ const PIECE_COMPONENTS = {
   rook: Rook
 } as const;
 
-const MaterialPieceIcon: FC<MaterialPieceIconProps> = ({ piece, size = 20 }) => {
+const MaterialPieceIcon: FC<MaterialPieceIconProps> = ({ piece, size = ICON_SIZES.SMALL }) => {
   const PieceComponent = PIECE_COMPONENTS[piece];
 
   if (!PieceComponent) {

@@ -1,4 +1,4 @@
-import { ICON_SIZES } from "@/constants/ui";
+import { ICON_SIZES } from "@/constants/icons";
 import { SettingsIcon } from "lucide-react";
 import { Fragment, useState } from "react";
 import { lazy } from "react";

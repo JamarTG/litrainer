@@ -5,7 +5,7 @@ import { pieceLongFormWithoutKing } from "@/constants/piece";
 import { PieceShortFormWithoutKing } from "@/types/chess";
 import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
-import { ICON_SIZES } from "@/constants/ui";
+import { ICON_SIZES } from "@/constants/icons";
 import MaterialPieceIcon from "./MaterialPieceIcon";
 import usePlayerMaterial from "../hooks/usePlayerMaterial";
 
@@ -17,7 +17,6 @@ interface MaterialProps {
 const renderPieceXTimes = ([piece, count]: [PieceShortFormWithoutKing, number]) => {
   if (count < 1) return;
 
-  // used to render the pieces the amount of time needed
   const pieceFrequencyArray = Array.from({ length: count });
 
   return (

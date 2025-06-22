@@ -1,3 +1,9 @@
+export const ICON_SIZES = {
+  SMALL: 20,
+  MEDIUM: 25,
+  LARGE: 30
+};
+
 export const PlayerIcons = {
   filled: "&#xe028;",
   unfilled: "&#xe029;",

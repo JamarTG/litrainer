@@ -1,8 +1,8 @@
 import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/chess";
 
-export const chessPieceCodes = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
+export const CHESS_PIECE_CODES = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 
-export const PieceType = {
+export const PIECE_TYPES = {
   PAWN: "p",
   KNIGHT: "n",
   BISHOP: "b",
@@ -11,7 +11,7 @@ export const PieceType = {
   KING: "k"
 } as const;
 
-export const PieceSets = [
+export const PIECE_SETS = [
   "alpha",
   "anarcandy",
   "caliente",
@@ -53,12 +53,12 @@ export const PieceSets = [
 ];
 
 export const PIECE_VALUE = {
-  [PieceType.PAWN]: 1,
-  [PieceType.KNIGHT]: 3,
-  [PieceType.BISHOP]: 3,
-  [PieceType.ROOK]: 5,
-  [PieceType.QUEEN]: 9,
-  [PieceType.KING]: 0
+  [PIECE_TYPES.PAWN]: 1,
+  [PIECE_TYPES.KNIGHT]: 3,
+  [PIECE_TYPES.BISHOP]: 3,
+  [PIECE_TYPES.ROOK]: 5,
+  [PIECE_TYPES.QUEEN]: 9,
+  [PIECE_TYPES.KING]: 0
 };
 
 const createInitialPieceCounts = () => ({

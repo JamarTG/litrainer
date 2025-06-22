@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { FC, Fragment } from "react";
 import { Color } from "chess.js";
-import { RatingDifferenceTextColors } from "@/constants/player";
+import { RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
-import { LichessURL } from "@/constants/urls";
+import { LICHESS_URLS } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { LichessPlayer, Puzzle } from "@/types/lichess";
@@ -44,7 +44,7 @@ const renderPlayerName = (player: LichessPlayer, playerColor: Color, puzzle: Puz
   return (
     <a
       className="text-blue-500"
-      href={`${LichessURL.Profile}${player?.user.name}`}
+      href={`${LICHESS_URLS.Profile}${player?.user.name}`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -62,10 +62,10 @@ const renderPlayerRating = (player: LichessPlayer, showDiff: boolean) => {
         <span
           className={
             player?.ratingDiff > 0
-              ? RatingDifferenceTextColors.positive
+              ? RATING_DIFFERENCE_TEXT_COLORS.positive
               : player?.ratingDiff < 0
-                ? RatingDifferenceTextColors.negative
-                : RatingDifferenceTextColors.neutral
+                ? RATING_DIFFERENCE_TEXT_COLORS.negative
+                : RATING_DIFFERENCE_TEXT_COLORS.neutral
           }
         >
           {player?.ratingDiff > 0 ? `+${player?.ratingDiff}` : player?.ratingDiff}
