@@ -1,7 +1,7 @@
 import { ColorLongForm } from "@/types/lichess";
 import { Square } from "chess.js";
 import { RefObject } from "react";
-import { isWhiteOrientationLong } from "./color";
+import { isWhiteOrientationLong } from "../../utils/color";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {
   const [fileLetter, rankChar] = square;

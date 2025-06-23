@@ -3,7 +3,7 @@ import { getLichessGames } from "@/libs/lichess/api";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import generatePuzzles from "@/libs/lichess/parsers";
-import { dateRangeToEpochMillis, validateDateRange } from "@/utils/date";
+import { dateRangeToEpochMillis, validateDateRange } from "@/libs/lichess/date";
 import { saveToLocalStorage } from "@/utils/storage";
 import { Fields, LichessEvaluation, LichessGameResponse } from "@/types/lichess";
 

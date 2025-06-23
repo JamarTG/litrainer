@@ -10,7 +10,7 @@ import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { updateBoardStates } from "@/redux/slices/board";
 import { playSound } from "@/libs/sound";
 import { setEngineRunning } from "@/redux/slices/engine";
-import { attemptMove, convertLanToSan } from "@/utils/move";
+import { attemptMove } from "@/libs/trainer/move";
 import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
 import { ATTEMPTED_PUZZLE_DELAY_TIME } from "@/constants/time";
 
@@ -104,6 +104,17 @@ export const useMoveHandler = (game: Chess) => {
     },
     [engine, engineDepth, dispatch]
   );
+
+  const convertLanToSan = (fen: string, lanMove: string) => {
+    try {
+      const tempGame = new Chess(fen);
+      const move = tempGame.move(lanMove);
+      return move ? move.san : lanMove;
+    } catch (error) {
+      console.error("Error converting LAN to SAN:", error);
+      return lanMove;
+    }
+  };
 
   const handleSameMistake = useCallback(
     (playedMove: Move) => {

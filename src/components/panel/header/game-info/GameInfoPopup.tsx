@@ -4,7 +4,7 @@ import GameSpeedIcon from "../../../shared/GameSpeedIcon";
 import { useSelector } from "react-redux";
 
 import { getPuzzle } from "@/redux/slices/puzzle";
-import { formatTimeControl } from "@/utils/time";
+import { formatTimeControl } from "@/libs/trainer/text";
 import ShowIf from "@/components/common/ShowIf";
 import { isWhitePlayerLong } from "@/utils/color";
 import { ICON_SIZES } from "@/constants/icons";

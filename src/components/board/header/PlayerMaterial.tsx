@@ -3,7 +3,6 @@ import { Color } from "chess.js";
 import { Material } from "@/types/eval";
 import { pieceLongFormWithoutKing } from "@/constants/piece";
 import { PieceShortFormWithoutKing } from "@/types/chess";
-import { typedEntries } from "@/utils/object";
 import List from "@/components/common/List";
 import { ICON_SIZES } from "@/constants/icons";
 import MaterialPieceIcon from "./MaterialPieceIcon";
@@ -42,7 +41,7 @@ const renderMaterialScore = ({ materialScore, plusSign }: MaterialInfo) => {
 
 const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, playerColor }) => {
   const materialInfo = usePlayerMaterial(playerColor);
-  const material = typedEntries(playerMaterial);
+  const material = Object.entries(playerMaterial) as [keyof Material, Material[keyof Material]][];
   return (
     <div className="flex justify-center items-center ">
       <List items={material} renderItem={renderPieceXTimes} />

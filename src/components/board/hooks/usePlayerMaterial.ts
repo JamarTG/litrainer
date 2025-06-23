@@ -1,5 +1,5 @@
 import { getFen, getMaterials } from "@/redux/slices/board";
-import { getRelativeMaterial } from "@/utils/material";
+import { getRelativeMaterial } from "@/libs/trainer/material";
 import { Color } from "chess.js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

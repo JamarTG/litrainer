@@ -3,7 +3,7 @@ import usePopperDropDown from "@/hooks/usePopperDropDown";
 import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
-import { convertDateToReadableFormat } from "@/utils/date";
+import { convertDateToReadableFormat } from "@/libs/lichess/date";
 import { Fields, Sort } from "@/types/lichess";
 
 interface DatesProps {

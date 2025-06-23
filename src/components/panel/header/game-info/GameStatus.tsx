@@ -1,4 +1,4 @@
-import { getGameStatusDescription } from "@/utils/status";
+import { getGameStatusDescription } from "@/libs/trainer/text";
 import { ColorLongForm, LichessPlayer } from "@/types/lichess";
 import { isWhitePlayerLong } from "@/utils/color";
 

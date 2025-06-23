@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Chess } from "chess.js";
-import { calculateMaterialDifference } from "@/utils/material";
+import { calculateMaterialDifference } from "@/libs/trainer/material";
 import { updateMaterials } from "@/redux/slices/board";
 import { useDispatch } from "react-redux";
 

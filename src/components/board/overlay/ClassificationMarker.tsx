@@ -10,7 +10,7 @@ import { getDestinationSquare, getMarkerPosition } from "@/redux/slices/board";
 import useMarkerVisibility from "../hooks/useMarkerVisibility";
 import { getClassification } from "@/redux/slices/feedback";
 import { useMarkerPositionEffect } from "../hooks/useMarkerPositionEffect";
-import { calculateSquareSize } from "@/utils/marker";
+import { calculateSquareSize } from "@/libs/trainer/marker";
 import ShowIf from "@/components/common/ShowIf";
 
 interface MoveClassificationMarkerProps {
