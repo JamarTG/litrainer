@@ -18,8 +18,10 @@ export const createMovableConfig = (dests: Map<string, string[]>, color: ColorLo
   color
 });
 
-export const DEFAULT_MOVABLE_CONFIG = {
-  free: false,
-  dests: new Map(),
-  color: "white" as ColorLongForm
+export const getDefaultMovableConfig = () => {
+  return {
+    free: false,
+    dests: new Map(),
+    color: "white" as ColorLongForm
+  };
 };

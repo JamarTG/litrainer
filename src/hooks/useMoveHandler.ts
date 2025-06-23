@@ -4,7 +4,14 @@ import { useCallback, useMemo } from "react";
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
 import { Classification } from "@/types/classification";
 import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
-import { Feedback, setClassification, setFeedback, setIsPuzzleSolved } from "@/redux/slices/feedback";
+import {
+  Feedback,
+  getPuzzleStatus,
+  PuzzleStatus,
+  setClassification,
+  setFeedback,
+  setPuzzleStatus
+} from "@/redux/slices/feedback";
 import { RootState, store } from "@/redux/store";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { updateBoardStates } from "@/redux/slices/board";
@@ -29,13 +36,13 @@ export const useMoveHandler = (game: Chess) => {
   const engineDepth = useSelector((state: RootState) => state.engine.depth);
   const fen = useSelector((state: RootState) => state.board.fen);
   const puzzle = useSelector(getPuzzle);
-  const isPuzzleSolved = useSelector((state: RootState) => state.feedback.isPuzzleSolved);
+  const puzzleStatus = useSelector(getPuzzleStatus);
   const autoSkip = useSelector((state: RootState) => state.puzzle.autoSkip);
 
   const dispatchResults = useCallback(
-    (classification: Classification, solved: boolean, feedback: Feedback) => {
+    (classification: Classification, puzzleStatus: PuzzleStatus, feedback: Feedback) => {
       dispatch(setClassification(classification));
-      dispatch(setIsPuzzleSolved(solved));
+      dispatch(setPuzzleStatus(puzzleStatus));
       dispatch(setFeedback(feedback));
     },
     [dispatch]
@@ -58,16 +65,16 @@ export const useMoveHandler = (game: Chess) => {
         playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.Book]}`
       };
 
-      dispatchResults(MoveClassification.Book, true, feedback);
+      dispatchResults(MoveClassification.Book, "solved", feedback);
       return true;
     },
     [puzzle?.positionOpening, dispatchResults]
   );
 
   const processEvaluation = useCallback(
-    (bestMove: string | null, playedMove: Move, classification: Classification, solved: boolean) => {
+    (bestMove: string | null, playedMove: Move, classification: Classification, puzzleStatus: PuzzleStatus) => {
       const feedback = createFeedback(bestMove, playedMove, classification);
-      dispatchResults(classification, solved, feedback);
+      dispatchResults(classification, puzzleStatus, feedback);
     },
     [createFeedback, dispatchResults]
   );
@@ -121,7 +128,7 @@ export const useMoveHandler = (game: Chess) => {
     (playedMove: Move) => {
       const lichessClassification = (puzzle?.evaluation.judgment?.name as Classification) || null;
       const bestMove = convertLanToSan(puzzle!.fen.current, puzzle!.evaluation.best ?? "");
-      processEvaluation(bestMove, playedMove, lichessClassification, false);
+      processEvaluation(bestMove, playedMove, lichessClassification, "failed");
     },
     [puzzle, processEvaluation]
   );
@@ -132,7 +139,7 @@ export const useMoveHandler = (game: Chess) => {
 
       if (!classification) return;
 
-      processEvaluation(bestMove, playedMove, classification, true);
+      processEvaluation(bestMove, playedMove, classification, "solved");
 
       if (autoSkip && POSITIVE_CLASSIFICATIONS.has(classification)) {
         setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
@@ -158,7 +165,7 @@ export const useMoveHandler = (game: Chess) => {
 
   const handleMoveAttempt = useCallback(
     (sourceSquare: Square, targetSquare: Square, promotion: string): boolean => {
-      if (isPuzzleSolved || game.turn() !== puzzle?.userMove.color) {
+      if (puzzleStatus === "solved" || game.turn() !== puzzle?.userMove.color) {
         return false;
       }
 
@@ -186,7 +193,7 @@ export const useMoveHandler = (game: Chess) => {
       return true;
     },
     [
-      isPuzzleSolved,
+      puzzleStatus,
       game,
       puzzle,
       updateGameState,

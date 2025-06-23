@@ -10,7 +10,7 @@ import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
 import { ColorLongForm } from "@/types/lichess";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
 import { getFen } from "@/redux/slices/board";
-import { getIsPuzzleSolved } from "@/redux/slices/feedback";
+import { getPuzzleStatus, PuzzleStatus } from "@/redux/slices/feedback";
 import usePuzzleSetup from "@/hooks/usePuzzleSetup";
 import { useMoveHandler } from "@/hooks/useMoveHandler";
 import useLoadBoardTheme from "./hooks/useLoadBoardTheme";
@@ -18,14 +18,14 @@ import useLoadSet from "./hooks/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
 import { getLongColor } from "@/utils/color";
 import { BOARD_CONFIG } from "@/constants/board";
-import { buildDestsMap, createMovableConfig, DEFAULT_MOVABLE_CONFIG } from "./chess-board";
+import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "./chess-board";
 
 const ChessBoard = () => {
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const fen = useSelector(getFen);
   const playerColorLongForm = useSelector(getUserColorLongForm);
-  const isPuzzleSolved = useSelector(getIsPuzzleSolved);
+  const puzzleStatus = useSelector(getPuzzleStatus);
 
   const { game } = usePuzzleSetup();
   const { handleMoveAttempt } = useMoveHandler(game);
@@ -34,8 +34,8 @@ const ChessBoard = () => {
   useLoadBoardTheme();
   useLoadSet();
 
-  const calcMovable = (isPuzzleSolved: boolean) => {
-    if (isPuzzleSolved) return DEFAULT_MOVABLE_CONFIG;
+  const calcMovable = (puzzleStatus: PuzzleStatus) => {
+    if (puzzleStatus === "solved") return getDefaultMovableConfig();
 
     const moves = game.moves({ verbose: true });
     const dests = buildDestsMap(moves);
@@ -84,7 +84,7 @@ const ChessBoard = () => {
               fen={fen}
               orientation={playerColorLongForm}
               turnColor={turnColor(game)}
-              movable={calcMovable(isPuzzleSolved)}
+              movable={calcMovable(puzzleStatus)}
               lastMove={BOARD_CONFIG.DEFAULT_LAST_MOVE}
               onMove={onMove}
               drawable={{

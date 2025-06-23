@@ -2,18 +2,20 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Classification } from "@/types/classification";
 import { RootState } from "../store";
 
+export type PuzzleStatus = "unsolved" | "solved" | "failed";
+
 export interface FeedbackState {
   classification: Classification | null;
   bestMove: string | null;
   playedMove: string | null;
-  isPuzzleSolved: boolean;
+  puzzleStatus: PuzzleStatus;
 }
 
 const initialState: FeedbackState = {
   classification: null,
   bestMove: null,
   playedMove: null,
-  isPuzzleSolved: false
+  puzzleStatus: "unsolved"
 };
 
 export interface Feedback {
@@ -32,22 +34,22 @@ const feedbackSlice = createSlice({
       state.bestMove = action.payload.bestMove;
       state.playedMove = action.payload.playedMove;
     },
-    setIsPuzzleSolved(state, action: PayloadAction<boolean>) {
-      state.isPuzzleSolved = action.payload;
+    setPuzzleStatus(state, action: PayloadAction<PuzzleStatus>) {
+      state.puzzleStatus = action.payload;
     },
     resetFeedback(state) {
       state.classification = null;
       state.bestMove = null;
       state.playedMove = null;
-      state.isPuzzleSolved = false;
+      state.puzzleStatus = "unsolved";
     }
   }
 });
 
 export const getBestMove = (state: RootState) => state.feedback.bestMove;
-export const getIsPuzzleSolved = (state: RootState) => state.feedback.isPuzzleSolved;
+export const getPuzzleStatus = (state: RootState) => state.feedback.puzzleStatus;
 export const getClassification = (state: RootState) => state.feedback.classification;
 export const getPlayedMove = (state: RootState) => state.feedback.playedMove;
 export const hasAttempted = (state: RootState) => !!state.feedback.playedMove;
-export const { setClassification, setFeedback, setIsPuzzleSolved, resetFeedback } = feedbackSlice.actions;
+export const { setClassification, setFeedback, setPuzzleStatus, resetFeedback } = feedbackSlice.actions;
 export default feedbackSlice.reducer;
