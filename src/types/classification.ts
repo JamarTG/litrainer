@@ -1,20 +1,3 @@
-export enum MoveClassification {
-  Blunder = "Blunder",
-  Mistake = "Mistake",
-  Inaccuracy = "Inaccuracy",
-  Good = "Good",
-  Excellent = "Excellent",
-  Best = "Best",
-  Book = "Book",
-  Great = "Great"
-}
+import { MoveClassification } from "@/utils/enums";
 
-export type Classification =
-  | MoveClassification.Blunder
-  | MoveClassification.Mistake
-  | MoveClassification.Inaccuracy
-  | MoveClassification.Good
-  | MoveClassification.Excellent
-  | MoveClassification.Best
-  | MoveClassification.Book
-  | MoveClassification.Great;
+export type Classification = (typeof MoveClassification)[keyof typeof MoveClassification];

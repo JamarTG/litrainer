@@ -1,4 +1,4 @@
-import { MoveClassification } from "@/types/classification";
+import { MoveClassification } from "@/utils/enums.ts";
 import { getBasicClassification } from "../evaluation/_index.ts";
 import { parseEvaluationResults } from "./parsers";
 import { EngineName, PositionEvaluation, VariationLineResult } from "@/types/engine";

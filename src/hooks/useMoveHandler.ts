@@ -2,7 +2,7 @@ import { Chess, Move, Square } from "chess.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
-import { Classification, MoveClassification } from "@/types/classification";
+import { Classification } from "@/types/classification";
 import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
 import { Feedback, setClassification, setFeedback, setIsPuzzleSolved } from "@/redux/slices/feedback";
 import { RootState, store } from "@/redux/store";
@@ -13,6 +13,7 @@ import { setEngineRunning } from "@/redux/slices/engine";
 import { attemptMove } from "@/libs/trainer/move";
 import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
 import { ATTEMPTED_PUZZLE_DELAY_TIME } from "@/constants/time";
+import { MoveClassification } from "@/utils/enums";
 
 const POSITIVE_CLASSIFICATIONS = new Set<string>(["Best", "Excellent", "Good", "Great"]);
 

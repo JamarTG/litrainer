@@ -1,7 +1,8 @@
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { getClassification, getPlayedMove } from "@/redux/slices/feedback";
 import { getPuzzle } from "@/redux/slices/puzzle";
-import { Classification, MoveClassification } from "@/types/classification";
+import { Classification } from "@/types/classification";
+import { MoveClassification } from "@/utils/enums";
 import { useSelector } from "react-redux";
 
 const ClassificationImage = () => {

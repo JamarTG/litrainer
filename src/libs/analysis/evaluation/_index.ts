@@ -1,4 +1,4 @@
-import { MoveClassification } from "@/types/classification";
+import { MoveClassification } from "@/utils/enums";
 import { PositionEvaluation } from "@/types/engine";
 
 export const getBasicClassification = (

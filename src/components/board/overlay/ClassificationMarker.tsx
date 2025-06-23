@@ -2,7 +2,7 @@ import { Square } from "chess.js";
 
 import { useSelector } from "react-redux";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
-import { MoveClassification } from "@/types/classification";
+import { MoveClassification } from "@/utils/enums";
 import { FC, RefObject } from "react";
 import { ColorLongForm } from "@/types/lichess";
 import { Z_INDEX } from "@/constants/ui";
