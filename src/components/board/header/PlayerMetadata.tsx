@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { FC, Fragment } from "react";
 import { Color } from "chess.js";
-import { PLAYER_COLORS, RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
+import { COLORS, RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LICHESS_URLS } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
@@ -14,7 +14,7 @@ interface PlayerMetaDataProps {
 }
 
 const renderIcon = (playerColor: Color, isDarkMode: boolean) => {
-  const isWhite = playerColor === PLAYER_COLORS.SHORT.white;
+  const isWhite = playerColor === COLORS.SHORT.white;
   const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
   return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;

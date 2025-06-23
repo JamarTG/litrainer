@@ -7,7 +7,7 @@ export const RATING_DIFFERENCE_TEXT_COLORS = {
 export const LONG = { white: "white", black: "black" } as const;
 export const SHORT = { white: "w", black: "b" } as const;
 
-export const PLAYER_COLORS = {
+export const COLORS = {
   LONG,
   SHORT
 } as const;
