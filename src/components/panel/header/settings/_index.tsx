@@ -1,9 +1,7 @@
 import { ICON_SIZES } from "@/constants/icons";
 import { SettingsIcon } from "lucide-react";
 import { Fragment, useState } from "react";
-import { lazy } from "react";
-
-const SettingsDisplay = lazy(() => import("./SettingsDisplay"));
+import SettingsDisplay from "./SettingsDisplay";
 
 const SettingsTriggerButton = () => {
   const [showSettings, setShowSettings] = useState(false);

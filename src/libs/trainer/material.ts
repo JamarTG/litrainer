@@ -64,11 +64,6 @@ export const getRelativeMaterial = (materials: Materials, color: Color) => {
   const blackHasMaterialAdvantage = !isWhitePlayerShort(color) && materialDifference < 0;
 
   const materialScore = whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
-  const isPositiveMaterialScore = materialScore > 0;
-  const plusSign = isPositiveMaterialScore ? "+" : "";
 
-  return {
-    materialScore,
-    plusSign
-  };
+  return materialScore;
 };

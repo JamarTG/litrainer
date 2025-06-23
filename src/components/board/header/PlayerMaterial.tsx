@@ -30,22 +30,27 @@ const renderPieceXTimes = ([piece, count]: [PieceShortFormWithoutKing, number]) 
   );
 };
 
-export interface MaterialInfo {
-  materialScore: number;
-  plusSign: string;
+export interface MaterialScoreProps {
+  score: number;
 }
 
-const renderMaterialScore = ({ materialScore, plusSign }: MaterialInfo) => {
-  return `${materialScore || ""} ${plusSign || ""} `;
+const MaterialScore: FC<MaterialScoreProps> = ({ score }) => {
+  return (
+    <div className="flex items-center justify-center text-xs">
+      <span className="text-gray-600 dark:text-gray-300">{score > 0 && "+"}</span>
+      <span className="text-gray-800 dark:text-gray-200">{score}</span>
+    </div>
+  );
 };
 
 const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, playerColor }) => {
-  const materialInfo = usePlayerMaterial(playerColor);
+  const score = usePlayerMaterial(playerColor);
   const material = Object.entries(playerMaterial) as [keyof Material, Material[keyof Material]][];
+
   return (
     <div className="flex justify-center items-center ">
       <List items={material} renderItem={renderPieceXTimes} />
-      {materialInfo && renderMaterialScore(materialInfo)}
+      {score ? <MaterialScore score={score} /> : ""}
     </div>
   );
 };

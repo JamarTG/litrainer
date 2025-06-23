@@ -11,7 +11,6 @@ import useMarkerVisibility from "../hooks/useMarkerVisibility";
 import { getClassification } from "@/redux/slices/feedback";
 import { useMarkerPositionEffect } from "../hooks/useMarkerPositionEffect";
 import { calculateSquareSize } from "@/libs/trainer/marker";
-import ShowIf from "@/components/common/ShowIf";
 
 interface MoveClassificationMarkerProps {
   boardSize: number;
@@ -35,22 +34,20 @@ const MoveClassificationMarker: FC<MoveClassificationMarkerProps> = ({ boardRef,
   }
 
   return (
-    <ShowIf condition={!!classification}>
-      <img
-        src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
-        alt={classification ?? "Classification Marker"}
-        width={squareSize}
-        height={squareSize}
-        className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
-          isVisible ? "opacity-90" : "opacity-0"
-        }`}
-        style={{
-          right: markerPosition.right,
-          top: markerPosition.top,
-          zIndex: Z_INDEX.MARKER
-        }}
-      />
-    </ShowIf>
+    <img
+      src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
+      alt={classification ?? "Classification Marker"}
+      width={squareSize}
+      height={squareSize}
+      className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
+        isVisible ? "opacity-90" : "opacity-0"
+      }`}
+      style={{
+        right: markerPosition.right,
+        top: markerPosition.top,
+        zIndex: Z_INDEX.MARKER
+      }}
+    />
   );
 };
 
