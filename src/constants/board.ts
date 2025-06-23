@@ -126,10 +126,18 @@ export const BOARD_THEMES = [
   }
 ];
 
-export const DRAWABLE_ENABLED = true;
-export const VISIBLE_ENABLED = true;
-export const DEFAULT_SNAP_TO_VALID_MOVE = true;
-export const SHOW_LAST_MOVE = true;
-export const SHOW_LAST_CHECK = true;
-export const ADD_PIECE_Z_INDEX = true;
-export const FALLBACK_BOARD_SIZE = 400;
+export const BOARD_CONFIG = {
+  DEFAULT_LAST_MOVE: undefined,
+  DRAWABLE_ENABLED: true,
+  VISIBLE_ENABLED: true,
+  DEFAULT_SNAP_TO_VALID_MOVE: true,
+  LAST_MOVE: true,
+  HIGHLIGHT_LAST_MOVE: true,
+  HIGHLIGHT_LAST_CHECK: true,
+  ADD_PIECE_Z_INDEX: true,
+  DEFAULT_BOARD_SIZE: 400,
+  MOVABLE_SOLVED: {
+    free: false,
+    dests: new Map()
+  }
+};

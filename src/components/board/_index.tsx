@@ -3,12 +3,12 @@ import { Square } from "chess.js";
 import ChessBoardLayout from "../layout/ChessBoard";
 import { useSelector } from "react-redux";
 import Chessground from "react-chessground";
-import MoveClassificationMarker from "./overlay/ClassificationMarker";
+import ClassificationMarker from "./overlay/ClassificationMarker";
 import { useMaterialUpdate } from "@/components/board/hooks/useMaterialUpdate";
 import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
 import { ColorLongForm } from "@/types/lichess";
-import { getPuzzle } from "@/redux/slices/puzzle";
+import { getUserColorLongForm } from "@/redux/slices/puzzle";
 import { getFen } from "@/redux/slices/board";
 import { getIsPuzzleSolved } from "@/redux/slices/feedback";
 import usePuzzleSetup from "@/hooks/usePuzzleSetup";
@@ -17,57 +17,30 @@ import useLoadBoardTheme from "./hooks/useLoadBoardTheme";
 import useLoadSet from "./hooks/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
 import { getLongColor } from "@/utils/color";
-import {
-  ADD_PIECE_Z_INDEX,
-  DEFAULT_SNAP_TO_VALID_MOVE,
-  DRAWABLE_ENABLED,
-  FALLBACK_BOARD_SIZE,
-  SHOW_LAST_CHECK,
-  SHOW_LAST_MOVE,
-  VISIBLE_ENABLED
-} from "@/constants/board";
+import { BOARD_CONFIG } from "@/constants/board";
+import { buildDestsMap, createMovableConfig, DEFAULT_MOVABLE_CONFIG } from "./chess-board";
 
 const ChessBoard = () => {
   const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
-
   const boardRef = useRef<HTMLDivElement>(null);
-
   const fen = useSelector(getFen);
-  const puzzle = useSelector(getPuzzle);
+  const playerColorLongForm = useSelector(getUserColorLongForm);
   const isPuzzleSolved = useSelector(getIsPuzzleSolved);
 
   const { game } = usePuzzleSetup();
-
   const { handleMoveAttempt } = useMoveHandler(game);
 
-  useMaterialUpdate(game, fen);
+  useMaterialUpdate(game);
   useLoadBoardTheme();
   useLoadSet();
 
-  const playerColorLongForm = getLongColor(puzzle?.userMove.color);
   const calcMovable = (isPuzzleSolved: boolean) => {
-    if (isPuzzleSolved) {
-      return {
-        free: false,
-        dests: new Map()
-      };
-    }
+    if (isPuzzleSolved) return DEFAULT_MOVABLE_CONFIG;
 
-    const dests = new Map();
     const moves = game.moves({ verbose: true });
+    const dests = buildDestsMap(moves);
 
-    moves.forEach((move) => {
-      if (!dests.has(move.from)) {
-        dests.set(move.from, []);
-      }
-      dests.get(move.from)!.push(move.to);
-    });
-
-    return {
-      free: false,
-      dests,
-      color: playerColorLongForm as ColorLongForm
-    };
+    return createMovableConfig(dests, playerColorLongForm as ColorLongForm);
   };
 
   const onMove = (from: string, to: string) => {
@@ -112,21 +85,20 @@ const ChessBoard = () => {
               orientation={playerColorLongForm}
               turnColor={turnColor(game)}
               movable={calcMovable(isPuzzleSolved)}
-              lastMove={undefined}
+              lastMove={BOARD_CONFIG.DEFAULT_LAST_MOVE}
               onMove={onMove}
               drawable={{
-                enabled: DRAWABLE_ENABLED,
-                visible: VISIBLE_ENABLED,
-                defaultSnapToValidMove: DEFAULT_SNAP_TO_VALID_MOVE,
+                enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
+                visible: BOARD_CONFIG.VISIBLE_ENABLED,
+                defaultSnapToValidMove: BOARD_CONFIG.DEFAULT_SNAP_TO_VALID_MOVE,
                 shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
               }}
-              highlight={{ lastMove: SHOW_LAST_MOVE, check: SHOW_LAST_CHECK }}
-              addPieceZIndex={ADD_PIECE_Z_INDEX}
+              highlight={{ lastMove: BOARD_CONFIG.HIGHLIGHT_LAST_MOVE, check: BOARD_CONFIG.HIGHLIGHT_LAST_CHECK }}
+              addPieceZIndex={BOARD_CONFIG.ADD_PIECE_Z_INDEX}
             />
-            <MoveClassificationMarker
+            <ClassificationMarker
               boardRef={boardRef}
-              orientation={playerColorLongForm}
-              boardSize={boardRef.current?.offsetWidth || FALLBACK_BOARD_SIZE}
+              boardSize={boardRef.current?.offsetWidth || BOARD_CONFIG.DEFAULT_BOARD_SIZE}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Puzzle } from "@/types/lichess";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { RootState } from "../store";
+import { getLongColor } from "@/utils/color";
 
 export interface PuzzleState {
   puzzles: Puzzle[];
@@ -59,6 +60,6 @@ export const getGameMoves = (state: RootState) => {
 export const isFirstPuzzle = (state: RootState) => state.puzzle.currentIndex == 0;
 export const isLastPuzzle = (state: RootState) => state.puzzle.currentIndex >= state.puzzle.puzzles.length - 1;
 export const getUserColor = (state: RootState) => getPuzzle(state)?.userMove?.color[0]?.toLocaleLowerCase();
-
+export const getUserColorLongForm = (state: RootState) => getLongColor(getPuzzle(state)?.userMove?.color);
 export const { setPuzzles, nextPuzzle, prevPuzzle, toggleAutoSkip, redoPuzzle } = puzzleSlice.actions;
 export default puzzleSlice.reducer;

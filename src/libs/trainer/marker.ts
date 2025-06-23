@@ -38,7 +38,3 @@ export const calculateMarkerPosition = (
   const right = isWhite ? (7 - file) * squareSize - offset : file * squareSize - offset;
   return { top, right };
 };
-
-export const calculateSquareSize = (boardSize: number) => {
-  return boardSize / 16;
-};
