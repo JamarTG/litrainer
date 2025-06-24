@@ -20,43 +20,65 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isWhite = playerColor === COLORS.SHORT.white;
   const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
-  return (
-    <div className="noto player-color flex justify-center items-center gap-1 text-md">
-      <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />
-      {player?.user.patron && (
-        <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />
-      )}
-      {player?.user.title && (
-        <p className="text-orange-400">
-          {player?.user.title}
-          {"  "}
-        </p>
-      )}
+  const renderPlayerColorIcon = () => {
+    return <span className="icon" dangerouslySetInnerHTML={{ __html: icon }} />;
+  };
+
+  const renderPatronIcon = () => {
+    return <span className="icon text-orange-500" dangerouslySetInnerHTML={{ __html: PlayerIcons.patron }} />;
+  };
+
+  const renderPlayerTitle = () => {
+    return (
+      <p className="text-orange-400">
+        {player?.user.title}
+        {"  "}
+      </p>
+    );
+  };
+
+  const renderPlayerName = () => {
+    return (
       <a
-        className="text-blue-500"
-        href={`${LICHESS_URLS.Profile}${player?.user.name}`}
+        href={`${LICHESS_URLS.Profile}/${player?.user.name}`}
         target="_blank"
         rel="noopener noreferrer"
+        className="text-blue-500 hover:underline"
       >
-        {isWhitePlayerShort(playerColor) ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}
+        {player?.user.name}
       </a>
+    );
+  };
+
+  const renderPlayerRating = () => {
+    if (!player) return null;
+
+    const { rating, provisional, ratingDiff } = player;
+    const diffClass =
+      ratingDiff > 0
+        ? RATING_DIFFERENCE_TEXT_COLORS.positive
+        : ratingDiff < 0
+          ? RATING_DIFFERENCE_TEXT_COLORS.negative
+          : RATING_DIFFERENCE_TEXT_COLORS.neutral;
+
+    return (
       <p className="text-gray-400 ml-1">
-        ({player?.rating}
-        {player?.provisional && "?"}){" "}
-        {!!player?.ratingDiff && (
-          <span
-            className={
-              player?.ratingDiff > 0
-                ? RATING_DIFFERENCE_TEXT_COLORS.positive
-                : player?.ratingDiff < 0
-                  ? RATING_DIFFERENCE_TEXT_COLORS.negative
-                  : RATING_DIFFERENCE_TEXT_COLORS.neutral
-            }
-          >
-            {player?.ratingDiff > 0 ? `+${player?.ratingDiff}` : player?.ratingDiff}
-          </span>
+        ({rating}
+        {provisional && "?"})
+        {typeof ratingDiff === "number" && ratingDiff !== 0 && (
+          <span className={diffClass}>{ratingDiff > 0 ? `+${ratingDiff}` : ratingDiff}</span>
         )}
       </p>
+    );
+  };
+
+  return (
+    <div className="noto player-color flex justify-center items-center gap-1 text-md">
+      {renderPlayerColorIcon()}
+      {player.user.patron && renderPatronIcon()}
+      {player.user.title && renderPlayerTitle()}
+      {renderPlayerName()}
+      {renderPlayerRating()}
     </div>
   );
 };

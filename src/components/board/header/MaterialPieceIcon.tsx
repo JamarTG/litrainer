@@ -1,19 +1,11 @@
 import { FC } from "react";
-import { Pawn, Knight, Bishop, Queen, Rook } from "./pieces/_index";
 import { ICON_SIZES } from "@/constants/icons";
+import { PIECE_COMPONENTS } from "@/constants/piece";
 
 interface MaterialPieceIconProps {
   piece: keyof typeof PIECE_COMPONENTS;
   size?: number;
 }
-
-const PIECE_COMPONENTS = {
-  bishop: Bishop,
-  knight: Knight,
-  pawn: Pawn,
-  queen: Queen,
-  rook: Rook
-} as const;
 
 const MaterialPieceIcon: FC<MaterialPieceIconProps> = ({ piece, size = ICON_SIZES.SMALL }) => {
   const PieceComponent = PIECE_COMPONENTS[piece];

@@ -1,4 +1,9 @@
+import Bishop from "@/components/board/header/pieces/Bishop";
 import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/chess";
+import Knight from "@/components/board/header/pieces/Knight";
+import Pawn from "@/components/board/header/pieces/Pawn";
+import Queen from "@/components/board/header/pieces/Queen";
+import Rook from "@/components/board/header/pieces/Rook";
 
 export const CHESS_PIECE_CODES = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
 
@@ -60,6 +65,14 @@ export const PIECE_VALUE = {
   [PIECE_TYPES.QUEEN]: 9,
   [PIECE_TYPES.KING]: 0
 };
+
+export const PIECE_COMPONENTS = {
+  bishop: Bishop,
+  knight: Knight,
+  pawn: Pawn,
+  queen: Queen,
+  rook: Rook
+} as const;
 
 const createInitialPieceCounts = () => ({
   p: 0,
