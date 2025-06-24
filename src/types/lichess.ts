@@ -31,7 +31,7 @@ export interface LichessPlayers {
   black: LichessPlayer;
 }
 
-export interface LichessPlayer {
+interface LichessPlayer {
   rating: number;
   ratingDiff: number;
   user: LichessUserMetaData;
@@ -47,7 +47,7 @@ interface LichessUserMetaData {
   patron?: boolean;
 }
 
-export interface LichessClock {
+interface LichessClock {
   initial: number;
   increment: number;
   totalTime: number;
