@@ -1,22 +1,21 @@
-import { COLORS } from "@/constants/player";
-import { ColorLongForm } from "@/types/lichess";
 import { Color } from "chess.js";
+import { ColorLongForm, ColorShortForm } from "./enums";
 
 export const getLongColor = (color: Color): ColorLongForm => {
-  return isWhitePlayerShort(color) ? COLORS.LONG.white : COLORS.LONG.black;
+  return isWhitePlayerShort(color) ? ColorLongForm.WHITE : ColorLongForm.BLACK;
 };
 
 export const isWhitePlayerShort = (playerColor: Color): boolean => {
-  return playerColor === COLORS.SHORT.white;
+  return playerColor === ColorShortForm.WHITE;
 };
 export const isWhitePlayerLong = (playerColor: ColorLongForm): boolean => {
-  return playerColor === COLORS.LONG.white;
+  return playerColor === ColorLongForm.WHITE;
 };
 
 export const isWhiteOrientationLong = (orientation: ColorLongForm): boolean => {
-  return orientation === COLORS.LONG.white;
+  return orientation === ColorLongForm.WHITE;
 };
 
 export const isWhitePieceShort = (color: Color): boolean => {
-  return color === COLORS.SHORT.white;
+  return color === ColorShortForm.WHITE;
 };

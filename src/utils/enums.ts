@@ -8,3 +8,13 @@ export enum MoveClassification {
   Book = "Book",
   Great = "Great"
 }
+
+export enum ColorLongForm {
+  WHITE = "white",
+  BLACK = "black"
+}
+
+export enum ColorShortForm {
+  WHITE = "w",
+  BLACK = "b"
+}

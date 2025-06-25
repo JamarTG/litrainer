@@ -3,11 +3,3 @@ export const RATING_DIFFERENCE_TEXT_COLORS = {
   negative: "text-red-500",
   neutral: "text-gray-500"
 };
-
-export const LONG = { white: "white", black: "black" } as const;
-export const SHORT = { white: "w", black: "b" } as const;
-
-export const COLORS = {
-  LONG,
-  SHORT
-} as const;

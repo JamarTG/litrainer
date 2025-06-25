@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { FC } from "react";
 import { Color } from "chess.js";
-import { COLORS, RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
+import { RATING_DIFFERENCE_TEXT_COLORS } from "@/constants/player";
 import { PlayerIcons } from "@/constants/icons";
 import { LICHESS_URLS } from "@/constants/urls";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { isWhitePlayerShort } from "@/utils/color";
+import { ColorShortForm } from "@/utils/enums";
 
 interface PlayerMetaDataProps {
   playerColor: Color;
@@ -17,7 +18,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const puzzle = useSelector(getPuzzle);
   const player = isWhitePlayerShort(playerColor) ? puzzle?.players.white : puzzle?.players.black;
 
-  const isWhite = playerColor === COLORS.SHORT.white;
+  const isWhite = playerColor === ColorShortForm.WHITE;
   const icon = (!isDarkMode && isWhite) || (isDarkMode && !isWhite) ? PlayerIcons.unfilled : PlayerIcons.filled;
 
   const renderPlayerColorIcon = () => {

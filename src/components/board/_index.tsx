@@ -7,7 +7,7 @@ import ClassificationMarker from "./overlay/ClassificationMarker";
 import { useMaterialUpdate } from "@/components/board/hooks/useMaterialUpdate";
 import "@/styles/chessground.css";
 import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
-import { ColorLongForm } from "@/types/lichess";
+import { ColorLongForm } from "@/utils/enums";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
 import { getFen } from "@/redux/slices/board";
 import { getPuzzleStatus, PuzzleStatus } from "@/redux/slices/feedback";
@@ -17,7 +17,7 @@ import useLoadBoardTheme from "./hooks/useLoadBoardTheme";
 import useLoadSet from "./hooks/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
 import { getLongColor } from "@/utils/color";
-import { BOARD_CONFIG } from "@/constants/board";
+import { BOARD_CONFIG } from "@/constants/board-theme";
 import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "./chess-board";
 
 const ChessBoard = () => {

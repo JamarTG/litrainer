@@ -1,9 +1,15 @@
+// External imports
 import { Chess, Move, Square } from "chess.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
+
+// Internal imports
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
-import { Classification } from "@/types/classification";
-import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
+import { playSound } from "@/libs/sound";
+import { attemptMove } from "@/libs/trainer/move";
+import { useEngineContext } from "@/context/hooks/useEngineContext";
+
+// Redux slices & selectors
 import {
   Feedback,
   getPuzzleStatus,
@@ -12,14 +18,14 @@ import {
   setFeedback,
   setPuzzleStatus
 } from "@/redux/slices/feedback";
-import { RootState, store } from "@/redux/store";
-import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { updateBoardStates } from "@/redux/slices/board";
-import { playSound } from "@/libs/sound";
 import { setEngineRunning } from "@/redux/slices/engine";
-import { attemptMove } from "@/libs/trainer/move";
 import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
-import { ATTEMPTED_PUZZLE_DELAY_TIME } from "@/constants/time";
+import { RootState, store } from "@/redux/store";
+
+// Types & constants
+import { Classification } from "@/types/classification";
+import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
 import { MoveClassification } from "@/utils/enums";
 
 const POSITIVE_CLASSIFICATIONS = new Set<string>(["Best", "Excellent", "Good", "Great"]);
@@ -28,6 +34,17 @@ interface EvaluationResult {
   classification: Classification | null;
   bestMove: string | null;
 }
+
+const convertLanToSan = (fen: string, lanMove: string) => {
+  try {
+    const tempGame = new Chess(fen);
+    const move = tempGame.move(lanMove);
+    return move ? move.san : lanMove;
+  } catch (error) {
+    console.error("Error converting LAN to SAN:", error);
+    return lanMove;
+  }
+};
 
 export const useMoveHandler = (game: Chess) => {
   const { engine } = useEngineContext();
@@ -82,22 +99,14 @@ export const useMoveHandler = (game: Chess) => {
   const evaluateMoveQuality = useCallback(
     async (fen: string, move: Move): Promise<EvaluationResult> => {
       dispatch(setEngineRunning(true));
-
       try {
-        if (!engine?.isReady()) {
-          throw new Error("Engine not ready");
-        }
-
-        if (!store.getState().engine.isRunning) {
-          throw new Error("Evaluation cancelled");
-        }
+        if (!engine?.isReady()) throw new Error("Engine not ready");
+        if (!store.getState().engine.isRunning) throw new Error("Evaluation cancelled");
 
         UciEngine.setDepth(engineDepth);
         const result = await engine.evaluateMoveQuality(fen, move.lan);
 
-        if (!store.getState().engine.isRunning) {
-          throw new Error("Evaluation cancelled");
-        }
+        if (!store.getState().engine.isRunning) throw new Error("Evaluation cancelled");
 
         return {
           classification: result.classification ?? null,
@@ -113,17 +122,6 @@ export const useMoveHandler = (game: Chess) => {
     [engine, engineDepth, dispatch]
   );
 
-  const convertLanToSan = (fen: string, lanMove: string) => {
-    try {
-      const tempGame = new Chess(fen);
-      const move = tempGame.move(lanMove);
-      return move ? move.san : lanMove;
-    } catch (error) {
-      console.error("Error converting LAN to SAN:", error);
-      return lanMove;
-    }
-  };
-
   const handleSameMistake = useCallback(
     (playedMove: Move) => {
       const lichessClassification = (puzzle?.evaluation.judgment?.name as Classification) || null;
@@ -136,13 +134,12 @@ export const useMoveHandler = (game: Chess) => {
   const handleNewMove = useCallback(
     async (playedMove: Move) => {
       const { classification, bestMove } = await evaluateMoveQuality(fen, playedMove);
-
       if (!classification) return;
 
       processEvaluation(bestMove, playedMove, classification, "solved");
 
       if (autoSkip && POSITIVE_CLASSIFICATIONS.has(classification)) {
-        setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+        setTimeout(() => dispatch(nextPuzzle()), 1000);
       }
     },
     [fen, evaluateMoveQuality, processEvaluation, autoSkip, dispatch]
@@ -165,18 +162,14 @@ export const useMoveHandler = (game: Chess) => {
 
   const handleMoveAttempt = useCallback(
     (sourceSquare: Square, targetSquare: Square, promotion: string): boolean => {
-      if (puzzleStatus === "solved" || game.turn() !== puzzle?.userMove.color) {
-        return false;
-      }
+      if (puzzleStatus === "solved" || game.turn() !== puzzle?.userMove.color) return false;
 
       const playedMove = attemptMove(game, sourceSquare, targetSquare, promotion);
       if (!playedMove) return false;
 
       updateGameState(game, sourceSquare, targetSquare);
 
-      const isSameMistake = playedMove.lan === puzzle?.userMove.lan;
-
-      if (isSameMistake) {
+      if (playedMove.lan === puzzle?.userMove.lan) {
         handleSameMistake(playedMove);
         return true;
       }
@@ -187,7 +180,7 @@ export const useMoveHandler = (game: Chess) => {
       }
 
       if (autoSkip) {
-        setTimeout(() => dispatch(nextPuzzle()), ATTEMPTED_PUZZLE_DELAY_TIME);
+        setTimeout(() => dispatch(nextPuzzle()), 1000);
       }
 
       return true;

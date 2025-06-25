@@ -10,7 +10,7 @@ import useMarkerVisibility from "../hooks/useMarkerVisibility";
 import { getClassification } from "@/redux/slices/feedback";
 import { useMarkerPositionEffect } from "../hooks/useMarkerPositionEffect";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
-import { BOARD_CONFIG } from "@/constants/board";
+import { BOARD_CONFIG } from "@/constants/board-theme";
 
 interface ClassificationMarkerProps {
   boardSize: number;
