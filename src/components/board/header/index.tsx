@@ -16,6 +16,7 @@ const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial
   return (
     <div className={`w-full text-center p-1 text-sm dark:text-white flex justify-center items-center gap-5`}>
       <PlayerMetaData playerColor={playerColor} />
+
       <PlayerMaterial playerMaterial={playerMaterial} playerColor={playerColor} />
     </div>
   );

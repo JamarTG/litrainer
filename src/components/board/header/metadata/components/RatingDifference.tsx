@@ -5,18 +5,16 @@ interface RatingDifferenceProps {
 }
 
 const RatingDifference: FC<RatingDifferenceProps> = ({ ratingDiff }) => {
-  if (!ratingDiff) return <p> </p>;
-  const getDiffClass = (diff: number) => (diff > 0 ? "text-green-500" : diff < 0 ? "text-red-500" : "text-gray-500");
+  if (!ratingDiff) return;
+
+  const getDiffTextColor = (diff: number) =>
+    diff > 0 ? "text-green-500" : diff < 0 ? "text-red-500" : "text-gray-500";
   const getRatingDiffWithOperator = (diff: number) => (diff > 0 ? `+${diff}` : diff);
 
-  const diffClass = getDiffClass(ratingDiff);
-  const ratingDiffWithOperator = getRatingDiffWithOperator(ratingDiff);
+  const diffTextColor = getDiffTextColor(ratingDiff);
+  const ratingDifference = getRatingDiffWithOperator(ratingDiff);
 
-  return (
-    <p>
-      <span className={diffClass}>{ratingDiffWithOperator}</span>
-    </p>
-  );
+  return <span className={diffTextColor}>{ratingDifference}</span>;
 };
 
 export default RatingDifference;

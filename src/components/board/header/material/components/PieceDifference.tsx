@@ -9,8 +9,10 @@ interface PieceDifferenceProps {
 const PieceDifference: React.FC<PieceDifferenceProps> = ({ pieceCounts }) => {
   return (
     <React.Fragment>
-      {pieceCounts.map((piece) => (
-        <PieceNTimes piece={piece} />
+      {pieceCounts.map((piece, index) => (
+        <div key={index}>
+          <PieceNTimes piece={piece} />
+        </div>
       ))}
     </React.Fragment>
   );

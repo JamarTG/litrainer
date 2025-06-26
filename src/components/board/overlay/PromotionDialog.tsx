@@ -7,7 +7,7 @@ import { PROMOTION_DIALOG_Z_INDEX } from "@/constants/ui";
 import { PromotionPiece } from "@/typing/interfaces";
 import { ColorLongForm } from "@/typing/enums";
 
-export interface PromotionData {
+export interface PromotionMoveObject {
   from: Square;
   to: Square;
   color: ColorLongForm;
@@ -15,7 +15,7 @@ export interface PromotionData {
 
 interface PromotionDialogProps {
   isOpen: boolean;
-  promotionData: PromotionData | null;
+  color: ColorLongForm | null;
   onPromote: (piece: string) => void;
   onCancel: VoidFunction;
 }
@@ -39,12 +39,10 @@ export const PROMOTION_PIECES: PromotionPiece[] = [
   }
 ];
 
-const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPromote, onCancel }) => {
+const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, color, onPromote, onCancel }) => {
   const pieceSet = useSelector(getPieceSet);
 
-  if (!isOpen || !promotionData) return null;
-
-  const { color } = promotionData;
+  if (!isOpen || !color) return null;
 
   const renderPromotionOption = ({ piece, name }: PromotionPiece) => (
     <button

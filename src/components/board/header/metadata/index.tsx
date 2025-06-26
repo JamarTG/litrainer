@@ -18,21 +18,23 @@ interface PlayerMetaDataProps {
 const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
   const isDarkMode = useSelector(isDarkModeActive);
   const puzzle = useSelector(getPuzzle);
+
   const player = playerColor === ColorShortForm.WHITE ? puzzle?.players.white : puzzle?.players.black;
 
-  if (!(player && player.user)) return null;
+  if (!(player && player.user)) return;
 
-  <div className="noto player-color flex justify-center items-center gap-1 text-md">
-    <PlayerColorIcon playerColor={playerColor} isDarkMode={isDarkMode} />
-    <PatronIcon>
+  return (
+    <div className="noto player-color flex justify-center items-center gap-1 text-md">
+      <PlayerColorIcon playerColor={playerColor} isDarkMode={isDarkMode} />
+      <PatronIcon isPatron={player?.user?.patron ?? null} />
       <PlayerTitle title={player.user?.title} />
       <PlayerName name={player.user?.name} />
-    </PatronIcon>
-    <div className="text-gray-400 flex gap-1">
-      <PlayerRating player={player} />
-      <RatingDifference ratingDiff={player.ratingDiff} />
+      <div className="text-gray-400 flex gap-1">
+        <PlayerRating isProvisional={player?.provisional} rating={player?.rating} />
+        <RatingDifference ratingDiff={player?.ratingDiff} />
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default PlayerMetaData;

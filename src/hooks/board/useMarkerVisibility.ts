@@ -1,4 +1,4 @@
-import { Classification } from "@/types/classification";
+import { Classification } from "@/typing/types";
 import { useEffect, useState } from "react";
 
 const useMarkerVisibility = (classification: Classification | null, destinationSquare: string | null) => {
@@ -12,7 +12,7 @@ const useMarkerVisibility = (classification: Classification | null, destinationS
     }
   }, [destinationSquare, classification]);
 
-  return { isVisible: shouldMarkerBeVisible, classification, destinationSquare };
+  return { shouldMarkerBeVisible, classification, destinationSquare };
 };
 
 export default useMarkerVisibility;

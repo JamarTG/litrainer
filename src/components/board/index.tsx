@@ -5,7 +5,7 @@ import Chessground from "react-chessground";
 import ClassificationMarker from "./overlay/ClassificationMarker";
 import { useMaterialUpdate } from "@/hooks/board/useMaterialUpdate";
 import "@/styles/chessground.css";
-import PromotionModal, { PromotionData } from "./overlay/PromotionDialog";
+import PromotionModal, { PromotionMoveObject } from "./overlay/PromotionDialog";
 import { ColorLongForm, ColorShortForm } from "@/typing/enums";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
 import { getFen } from "@/redux/slices/board";
@@ -36,7 +36,7 @@ export const BOARD_CONFIG = {
 };
 
 const ChessBoard = () => {
-  const [promotionData, setPromotionData] = useState<PromotionData | null>(null);
+  const [promotionMoveObject, setPromotionMoveObject] = useState<PromotionMoveObject | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const fen = useSelector(getFen);
   const playerColorLongForm = useSelector(getUserColorLongForm);
@@ -66,7 +66,7 @@ const ChessBoard = () => {
       const movingPiece = game.get(fromSquare);
       const color = movingPiece?.color === ColorShortForm.WHITE ? ColorLongForm.WHITE : ColorLongForm.BLACK;
 
-      setPromotionData({
+      setPromotionMoveObject({
         from: fromSquare,
         to: toSquare,
         color
@@ -78,15 +78,15 @@ const ChessBoard = () => {
   };
 
   const handlePromotion = (promotionPiece: string) => {
-    if (!promotionData) return;
+    if (!promotionMoveObject) return;
 
-    const { from, to } = promotionData;
+    const { from, to } = promotionMoveObject;
     handleMoveAttempt(from, to, promotionPiece);
-    setPromotionData(null);
+    setPromotionMoveObject(null);
   };
 
   const handlePromotionCancel = () => {
-    setPromotionData(null);
+    setPromotionMoveObject(null);
   };
 
   return (
@@ -116,8 +116,8 @@ const ChessBoard = () => {
         />
 
         <PromotionModal
-          isOpen={!!promotionData}
-          promotionData={promotionData}
+          isOpen={!!promotionMoveObject}
+          color={promotionMoveObject?.color ?? null}
           onPromote={handlePromotion}
           onCancel={handlePromotionCancel}
         />

@@ -5,8 +5,10 @@ interface PlayerNameProps {
   name?: string;
 }
 
-const PlayerName: FC<PlayerNameProps> = ({ name }) =>
-  name ? (
+const PlayerName: FC<PlayerNameProps> = ({ name }) => {
+  if (!name) return null;
+
+  return (
     <a
       href={`${LICHESS_URLS.Profile}/${name}`}
       target="_blank"
@@ -15,6 +17,7 @@ const PlayerName: FC<PlayerNameProps> = ({ name }) =>
     >
       {name}
     </a>
-  ) : null;
+  );
+};
 
 export default PlayerName;

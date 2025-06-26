@@ -23,31 +23,31 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
   const destinationSquare = useSelector(getDestinationSquare);
   const orientation = useSelector(getUserColorLongForm);
 
-  const { isVisible } = useMarkerVisibility(classification, destinationSquare);
+  // Classification and Destination are required in order to render the marker
+  const { shouldMarkerBeVisible } = useMarkerVisibility(classification, destinationSquare);
 
   const boardSize = boardRef.current?.offsetWidth || DEFAULT_BOARD_SIZE;
   const markerSize = boardSize / MARKER_SCALE_FACTOR;
 
   useMarkerPositionEffect(destinationSquare as Square, boardSize, boardRef, orientation);
 
-  if (!classification) {
-    return null;
-  }
+  const markerCoordinatesStyles = {
+    right: markerPosition.right,
+    top: markerPosition.top,
+    zIndex: MARKER_Z_INDEX
+  };
+  if (!classification) return;
 
   return (
     <img
       src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
-      alt={classification ?? "Classification Marker"}
+      alt={classification}
       width={markerSize}
       height={markerSize}
       className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
-        isVisible ? "opacity-90" : "opacity-0"
+        shouldMarkerBeVisible ? "opacity-90" : "opacity-0"
       }`}
-      style={{
-        right: markerPosition.right,
-        top: markerPosition.top,
-        zIndex: MARKER_Z_INDEX
-      }}
+      style={markerCoordinatesStyles}
     />
   );
 };
