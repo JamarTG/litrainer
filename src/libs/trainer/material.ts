@@ -1,5 +1,5 @@
 import { Chess, Color } from "chess.js";
-import { Materials } from "@/types/eval";
+import { Materials } from "@/typing/interfaces";
 import { ColorShortForm } from "@/typing/enums";
 
 export const calculateMaterialDifference = (currentGame: Chess): Materials => {
