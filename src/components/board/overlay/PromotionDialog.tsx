@@ -1,7 +1,6 @@
 import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import List from "@/components/common/List";
 import { getPieceSet } from "@/redux/slices/piece-set";
 import { PROMOTION_DIALOG_Z_INDEX } from "@/constants/ui";
 import { PromotionPiece } from "@/typing/interfaces";
@@ -69,9 +68,7 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, color, onPromote, o
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Choose promotion piece</h3>
 
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <List items={PROMOTION_PIECES} renderItem={renderPromotionOption} />
-        </div>
+        <div className="grid grid-cols-2 gap-3 mb-4">{PROMOTION_PIECES.map(renderPromotionOption)}</div>
 
         <button
           onClick={onCancel}

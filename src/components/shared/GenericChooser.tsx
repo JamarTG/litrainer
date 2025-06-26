@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import useClickOutside from "@/hooks/panel/useClickOutside";
-import List from "../common/List";
 import { ChevronDown } from "lucide-react";
 
 interface GenericChooserProps<T> {
@@ -50,7 +49,7 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
 
       {isOpen && (
         <ul className="overflow-y-auto max-h-32 max-w-72 absolute top-6 z-10 mt-2 bg-white dark:bg-zinc-900 shadow-lg ">
-          <List items={options} renderItem={renderGenericChooserOption} />
+          {options.map(renderGenericChooserOption)}
         </ul>
       )}
     </div>

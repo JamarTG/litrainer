@@ -2,11 +2,11 @@ import { ChangeEvent, FC } from "react";
 import usePopperDropDown from "@/hooks/common/usePopperDropDown";
 import ReactDOM from "react-dom";
 import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
-import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
 import { ICON_SIZES } from "@/constants/icons";
-import { Fields, GameType } from "@/typing/lichess";
 import { GAMES_DROPDOWN_Z_INDEX } from "@/constants/ui";
+import { GameType } from "@/typing/types";
+import { Fields } from "@/typing/interfaces";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -73,9 +73,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
               style={{ zIndex: GAMES_DROPDOWN_Z_INDEX }}
               className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200"
             >
-              <div className="flex flex-col space-y-0">
-                <List items={TIME_CONTROLS} renderItem={renderTimeControl} />
-              </div>
+              <div className="flex flex-col space-y-0">{TIME_CONTROLS.map(renderTimeControl)}</div>
             </div>,
             document.body
           )}

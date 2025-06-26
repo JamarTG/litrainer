@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import List from "@/components/common/List";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
@@ -198,9 +197,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-7 py-2">
-        <List items={DAYS_OF_THE_WEEK} renderItem={renderDay} />
-      </div>
+      <div className="grid grid-cols-7 py-2">{DAYS_OF_THE_WEEK.map(renderDay)}</div>
 
       <div className="grid grid-cols-7 text-xs text-offWhite ">{renderDays()}</div>
 

@@ -3,8 +3,8 @@ import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 import { LICHESS_URLS } from "@/constants/urls";
 import useDebounce from "@/hooks/panel/useDebounceValue";
-import List from "@/components/common/List";
-import { Fields, GameType } from "@/typing/lichess";
+import { Fields } from "@/typing/interfaces";
+import { GameType } from "@/typing/types";
 
 interface SlideOneProps {
   formData: Fields;
@@ -97,7 +97,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
               />
               {autoCompletedUsers.length > 0 && (
                 <div className="absolute pb-5 text-sm dark:bg-zinc-800 dark:text-white bg-white flex flex-col w-full max-h-50 overflow-auto rounded-md z-50">
-                  <List items={firstFiveAutoCompletedUsers} renderItem={renderAutoCompletedUser} />
+                  {firstFiveAutoCompletedUsers.map(renderAutoCompletedUser)}
                 </div>
               )}
             </div>

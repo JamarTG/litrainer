@@ -1,5 +1,4 @@
 import { Dispatch, FC, ReactNode, SetStateAction } from "react";
-import List from "@/components/common/List";
 
 interface ProgressIndicatorProps {
   children: ReactNode[];
@@ -19,17 +18,13 @@ const ProgressIndicator: FC<ProgressIndicatorProps> = ({ children, currentIndex,
       key={index}
       onClick={() => handleIndicatorClick(index)}
       className={`transition-all duration-300 ease-in-out ${
-        index === currentIndex
-          ? "w-8 h-2 bg-accent rounded-full" // Pill for the active indicator
-          : "w-2 h-2 bg-[#ffffff12]  rounded-full" // Dot for inactive indicators
+        index === currentIndex ? "w-8 h-2 bg-accent rounded-full" : "w-2 h-2 bg-[#ffffff12]  rounded-full"
       }`}
     />
   );
   return (
     <div className=" flex justify-center items-center ">
-      <div className="flex space-x-2">
-        <List items={children} renderItem={renderChild} />
-      </div>
+      <div className="flex space-x-2">{children.map(renderChild)}</div>
     </div>
   );
 };

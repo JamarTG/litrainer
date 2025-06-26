@@ -1,7 +1,6 @@
 import { useRef, useEffect, MouseEventHandler, ReactNode, FC, Dispatch, SetStateAction, useCallback } from "react";
 import ProgressIndicator from "./ProgressIndicator";
 import NavigationButtons from "./Navbuttons";
-import List from "@/components/common/List";
 
 interface SwiperProps {
   children: ReactNode[];
@@ -56,7 +55,7 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSli
   return (
     <div className={`  ${className}`}>
       <div ref={containerRef} className="flex transition-transform duration-300 overflow-hidden w-full">
-        <List items={children} renderItem={renderChild} />
+        {children.map(renderChild)}
       </div>
 
       <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
