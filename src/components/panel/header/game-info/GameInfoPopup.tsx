@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 import GameSpeedIcon from "../../../shared/GameSpeedIcon";
-
 import { useSelector } from "react-redux";
-
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { formatTimeControl } from "@/libs/trainer/text";
-import { isWhitePlayerLong } from "@/utils/color";
 import { ICON_SIZES } from "@/constants/icons";
+import { ColorLongForm, GameMode } from "@/typing/enums";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
@@ -39,7 +37,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
             <span className="text-lg">
               <GameSpeedIcon speed={puzzle?.timeControl} size={ICON_SIZES.MEDIUM} />
             </span>
-            <span>{puzzle?.rated ? "Rated" : "Casual"}</span>
+            <span>{puzzle?.rated ? GameMode.Rated : GameMode.Casual}</span>
             <span className="font-medium capitalize text-zinc-600 dark:text-zinc-400">{puzzle?.timeControl}</span>
             {formatTimeControl(puzzle?.clock.initial, puzzle?.clock.increment)}
           </div>
@@ -50,7 +48,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
             {status === "draw"
               ? "Game ended in a draw"
               : puzzle?.winner
-                ? `Winner: ${isWhitePlayerLong(puzzle?.winner) ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}`
+                ? `Winner: ${(puzzle?.winner as import("@/typing/enums").ColorLongForm) === ColorLongForm.WHITE ? puzzle?.players.white.user.name : puzzle?.players.black.user.name}`
                 : "Game ongoing"}
           </p>
           <p className="text-zinc-500 dark:text-zinc-400">

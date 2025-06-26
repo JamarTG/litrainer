@@ -1,8 +1,9 @@
-import { MoveClassification } from "@/utils/enums.ts";
-import { getBasicClassification } from "../evaluation/_index.ts";
+import { EngineName, MoveClassification } from "@/typing/enums.ts";
+import { getBasicClassification } from "../evaluation/index.ts";
 import { parseEvaluationResults } from "./parsers";
-import { EngineName, PositionEvaluation, VariationLineResult } from "@/types/engine";
+
 import { Chess } from "chess.js";
+import { PositionEvaluation, VariationLineResult } from "@/typing/interfaces.ts";
 
 export abstract class UciEngine {
   private worker: Worker;

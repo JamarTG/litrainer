@@ -1,8 +1,8 @@
-import { getLongColor, isWhitePieceShort } from "@/utils/color";
+import { ColorLongForm, ColorShortForm } from "@/typing/enums";
 import { Chess, Square } from "chess.js";
 
 export const turnColor = (game: Chess) => {
-  return getLongColor(game.turn());
+  return game.turn() === ColorShortForm.WHITE ? ColorLongForm.WHITE : ColorLongForm.BLACK;
 };
 
 export const isPromotionMove = (game: Chess, from: Square, to: Square): boolean => {
@@ -13,7 +13,7 @@ export const isPromotionMove = (game: Chess, from: Square, to: Square): boolean 
   const toRank = parseInt(to[1]);
 
   return (
-    (isWhitePieceShort(piece.color) && fromRank === 7 && toRank === 8) ||
+    (piece.color === ColorShortForm.WHITE && fromRank === 7 && toRank === 8) ||
     (piece.color === "b" && fromRank === 2 && toRank === 1)
   );
 };

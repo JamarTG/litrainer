@@ -1,16 +1,16 @@
-import HeaderForPlayer from "../board/header/_index";
+import HeaderForPlayer from "../board/header";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { getMaterials } from "@/redux/slices/board";
-import { isWhitePlayerShort } from "@/utils/color";
+import { ColorShortForm } from "@/typing/enums";
 
-interface ChessBoardLayoutProps {
+interface ChessBoardHeaderWrapperProps {
   children: ReactNode;
 }
 
-const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ children }) => {
+const ChessBoardHeaderWrapper: FC<ChessBoardHeaderWrapperProps> = ({ children }) => {
   const currentPuzzle = useSelector(getPuzzle);
   const hasActivePuzzle = Boolean(currentPuzzle);
   const playerColor = currentPuzzle?.userMove.color;
@@ -18,7 +18,7 @@ const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ children }) => {
   const materials = useSelector(getMaterials);
 
   const renderHeaderForPlayer = (color: Color) => {
-    const playerMaterial = isWhitePlayerShort(color) ? materials.w : materials.b;
+    const playerMaterial = color === ColorShortForm.WHITE ? materials.w : materials.b;
     return <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />;
   };
 
@@ -31,4 +31,4 @@ const ChessBoardLayout: FC<ChessBoardLayoutProps> = ({ children }) => {
   );
 };
 
-export default ChessBoardLayout;
+export default ChessBoardHeaderWrapper;

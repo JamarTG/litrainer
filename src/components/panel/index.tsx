@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import PanelBody from "./body";
-import PanelHeader from "./header/_index";
+import PanelHeader from "./header";
 
 const Panel = () => {
   return (

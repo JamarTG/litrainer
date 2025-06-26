@@ -1,6 +1,6 @@
 import { BookOpen } from "lucide-react";
 import { LICHESS_URLS } from "@/constants/urls";
-import { Puzzle } from "@/types/lichess";
+import { Puzzle } from "@/typing/interfaces";
 import { ICON_SIZES } from "@/constants/icons";
 import { Fragment } from "react/jsx-runtime";
 

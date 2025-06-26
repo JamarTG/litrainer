@@ -26,7 +26,7 @@ import { RootState, store } from "@/redux/store";
 // Types & constants
 import { Classification } from "@/types/classification";
 import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
-import { MoveClassification } from "@/utils/enums";
+import { MoveClassification } from "@/typing/enums";
 
 const POSITIVE_CLASSIFICATIONS = new Set<string>(["Best", "Excellent", "Good", "Great"]);
 

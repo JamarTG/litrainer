@@ -1,6 +1,7 @@
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { ENGINE_DEPTH_STORAGE_FALLBACK, ENGINE_DEPTH_STORAGE_KEY } from "@/constants/storage";
 
 export interface EngineState {
   isRunning: boolean;
@@ -9,7 +10,7 @@ export interface EngineState {
 
 const initialState: EngineState = {
   isRunning: false,
-  depth: Number(loadFromLocalStorage("depth", "12"))
+  depth: Number(loadFromLocalStorage(ENGINE_DEPTH_STORAGE_KEY, ENGINE_DEPTH_STORAGE_FALLBACK))
 };
 
 const engineSlice = createSlice({
@@ -21,7 +22,7 @@ const engineSlice = createSlice({
     },
     setDepth(state, action: PayloadAction<number>) {
       state.depth = action.payload;
-      saveToLocalStorage("depth", action.payload.toString());
+      saveToLocalStorage(ENGINE_DEPTH_STORAGE_KEY, action.payload.toString());
     }
   }
 });

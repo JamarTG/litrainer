@@ -2,9 +2,9 @@ import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState, useRef 
 import TimeControl from "./TimeControl";
 import Colors from "./Colors";
 import { LICHESS_URLS } from "@/constants/urls";
-import useDebounce from "@/components/panel/hooks/useDebounceValue";
+import useDebounce from "@/hooks/panel/useDebounceValue";
 import List from "@/components/common/List";
-import { Fields, GameType } from "@/types/lichess";
+import { Fields, GameType } from "@/typing/lichess";
 
 interface SlideOneProps {
   formData: Fields;
@@ -12,14 +12,18 @@ interface SlideOneProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+const DEBOUNCE_TIME = 500;
+const MIN_DEBOUNCE_NAME_LENGTH = 2;
+const MAX_AUTOCOMPLETED_USERS = 5;
+
 const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange }) => {
-  const debouncedUsername = useDebounce(formData.username, 500);
+  const debouncedUsername = useDebounce(formData.username, DEBOUNCE_TIME);
   const [autoCompletedUsers, setAutoCompletedUsers] = useState<string[]>([]);
   const [keyboardHoverOption, setKeyboardHoverOption] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (debouncedUsername.length < 2) {
+    if (debouncedUsername.length < MIN_DEBOUNCE_NAME_LENGTH) {
       setAutoCompletedUsers([]);
       setKeyboardHoverOption(-1);
       return;
@@ -41,6 +45,23 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
 
   const handleInputBlur = () => {
     setKeyboardHoverOption(-1);
+  };
+
+  const handleKeyboardHover = (e: React.KeyboardEvent) => {
+    if (e.code === "ArrowUp") {
+      e.preventDefault();
+      setKeyboardHoverOption((prev) =>
+        prev <= 0 ? autoCompletedUsers.slice(0, MAX_AUTOCOMPLETED_USERS).length - 1 : prev - 1
+      );
+    } else if (e.code === "ArrowDown") {
+      e.preventDefault();
+      setKeyboardHoverOption((prev) =>
+        prev >= autoCompletedUsers.slice(0, MAX_AUTOCOMPLETED_USERS).length - 1 ? 0 : prev + 1
+      );
+    } else if (e.code === "Enter" && keyboardHoverOption >= 0) {
+      e.preventDefault();
+      updateFormUsername(autoCompletedUsers[keyboardHoverOption]);
+    }
   };
 
   const firstFiveAutoCompletedUsers = autoCompletedUsers.slice(0, 5);
@@ -69,22 +90,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
                 className="flex text-[#222] w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted"
                 placeholder="Lichess Username"
                 value={formData.username}
-                onKeyDown={(e) => {
-                  if (e.code === "ArrowUp") {
-                    e.preventDefault();
-                    setKeyboardHoverOption((prev) =>
-                      prev <= 0 ? autoCompletedUsers.slice(0, 5).length - 1 : prev - 1
-                    );
-                  } else if (e.code === "ArrowDown") {
-                    e.preventDefault();
-                    setKeyboardHoverOption((prev) =>
-                      prev >= autoCompletedUsers.slice(0, 5).length - 1 ? 0 : prev + 1
-                    );
-                  } else if (e.code === "Enter" && keyboardHoverOption >= 0) {
-                    e.preventDefault();
-                    updateFormUsername(autoCompletedUsers[keyboardHoverOption]);
-                  }
-                }}
+                onKeyDown={handleKeyboardHover}
                 name="username"
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}

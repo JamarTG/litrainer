@@ -1,11 +1,12 @@
-import { Puzzle } from "@/types/lichess";
+import { Puzzle } from "@/typing/interfaces";
+import { GameMode } from "@/typing/enums";
 
 interface RatedOrCasualProps {
   isRatedGame: Puzzle["rated"];
 }
 
 const RatedOrCasual: React.FC<RatedOrCasualProps> = ({ isRatedGame }) => {
-  const label = isRatedGame ? "Rated" : "Casual";
+  const label = isRatedGame ? GameMode.Rated : GameMode.Casual;
   const baseClasses = "px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wide";
 
   const ratedClasses = isRatedGame

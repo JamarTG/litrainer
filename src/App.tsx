@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { EngineName } from "@/types/engine";
+import { EngineName } from "./typing/enums";
 import Router from "@/routes/router";
 import "./App.css";
 import { EngineProvider } from "@/context/EngineContext";

@@ -2,7 +2,7 @@ import { getEngineDepth, getEngineState } from "@/redux/slices/engine";
 import stockfishPng from "../../../../public/sf.png";
 import { useSelector } from "react-redux";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
-import { EngineName } from "@/types/engine";
+import { EngineName } from "@/typing/enums";
 import { Fragment } from "react/jsx-runtime";
 
 const renderStockfishImage = (engineName: string) => {

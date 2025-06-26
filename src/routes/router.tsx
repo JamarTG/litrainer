@@ -3,26 +3,28 @@ import Playground from "@/pages/Playground";
 import NavbarLayout from "@/components/layout/Navbar";
 import test from "@/test.json";
 import { loadFromLocalStorage } from "@/utils/storage";
-import { Fragment } from "react/jsx-runtime";
+import { PUZZLE_STORAGE_KEY } from "@/constants/storage";
+
+const getPreloadedPuzzles = () => {
+  return {
+    puzzles: loadFromLocalStorage(PUZZLE_STORAGE_KEY, test)
+  };
+};
 
 export default function Router() {
-  const location = useLocation();
-  const { puzzles } = location.state || {
-    puzzles: loadFromLocalStorage("puzzles", test)
-  };
+  const generatedPuzzles = useLocation().state;
+  const state = generatedPuzzles || getPreloadedPuzzles();
 
   return (
-    <Fragment>
-      <Routes>
-        <Route
-          path={"/"}
-          element={
-            <NavbarLayout>
-              <Playground puzzles={puzzles} />
-            </NavbarLayout>
-          }
-        />
-      </Routes>
-    </Fragment>
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <NavbarLayout>
+            <Playground puzzles={state.puzzles} />
+          </NavbarLayout>
+        }
+      />
+    </Routes>
   );
 }

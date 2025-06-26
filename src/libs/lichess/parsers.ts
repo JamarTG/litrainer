@@ -1,13 +1,9 @@
 import { Chess } from "chess.js";
-import {
-  ColorLongForm,
-  GameType,
-  LichessEvaluation,
-  LichessGameResponse,
-  PositionOpening,
-  Puzzle
-} from "@/types/lichess";
+
 import openings from "./openings";
+import { LichessEvaluation, LichessGameResponse, PositionOpening, Puzzle } from "@/typing/interfaces";
+import { ColorLongForm, GamePhase } from "@/typing/enums";
+import { GameType } from "@/typing/types";
 
 export const parseGames = async (response: Response) => {
   if (!response.body) return;
@@ -79,14 +75,15 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
       if (!evaluation || !move) continue;
 
       if (evaluation.judgment && move.color === OPColor && i > 0) {
-        let phase: "opening" | "middlegame" | "endgame";
+        let phase: GamePhase.opening | GamePhase.middlegame | GamePhase.endgame;
+
         if (plyNumber < middlegameStartPly) {
-          phase = "opening";
+          phase = GamePhase.opening;
           positionOpening = openings.find((opening: PositionOpening) => opening.pgn === pgnString.trim());
         } else if (plyNumber < endgameStartPly) {
-          phase = "middlegame";
+          phase = GamePhase.middlegame;
         } else {
-          phase = "endgame";
+          phase = GamePhase.endgame;
         }
 
         const previousMove = history[i - 1];

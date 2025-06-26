@@ -2,15 +2,15 @@ import { Square } from "chess.js";
 
 import { useSelector } from "react-redux";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
-import { MoveClassification } from "@/utils/enums";
+import { MoveClassification } from "@/typing/enums";
 import { FC, RefObject } from "react";
-import { Z_INDEX } from "@/constants/ui";
 import { getDestinationSquare, getMarkerPosition } from "@/redux/slices/board";
-import useMarkerVisibility from "../hooks/useMarkerVisibility";
+import useMarkerVisibility from "../../../hooks/board/useMarkerVisibility";
 import { getClassification } from "@/redux/slices/feedback";
-import { useMarkerPositionEffect } from "../hooks/useMarkerPositionEffect";
+import { useMarkerPositionEffect } from "../../../hooks/board/useMarkerPositionEffect";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
-import { BOARD_CONFIG } from "@/constants/board-theme";
+import { MARKER_SCALE_FACTOR, MARKER_Z_INDEX } from "@/constants/ui";
+import { DEFAULT_BOARD_SIZE } from "@/constants/board";
 
 interface ClassificationMarkerProps {
   boardSize: number;
@@ -25,8 +25,8 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
 
   const { isVisible } = useMarkerVisibility(classification, destinationSquare);
 
-  const boardSize = boardRef.current?.offsetWidth || BOARD_CONFIG.DEFAULT_BOARD_SIZE;
-  const markerSize = boardSize / 16;
+  const boardSize = boardRef.current?.offsetWidth || DEFAULT_BOARD_SIZE;
+  const markerSize = boardSize / MARKER_SCALE_FACTOR;
 
   useMarkerPositionEffect(destinationSquare as Square, boardSize, boardRef, orientation);
 
@@ -46,7 +46,7 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
       style={{
         right: markerPosition.right,
         top: markerPosition.top,
-        zIndex: Z_INDEX.MARKER
+        zIndex: MARKER_Z_INDEX
       }}
     />
   );

@@ -1,5 +1,5 @@
-import { MoveClassification } from "@/utils/enums";
-import { PositionEvaluation } from "@/types/engine";
+import { MoveClassification } from "@/typing/enums";
+import { PositionEvaluation } from "@/typing/interfaces";
 
 export const getBasicClassification = (
   lastPositionEvaluation: PositionEvaluation,

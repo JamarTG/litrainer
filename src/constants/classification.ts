@@ -1,4 +1,4 @@
-import { MoveClassification } from "@/utils/enums";
+import { MoveClassification } from "@/typing/enums";
 
 export const CLASSIFICATION_IMAGES: Record<MoveClassification, string> = {
   [MoveClassification.Book]: "/classification/book.svg",

@@ -17,7 +17,6 @@ const PuzzleNavigation = () => {
   const dispatch = useAppDispatch();
 
   const isEngineRunning = useSelector(getEngineState);
-
   const isFirstPuzzle = useSelector(onFirstPuzzle);
   const isLastPuzzle = useSelector(onLastPuzzle);
   const attemptedPuzzle = useSelector(hasAttempted);

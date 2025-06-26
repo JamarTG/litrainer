@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { RootState } from "../store";
+import { BOARD_STORAGE_FALLBACK, BOARD_STORAGE_KEY } from "@/constants/storage";
 
 export interface BoardThemeState {
   board: string;
 }
 
 const initialState: BoardThemeState = {
-  board: loadFromLocalStorage("board", "brown")
+  board: loadFromLocalStorage(BOARD_STORAGE_KEY, BOARD_STORAGE_FALLBACK)
 };
 
 const boardThemeSlice = createSlice({
@@ -16,7 +17,7 @@ const boardThemeSlice = createSlice({
   reducers: {
     setBoardTheme(state, action: PayloadAction<string>) {
       state.board = action.payload;
-      saveToLocalStorage("board", action.payload);
+      saveToLocalStorage(BOARD_STORAGE_KEY, action.payload);
     }
   }
 });

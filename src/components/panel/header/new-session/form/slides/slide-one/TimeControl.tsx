@@ -1,18 +1,20 @@
 import { ChangeEvent, FC } from "react";
-import usePopperDropDown from "@/hooks/usePopperDropDown";
+import usePopperDropDown from "@/hooks/common/usePopperDropDown";
 import ReactDOM from "react-dom";
 import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
-import { TIME_CONTROLS } from "@/constants/form";
 import List from "@/components/common/List";
 import ToggleSwitch from "@/components/shared/ToggleSwitch";
 import { ICON_SIZES } from "@/constants/icons";
-import { Fields, GameType } from "@/types/lichess";
+import { Fields, GameType } from "@/typing/lichess";
+import { GAMES_DROPDOWN_Z_INDEX } from "@/constants/ui";
 
 interface GamesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleGameTypesChange: (a: string) => void;
   formData: Fields;
 }
+
+const TIME_CONTROLS: GameType[] = ["bullet", "blitz", "rapid", "classical", "correspondence"];
 
 const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formData }) => {
   const gamesDropdown = usePopperDropDown();
@@ -68,7 +70,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
           ReactDOM.createPortal(
             <div
               ref={gamesDropdown.dropdownRef}
-              style={{ zIndex: 80 }}
+              style={{ zIndex: GAMES_DROPDOWN_Z_INDEX }}
               className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200"
             >
               <div className="flex flex-col space-y-0">

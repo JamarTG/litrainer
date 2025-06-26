@@ -1,4 +1,4 @@
-import { EngineName } from "@/types/engine";
+import { EngineName } from "@/typing/enums";
 import { Stockfish17 } from "./stockfish17";
 import { UciEngine } from "./uciEngine";
 

@@ -1,6 +1,6 @@
 import { Chess, Color } from "chess.js";
 import { Materials } from "@/types/eval";
-import { isWhitePlayerShort } from "../../utils/color";
+import { ColorShortForm } from "@/typing/enums";
 
 export const calculateMaterialDifference = (currentGame: Chess): Materials => {
   const countBoardMaterial = (currentGame: Chess) => {
@@ -60,8 +60,8 @@ export const getRelativeMaterial = (materials: Materials, color: Color) => {
   };
   const materialDifference = getMaterialDifferenceOnPieceValue(materials);
 
-  const whiteHasMaterialAdvantage = isWhitePlayerShort(color) && materialDifference > 0;
-  const blackHasMaterialAdvantage = !isWhitePlayerShort(color) && materialDifference < 0;
+  const whiteHasMaterialAdvantage = color === ColorShortForm.WHITE && materialDifference > 0;
+  const blackHasMaterialAdvantage = !(color === ColorShortForm.WHITE) && materialDifference < 0;
 
   const materialScore = whiteHasMaterialAdvantage || blackHasMaterialAdvantage ? Math.abs(materialDifference) : 0;
 

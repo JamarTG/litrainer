@@ -1,10 +1,12 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
-import usePopperDropDown from "@/hooks/usePopperDropDown";
+import usePopperDropDown from "@/hooks/common/usePopperDropDown";
 import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
 import { convertDateToReadableFormat } from "@/libs/lichess/date";
-import { Fields, Sort } from "@/types/lichess";
+import { Fields } from "@/typing/interfaces";
+import { Sort } from "@/typing/types";
+import { Sort as SortEnum } from "@/typing/enums";
 
 interface DatesProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -16,7 +18,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
   const calendarDropdown = usePopperDropDown();
   const sortbyDropdown = usePopperDropDown();
 
-  const [sortOption, setSortOption] = useState<Sort>("desc");
+  const [sortOption, setSortOption] = useState<Sort>(SortEnum.desc);
 
   const handleDateSelect = (startDate: Date | null, endDate: Date | null) => {
     setFormData((prevFormData) => ({

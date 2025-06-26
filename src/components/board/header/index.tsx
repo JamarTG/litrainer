@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Color } from "chess.js";
-import { Material } from "@/types/eval";
-import PlayerMaterial from "./PlayerMaterial";
-import PlayerMetaData from "./PlayerMetadata";
+import { Material } from "@/typing/interfaces";
+import PlayerMaterial from "./material";
+import PlayerMetaData from "./metadata";
 
 interface HeaderForPlayerProps {
   playerColor: Color;

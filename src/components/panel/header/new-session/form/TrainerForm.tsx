@@ -1,19 +1,25 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useRef, useState } from "react";
-import { Fields } from "@/types/lichess";
+import { Fields } from "@/typing/interfaces";
 import Swiper from "./swipers/Swiper";
 import Portal from "./Portal";
 import SlideOne from "./slides/slide-one/Slide1";
 import SlideTwo from "./slides/slide-two/Slide2";
-import { INITIAL_TRAINER_FORM_STATE } from "@/constants/form";
-import useHandleSubmit from "@/hooks/useHandleSubmit";
+import useHandleSubmit from "@/hooks/common/useHandleSubmit";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  // formData: Fields;
-  // setFormData: Dispatch<SetStateAction<Fields>>;
-  // handleSubmit: MouseEventHandler<HTMLButtonElement>;
 }
+
+export const INITIAL_TRAINER_FORM_STATE: Fields = {
+  username: "",
+  maxNoGames: 10,
+  startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString().split("T")[0],
+  endDate: new Date().toISOString().split("T")[0],
+  color: "both",
+  gameTypes: ["bullet", "blitz", "rapid", "classical", "correspondence"],
+  sort: "desc"
+};
 
 const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -2,10 +2,9 @@ import { useEffect, RefObject } from "react";
 import { Square } from "chess.js";
 import { useDispatch } from "react-redux";
 import { setMarkerPosition } from "@/redux/slices/board";
-import { ColorLongForm } from "@/types/lichess";
+import { ColorLongForm } from "@/typing/enums";
 import { useSelector } from "react-redux";
 import { getUserColor } from "@/redux/slices/puzzle";
-import { isWhiteOrientationLong } from "@/utils/color";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {
   const [fileLetter, rankChar] = square;
@@ -35,7 +34,7 @@ const calculateMarkerPosition = (
 
   const squareSize = determineSquareSize(boardSize);
 
-  const isWhite = isWhiteOrientationLong(orientation || puzzleColor);
+  const isWhite = (orientation || puzzleColor) === ColorLongForm.WHITE;
 
   const offset = calculateOffset(squareSize);
 

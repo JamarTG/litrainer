@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { RootState } from "../store";
+import { PIECE_SET_STORAGE_FALLBACK, PIECE_SET_STORAGE_KEY } from "@/constants/storage";
 
 export interface PieceSetFeedback {
   set: string;
 }
 
 const initialState: PieceSetFeedback = {
-  set: loadFromLocalStorage("pieceSet", "staunty")
+  set: loadFromLocalStorage(PIECE_SET_STORAGE_KEY, PIECE_SET_STORAGE_FALLBACK)
 };
 
 const pieceSetSlice = createSlice({
@@ -16,7 +17,7 @@ const pieceSetSlice = createSlice({
   reducers: {
     setPieceSet(state, action: PayloadAction<string>) {
       state.set = action.payload;
-      saveToLocalStorage("pieceSet", action.payload);
+      saveToLocalStorage(PIECE_SET_STORAGE_KEY, action.payload);
     }
   }
 });

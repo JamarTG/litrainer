@@ -3,21 +3,14 @@ import { getPuzzle } from "@/redux/slices/puzzle";
 import { useSelector } from "react-redux";
 
 const MoveFeedback = () => {
-  const bestMove = useSelector(getBestMove);
-  const puzzle = useSelector(getPuzzle);
   const puzzleAttemptMove = useSelector(getPlayedMove);
   const isPuzzleAttempted = useSelector(hasAttempted);
+  const bestMove = useSelector(getBestMove);
+  const puzzle = useSelector(getPuzzle);
 
-  const UI_TEXT = {
-    PUZZLE_CONTEXT: "Your Move",
-    GAME_CONTEXT: "You Played",
-    BEST_MOVE_PROMPT: "Best Move",
-    FIND_BETTER_MOVE_PROMPT: "Find a better move"
-  };
-
-  const renderMoveContext = () => (isPuzzleAttempted ? UI_TEXT.PUZZLE_CONTEXT : UI_TEXT.GAME_CONTEXT);
+  const renderMoveContext = () => (isPuzzleAttempted ? "Your Move" : "You Played");
   const renderMovePlayed = () => (isPuzzleAttempted ? puzzleAttemptMove : (puzzle.userMove?.san ?? "--"));
-  const renderMovePrompt = () => (isPuzzleAttempted ? UI_TEXT.BEST_MOVE_PROMPT : UI_TEXT.FIND_BETTER_MOVE_PROMPT);
+  const renderMovePrompt = () => (isPuzzleAttempted ? "Best Move" : "Find a better move");
   const renderBestMove = () => (isPuzzleAttempted ? bestMove : "\u00A0");
 
   return (

@@ -1,4 +1,4 @@
-import { BOARD_THEMES } from "@/constants/board-theme";
+import { BOARD_THEMES } from "@/constants/board";
 
 let currentBoardTheme: string | null = null;
 const BOARD_STYLE_ID = "board-theme";

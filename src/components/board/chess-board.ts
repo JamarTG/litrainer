@@ -1,4 +1,4 @@
-import { ColorLongForm } from "@/types/lichess";
+import { ColorLongForm } from "@/typing/lichess";
 import { Move } from "chess.js";
 
 export const buildDestsMap = (moves: Move[]): Map<string, string[]> => {

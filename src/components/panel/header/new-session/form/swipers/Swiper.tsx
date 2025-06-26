@@ -14,15 +14,18 @@ interface SwiperProps {
 const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSlide, setCurrentSlide }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToSlide = useCallback((index: number) => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        left: index * containerRef.current.offsetWidth,
-        behavior: "smooth"
-      });
-    }
-    setCurrentSlide(index);
-  }, [setCurrentSlide]);
+  const scrollToSlide = useCallback(
+    (index: number) => {
+      if (containerRef.current) {
+        containerRef.current.scrollTo({
+          left: index * containerRef.current.offsetWidth,
+          behavior: "smooth"
+        });
+      }
+      setCurrentSlide(index);
+    },
+    [setCurrentSlide]
+  );
 
   useEffect(() => {
     const handleResize = () => {

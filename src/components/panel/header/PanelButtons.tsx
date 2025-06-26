@@ -1,6 +1,6 @@
-import GameInfoTriggerButton from "./game-info/_index";
-import NewSessionTriggerButton from "./new-session/_index";
-import SettingsTriggerButton from "./settings/_index";
+import GameInfoTriggerButton from "./game-info";
+import NewSessionTriggerButton from "./new-session";
+import SettingsTriggerButton from "./settings";
 
 const PanelButtons = () => {
   return (

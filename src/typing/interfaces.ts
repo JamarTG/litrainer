@@ -1,4 +1,29 @@
 import { Color, PieceSymbol, Square } from "chess.js";
+import { ColorLongForm } from "./enums";
+import { GameType, Phase, Sort } from "./types";
+
+// Engine
+
+export interface PositionEvaluation {
+  bestMove?: string;
+  opening?: string;
+  lines: VariationLineEvaluation[];
+}
+
+export interface VariationLineResult {
+  move: string;
+  eval: number;
+}
+
+export interface VariationLineEvaluation {
+  pv: string[];
+  cp?: number;
+  mate?: number;
+  depth: number;
+  multiPv: number;
+}
+
+// Lichess
 
 export interface LichessEvaluation {
   eval: number;
@@ -10,35 +35,10 @@ export interface LichessEvaluation {
   };
 }
 
-export interface Fields {
-  username: string;
-  maxNoGames: number;
-  startDate: string;
-  endDate: string;
-  gameTypes: GameType[];
-  color: ColorLongForm | "both";
-  sort: Sort;
-}
-
-export type Sort = "asc" | "desc";
-
-export type GameType = "bullet" | "blitz" | "rapid" | "classical" | "correspondence";
-
-// export type Color = ColorLongForm | "both";
-
 export interface LichessPlayers {
   white: LichessPlayer;
   black: LichessPlayer;
 }
-
-interface LichessPlayer {
-  rating: number;
-  ratingDiff: number;
-  user: LichessUserMetaData;
-  provisional?: boolean;
-}
-
-export type ColorLongForm = "white" | "black";
 
 interface LichessUserMetaData {
   name: string;
@@ -47,10 +47,11 @@ interface LichessUserMetaData {
   patron?: boolean;
 }
 
-interface LichessClock {
-  initial: number;
-  increment: number;
-  totalTime: number;
+export interface LichessPlayer {
+  rating: number;
+  ratingDiff: number;
+  user: LichessUserMetaData;
+  provisional?: boolean;
 }
 
 export interface LichessGameResponse {
@@ -104,7 +105,11 @@ export interface Puzzle {
   positionOpening: PositionOpening | null;
 }
 
-type Phase = "opening" | "middlegame" | "endgame";
+interface LichessClock {
+  initial: number;
+  increment: number;
+  totalTime: number;
+}
 
 export interface Opening {
   eco: string;
@@ -121,4 +126,44 @@ export interface PositionOpening {
 export interface Fen {
   current: string;
   previous: string;
+}
+
+// Form
+
+export interface Fields {
+  username: string;
+  maxNoGames: number;
+  startDate: string;
+  endDate: string;
+  gameTypes: GameType[];
+  color: ColorLongForm | "both";
+  sort: Sort;
+}
+
+// Material
+
+export interface Material {
+  p: number;
+  n: number;
+  b: number;
+  r: number;
+  q: number;
+}
+
+export interface Materials {
+  w: Material;
+  b: Material;
+}
+
+// Chess Pieces
+
+type PieceShortForm = "p" | "b" | "r" | "k" | "n" | "q";
+type PieceLongForm = "pawn" | "bishop" | "rook" | "king" | "knight" | "queen";
+
+export type PieceShortFormWithoutKing = Exclude<PieceShortForm, "k">;
+export type PieceLongFormWithoutKing = Exclude<PieceLongForm, "king">;
+
+export interface PromotionPiece {
+  piece: PieceShortForm;
+  name: Capitalize<PieceLongForm>;
 }

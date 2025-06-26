@@ -1,12 +1,11 @@
 import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { PROMOTION_PIECES } from "@/constants/piece";
 import List from "@/components/common/List";
-import { PromotionPiece } from "@/types/chess";
-import { ColorLongForm } from "@/types/lichess";
-import { Z_INDEX } from "@/constants/ui";
 import { getPieceSet } from "@/redux/slices/piece-set";
+import { PROMOTION_DIALOG_Z_INDEX } from "@/constants/ui";
+import { PromotionPiece } from "@/typing/interfaces";
+import { ColorLongForm } from "@/typing/enums";
 
 export interface PromotionData {
   from: Square;
@@ -20,6 +19,25 @@ interface PromotionDialogProps {
   onPromote: (piece: string) => void;
   onCancel: VoidFunction;
 }
+
+export const PROMOTION_PIECES: PromotionPiece[] = [
+  {
+    piece: "q",
+    name: "Queen"
+  },
+  {
+    piece: "r",
+    name: "Rook"
+  },
+  {
+    piece: "b",
+    name: "Bishop"
+  },
+  {
+    piece: "n",
+    name: "Knight"
+  }
+];
 
 const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPromote, onCancel }) => {
   const pieceSet = useSelector(getPieceSet);
@@ -47,7 +65,7 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, promotionData, onPr
 
   return (
     <div
-      style={{ zIndex: Z_INDEX.PROMOTION_DIALOG }}
+      style={{ zIndex: PROMOTION_DIALOG_Z_INDEX }}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     >
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-4">

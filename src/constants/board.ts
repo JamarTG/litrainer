@@ -1,3 +1,5 @@
+export const DEFAULT_BOARD_SIZE = 400;
+
 export const BOARD_THEMES = [
   {
     name: "blue-marble",
@@ -125,19 +127,3 @@ export const BOARD_THEMES = [
     thumbnail: "/themes/boards/wood4.thumbnail.jpg"
   }
 ];
-
-export const BOARD_CONFIG = {
-  DEFAULT_LAST_MOVE: undefined,
-  DRAWABLE_ENABLED: true,
-  VISIBLE_ENABLED: true,
-  DEFAULT_SNAP_TO_VALID_MOVE: true,
-  LAST_MOVE: true,
-  HIGHLIGHT_LAST_MOVE: true,
-  HIGHLIGHT_LAST_CHECK: true,
-  ADD_PIECE_Z_INDEX: true,
-  DEFAULT_BOARD_SIZE: 400,
-  MOVABLE_SOLVED: {
-    free: false,
-    dests: new Map()
-  }
-};

@@ -3,7 +3,9 @@ import MoveFeedback from "./MoveFeedback";
 import ClassificationImage from "./ClassificationImage";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { useSelector } from "react-redux";
-import NewSessionTriggerButton from "../header/new-session/_index";
+import NewSessionTriggerButton from "../header/new-session";
+
+const NO_PUZZLE_TEXT = "No puzzle data available.";
 
 const PanelBody = () => {
   const puzzle = useSelector(getPuzzle);
@@ -11,7 +13,7 @@ const PanelBody = () => {
   if (!puzzle) {
     return (
       <div className="flex flex-col flex-1 justify-center items-center p-4 gap-6 min-h-48 rounded-lg transition-all duration-300 ease-in-out">
-        <p className="text-gray-500 dark:text-gray-400">No puzzle data available.</p>
+        <p className="text-gray-500 dark:text-gray-400">{NO_PUZZLE_TEXT}</p>
         <NewSessionTriggerButton />
       </div>
     );

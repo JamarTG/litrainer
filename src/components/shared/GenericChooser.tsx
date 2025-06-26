@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useClickOutside from "@/components/panel/hooks/useClickOutside";
+import useClickOutside from "@/hooks/panel/useClickOutside";
 import List from "../common/List";
 import { ChevronDown } from "lucide-react";
 

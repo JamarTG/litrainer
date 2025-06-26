@@ -1,20 +1,4 @@
-import Bishop from "@/components/board/header/pieces/Bishop";
-import { PieceLongFormWithoutKing, PieceShortFormWithoutKing, PromotionPiece } from "../types/chess";
-import Knight from "@/components/board/header/pieces/Knight";
-import Pawn from "@/components/board/header/pieces/Pawn";
-import Queen from "@/components/board/header/pieces/Queen";
-import Rook from "@/components/board/header/pieces/Rook";
-
-export const CHESS_PIECE_CODES = ["wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK"];
-
-export const PIECE_TYPES = {
-  PAWN: "p",
-  KNIGHT: "n",
-  BISHOP: "b",
-  ROOK: "r",
-  QUEEN: "q",
-  KING: "k"
-} as const;
+import { PieceLongFormWithoutKing, PieceShortFormWithoutKing } from "../typing/chess";
 
 export const PIECE_SETS = [
   "alpha",
@@ -58,33 +42,29 @@ export const PIECE_SETS = [
 ];
 
 export const PIECE_VALUE = {
-  [PIECE_TYPES.PAWN]: 1,
-  [PIECE_TYPES.KNIGHT]: 3,
-  [PIECE_TYPES.BISHOP]: 3,
-  [PIECE_TYPES.ROOK]: 5,
-  [PIECE_TYPES.QUEEN]: 9,
-  [PIECE_TYPES.KING]: 0
+  ["p"]: 1,
+  ["n"]: 3,
+  ["b"]: 3,
+  ["r"]: 5,
+  ["q"]: 9,
+  ["k"]: 0
 };
 
-export const PIECE_COMPONENTS = {
-  bishop: Bishop,
-  knight: Knight,
-  pawn: Pawn,
-  queen: Queen,
-  rook: Rook
-} as const;
-
-const createInitialPieceCounts = () => ({
-  p: 0,
-  n: 0,
-  b: 0,
-  r: 0,
-  q: 0
-});
-
 export const initialPieceCounts = {
-  w: createInitialPieceCounts(),
-  b: createInitialPieceCounts()
+  w: {
+    p: 0,
+    n: 0,
+    b: 0,
+    r: 0,
+    q: 0
+  },
+  b: {
+    p: 0,
+    n: 0,
+    b: 0,
+    r: 0,
+    q: 0
+  }
 };
 
 export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLongFormWithoutKing> = {
@@ -94,22 +74,3 @@ export const pieceLongFormWithoutKing: Record<PieceShortFormWithoutKing, PieceLo
   q: "queen",
   n: "knight"
 } as const;
-
-export const PROMOTION_PIECES: PromotionPiece[] = [
-  {
-    piece: "q",
-    name: "Queen"
-  },
-  {
-    piece: "r",
-    name: "Rook"
-  },
-  {
-    piece: "b",
-    name: "Bishop"
-  },
-  {
-    piece: "n",
-    name: "Knight"
-  }
-];

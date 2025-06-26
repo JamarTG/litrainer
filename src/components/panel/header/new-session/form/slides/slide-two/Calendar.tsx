@@ -1,10 +1,26 @@
 import { FC, useState } from "react";
-import { DAYS_OF_THE_WEEK, MONTHS_OF_THE_YEAR } from "@/constants/date";
 import List from "@/components/common/List";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
 }
+
+export const DAYS_OF_THE_WEEK = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+export const MONTHS_OF_THE_YEAR = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
 
 const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
