@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Chess, Square } from "chess.js";
 import { RootState } from "../store";
-import { Materials } from "@/types/eval";
 import { initialPieceCounts } from "@/constants/piece";
+import { Materials } from "@/typing/interfaces";
 
 interface MarkerPosition {
   right: number;

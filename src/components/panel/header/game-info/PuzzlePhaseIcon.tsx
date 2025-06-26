@@ -1,4 +1,4 @@
-import { Puzzle } from "@/typing/lichess";
+import { Puzzle } from "@/typing/interfaces";
 
 interface PuzzlePhaseIconProps {
   gamePhase: Puzzle["phase"];
