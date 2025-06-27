@@ -5,20 +5,21 @@ import { setMarkerPosition } from "@/redux/slices/board";
 import { ColorLongForm } from "@/typing/enums";
 import { useSelector } from "react-redux";
 import { getUserColor } from "@/redux/slices/puzzle";
+import { MARKER_OFFSET, NUM_RANKS } from "@/constants/board";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {
   const [fileLetter, rankChar] = square;
   const file = fileLetter.charCodeAt(0) - "a".charCodeAt(0);
-  const rank = 8 - parseInt(rankChar, 10);
+  const rank = NUM_RANKS - parseInt(rankChar, 10);
   return [file, rank];
 };
 
 const determineSquareSize = (boardSize: number): number => {
-  return boardSize / 8;
+  return boardSize / NUM_RANKS;
 };
 
 const calculateOffset = (squareSize: number): number => {
-  return 0.3 * squareSize;
+  return MARKER_OFFSET * squareSize;
 };
 
 const calculateMarkerPosition = (

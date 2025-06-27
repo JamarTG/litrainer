@@ -1,5 +1,11 @@
 export const DEFAULT_BOARD_SIZE = 400;
 
+// responsible for the size of the marker relative to the board size
+export const MARKER_SCALE_FACTOR = 18;
+export const MARKER_OFFSET = 0.35;
+
+export const NUM_RANKS = 8;
+
 export const BOARD_THEMES = [
   {
     name: "blue-marble",

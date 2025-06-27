@@ -9,7 +9,8 @@ import useMarkerVisibility from "../../../hooks/board/useMarkerVisibility";
 import { getClassification } from "@/redux/slices/feedback";
 import { useMarkerPositionEffect } from "../../../hooks/board/useMarkerPositionEffect";
 import { getUserColorLongForm } from "@/redux/slices/puzzle";
-import { MARKER_SCALE_FACTOR, MARKER_Z_INDEX } from "@/constants/ui";
+import { MARKER_Z_INDEX } from "@/constants/ui";
+import { MARKER_SCALE_FACTOR } from "@/constants/board";
 import { DEFAULT_BOARD_SIZE } from "@/constants/board";
 
 interface ClassificationMarkerProps {
@@ -39,19 +40,16 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
   if (!classification) return;
 
   return (
-    <>
-      te
-      <img
-        src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
-        alt={classification}
-        width={markerSize}
-        height={markerSize}
-        className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
-          shouldMarkerBeVisible ? "opacity-90" : "opacity-0"
-        }`}
-        style={markerCoordinatesStyles}
-      />
-    </>
+    <img
+      src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
+      alt={classification}
+      width={markerSize}
+      height={markerSize}
+      className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
+        shouldMarkerBeVisible ? "opacity-90" : "opacity-0"
+      }`}
+      style={markerCoordinatesStyles}
+    />
   );
 };
 
