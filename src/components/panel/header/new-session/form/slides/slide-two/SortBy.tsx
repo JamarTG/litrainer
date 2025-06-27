@@ -1,4 +1,4 @@
-import { Sort } from "@/typing/lichess";
+import { Sort } from "@/typing/types";
 
 const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: Sort) => void }) => {
   return (

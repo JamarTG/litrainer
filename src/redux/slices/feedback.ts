@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Classification } from "@/types/classification";
+import { Classification } from "@/typing/types";
 import { RootState } from "../store";
 
 export type PuzzleStatus = "unsolved" | "solved" | "failed";
