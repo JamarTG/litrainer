@@ -24,6 +24,7 @@ export const INITIAL_TRAINER_FORM_STATE: Fields = {
 const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState<Fields>(INITIAL_TRAINER_FORM_STATE);
+
   const handleSubmit = useHandleSubmit(formData);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +79,10 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
 
           <div className="w-full h-full ">
             <Swiper
-              handleSubmit={handleSubmit}
+              handleSubmit={(event) => {
+                handleSubmit(event);
+                closeModal();
+              }}
               className=" flex flex-col space-y-4 pt-4"
               currentSlide={currentSlide}
               setCurrentSlide={setCurrentSlide}
