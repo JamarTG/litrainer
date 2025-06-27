@@ -11,7 +11,7 @@ interface ParamsFormProps {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const INITIAL_TRAINER_FORM_STATE: Fields = {
+const INITIAL_TRAINER_FORM_STATE: Fields = {
   username: "",
   maxNoGames: 10,
   startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString().split("T")[0],
