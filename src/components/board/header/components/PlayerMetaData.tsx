@@ -4,12 +4,12 @@ import { Color } from "chess.js";
 import { isDarkModeActive } from "@/redux/slices/theme";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { ColorShortForm } from "@/typing/enums";
-import PlayerColorIcon from "./components/PlayerIcon";
-import PatronIcon from "./components/PatronIcon";
-import PlayerTitle from "./components/PatronTitle";
-import PlayerName from "./components/PlayerName";
-import PlayerRating from "./components/PlayerRating";
-import RatingDifference from "./components/RatingDifference";
+import PlayerColorIcon from "./PlayerIcon";
+import PatronIcon from "./PatronIcon";
+import PlayerTitle from "./PatronTitle";
+import PlayerName from "./PlayerName";
+import PlayerRating from "./PlayerRating";
+import RatingDifference from "./RatingDifference";
 
 interface PlayerMetaDataProps {
   playerColor: Color;
