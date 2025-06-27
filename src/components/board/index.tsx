@@ -15,7 +15,7 @@ import { useMoveHandler } from "@/hooks/common/useMoveHandler";
 import useLoadBoardTheme from "@/hooks/board/useLoadBoardTheme";
 import useLoadSet from "@/hooks/board/useLoadSet";
 import { isPromotionMove, turnColor } from "./board";
-import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "./chess-board";
+import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "../../utils/board";
 import { DEFAULT_BOARD_SIZE } from "@/constants/board";
 import ChessBoardHeaderWrapper from "../layout/ChessBoard";
 
