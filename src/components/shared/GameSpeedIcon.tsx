@@ -1,4 +1,4 @@
-import { GameType } from "@/typing/lichess";
+import { GameType } from "@/typing/types";
 import { TimeControlIcons } from "@/constants/icons";
 import { FC } from "react";
 
