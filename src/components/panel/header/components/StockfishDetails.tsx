@@ -1,5 +1,5 @@
 import { getEngineDepth, getEngineState } from "@/redux/slices/engine";
-import stockfishPng from "../../../../public/sf.png";
+import stockfishPng from "/sf.png";
 import { useSelector } from "react-redux";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
 import { EngineName } from "@/typing/enums";

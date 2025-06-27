@@ -39,16 +39,19 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
   if (!classification) return;
 
   return (
-    <img
-      src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
-      alt={classification}
-      width={markerSize}
-      height={markerSize}
-      className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
-        shouldMarkerBeVisible ? "opacity-90" : "opacity-0"
-      }`}
-      style={markerCoordinatesStyles}
-    />
+    <>
+      te
+      <img
+        src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
+        alt={classification}
+        width={markerSize}
+        height={markerSize}
+        className={`transform translate-x-[-15%] translate-y-[30%] absolute pointer-events-none transition-opacity duration-500 ease-in-out ${
+          shouldMarkerBeVisible ? "opacity-90" : "opacity-0"
+        }`}
+        style={markerCoordinatesStyles}
+      />
+    </>
   );
 };
 
