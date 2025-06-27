@@ -24,7 +24,7 @@ import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
 import { RootState, store } from "@/redux/store";
 
 // Types & constants
-import { Classification } from "@/types/classification";
+import { Classification } from "@/typing/types";
 import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 

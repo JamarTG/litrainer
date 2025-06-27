@@ -5,7 +5,7 @@ import { MouseEvent } from "react";
 import generatePuzzles from "@/libs/lichess/parsers";
 import { dateRangeToEpochMillis, validateDateRange } from "@/libs/lichess/date";
 import { saveToLocalStorage } from "@/utils/storage";
-import { Fields, LichessEvaluation, LichessGameResponse } from "@/typing/lichess";
+import { Fields, LichessEvaluation, LichessGameResponse } from "@/typing/interfaces";
 
 const useSubmitHandler = (formData: Fields) => {
   const navigate = useNavigate();
