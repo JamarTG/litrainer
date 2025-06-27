@@ -14,10 +14,10 @@ import usePuzzleSetup from "@/hooks/common/usePuzzleSetup";
 import { useMoveHandler } from "@/hooks/common/useMoveHandler";
 import useLoadBoardTheme from "@/hooks/board/useLoadBoardTheme";
 import useLoadSet from "@/hooks/board/useLoadSet";
-import { isPromotionMove, turnColor } from "./board";
+import { isPromotionMove, turnColor } from "../../utils/board";
 import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "../../utils/board";
 import { DEFAULT_BOARD_SIZE } from "@/constants/board";
-import ChessBoardHeaderWrapper from "../layout/BoardHeaderLayout";
+import BoardHeaderLayout from "../layout/BoardHeaderLayout";
 
 export const BOARD_CONFIG = {
   DEFAULT_LAST_MOVE: undefined,
@@ -90,7 +90,7 @@ const ChessBoard = () => {
   };
 
   return (
-    <ChessBoardHeaderWrapper>
+    <BoardHeaderLayout>
       <div className="box relative rounded main-board green merida my-2 " ref={boardRef}>
         <Chessground
           key={`puzzle-${fen}`}
@@ -122,7 +122,7 @@ const ChessBoard = () => {
           onCancel={handlePromotionCancel}
         />
       </div>
-    </ChessBoardHeaderWrapper>
+    </BoardHeaderLayout>
   );
 };
 
