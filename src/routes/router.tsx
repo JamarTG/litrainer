@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Playground from "@/pages/Playground";
-import NavbarLayout from "@/components/layout/Navbar";
+import NavbarLayout from "@/components/layout/NavbarLayout";
 import test from "@/test.json";
 import { loadFromLocalStorage } from "@/utils/storage";
 import { PUZZLE_STORAGE_KEY } from "@/constants/storage";

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import GithubButton from "./GithubLink";
+import GithubButton from "../shared/GithubLink";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (

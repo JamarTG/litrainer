@@ -13,7 +13,7 @@ import { StepForward, StepBack, RotateCcw } from "lucide-react";
 import { getEngineState } from "@/redux/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
 
-const PuzzleNavigation = () => {
+const NavigatePuzzle = () => {
   const dispatch = useAppDispatch();
 
   const isEngineRunning = useSelector(getEngineState);
@@ -85,4 +85,4 @@ const PuzzleNavigation = () => {
   );
 };
 
-export default PuzzleNavigation;
+export default NavigatePuzzle;

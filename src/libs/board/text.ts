@@ -1,4 +1,4 @@
-import { LichessPlayer } from "@/typing/lichess";
+import { LichessPlayer } from "@/typing/interfaces";
 
 export const formatTimeControl = (initial: number, increment: number): string => {
   if (initial >= 86400 && increment === 0) {

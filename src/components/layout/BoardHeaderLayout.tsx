@@ -6,11 +6,11 @@ import { getPuzzle } from "@/redux/slices/puzzle";
 import { getMaterials } from "@/redux/slices/board";
 import { ColorShortForm } from "@/typing/enums";
 
-interface ChessBoardHeaderWrapperProps {
+interface BoardHeaderLayoutProps {
   children: ReactNode;
 }
 
-const ChessBoardHeaderWrapper: FC<ChessBoardHeaderWrapperProps> = ({ children }) => {
+const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   const currentPuzzle = useSelector(getPuzzle);
   const hasActivePuzzle = Boolean(currentPuzzle);
   const playerColor = currentPuzzle?.userMove.color;
@@ -31,4 +31,4 @@ const ChessBoardHeaderWrapper: FC<ChessBoardHeaderWrapperProps> = ({ children })
   );
 };
 
-export default ChessBoardHeaderWrapper;
+export default BoardHeaderLayout;

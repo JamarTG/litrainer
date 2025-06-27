@@ -5,8 +5,8 @@ import { useCallback, useMemo } from "react";
 
 // Internal imports
 import { UciEngine } from "@/libs/analysis/engine/uciEngine";
-import { playSound } from "@/libs/sound";
-import { attemptMove } from "@/libs/trainer/move";
+import { playSound } from "@/sound";
+import { attemptMove } from "@/libs/board/move";
 import { useEngineContext } from "@/context/hooks/useEngineContext";
 
 // Redux slices & selectors

@@ -2,7 +2,7 @@ import { getBestMove, getPlayedMove, hasAttempted } from "@/redux/slices/feedbac
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { useSelector } from "react-redux";
 
-const MoveFeedback = () => {
+const ClassificationText = () => {
   const puzzleAttemptMove = useSelector(getPlayedMove);
   const isPuzzleAttempted = useSelector(hasAttempted);
   const bestMove = useSelector(getBestMove);
@@ -29,4 +29,4 @@ const MoveFeedback = () => {
   );
 };
 
-export default MoveFeedback;
+export default ClassificationText;

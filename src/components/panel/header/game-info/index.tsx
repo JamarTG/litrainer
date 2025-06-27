@@ -1,7 +1,7 @@
 import useClickOutside from "@/hooks/panel/useClickOutside";
 import { useRef, useState } from "react";
-import GameInfoPopup from "./GameInfoPopup";
-import GameInfoButton from "./GameInfoButton";
+import GameInfoPopup from "./components/GameInfoPopup";
+import GameInfoButton from "./components/GameInfoButton";
 
 const GameInfoTriggerButton = () => {
   const [showPopup, setShowPopup] = useState(false);

@@ -1,4 +1,4 @@
-import { PieceLongFormWithoutKing, PieceShortFormWithoutKing } from "../typing/chess";
+import { PieceLongFormWithoutKing, PieceShortFormWithoutKing } from "@/typing/interfaces";
 
 export const PIECE_SETS = [
   "alpha",

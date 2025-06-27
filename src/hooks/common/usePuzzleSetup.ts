@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
 import { resetFeedback } from "@/redux/slices/feedback";
-import { playSound } from "@/libs/sound";
+import { playSound } from "@/sound";
 import { setFen } from "@/redux/slices/board";
 import { getPuzzle } from "@/redux/slices/puzzle";
 
