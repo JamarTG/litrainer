@@ -16,28 +16,14 @@ import useLoadBoardTheme from "@/hooks/board/useLoadBoardTheme";
 import useLoadSet from "@/hooks/board/useLoadSet";
 import { isPromotionMove, turnColor } from "../../utils/board";
 import { buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "../../utils/board";
-import { DEFAULT_BOARD_SIZE } from "@/constants/board";
+import { BOARD_CONFIG } from "@/constants/board";
 import BoardHeaderLayout from "../layout/BoardHeaderLayout";
 
-export const BOARD_CONFIG = {
-  DEFAULT_LAST_MOVE: undefined,
-  DRAWABLE_ENABLED: true,
-  VISIBLE_ENABLED: true,
-  DEFAULT_SNAP_TO_VALID_MOVE: true,
-  LAST_MOVE: true,
-  HIGHLIGHT_LAST_MOVE: true,
-  HIGHLIGHT_LAST_CHECK: true,
-  ADD_PIECE_Z_INDEX: true,
-  DEFAULT_BOARD_SIZE: DEFAULT_BOARD_SIZE,
-  MOVABLE_SOLVED: {
-    free: false,
-    dests: new Map()
-  }
-};
-
 const ChessBoard = () => {
-  const [promotionMoveObject, setPromotionMoveObject] = useState<PromotionMoveObject | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+
+  const [promotionMoveObject, setPromotionMoveObject] = useState<PromotionMoveObject | null>(null);
+
   const fen = useSelector(getFen);
   const playerColorLongForm = useSelector(getUserColorLongForm);
   const puzzleStatus = useSelector(getPuzzleStatus);
