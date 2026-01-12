@@ -4,7 +4,7 @@ import SettingsTriggerButton from "../settings";
 
 const PanelButtons = () => {
   return (
-    <div className="flex justify-center">
+    <div className="rounded-sm flex text-sm mt-2">
       <GameInfoTriggerButton />
       <NewSessionTriggerButton />
       <SettingsTriggerButton />

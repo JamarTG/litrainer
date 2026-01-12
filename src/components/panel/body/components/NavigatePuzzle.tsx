@@ -8,10 +8,11 @@ import {
   redoPuzzle
 } from "@/redux/slices/puzzle";
 import { hasAttempted, resetFeedback } from "@/redux/slices/feedback";
-import { StepForward, StepBack, RotateCcw } from "lucide-react";
+import { RefreshCcw, SkipBack, SkipForward } from "lucide-react";
 
 import { getEngineState } from "@/redux/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
+import Button from "@/components/shared/Button";
 
 const NavigatePuzzle = () => {
   const dispatch = useAppDispatch();
@@ -41,46 +42,17 @@ const NavigatePuzzle = () => {
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
-      <button
-        aria-label="Previous Puzzle"
-        onClick={handlePrev}
-        disabled={isFirstPuzzle || isEngineRunning}
-        className={`p-2 rounded-xl transition-all duration-200
-    ${
-      isFirstPuzzle || isEngineRunning
-        ? " dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
-        : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
-    }`}
-      >
-        <StepBack size={ICON_SIZES.MEDIUM} />
-      </button>
+      <Button aria-label="Previous Puzzle" onClick={handlePrev} disabled={isFirstPuzzle || isEngineRunning} border>
+        <SkipBack size={ICON_SIZES.SMALL} /> PREVIOUS
+      </Button>
 
-      <button
-        aria-label="Redo Current Puzzle"
-        onClick={handleRedo}
-        disabled={!attemptedPuzzle}
-        className={`p-2 rounded-xl transition-all duration-200 ${
-          !attemptedPuzzle
-            ? " dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
-            : " text-gray-600 dark:text-gray-300 dark:hover:bg-zinc-700 hover:bg-gray-200 active:scale-95"
-        }`}
-      >
-        <RotateCcw size={ICON_SIZES.MEDIUM} />
-      </button>
+      <Button aria-label="Redo Current Puzzle" onClick={handleRedo} disabled={!attemptedPuzzle} border>
+        <RefreshCcw size={ICON_SIZES.SMALL} /> RETRY
+      </Button>
 
-      <button
-        aria-label="Next Puzzle"
-        onClick={handleNext}
-        disabled={isLastPuzzle || isEngineRunning}
-        className={`p-2 rounded-xl transition-all duration-200
-    ${
-      isLastPuzzle || isEngineRunning
-        ? "dark:bg-transparent text-gray-400 dark:text-zinc-600 cursor-not-allowed"
-        : "hover:bg-zinc-200/75 dark:hover:bg-zinc-700 active:scale-95"
-    }`}
-      >
-        <StepForward size={ICON_SIZES.MEDIUM} />
-      </button>
+      <Button aria-label="Next Puzzle" onClick={handleNext} disabled={isLastPuzzle || isEngineRunning} border>
+        <SkipForward size={ICON_SIZES.SMALL} /> NEXT
+      </Button>
     </div>
   );
 };

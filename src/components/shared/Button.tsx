@@ -1,22 +1,19 @@
-import { FC, ReactNode } from "react";
+import React, { ReactNode, ButtonHTMLAttributes } from "react";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
-  children: ReactNode;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: ReactNode;
+  border?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ variant = "primary", disabled, children, className = "", ...props }) => {
-  const baseStyles =
-    "rounded-lg text-sm text-cloudGray h-[32px] px-3 max-w-fit flex justify-center items-center cursor-pointer transition-all ease-in-out";
+const Button: React.FC<ButtonProps> = ({ icon, children, className, border = false, ...props }) => {
+  const baseBtn = `${border ? "border-2" : ""} flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-all duration-150 active:translate-y-1 gap-2`;
 
-  const variantStyles =
-    variant === "primary" ? "bg-[#ffffff12] hover:text-offWhite" : "bg-transparent hover:text-offWhite";
-
-  const disabledStyles = disabled ? "opacity-50 cursor-not-allowed hover:text-cloudGray" : "";
+  const activeBtn = "dark:border-zinc-300 dark:text-zinc-300 text-zinc-600 border-zinc-500";
+  const disabledBtn = "border-zinc-400 dark:border-zinc-600 text-zinc-400 cursor-not-allowed shadow-none";
 
   return (
-    <button disabled={disabled} className={`${baseStyles} ${variantStyles} ${disabledStyles} ${className}`} {...props}>
-      {children}
+    <button {...props} className={`${baseBtn} ${props.disabled ? disabledBtn : activeBtn} ${className || ""}`}>
+      {icon} {children}
     </button>
   );
 };

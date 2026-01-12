@@ -1,3 +1,4 @@
+import Button from "@/components/shared/Button";
 import { ICON_SIZES } from "@/constants/icons";
 import { Info } from "lucide-react";
 
@@ -8,16 +9,15 @@ interface GameInfoButtonProps {
 
 const GameInfoButton: React.FC<GameInfoButtonProps> = ({ toggleGameInfoPopup, showPopup }) => {
   return (
-    <button
+    <Button
       type="button"
-      className="inline-flex gap-1 items-center focus:outline-none"
       onClick={toggleGameInfoPopup}
       aria-haspopup="true"
       aria-expanded={showPopup}
-      title="Get Additional Game Info"
+      title="Check out the game from which this puzzle was fetched"
     >
-      <Info size={ICON_SIZES.MEDIUM} />
-    </button>
+      <Info size={ICON_SIZES.SMALL} /> REFERENCE GAME
+    </Button>
   );
 };
 
