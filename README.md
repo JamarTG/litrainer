@@ -54,7 +54,7 @@ More to be added later..
 
 ### Game Links
 
-Each puzzle providesdes a direct link to view the full game on [lichess.org](https://lichess.org).
+Each puzzle provides a direct link to view the full game on [lichess.org](https://lichess.org).
 
 ### Game Metadata
 
