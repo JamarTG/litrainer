@@ -54,7 +54,7 @@ More to be added later..
 
 ### Game Links
 
-Each puzzle providesdes a direct link to view the full game on [lichess.org](https://lichess.org).
+Each puzzle provides a direct link to view the full game on [lichess.org](https://lichess.org).
 
 ### Game Metadata
 
@@ -65,7 +65,7 @@ Additional game details include:
 - Termination of Game
 ---
 
-##Info about the tech used
+## Info about the tech used
 
 The application relies on the Lichess API to fetch games and PGN data. The engines are stockfish17 with multithread or single thread options depending on device. Cached positions from Lichess API are used as well. The interactive board uses react-chessground. 
 
