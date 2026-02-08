@@ -19,7 +19,7 @@ const Playground: FC<PlayGroundProps> = ({ puzzles }) => {
   if (puzzles.length < 1) return <TrainerForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />;
 
   return (
-    <div className="flex gap-6 justify-center items-center flex-wrap h-full min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
+    <div className="flex gap-6 justify-center flex-wrap h-full min-[1000px]:flex-nowrap md:mx-2 lg:mx-4">
       <ChessBoard />
       <Panel />
     </div>

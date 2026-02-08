@@ -77,7 +77,7 @@ const ChessBoard = () => {
 
   return (
     <BoardHeaderLayout>
-      <div className="box relative rounded main-board green merida my-2 " ref={boardRef}>
+
         <Chessground
           key={`puzzle-${fen}`}
           fen={fen}
@@ -107,7 +107,6 @@ const ChessBoard = () => {
           onPromote={handlePromotion}
           onCancel={handlePromotionCancel}
         />
-      </div>
     </BoardHeaderLayout>
   );
 };

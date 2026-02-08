@@ -23,7 +23,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center pt-2">
+    <div className="w-full flex flex-col justify-center items-center pt-2 bg-red-600" >
       {renderHeaderForPlayer(opponentColor)}
       {children}
       {renderHeaderForPlayer(playerColor)}
