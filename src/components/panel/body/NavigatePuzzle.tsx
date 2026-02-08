@@ -18,7 +18,7 @@ import retry from "/icons/retry.svg";
 
 
 const baseBtn =
-  "flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-all duration-150 active:translate-y-1 gap-2 shadow-md " +
+  "w-16 h-8 flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-all duration-150 active:translate-y-1 gap-2 shadow-md " +
   "bg-stone-100 border-stone-500 text-stone-700 dark:border-stone-400 dark:text-stone-300 " +
   "disabled:border-stone-400 disabled:text-stone-400 disabled:cursor-not-allowed disabled:shadow-none dark:disabled:border-stone-600 dark:disabled:text-stone-600";
 
