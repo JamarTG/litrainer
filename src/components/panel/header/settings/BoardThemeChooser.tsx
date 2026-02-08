@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getBoardTheme, setBoardTheme } from "@/redux/slices/board-style";
 import { BOARD_THEMES } from "@/constants/board";
-
-import GenericChooser from "../../../../shared/GenericChooser";
+import GenericChooser from "@/components/shared/GenericChooser";
 import { playSelectSound } from "@/sound";
 
 const BoardThemeChooser = () => {

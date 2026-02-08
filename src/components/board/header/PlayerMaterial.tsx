@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Color } from "chess.js";
 import { Material } from "@/typing/interfaces";
-import usePlayerMaterial from "../../../../hooks/board/usePlayerMaterial";
+import usePlayerMaterial from "../../../hooks/board/usePlayerMaterial";
 import MaterialScore from "./MaterialScore";
 import PieceDifference from "./PieceDifference";
 import { PieceCount } from "@/typing/types";

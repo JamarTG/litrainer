@@ -1,5 +1,5 @@
-import StockfishDetails from "./components/StockfishDetails";
-import PanelButtons from "./components/PanelButtons";
+import PanelButtons from "./PanelButtons";
+import StockfishDetails from "./StockfishDetails";
 
 const PanelHeader = () => {
   return (

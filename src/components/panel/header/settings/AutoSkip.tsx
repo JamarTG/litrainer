@@ -1,4 +1,4 @@
-import ToggleSwitch from "../../../../shared/ToggleSwitch";
+import ToggleSwitch from "@/components/shared/ToggleSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAutoSkip } from "@/redux/slices/puzzle";
 import { RootState } from "@/redux/store";
