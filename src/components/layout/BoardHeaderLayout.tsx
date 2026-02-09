@@ -17,18 +17,28 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   const opponentColor = currentPuzzle?.opponentMove.color;
   const materials = useSelector(getMaterials);
 
-  const renderHeaderForPlayer = (color: Color) => {
+  const renderHeaderForPlayer = (color: Color, position: "top" | "bottom") => {
     const playerMaterial = color === ColorShortForm.WHITE ? materials.w : materials.b;
-    return <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />;
+
+    return (
+      <div
+        className={`hidden md:block absolute left-1/2 transform -translate-x-1/2 ${
+          position === "top" ? "-top-8" : "bottom-[-2rem]"
+        }`}
+      >
+        <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />
+      </div>
+    );
   };
 
   return (
-    <div className="flex flex-col justify-center items-center pt-2" >
-      {renderHeaderForPlayer(opponentColor)}
+    <div className="p-2 relative sm:w-full lg:w-fit w-full flex gap-20 items-center justify-center">
+      {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
       {children}
-      {renderHeaderForPlayer(playerColor)}
+      {playerColor && renderHeaderForPlayer(playerColor, "bottom")}
     </div>
   );
 };
+
 
 export default BoardHeaderLayout;

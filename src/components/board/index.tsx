@@ -78,6 +78,8 @@ const ChessBoard = () => {
   return (
     <BoardHeaderLayout>
 
+      <div ref={boardRef} className="box relative rounded main-board green merida">
+
         <Chessground
           key={`puzzle-${fen}`}
           fen={fen}
@@ -85,13 +87,14 @@ const ChessBoard = () => {
           turnColor={turnColor(game)}
           movable={calcMovable(puzzleStatus)}
           lastMove={BOARD_CONFIG.DEFAULT_LAST_MOVE}
-          onMove={onMove}
+          onMove={onMove} 
           drawable={{
             enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
             visible: BOARD_CONFIG.VISIBLE_ENABLED,
             defaultSnapToValidMove: BOARD_CONFIG.DEFAULT_SNAP_TO_VALID_MOVE,
             shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
           }}
+          className="relative"
           highlight={{ lastMove: BOARD_CONFIG.HIGHLIGHT_LAST_MOVE, check: BOARD_CONFIG.HIGHLIGHT_LAST_CHECK }}
           addPieceZIndex={BOARD_CONFIG.ADD_PIECE_Z_INDEX}
         />
@@ -107,6 +110,7 @@ const ChessBoard = () => {
           onPromote={handlePromotion}
           onCancel={handlePromotionCancel}
         />
+        </div>
     </BoardHeaderLayout>
   );
 };
