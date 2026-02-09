@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import Playground from "@/Playground";
+import Playground from "@/components/playground/Playground";
 import NavbarLayout from "@/components/layout/NavbarLayout";
 import test from "@/test.json";
 import { loadFromLocalStorage } from "@/utils/storage";

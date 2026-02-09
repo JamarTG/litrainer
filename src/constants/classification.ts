@@ -1,14 +1,25 @@
 import { MoveClassification } from "@/typing/enums";
+import { 
+  BlunderIcon, 
+  InaccuracyIcon, 
+  MistakeIcon,
+  GoodIcon, 
+  ExcellentIcon, 
+  BestIcon, 
+  GreatIcon, 
+  BookIcon 
+} from "@/assets/icons/classification/index";
 
 export const CLASSIFICATION_IMAGES: Record<MoveClassification, string> = {
-  [MoveClassification.Book]: "/classification/book.svg",
-  [MoveClassification.Great]: "/classification/great.svg",
-  [MoveClassification.Best]: "/classification/best.svg",
-  [MoveClassification.Excellent]: "/classification/excellent.svg",
-  [MoveClassification.Good]: "/classification/good.svg",
-  [MoveClassification.Inaccuracy]: "/classification/inaccuracy.svg",
-  [MoveClassification.Mistake]: "/classification/mistake.svg",
-  [MoveClassification.Blunder]: "/classification/blunder.svg"
+
+  [MoveClassification.Blunder]: BlunderIcon,
+  [MoveClassification.Inaccuracy]: InaccuracyIcon,
+  [MoveClassification.Mistake]: MistakeIcon,
+  [MoveClassification.Good]: GoodIcon,
+  [MoveClassification.Excellent]: ExcellentIcon,
+  [MoveClassification.Best]: BestIcon,
+  [MoveClassification.Great]: GreatIcon,
+  [MoveClassification.Book]: BookIcon,
 } as const;
 
 export const CLASSIFICATION_COLORS: Record<string, string> = {

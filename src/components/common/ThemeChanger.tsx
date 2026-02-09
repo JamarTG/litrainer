@@ -18,7 +18,7 @@ const ThemeChanger = () => {
       onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
-      <img src={isDarkMode ? sun : moon} width={ICON_SIZES.LARGE} />
+      <img src={isDarkMode ? sun : moon} width={ICON_SIZES.LARGE} alt="toggle theme" />
     </button>
   );
 };

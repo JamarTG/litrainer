@@ -4,7 +4,6 @@ let currentBoardTheme: string | null = null;
 const BOARD_STYLE_ID = "board-theme";
 
 const generateBoardCSS = (boardThemePath: string) => {
-  console.log(boardThemePath);
   return `.cg-wrap {background-image: url("${boardThemePath}");background-size: cover;}`;
 };
 
@@ -51,8 +50,8 @@ export const loadBoardThemeCSS = async (themeName: string | null): Promise<void>
   }
 };
 
-export const availableBoardThemes = BOARD_THEMES.map((theme) => theme.name);
 
 export const isBoardThemeAvailable = (themeName: string): boolean => {
+  const availableBoardThemes = BOARD_THEMES.map((theme) => theme.name);
   return availableBoardThemes.includes(themeName);
 };

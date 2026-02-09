@@ -41,7 +41,7 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
 
   return (
     <img
-      src={CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]}
+      src={CLASSIFICATION_IMAGES[classification as MoveClassification]}
       alt={classification}
       width={markerSize}
       height={markerSize}
