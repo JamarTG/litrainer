@@ -17,7 +17,7 @@ const EngineDetails = () => {
         <Fragment>
           <p className={`${isEngineRunning ? "opacity-100" : "opacity-0 absolute pointer-events-none"}`}>evaluating move...</p>
           <div className={`flex items-center gap-2 ${isEngineRunning ? "opacity-0 absolute pointer-events-none" : "opacity-100"}`}>
-            <span className="font-semibold truncate max-w-[150px]">{engineName}</span>
+            <span className="font-semibold truncate max-w-[190px]">{engineName}</span>
             <span className="text-[var(--color-muted)] whitespace-nowrap">depth {engineDepth}</span>
           </div>
         </Fragment>
