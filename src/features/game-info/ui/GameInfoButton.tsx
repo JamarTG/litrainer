@@ -1,6 +1,6 @@
 import Button from "@/components/shared/Button";
 import { ICON_SIZES } from "@/constants/icons";
-import { Info } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 interface GameInfoButtonProps {
   toggleGameInfoPopup: VoidFunction;
@@ -19,7 +19,7 @@ const GameInfoButton: React.FC<GameInfoButtonProps> = ({ toggleGameInfoPopup, sh
       title="Check out the game from which this puzzle was fetched"
       className={className}
     >
-      <Info size={iconSize} /> Game Info
+      <BookOpen size={iconSize} /> Game Info
     </Button>
   );
 };
