@@ -11,6 +11,7 @@ import {
   Feedback,
   getPuzzleStatus,
   PuzzleStatus,
+  resetFeedback,
   setClassification,
   setFeedback,
   setPuzzleStatus
@@ -18,7 +19,7 @@ import {
 
 import { updateBoardStates } from "@/state/slices/board";
 import { setEngineRunning } from "@/state/slices/engine";
-import { getPuzzle, nextPuzzle } from "@/state/slices/puzzle";
+import { getPuzzle, nextPuzzle, redoPuzzle } from "@/state/slices/puzzle";
 import { RootState, store } from "@/state/store";
 
 import { Classification } from "@/typing/types";
@@ -92,6 +93,12 @@ export const useMoveHandler = (game: Chess) => {
     }),
     []
   );
+
+    const resetPuzzleState = () => {
+    dispatch(resetFeedback());
+    dispatch(redoPuzzle());    
+  };
+
 
   const handleOpeningBookMove = useCallback(
     (move: Move): boolean => {
@@ -167,6 +174,7 @@ export const useMoveHandler = (game: Chess) => {
       if (!lichessClassification) return;
       const bestMove = convertLanToSan(puzzle!.fen.current, puzzle!.evaluation.best ?? "");
       processEvaluation(bestMove, playedMove, lichessClassification, "failed", puzzle?.evaluation.eval ?? null, null);
+
     },
     [puzzle, processEvaluation]
   );
@@ -178,9 +186,14 @@ export const useMoveHandler = (game: Chess) => {
 
       processEvaluation(bestMove, playedMove, classification, "solved", evaluationCp, evaluationMate);
 
-      if (autoSkip && POSITIVE_CLASSIFICATIONS.has(classification)) {
+      if ( POSITIVE_CLASSIFICATIONS.has(classification)) {
         setTimeout(() => dispatch(nextPuzzle()), 1000);
+      } else  {
+        //
+        setTimeout(() => resetPuzzleState(), 1000);
+
       }
+
     },
     [fen, evaluateMoveQuality, processEvaluation, autoSkip, dispatch]
   );
@@ -200,6 +213,10 @@ export const useMoveHandler = (game: Chess) => {
     [dispatch]
   );
 
+
+
+
+
   const handleMoveAttempt = useCallback(
     (sourceSquare: Square, targetSquare: Square, promotion: string): boolean => {
       if (puzzleStatus === "solved" || game.turn() !== puzzle?.userMove.color) return false;
@@ -211,6 +228,10 @@ export const useMoveHandler = (game: Chess) => {
 
       if (playedMove.lan === puzzle?.userMove.lan) {
         handleSameMistake(playedMove);
+
+        setTimeout(() => resetPuzzleState(), 1000);
+    
+
         return true;
       }
 
@@ -218,6 +239,7 @@ export const useMoveHandler = (game: Chess) => {
         handleNewMove(playedMove);
         return true;
       }
+
 
       if (autoSkip) {
         setTimeout(() => dispatch(nextPuzzle()), 1000);
