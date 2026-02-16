@@ -7,7 +7,8 @@
 
 # [litrainer](http://litrainer.vercel.app/)
 
-![image](https://github.com/user-attachments/assets/87762cae-f0e4-4232-8b68-3e2eb021496a)
+<img width="1918" height="907" alt="image" src="https://github.com/user-attachments/assets/7ebc8923-fa26-46c0-802b-a675b326bbcf" />
+
 
 
 A chess improvement tool based on Lichess’s **Learn from your mistakes** feature extended with custom themes, detailed move feedback and recommended opening study links.
