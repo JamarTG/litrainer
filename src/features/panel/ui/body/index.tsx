@@ -24,7 +24,7 @@ const PanelBody = () => {
   const mobileMoveValue = playedMove ?? puzzle.userMove?.san ?? "--";
 
   return (
-    <div className="flex flex-col flex-1 justify-start items-center md:justify-center p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
+    <div className="flex flex-col flex-1 justify-start items-center md:justify-center px-4 pb-4 pt-1 md:p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
       <div className="order-1 md:order-2 w-full max-w-md min-h-[48px] flex items-center">
         <NavigatePuzzle />
       </div>
