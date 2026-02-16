@@ -3,7 +3,7 @@ import ClassificationText from "./ClassificationText";
 import ClassificationImage from "./ClassificationImage";
 import { getPuzzle } from "@/redux/slices/puzzle";
 import { useSelector } from "react-redux";
-import NewSessionTriggerButton from "../header/new-session";
+import { NewSessionTriggerButton } from "@/features/training-session";
 
 const PanelBody = () => {
   const puzzle = useSelector(getPuzzle);

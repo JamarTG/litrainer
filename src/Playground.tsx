@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Puzzle } from "@/typing/interfaces";
 import useInitPuzzles from "@/hooks/common/useInitPuzzles";
 import useUpdateTheme from "@/hooks/common/useUpdateTheme";
-import TrainerForm from "@/components/panel/header/new-session/form/TrainerForm";
+import { TrainerForm } from "@/features/training-session";
 import ChessBoard from "@/components/board";
 import Panel from "@/components/panel";
 

@@ -4,7 +4,7 @@ import Swiper from "./swipers/Swiper";
 import Portal from "./Portal";
 import SlideOne from "./slides/slide-one/Slide1";
 import SlideTwo from "./slides/slide-two/Slide2";
-import useHandleSubmit from "@/hooks/common/useHandleSubmit";
+import useHandleSubmit from "@/features/training-session/hooks/useHandleSubmit";
 
 interface ParamsFormProps {
   isModalOpen: boolean;
