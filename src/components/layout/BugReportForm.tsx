@@ -8,19 +8,11 @@ interface BugReportFormProps {
 }
 
 interface BugReportData {
-  title: string;
-  steps: string;
-  expected: string;
-  actual: string;
-  contact: string;
+  message: string;
 }
 
 const INITIAL_FORM_DATA: BugReportData = {
-  title: "",
-  steps: "",
-  expected: "",
-  actual: "",
-  contact: ""
+  message: ""
 };
 
 const BugReportForm: React.FC<BugReportFormProps> = ({ isOpen, onClose, recipientEmail }) => {
@@ -37,21 +29,8 @@ const BugReportForm: React.FC<BugReportFormProps> = ({ isOpen, onClose, recipien
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const subject = `[Bug Report] ${formData.title.trim() || "Litrainer issue"}`;
-    const body = [
-      `Title: ${formData.title.trim() || "N/A"}`,
-      "",
-      "Steps to reproduce:",
-      formData.steps.trim() || "N/A",
-      "",
-      "Expected behavior:",
-      formData.expected.trim() || "N/A",
-      "",
-      "Actual behavior:",
-      formData.actual.trim() || "N/A",
-      "",
-      `Contact (optional): ${formData.contact.trim() || "N/A"}`
-    ].join("\n");
+    const subject = "[Bug Report] Litrainer issue";
+    const body = formData.message.trim() || "No details provided.";
 
     window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     onClose();
@@ -92,57 +71,14 @@ const BugReportForm: React.FC<BugReportFormProps> = ({ isOpen, onClose, recipien
 
         <div className="grid gap-3 px-4 py-3">
           <label className="grid gap-1">
-            <span className="text-xs text-[var(--color-muted)]">Bug title</span>
-            <input
-              required
-              value={formData.title}
-              onChange={(event) => updateField("title", event.target.value)}
-              placeholder="Short summary"
-              className="h-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] outline-none"
-            />
-          </label>
-
-          <label className="grid gap-1">
-            <span className="text-xs text-[var(--color-muted)]">Steps to reproduce</span>
+            <span className="text-xs text-[var(--color-muted)]">Message</span>
             <textarea
               required
-              rows={3}
-              value={formData.steps}
-              onChange={(event) => updateField("steps", event.target.value)}
-              placeholder="1) ... 2) ..."
+              rows={10}
+              value={formData.message}
+              onChange={(event) => updateField("message", event.target.value)}
+              placeholder="Describe the issue you found..."
               className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-2 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] outline-none"
-            />
-          </label>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label className="grid gap-1">
-              <span className="text-xs text-[var(--color-muted)]">Expected</span>
-              <textarea
-                rows={3}
-                value={formData.expected}
-                onChange={(event) => updateField("expected", event.target.value)}
-                className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-2 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] outline-none"
-              />
-            </label>
-
-            <label className="grid gap-1">
-              <span className="text-xs text-[var(--color-muted)]">Actual</span>
-              <textarea
-                rows={3}
-                value={formData.actual}
-                onChange={(event) => updateField("actual", event.target.value)}
-                className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-2 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] outline-none"
-              />
-            </label>
-          </div>
-
-          <label className="grid gap-1">
-            <span className="text-xs text-[var(--color-muted)]">Your contact (optional)</span>
-            <input
-              value={formData.contact}
-              onChange={(event) => updateField("contact", event.target.value)}
-              placeholder="Email or Lichess username"
-              className="h-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 text-sm text-[var(--color-fg)] placeholder:text-[var(--color-muted)] outline-none"
             />
           </label>
         </div>

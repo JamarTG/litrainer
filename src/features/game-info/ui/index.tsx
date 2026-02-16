@@ -9,9 +9,10 @@ interface GameInfoTriggerButtonProps {
   iconSize?: number;
   showLabel?: boolean;
   iconOverride?: ReactNode;
+  fullWidth?: boolean;
 }
 
-const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonClassName, iconSize, showLabel = true, iconOverride }) => {
+const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonClassName, iconSize, showLabel = true, iconOverride, fullWidth = true }) => {
   const [showPopup, setShowPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -20,7 +21,7 @@ const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonCla
   const toggleGameInfoPopup = () => setShowPopup((showPopup) => !showPopup);
 
   return (
-    <div className="relative h-full w-full flex justify-center items-center" ref={dropdownRef}>
+    <div className={`relative flex justify-center items-center ${fullWidth ? "h-full w-full" : "h-fit w-fit"}`} ref={dropdownRef}>
       <GameInfoButton
         toggleGameInfoPopup={toggleGameInfoPopup}
         showPopup={showPopup}

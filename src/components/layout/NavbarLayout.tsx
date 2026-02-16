@@ -4,7 +4,6 @@ import { Bug, ExternalLink, GitPullRequest, Star } from "lucide-react";
 import { CHESSCOM_URLS, LICHESS_URLS } from "@/constants/urls";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
-import { GameInfoTriggerButton } from "@/features/game-info";
 import { SettingsTriggerButton } from "@/features/settings";
 
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
@@ -61,7 +60,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
             <div className="grid grid-cols-1 gap-2.5">
               <NewSessionTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
-              <GameInfoTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
               <SettingsTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
             </div>
 

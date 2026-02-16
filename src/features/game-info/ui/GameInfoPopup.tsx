@@ -8,6 +8,7 @@ import { Activity, BookOpen, Clock3, Crown, ExternalLink, Flag, LucideIcon, User
 interface GameInfoPopupProps {
   showPopup: boolean;
   setShowPopup: Dispatch<SetStateAction<boolean>>;
+  inPanel?: boolean;
 }
 
 const PHASE_ICONS: Record<string, LucideIcon> = {
@@ -16,7 +17,7 @@ const PHASE_ICONS: Record<string, LucideIcon> = {
   endgame: Flag
 };
 
-const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }) => {
+const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup, inPanel = false }) => {
   const puzzle = useSelector(getPuzzle);
 
   if (!puzzle || !showPopup) {
@@ -32,8 +33,12 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
   const statusText =
     puzzle.status === "draw" ? "Game ended in a draw" : puzzle.winner ? `Winner: ${winnerName}` : "Game ongoing";
 
+  const popupContainerClass = inPanel
+    ? "w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5 max-h-[70vh] overflow-y-auto"
+    : "fixed inset-x-2 top-14 bottom-2 z-[120] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5 overflow-y-auto md:absolute md:inset-auto md:right-full md:top-0 md:mr-2 md:z-20 md:w-[320px] md:max-w-[calc(100vw-1rem)] md:max-h-[80vh]";
+
   return (
-    <div className="absolute left-1/2 top-full mt-2 z-20 transform -translate-x-1/2 min-w-[320px] max-w-md w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5">
+    <div className={popupContainerClass}>
       <div className="flex flex-col gap-3 text-[var(--color-fg)]">
         <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-[var(--color-border)]">
           <div className="flex items-center gap-2.5 min-w-0">
