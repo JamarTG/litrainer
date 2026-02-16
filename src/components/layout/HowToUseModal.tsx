@@ -1,5 +1,5 @@
 import React from "react";
-import { Info, User, ListChecks, Puzzle, Search, Settings2 } from "lucide-react";
+import { Info, User, ListChecks, Puzzle}  from "lucide-react";
 
 interface HowToUseModalProps {
   isOpen: boolean;

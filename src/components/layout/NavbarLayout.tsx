@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import { Bug, ExternalLink, GitPullRequest, Star } from "lucide-react";
+import { Bug, ExternalLink,  Star } from "lucide-react";
 import { CHESSCOM_URLS, LICHESS_URLS } from "@/constants/urls";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
@@ -106,7 +106,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <ExternalLink size={14} />
                   </span>
-                  <span>Lichess profile</span>
+                  <span>Lichess</span>
                 </a>
 
                 <a
@@ -119,7 +119,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <ExternalLink size={14} />
                   </span>
-                  <span>Chess.com profile</span>
+                  <span>Chess.com</span>
                 </a>
 
                 <a
@@ -132,7 +132,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <ExternalLink size={14} />
                   </span>
-                  <span>LinkedIn profile</span>
+                  <span>LinkedIn</span>
                 </a>
 
                 <a
@@ -145,7 +145,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <ExternalLink size={14} />
                   </span>
-                  <span>GitHub profile</span>
+                  <span>GitHub</span>
                 </a>
               </div>
             </div>
@@ -188,7 +188,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             aria-label="View creator profile on Lichess"
             className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> Lichess profile
+            <ExternalLink size={14} /> Lichess
           </a>
 
           <a
@@ -198,7 +198,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             aria-label="View creator profile on Chess.com"
             className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> Chess.com profile
+            <ExternalLink size={14} /> Chess.com
           </a>
 
           <a
@@ -208,7 +208,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             aria-label="View creator profile on LinkedIn"
             className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> LinkedIn profile
+            <ExternalLink size={14} /> LinkedIn
           </a>
 
           <a
@@ -218,7 +218,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             aria-label="View creator profile on GitHub"
             className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> GitHub profile
+            <ExternalLink size={14} /> GitHub
           </a>
         </div>
 

@@ -21,6 +21,16 @@ The app uses the [Lichess API](https://lichess.org/api) to fetch your games and 
 
 ---
 
+## How to Use litrainer
+
+1. **Enter your Lichess username** on the home page to load your recent games. No login or password is required.
+2. **Select a game** from your list. Only games with computer analysis on Lichess will appear.
+3. **Solve the puzzles** generated from your mistakes. Try to find the best move for each position and get instant feedback.
+
+> If a game is missing, run computer analysis on it in Lichess first.
+
+---
+
 ## Key Features
 
 - **Move Feedback & Classification:** Every move is analyzed and classified (blunder, mistake, inaccuracy, good, excellent, best, book, great) with clear visual feedback and icons.
