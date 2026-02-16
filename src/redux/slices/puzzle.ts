@@ -14,7 +14,7 @@ export interface PuzzleState {
 const initialState: PuzzleState = {
   puzzles: [],
   currentIndex: 0,
-  autoSkip: loadFromLocalStorage("autoSkip", "true") === "true",
+  autoSkip: true,
   redoTrigger: 0
 };
 
