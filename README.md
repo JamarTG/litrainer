@@ -5,86 +5,79 @@
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)
 ![Deploy](https://img.shields.io/badge/deployed-vercel-000?logo=vercel)
 
-# [litrainer](http://litrainer.vercel.app/)
 
-![image](https://github.com/user-attachments/assets/87762cae-f0e4-4232-8b68-3e2eb021496a)
+# litrainer
 
+[Live Demo](http://litrainer.vercel.app/)
 
-A chess improvement tool based on Lichess’s **Learn from your mistakes** feature extended with custom themes, detailed move feedback and recommended opening study links.
+**litrainer** is a modern chess improvement tool that helps you learn from your mistakes by turning your real games into interactive puzzles. It extends Lichess’s "Learn from your mistakes" with:
 
-The tool uses the [Lichess API](https://lichess.org/api) to grab your in-game mistakes and serves them in the form of chess puzzles.
+- Detailed move feedback and classification (blunder, mistake, inaccuracy, etc.)
+- Customizable board and piece themes
+- Opening recommendations and direct study links
+- Responsive, mobile-friendly UI
+- Game filtering and metadata
 
----
-
-## Features
-
-### Move Feedback with Classification
-
-Each move is analyzed and classified using a system inspired by Chess.com:
-
-- Blunder  
-- Mistake  
-- Inaccuracy  
-- Good  
-- Excellent  
-- Best  
-
-
-### Customizable Board and Pieces
-
-Choose from Lichess’s available board themes and piece styles.
-
-### Opening Recommendations
-
-When a mistake occurs in the opening phase, it identifies the relevant opening and provides a direct link to the [Lichess Opening Explorer](https://lichess.org/analysis#explorer).
-
-
-### Game Filtering
-
-Analyze games based on filters such as:
-
-- Player name  
-- Date range  
-- Time control
-- Max number of games to select from
-- Color
-- Order to select puzzles
-
-More to be added later..
-
-### Game Links
-
-Each puzzle provides a direct link to view the full game on [lichess.org](https://lichess.org).
-
-### Game Metadata
-
-Additional game details include:
-- Rating difference (points lost or gained)
-- Time control  
-- Game Phase of Puzzle
-- Termination of Game
----
-
-## Info about the tech used
-
-The application relies on the Lichess API to fetch games and PGN data. The engines are stockfish17 with multithread or single thread options depending on device. Cached positions from Lichess API are used as well. The interactive board uses react-chessground. 
-
-Other Tools: TypeScript, React, Tailwind CSS.
-
-## Architecture note
-
-- Use `@/state/*` for app state imports.
-- Use `@/services/*` for external IO modules (e.g. Lichess API access).
-- Use `@/shared/*` for cross-feature shared utilities.
-- `@/redux/*` and `@/libs/*` are considered legacy internals and are restricted by lint for app-facing modules.
+The app uses the [Lichess API](https://lichess.org/api) to fetch your games and mistakes, then analyzes them with Stockfish 17 (multi/single thread depending on device). All puzzles are interactive and visually rich.
 
 ---
 
-## Installation
+## Key Features
 
-```
-git clone https://github.com/JamarTG/litrainer.git
-cd litrainer
-npm install
-npm run dev
-```
+- **Move Feedback & Classification:** Every move is analyzed and classified (blunder, mistake, inaccuracy, good, excellent, best, book, great) with clear visual feedback and icons.
+- **Customizable Board & Pieces:** Choose from a wide range of board and piece themes inspired by Lichess.
+- **Opening Recommendations:** When you make a mistake in the opening, get a direct link to the [Lichess Opening Explorer](https://lichess.org/analysis#explorer) for further study.
+- **Game Filtering:** Filter puzzles by player, date, time control, color, and more.
+- **Game Links & Metadata:** Instantly jump to the full game on Lichess, and see rating changes, phase, and more for each puzzle.
+- **Responsive UI:** Works great on desktop and mobile, with a clean, modern look.
+- **Project & Feedback:** Easy access to bug reporting and GitHub links from the navigation.
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, TypeScript, Tailwind CSS
+- **Chess Engine:** Stockfish 17 (multi/single thread)
+- **Board UI:** react-chessground
+- **API:** Lichess API for games, moves, and PGN
+
+---
+
+## Project Structure
+
+- `src/` — Main source code
+- `src/features/` — Feature modules (chessboard, panel, training-session, etc.)
+- `src/components/` — Shared layout and UI components
+- `src/constants/` — App-wide constants (piece values, URLs, etc.)
+- `src/state/` — Redux state slices and hooks
+- `src/assets/` — Icons and images
+
+---
+
+## Getting Started
+
+1. **Clone the repo:**
+	```sh
+	git clone https://github.com/JamarTG/litrainer.git
+	cd litrainer
+	```
+2. **Install dependencies:**
+	```sh
+	npm install
+	```
+3. **Start the development server:**
+	```sh
+	npm run dev
+	```
+4. **Open [http://localhost:5173](http://localhost:5173) in your browser.**
+
+**Note:** Requires Node.js 18+ and npm 9+.
+
+---
+
+## Contributing & Feedback
+
+- Found a bug? Use the "Report a bug" link in the app nav or open an issue on GitHub.
+- Want to contribute? PRs are welcome! See the [Project & Feedback](#) section in the app nav for links.
+
+---
