@@ -11,9 +11,7 @@ import { hasAttempted, resetFeedback } from "@/state/slices/feedback";
 
 import { getEngineState } from "@/state/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
-import next from "/icons/next.svg";
-import prev from "/icons/prev.svg";
-import retry from "/icons/retry.svg";
+import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 
 
 
@@ -56,7 +54,7 @@ const NavigatePuzzle = () => {
         disabled={isFirstPuzzle || isEngineRunning}
         className={baseBtn}
       >
-        <img src={prev} width={ICON_SIZES.LARGE} />
+        <ChevronLeft size={ICON_SIZES.LARGE} />
       </button>
 
       <button
@@ -65,7 +63,7 @@ const NavigatePuzzle = () => {
         disabled={!attemptedPuzzle}
         className={baseBtn}
       >
-        <img src={retry} width={ICON_SIZES.LARGE} />
+        <RotateCcw size={ICON_SIZES.LARGE} />
       </button>
 
       <button
@@ -74,7 +72,7 @@ const NavigatePuzzle = () => {
         disabled={isLastPuzzle || isEngineRunning}
         className={baseBtn}
       >
-        <img src={next} width={ICON_SIZES.LARGE} />
+        <ChevronRight size={ICON_SIZES.LARGE} />
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import { ArrowBigLeftDash } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import BoardThemeChooser from "./BoardThemeChooser";
 import PieceSetChooser from "./PieceSetChooser";
@@ -21,7 +21,7 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
           onClick={() => setShowSettings(false)}
           className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
         >
-          <ArrowBigLeftDash size={ICON_SIZES.MEDIUM} />
+          <ArrowLeft size={ICON_SIZES.MEDIUM} />
         </button>
       </div>
       <div className="flex h-full justify-center items-center">
