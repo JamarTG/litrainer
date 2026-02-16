@@ -21,7 +21,7 @@ const MoveFeedback = () => {
   const bestMoveIcon = CLASSIFICATION_IMAGES[bestMoveClassification] ?? undefined;
 
   return (
-    <div className="flex flex-col flex-1 min-w-0">
+    <div className="flex flex-col flex-1 min-w-0 bg-white dark:bg-[var(--color-surface)] rounded-md p-3">
       <span className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 tracking-wide">
         {renderMoveContext()}
       </span>

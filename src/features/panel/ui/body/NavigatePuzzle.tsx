@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/state/hooks/useAppDispatch";
 import { useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   isFirstPuzzle as onFirstPuzzle,
   isLastPuzzle as onLastPuzzle,
@@ -25,23 +25,7 @@ const NavigatePuzzle = () => {
   const isLastPuzzle = useSelector(onLastPuzzle);
   const puzzleStatus = useSelector(getPuzzleStatus);
 
-  // Animate next button color when puzzle is solved
   const nextBtnRef = useRef<HTMLButtonElement>(null);
-  const [animateNext, setAnimateNext] = useState(false);
-  const lastStatus = useRef<string | null>(null);
-  useEffect(() => {
-    if (puzzleStatus === "solved" && lastStatus.current !== "solved") {
-      setAnimateNext(true);
-      const timeout = setTimeout(() => {
-        setAnimateNext(false);
-      }, 700);
-      lastStatus.current = "solved";
-      return () => clearTimeout(timeout);
-    }
-    if (puzzleStatus !== "solved") {
-      lastStatus.current = puzzleStatus;
-    }
-  }, [puzzleStatus]);
 
   const canRedoCurrentPuzzle = puzzleStatus !== "unsolved";
 
@@ -90,13 +74,8 @@ const NavigatePuzzle = () => {
         aria-label="Next Puzzle"
         onClick={handleNext}
         disabled={isLastPuzzle || isEngineRunning}
-        className={
-          navBtnClass +
-          " transition-colors duration-300" +
-          (animateNext ? " next-btn-animate" : "")
-        }
+        className={navBtnClass + " transition-colors duration-300"}
         ref={nextBtnRef}
-        style={{ transition: 'background-color 0.3s' }}
       >
         <ChevronRight size={ICON_SIZES.LARGE} />
       </Button>
