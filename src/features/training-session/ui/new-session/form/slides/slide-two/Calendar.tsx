@@ -1,7 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface CalendarProps {
   onDateSelect: (startDate: Date | null, endDate: Date | null) => void;
+  initialStartDate?: Date | null;
+  initialEndDate?: Date | null;
 }
 
 export const DAYS_OF_THE_WEEK = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -21,12 +23,19 @@ export const MONTHS_OF_THE_YEAR = [
   "December"
 ];
 
-const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
+const Calendar: FC<CalendarProps> = ({ onDateSelect, initialStartDate = null, initialEndDate = null }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [tempStartDate, setTempStartDate] = useState<Date | null>(null);
   const [tempEndDate, setTempEndDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setStartDate(initialStartDate);
+    setEndDate(initialEndDate);
+    setTempStartDate(initialStartDate);
+    setTempEndDate(initialEndDate);
+  }, [initialStartDate, initialEndDate]);
 
   const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate();

@@ -63,7 +63,7 @@ const BugReportForm: React.FC<BugReportFormProps> = ({ isOpen, onClose, recipien
   };
 
   return (
-    <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[120] flex items-start sm:items-center justify-center p-0 sm:p-4">
       <button
         type="button"
         aria-label="Close bug report form"
@@ -73,7 +73,7 @@ const BugReportForm: React.FC<BugReportFormProps> = ({ isOpen, onClose, recipien
 
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 w-full max-w-lg rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm"
+        className="relative z-10 w-full h-full rounded-none border-0 bg-[var(--color-surface)] shadow-sm sm:h-auto sm:max-w-lg sm:rounded-xl sm:border sm:border-[var(--color-border)]"
       >
         <div className="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
           <div>

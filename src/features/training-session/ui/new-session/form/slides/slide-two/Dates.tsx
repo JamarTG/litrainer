@@ -14,6 +14,13 @@ interface DatesProps {
   formData: Fields;
 }
 
+const toDateOnlyString = (date: Date) => {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => {
   const calendarDropdown = usePopperDropDown();
   const sortbyDropdown = usePopperDropDown();
@@ -23,8 +30,8 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
   const handleDateSelect = (startDate: Date | null, endDate: Date | null) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      startDate: startDate ? startDate.toISOString() : "",
-      endDate: endDate ? endDate.toISOString() : ""
+      startDate: startDate ? toDateOnlyString(startDate) : "",
+      endDate: endDate ? toDateOnlyString(endDate) : ""
     }));
     calendarDropdown.toggleDropdown();
   };
@@ -101,7 +108,11 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         {calendarDropdown.isOpen &&
           ReactDOM.createPortal(
             <div style={{ zIndex: 80 }} ref={calendarDropdown.dropdownRef} className={`shadow-2xl  `}>
-              <Calendar onDateSelect={handleDateSelect} />
+              <Calendar
+                onDateSelect={handleDateSelect}
+                initialStartDate={formData.startDate ? new Date(formData.startDate) : null}
+                initialEndDate={formData.endDate ? new Date(formData.endDate) : null}
+              />
             </div>,
             document.body
           )}

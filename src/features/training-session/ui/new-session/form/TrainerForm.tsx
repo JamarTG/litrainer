@@ -24,11 +24,11 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
 
   return (
     <Portal>
-      <div style={{ zIndex: 70 }} className="fixed inset-0  flex justify-center items-center modal-backdrop">
+      <div style={{ zIndex: 70 }} className="fixed inset-0 flex justify-center items-center modal-backdrop">
         <div className="fixed inset-0 z-40"></div>
         <div
           ref={modalRef}
-          className={`m-10 min-w-[350px] w-[420px] pt-3 bg-[var(--color-surface)] text-[var(--color-fg)] border border-[var(--color-border)] rounded-xl shadow-sm ${
+          className={`m-0 w-full h-full pt-3 bg-[var(--color-surface)] text-[var(--color-fg)] border-0 rounded-none shadow-sm overflow-y-auto sm:m-10 sm:min-w-[350px] sm:w-[420px] sm:h-auto sm:border sm:border-[var(--color-border)] sm:rounded-xl ${
             isModalOpen ? "fadeIn" : "animate-fadeOut"
           } z-50`}
         >

@@ -16,6 +16,11 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const handleOpenBugReport = () => {
+    setIsMobileMenuOpen(false);
+    setIsBugFormOpen(true);
+  };
+
   return (
     <section className="app-background relative min-h-screen text-[var(--color-fg)]">
       <nav className="sm:hidden p-2 pb-3 z-20 relative">
@@ -86,7 +91,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
               <button
                 type="button"
-                onClick={() => setIsBugFormOpen(true)}
+                onClick={handleOpenBugReport}
                 aria-label="Report a bug by email"
                 className={mobileMenuItemClass}
               >
