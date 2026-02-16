@@ -7,16 +7,17 @@ import PlayerMetaData from "./PlayerMetaData";
 interface HeaderForPlayerProps {
   playerColor: Color;
   playerMaterial: Material;
+  opponentMaterial: Material;
   hasPuzzle: boolean;
 }
 
-const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial, hasPuzzle }) => {
+const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial, opponentMaterial, hasPuzzle }) => {
   if (!hasPuzzle) return;
 
   return (
     <div className="text-md w-full text-center flex justify-center items-center gap-5 text-[var(--color-fg)]">
       <PlayerMetaData playerColor={playerColor} />
-      <PlayerMaterial playerMaterial={playerMaterial} playerColor={playerColor} />
+      <PlayerMaterial playerMaterial={playerMaterial} opponentMaterial={opponentMaterial} />
     </div>
   );
 };

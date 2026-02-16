@@ -20,6 +20,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
 
   const renderHeaderForPlayer = (color: Color, position: "top" | "bottom") => {
     const playerMaterial = color === ColorShortForm.WHITE ? materials.w : materials.b;
+    const opponentMaterial = color === ColorShortForm.WHITE ? materials.b : materials.w;
 
     return (
       <div
@@ -27,7 +28,12 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
           position === "top" ? "top-0 -translate-y-full" : "bottom-0 translate-y-full"
         }`}
       >
-        <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />
+        <HeaderForPlayer
+          playerColor={color}
+          playerMaterial={playerMaterial}
+          opponentMaterial={opponentMaterial}
+          hasPuzzle={hasActivePuzzle}
+        />
       </div>
     );
   };

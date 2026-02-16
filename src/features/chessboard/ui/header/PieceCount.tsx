@@ -9,6 +9,7 @@ interface PieceNTimesProps {
 }
 
 const MIN_RENDERABLE_PIECE_COUNT = 1;
+const MATERIAL_ICON_SIZE = ICON_SIZES.SMALL + 2;
 
 const PieceNTimes: React.FC<PieceNTimesProps> = ({ piece }) => {
   const [pieceType, pieceCount] = piece;
@@ -23,11 +24,11 @@ const PieceNTimes: React.FC<PieceNTimesProps> = ({ piece }) => {
     // array with length as much as number of times to render
     const pieceCountArray = Array.from({ length: pieceCount });
 
-    const smallIconStyles = { width: ICON_SIZES.SMALL, height: ICON_SIZES.SMALL };
+    const pieceIconStyles = { width: MATERIAL_ICON_SIZE, height: MATERIAL_ICON_SIZE };
     return (
       <>
         {pieceCountArray.map((_, i) => (
-          <div key={i} style={smallIconStyles}>
+          <div key={i} style={pieceIconStyles}>
             <PieceSVGComponent />
           </div>
         ))}
