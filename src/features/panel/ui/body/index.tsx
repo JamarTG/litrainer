@@ -22,7 +22,11 @@ const PanelBody = () => {
     );
   }
 
-  const mobileMoveLabel = classification ?? puzzle.evaluation.judgment?.name ?? "Blunder";
+  // Show severity (classification) instead of best move label before the player moves
+  const hasPlayedMove = !!playedMove || !!puzzle.userMove;
+  const mobileMoveLabel = hasPlayedMove
+    ? (classification ?? puzzle.evaluation.judgment?.name ?? "Blunder")
+    : "Severity";
   const mobileMoveValue = playedMove ?? puzzle.userMove?.san ?? "--";
   const mobileClassification = classification ?? puzzle.evaluation.judgment?.name ?? MoveClassification.inaccuracy;
   const mobileClassificationIcon = CLASSIFICATION_IMAGES[mobileClassification.toLowerCase?.() || mobileClassification] ?? CLASSIFICATION_IMAGES[MoveClassification.inaccuracy];
@@ -42,7 +46,6 @@ const PanelBody = () => {
       </div>
 
       <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-[var(--color-surface)]/90">
-        <ClassificationImage />
         <ClassificationText />
       </div>
     </div>

@@ -1,6 +1,5 @@
 ## Description
 <!-- Briefly describe what this PR does -->
-
 ## Type of Change
 <!-- Please check one -->
 - [ ] Bug fix

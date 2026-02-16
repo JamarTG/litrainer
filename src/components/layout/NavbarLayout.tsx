@@ -78,18 +78,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   </span>
                   <span>Star the repo</span>
                 </a>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://github.com/JamarTG/litrainer"
-                  aria-label="Contribute to the repository"
-                  className={mobileMenuItemClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <GitPullRequest size={14} />
-                  </span>
-                  <span>Contribute</span>
-                </a>
+                {/* Contribute link removed */}
                 <button
                   type="button"
                   onClick={handleOpenBugReport}
@@ -178,15 +167,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             <Star size={14} className="star-drift" /> Star the repo
           </a>
 
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://github.com/JamarTG/litrainer"
-            aria-label="Contribute to the repository"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
-          >
-            <GitPullRequest size={14} /> Contribute
-          </a>
+          {/* Contribute link removed */}
 
           <button
             type="button"
