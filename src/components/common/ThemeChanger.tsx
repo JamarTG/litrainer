@@ -8,9 +8,10 @@ import { Moon, Sun } from "lucide-react";
 interface ThemeChangerProps {
   buttonClassName?: string;
   showLabel?: boolean;
+  iconSize?: number;
 }
 
-const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel = false }) => {
+const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel = false, iconSize = ICON_SIZES.LARGE }) => {
   const dispatch = useDispatch();
   const isDarkMode = useSelector(isDarkModeActive);
   const toggleAppTheme = () => dispatch(toggleTheme());
@@ -24,7 +25,7 @@ const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel 
       onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
-      {isDarkMode ? <Sun size={ICON_SIZES.LARGE} /> : <Moon size={ICON_SIZES.LARGE} />}
+      {isDarkMode ? <Sun size={iconSize} /> : <Moon size={iconSize} />}
       {showLabel ? <span className="text-sm font-medium">Theme</span> : null}
     </button>
   );

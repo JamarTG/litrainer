@@ -10,7 +10,7 @@ import { SettingsTriggerButton } from "@/features/settings";
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const LICHESS_USERNAME = "jamarithegreat";
 const mobileMenuItemClass =
-  "w-full inline-flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
+  "w-full inline-flex items-center justify-start gap-2 text-sm font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
@@ -35,7 +35,12 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
         <div className="fixed inset-0 z-40 sm:hidden">
           <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
           <div className="absolute inset-0 bg-[var(--color-surface)] p-3 overflow-y-auto">
-            <div className="flex justify-end mb-3">
+            <div className="flex items-center justify-between mb-3">
+              <ThemeChanger
+                buttonClassName="inline-flex items-center justify-center h-9 w-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]"
+                iconSize={18}
+              />
+
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -46,51 +51,64 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
-              <ThemeChanger buttonClassName={mobileMenuItemClass} showLabel />
+            <div className="grid grid-cols-1 gap-2.5">
               <NewSessionTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
               <GameInfoTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
               <SettingsTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
             </div>
 
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/JamarTG/litrainer"
-              aria-label="Star the repository"
-              className={`${mobileMenuItemClass} mt-2`}
-            >
-              <Star size={14} className="star-drift" /> Star the repo
-            </a>
+            <div className="mt-3 grid grid-cols-1 gap-2.5">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/JamarTG/litrainer"
+                aria-label="Star the repository"
+                className={mobileMenuItemClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <Star size={14} className="star-drift" />
+                </span>
+                <span>Star the repo</span>
+              </a>
 
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/JamarTG/litrainer"
-              aria-label="Contribute to the repository"
-              className={mobileMenuItemClass}
-            >
-              <GitPullRequest size={14} /> Contribute
-            </a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/JamarTG/litrainer"
+                aria-label="Contribute to the repository"
+                className={mobileMenuItemClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <GitPullRequest size={14} />
+                </span>
+                <span>Contribute</span>
+              </a>
 
-            <button
-              type="button"
-              onClick={() => setIsBugFormOpen(true)}
-              aria-label="Report a bug by email"
-              className={mobileMenuItemClass}
-            >
-              <Bug size={14} /> Report a bug
-            </button>
+              <button
+                type="button"
+                onClick={() => setIsBugFormOpen(true)}
+                aria-label="Report a bug by email"
+                className={mobileMenuItemClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <Bug size={14} />
+                </span>
+                <span>Report a bug</span>
+              </button>
 
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`${LICHESS_URLS.Profile}${LICHESS_USERNAME}`}
-              aria-label="Message the creator on Lichess"
-              className={mobileMenuItemClass}
-            >
-              <MessageCircle size={14} /> Contact on Lichess
-            </a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`${LICHESS_URLS.Profile}${LICHESS_USERNAME}`}
+                aria-label="Message the creator on Lichess"
+                className={mobileMenuItemClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <MessageCircle size={14} />
+                </span>
+                <span>Contact on Lichess</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

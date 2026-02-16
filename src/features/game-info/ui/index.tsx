@@ -20,7 +20,7 @@ const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonCla
   const toggleGameInfoPopup = () => setShowPopup((showPopup) => !showPopup);
 
   return (
-    <div className="h-full flex justify-center items-center" ref={dropdownRef}>
+    <div className="h-full w-full flex justify-center items-center" ref={dropdownRef}>
       <GameInfoButton
         toggleGameInfoPopup={toggleGameInfoPopup}
         showPopup={showPopup}
