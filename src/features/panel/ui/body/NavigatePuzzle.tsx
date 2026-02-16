@@ -7,18 +7,14 @@ import {
   prevPuzzle,
   redoPuzzle
 } from "@/state/slices/puzzle";
-import { hasAttempted, resetFeedback } from "@/state/slices/feedback";
+import { getPuzzleStatus, resetFeedback } from "@/state/slices/feedback";
 
 import { getEngineState } from "@/state/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import Button from "@/components/shared/Button";
 
-
-
-const baseBtn =
-  "w-16 h-8 flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-colors duration-150 gap-2 shadow-md " +
-  "bg-stone-100 border-stone-500 text-stone-700 dark:border-stone-400 dark:text-stone-300 " +
-  "disabled:border-stone-400 disabled:text-stone-400 disabled:cursor-not-allowed disabled:shadow-none dark:disabled:border-stone-600 dark:disabled:text-stone-600";
+const navBtnClass = "w-16 h-8 px-0 py-0 shadow-sm";
 
 const NavigatePuzzle = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +22,9 @@ const NavigatePuzzle = () => {
   const isEngineRunning = useSelector(getEngineState);
   const isFirstPuzzle = useSelector(onFirstPuzzle);
   const isLastPuzzle = useSelector(onLastPuzzle);
-  const attemptedPuzzle = useSelector(hasAttempted);
+  const puzzleStatus = useSelector(getPuzzleStatus);
+
+  const canRedoCurrentPuzzle = puzzleStatus !== "unsolved";
 
   const handlePrev = () => {
     if (isFirstPuzzle) return;
@@ -41,39 +39,42 @@ const NavigatePuzzle = () => {
   };
 
   const handleRedo = () => {
-    if (!attemptedPuzzle) return;
+    if (!canRedoCurrentPuzzle) return;
     dispatch(resetFeedback());
     dispatch(redoPuzzle());
   };
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
-      <button
+      <Button
+        border
         aria-label="Previous Puzzle"
         onClick={handlePrev}
         disabled={isFirstPuzzle || isEngineRunning}
-        className={baseBtn}
+        className={navBtnClass}
       >
         <ChevronLeft size={ICON_SIZES.LARGE} />
-      </button>
+      </Button>
 
-      <button
+      <Button
+        border
         aria-label="Redo Current Puzzle"
         onClick={handleRedo}
-        disabled={!attemptedPuzzle}
-        className={baseBtn}
+        disabled={!canRedoCurrentPuzzle || isEngineRunning}
+        className={navBtnClass}
       >
         <RotateCcw size={ICON_SIZES.LARGE} />
-      </button>
+      </Button>
 
-      <button
+      <Button
+        border
         aria-label="Next Puzzle"
         onClick={handleNext}
         disabled={isLastPuzzle || isEngineRunning}
-        className={baseBtn}
+        className={navBtnClass}
       >
         <ChevronRight size={ICON_SIZES.LARGE} />
-      </button>
+      </Button>
     </div>
   );
 };
