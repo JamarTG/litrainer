@@ -1,6 +1,6 @@
+import { useEffect, useRef, useCallback } from "react";
 import { useAppDispatch } from "@/state/hooks/useAppDispatch";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
 import {
   isFirstPuzzle as onFirstPuzzle,
   isLastPuzzle as onLastPuzzle,
@@ -9,7 +9,6 @@ import {
   redoPuzzle
 } from "@/state/slices/puzzle";
 import { getPuzzleStatus, resetFeedback } from "@/state/slices/feedback";
-
 import { getEngineState } from "@/state/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
@@ -29,23 +28,42 @@ const NavigatePuzzle = () => {
 
   const canRedoCurrentPuzzle = puzzleStatus !== "unsolved";
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (isFirstPuzzle) return;
     dispatch(resetFeedback());
     dispatch(prevPuzzle());
-  };
+  }, [isFirstPuzzle, dispatch]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (isLastPuzzle) return;
     dispatch(resetFeedback());
     dispatch(nextPuzzle());
-  };
+  }, [isLastPuzzle, dispatch]);
 
-  const handleRedo = () => {
+  const handleRedo = useCallback(() => {
     if (!canRedoCurrentPuzzle) return;
     dispatch(resetFeedback());
     dispatch(redoPuzzle());
-  };
+  }, [canRedoCurrentPuzzle, dispatch]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" && !isLastPuzzle && !isEngineRunning) {
+        e.preventDefault();
+        handleNext();
+      }
+      if (e.key === "ArrowLeft" && !isFirstPuzzle && !isEngineRunning) {
+        e.preventDefault();
+        handlePrev();
+      }
+      if ((e.code === "Space" || e.key === " ") && canRedoCurrentPuzzle && !isEngineRunning) {
+        e.preventDefault();
+        handleRedo();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [handleNext, handlePrev, handleRedo, isLastPuzzle, isFirstPuzzle, canRedoCurrentPuzzle, isEngineRunning]);
 
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
