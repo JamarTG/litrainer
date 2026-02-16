@@ -123,6 +123,28 @@ body,
   animation: fadeOut 0.3s ease-in;
 }
 
+@keyframes starDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(1px, -1px) rotate(-8deg);
+  }
+  50% {
+    transform: translate(2px, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate(1px, 1px) rotate(8deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.star-drift {
+  animation: starDrift 1.6s ease-in-out infinite;
+}
+
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.8);
 }
