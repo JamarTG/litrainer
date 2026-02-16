@@ -19,7 +19,7 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
       <div className="h-8 flex items-center justify-between">
         <button
           onClick={() => setShowSettings(false)}
-          className="flex items-center gap-1 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition"
+          className="flex items-center gap-1 text-[var(--color-muted)] hover:text-[var(--color-fg)] transition"
         >
           <ArrowLeft size={ICON_SIZES.MEDIUM} />
         </button>

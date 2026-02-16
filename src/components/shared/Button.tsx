@@ -6,10 +6,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<ButtonProps> = ({ icon, children, className, border = false, ...props }) => {
-  const baseBtn = `${border ? "border-2" : ""} flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-colors duration-150 gap-2`;
+  const baseBtn = `${border ? "border-2" : "border"} flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-colors duration-150 gap-2`;
 
   const activeBtn =
-    "border-[var(--color-border-strong)] text-[var(--color-fg)] bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]";
+    "border-[var(--color-border)] text-[var(--color-fg)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-fg)]";
   const disabledBtn = "border-[var(--color-border)] text-[var(--color-muted)] cursor-not-allowed shadow-none";
 
   return (

@@ -3,7 +3,12 @@ import { useRef, useState } from "react";
 import GameInfoPopup from "./GameInfoPopup";
 import GameInfoButton from "./GameInfoButton";
 
-const GameInfoTriggerButton = () => {
+interface GameInfoTriggerButtonProps {
+  buttonClassName?: string;
+  iconSize?: number;
+}
+
+const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonClassName, iconSize }) => {
   const [showPopup, setShowPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -13,7 +18,12 @@ const GameInfoTriggerButton = () => {
 
   return (
     <div className="h-full flex justify-center items-center" ref={dropdownRef}>
-      <GameInfoButton toggleGameInfoPopup={toggleGameInfoPopup} showPopup={showPopup} />
+      <GameInfoButton
+        toggleGameInfoPopup={toggleGameInfoPopup}
+        showPopup={showPopup}
+        className={buttonClassName}
+        iconSize={iconSize}
+      />
       <GameInfoPopup showPopup={showPopup} setShowPopup={setShowPopup} />
     </div>
   );

@@ -15,7 +15,7 @@ const ClassificationText = () => {
     <div className="flex flex-col flex-1 min-w-0 gap-3 h-full justify-start">
       <div className="flex items-center justify-between gap-2">
         <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">Move Feedback</span>
-        <span className="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] font-semibold min-w-[90px] text-center">
+        <span className="text-xs uppercase tracking-wide text-[var(--color-muted)] font-semibold min-w-[90px] text-right">
           {statusText}
         </span>
       </div>

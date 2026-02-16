@@ -5,9 +5,11 @@ import { Info } from "lucide-react";
 interface GameInfoButtonProps {
   toggleGameInfoPopup: VoidFunction;
   showPopup: boolean;
+  className?: string;
+  iconSize?: number;
 }
 
-const GameInfoButton: React.FC<GameInfoButtonProps> = ({ toggleGameInfoPopup, showPopup }) => {
+const GameInfoButton: React.FC<GameInfoButtonProps> = ({ toggleGameInfoPopup, showPopup, className, iconSize = ICON_SIZES.SMALL }) => {
   return (
     <Button
       type="button"
@@ -15,8 +17,9 @@ const GameInfoButton: React.FC<GameInfoButtonProps> = ({ toggleGameInfoPopup, sh
       aria-haspopup="true"
       aria-expanded={showPopup}
       title="Check out the game from which this puzzle was fetched"
+      className={className}
     >
-      <Info size={ICON_SIZES.SMALL} /> REFERENCE GAME
+      <Info size={iconSize} /> Game Info
     </Button>
   );
 };

@@ -4,7 +4,15 @@ import { PlusCircle } from "lucide-react";
 import { ICON_SIZES } from "@/constants/icons";
 import Button from "@/components/shared/Button";
 
-const NewSessionTriggerButton = () => {
+interface NewSessionTriggerButtonProps {
+  buttonClassName?: string;
+  iconSize?: number;
+}
+
+const NewSessionTriggerButton: React.FC<NewSessionTriggerButtonProps> = ({
+  buttonClassName,
+  iconSize = ICON_SIZES.SMALL
+}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleToggleModal = () => {
@@ -15,8 +23,13 @@ const NewSessionTriggerButton = () => {
     <Fragment>
       <TrainerForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
-      <Button aria-label="Create New Session" title="Create New Session" onClick={handleToggleModal}>
-        <PlusCircle size={ICON_SIZES.SMALL} /> ADD YOUR OWN GAMES
+      <Button
+        aria-label="Create New Session"
+        title="Create New Session"
+        onClick={handleToggleModal}
+        className={buttonClassName}
+      >
+        <PlusCircle size={iconSize} /> Add Games
       </Button>
     </Fragment>
   );

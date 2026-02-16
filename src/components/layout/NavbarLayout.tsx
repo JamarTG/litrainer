@@ -9,7 +9,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <a target="_blank" rel="noreferrer" href="https://github.com/JamarTG/litrainer" aria-label="GitHub repository">
-          <Github size={ICON_SIZES.LARGE} className="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition" />
+          <Github size={ICON_SIZES.LARGE} className="text-[var(--color-muted)] hover:text-[var(--color-fg)] transition" />
         </a>
 
       </nav>
