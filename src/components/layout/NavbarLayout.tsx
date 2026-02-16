@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import github from "/icons/github.svg";
+import github from "@/assets/icons/ui/github.svg";
 import { ICON_SIZES } from "@/constants/icons";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
