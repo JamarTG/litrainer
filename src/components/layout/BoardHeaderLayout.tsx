@@ -1,4 +1,4 @@
-import HeaderForPlayer from "../board/header";
+import HeaderForPlayer from "@/features/chessboard/ui/header";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";

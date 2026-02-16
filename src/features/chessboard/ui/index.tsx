@@ -10,7 +10,7 @@ import usePuzzleSetup from "@/hooks/common/usePuzzleSetup";
 import { useMoveHandler } from "@/hooks/common/useMoveHandler";
 import useLoadBoardTheme from "@/hooks/board/useLoadBoardTheme";
 import useLoadSet from "@/hooks/board/useLoadSet";
-import BoardHeaderLayout from "../layout/BoardHeaderLayout";
+import BoardHeaderLayout from "@/components/layout/BoardHeaderLayout";
 import BoardContent from "./BoardContent";
 import { useChessBoardController } from "./hooks/useChessBoardController";
 
