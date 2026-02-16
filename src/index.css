@@ -2,34 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-bg: #f5f4f1;
+  --color-bg-gradient: radial-gradient(circle at top right, #ffffff 0%, #f5f4f1 45%, #ece8e1 100%);
+  --color-fg: #1f1f1f;
+  --color-muted: #57534e;
+
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f4f1;
+  --color-surface-strong: #efede8;
+  --color-border: #e7e5e4;
+  --color-border-strong: #e7e5e4;
+
+  --color-accent: #44403c;
+  --color-accent-hover: #292524;
+  --color-accent-soft: #f1efeb;
+
+  --scroll-track: #e7e5e4;
+  --scroll-thumb: #a8a29e;
+  --scroll-thumb-hover: #78716c;
+}
+
+body.dark {
+  --color-bg: #141414;
+  --color-bg-gradient: radial-gradient(circle at top right, #262626 0%, #141414 55%, #0a0a0a 100%);
+  --color-fg: #f5f5f4;
+  --color-muted: #a8a29e;
+
+  --color-surface: #1f1f1f;
+  --color-surface-hover: #2a2a2a;
+  --color-surface-strong: #191919;
+  --color-border: #2f2f2f;
+  --color-border-strong: #2f2f2f;
+
+  --color-accent: #d6d3d1;
+  --color-accent-hover: #f5f5f4;
+  --color-accent-soft: #292524;
+
+  --scroll-track: #1f1f1f;
+  --scroll-thumb: #57534e;
+  --scroll-thumb-hover: #78716c;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: var(--scroll-track);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d1d5db;
+  background-color: var(--scroll-thumb);
   border-radius: 6px;
   border: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #bdbdbd;
+  background-color: var(--scroll-thumb-hover);
 }
 
 body {
-  background-color: #e7e3e3;
-  color: #4d4d4d;
-}
-
-body.dark {
-  background-color: #292929;
-  color: white;
+  background-color: var(--color-bg);
+  background-image: var(--color-bg-gradient);
+  color: var(--color-fg);
 }
 
 html,
@@ -83,6 +121,28 @@ body,
 
 .fadeOut {
   animation: fadeOut 0.3s ease-in;
+}
+
+@keyframes starDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(1px, -1px) rotate(-8deg);
+  }
+  50% {
+    transform: translate(2px, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate(1px, 1px) rotate(8deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.star-drift {
+  animation: starDrift 1.6s ease-in-out infinite;
 }
 
 .modal-backdrop {

@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
 
 // Internal imports
-import { UciEngine } from "@/libs/analysis/engine/uciEngine";
+import { UciEngine } from "@/features/analysis-engine";
 import { playSound } from "@/sound";
-import { attemptMove } from "@/libs/board/move";
-import { useEngineContext } from "@/context/hooks/useEngineContext";
+import { attemptMove } from "@/shared/lib";
+import { useEngineContext } from "@/features/analysis-engine";
 
 // Redux slices & selectors
 import {
@@ -17,11 +17,11 @@ import {
   setClassification,
   setFeedback,
   setPuzzleStatus
-} from "@/redux/slices/feedback";
-import { updateBoardStates } from "@/redux/slices/board";
-import { setEngineRunning } from "@/redux/slices/engine";
-import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
-import { RootState, store } from "@/redux/store";
+} from "@/state/slices/feedback";
+import { updateBoardStates } from "@/state/slices/board";
+import { setEngineRunning } from "@/state/slices/engine";
+import { getPuzzle, nextPuzzle } from "@/state/slices/puzzle";
+import { RootState, store } from "@/state/store";
 
 // Types & constants
 import { Classification } from "@/typing/types";

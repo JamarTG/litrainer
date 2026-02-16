@@ -1,4 +1,4 @@
-import { getPieceSet } from "@/redux/slices/piece-set";
+import { getPieceSet } from "@/state/slices/piece-set";
 import { isPieceSetAvailable, loadPieceSetCSS } from "@/utils/theme-loaders/piece-theme-loader";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";

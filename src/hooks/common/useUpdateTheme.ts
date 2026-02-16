@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { isDarkModeActive } from "@/redux/slices/theme";
+import { isDarkModeActive } from "@/state/slices/theme";
 import { useSelector } from "react-redux";
 
 const useUpdateTheme = () => {

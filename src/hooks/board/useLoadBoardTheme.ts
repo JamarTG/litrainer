@@ -1,4 +1,4 @@
-import { getBoardTheme } from "@/redux/slices/board-style";
+import { getBoardTheme } from "@/state/slices/board-style";
 import { isBoardThemeAvailable, loadBoardThemeCSS } from "@/utils/theme-loaders/board-theme-loader";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";

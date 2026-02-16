@@ -1,0 +1,1 @@
+export { formatTimeControl, getGameStatusDescription } from "@/libs/board/text";

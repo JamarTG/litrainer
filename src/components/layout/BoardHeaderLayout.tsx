@@ -1,9 +1,9 @@
-import HeaderForPlayer from "../board/header";
+import HeaderForPlayer from "@/features/chessboard/ui/header";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
-import { getPuzzle } from "@/redux/slices/puzzle";
-import { getMaterials } from "@/redux/slices/board";
+import { getPuzzle } from "@/state/slices/puzzle";
+import { getMaterials } from "@/state/slices/board";
 import { ColorShortForm } from "@/typing/enums";
 
 interface BoardHeaderLayoutProps {
@@ -23,7 +23,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
     return (
       <div
         className={`hidden md:block absolute left-1/2 transform -translate-x-1/2 ${
-          position === "top" ? "-top-8" : "bottom-[-2rem]"
+          position === "top" ? "top-0 -translate-y-full" : "bottom-0 translate-y-full"
         }`}
       >
         <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />

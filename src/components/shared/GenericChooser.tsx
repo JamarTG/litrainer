@@ -10,7 +10,7 @@ interface GenericChooserProps<T> {
   getDisplay: (option: T) => JSX.Element;
   getOptionKey: (option: T) => string;
 }
-const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOptionKey }: GenericChooserProps<T>) => {
+const GenericChooser = <T,>({ label, options, selected, onSelect, getDisplay, getOptionKey }: GenericChooserProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -25,30 +25,28 @@ const GenericChooser = <T,>({ options, selected, onSelect, getDisplay, getOption
         onSelect(getOptionKey(option));
         setIsOpen(false);
       }}
-      className="cursor-pointer h-8 dark:hover:bg-[#000] hover:bg-zinc-100 px-4 py-2 flex items-center overflow-hidden gap-2 rounded w-64 "
+      className="cursor-pointer min-h-9 px-3 py-1.5 flex items-center overflow-hidden gap-2 rounded-md hover:bg-[var(--color-surface-hover)] transition-colors"
     >
       {getDisplay(option)}
     </li>
   );
   return (
-    <div ref={dropdownRef} className="flex sm:flex-row items-center justify-center sm:items-start gap-4 relative">
-      <button className="w-72 flex items-center rounded-md transition">
-        <div className="flex justify-start w-1/2">
-          <p>choose your set</p>
+    <div ref={dropdownRef} className="relative w-full">
+      <button
+        type="button"
+        onClick={toggleDropdown}
+        className="w-full h-10 px-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-hover)] transition-colors flex items-center justify-between gap-3"
+      >
+        <div className="min-w-0 text-left flex-1">
+          <p className="text-xs uppercase tracking-wide text-[var(--color-muted)] font-semibold">{label ?? "Option"}</p>
+          <div className="text-sm text-[var(--color-fg)] truncate">{selected || "Select"}</div>
         </div>
 
-        <div onClick={toggleDropdown} className="flex justify-between items-center h-8 w-40">
-          <span className="flex-1 flex items-center justify-center">
-            <div className="flex gap-1">
-              {selected && getDisplay(options.find((opt) => getOptionKey(opt) === selected)!)}
-            </div>
-          </span>
-          <ChevronDown />
-        </div>
+        <ChevronDown size={16} className={`text-[var(--color-muted)] transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
-        <ul className="overflow-y-auto max-h-32 max-w-72 absolute top-6 z-10 mt-2 bg-white dark:bg-zinc-900 shadow-lg ">
+        <ul className="overflow-y-auto max-h-48 w-full absolute top-full z-20 mt-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-md shadow-sm p-1">
           {options.map(renderGenericChooserOption)}
         </ul>
       )}

@@ -30,5 +30,38 @@ export default tseslint.config(
     rules: {
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }]
     }
+  },
+  {
+    name: "forbid-legacy-imports",
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: [
+      "src/state/store.ts",
+      "src/state/slices/**/*",
+      "src/state/hooks/**/*",
+      "src/services/lichess.ts",
+      "src/shared/lib/text.ts",
+      "src/shared/lib/material.ts",
+      "src/shared/lib/move.ts",
+      "src/features/analysis-engine/lib/index.ts",
+      "src/redux/**/*",
+      "src/libs/**/*"
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@/redux/*"],
+              message: "Use @/state/* imports instead of @/redux/*"
+            },
+            {
+              group: ["@/libs/*"],
+              message: "Use @/services/*, @/shared/*, or feature-owned modules instead of @/libs/*"
+            }
+          ]
+        }
+      ]
+    }
   }
 );
