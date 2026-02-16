@@ -34,6 +34,8 @@ const POSITIVE_CLASSIFICATIONS = new Set<string>([
   MoveClassification.good,
   MoveClassification.great
 ]);
+const EXTRA_POST_SOLVE_DEPTH = 2;
+const MAX_ENGINE_DEPTH = 40;
 
 const normalizeClassification = (value?: string | null): Classification | null => {
   if (!value) return null;
@@ -135,19 +137,27 @@ export const useMoveHandler = (game: Chess) => {
 
         UciEngine.setDepth(engineDepth);
         const result = await engine.evaluateMoveQuality(fen, move.lan);
+        const postMovePosition = new Chess(fen);
+        postMovePosition.move(move.lan);
+
+        const extendedDepth = Math.min(engineDepth + EXTRA_POST_SOLVE_DEPTH, MAX_ENGINE_DEPTH);
+        UciEngine.setDepth(extendedDepth);
+        const extendedEval = await engine.evaluatePosition(postMovePosition.fen());
+        UciEngine.setDepth(engineDepth);
 
         if (!store.getState().engine.isRunning) throw new Error("Evaluation cancelled");
 
         return {
           classification: result.classification ?? null,
           bestMove: result.bestMove ?? null,
-          evaluationCp: result.evaluationCp ?? null,
-          evaluationMate: result.evaluationMate ?? null
+          evaluationCp: extendedEval.lines[0]?.cp ?? result.evaluationCp ?? null,
+          evaluationMate: extendedEval.lines[0]?.mate ?? result.evaluationMate ?? null
         };
       } catch (error) {
         console.error("Error evaluating move quality:", error);
         return { classification: null, bestMove: null, evaluationCp: null, evaluationMate: null };
       } finally {
+        UciEngine.setDepth(engineDepth);
         dispatch(setEngineRunning(false));
       }
     },
