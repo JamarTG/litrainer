@@ -13,10 +13,10 @@ export const getBasicClassification = (
     const cpDiff = Math.abs(cp1 - cp2);
 
     if (cpDiff >= 70) {
-      return MoveClassification.Great;
+      return MoveClassification.great;
     }
 
-    return MoveClassification.Best;
+    return MoveClassification.best;
   }
   const currentCentipawn = currentPositionEvaluation.lines[0].mate
     ? convertMateScore(currentPositionEvaluation.lines[0].mate)
@@ -28,12 +28,12 @@ export const getBasicClassification = (
 
   const centipawnDifference = Math.abs(currentCentipawn - lastCentipawn);
 
-  if (centipawnDifference >= 300) return MoveClassification.Blunder;
-  if (centipawnDifference >= 100) return MoveClassification.Mistake;
-  if (centipawnDifference >= 50) return MoveClassification.Inaccuracy;
-  if (centipawnDifference >= 20) return MoveClassification.Good;
+  if (centipawnDifference >= 300) return MoveClassification.blunder;
+  if (centipawnDifference >= 100) return MoveClassification.mistake;
+  if (centipawnDifference >= 50) return MoveClassification.inaccuracy;
+  if (centipawnDifference >= 20) return MoveClassification.good;
 
-  return MoveClassification.Excellent;
+  return MoveClassification.excellent;
 };
 
 const convertMateScore = (mate: number | undefined): number => {

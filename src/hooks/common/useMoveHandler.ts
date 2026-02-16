@@ -28,7 +28,18 @@ import { Classification } from "@/typing/types";
 import { CLASSIFICATION_MESSAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 
-const POSITIVE_CLASSIFICATIONS = new Set<string>(["Best", "Excellent", "Good", "Great"]);
+const POSITIVE_CLASSIFICATIONS = new Set<string>([
+  MoveClassification.best,
+  MoveClassification.excellent,
+  MoveClassification.good,
+  MoveClassification.great
+]);
+
+const normalizeClassification = (value?: string | null): Classification | null => {
+  if (!value) return null;
+  const normalized = value.toLowerCase() as Classification;
+  return normalized in CLASSIFICATION_MESSAGES ? normalized : null;
+};
 
 interface EvaluationResult {
   classification: Classification | null;
@@ -79,10 +90,10 @@ export const useMoveHandler = (game: Chess) => {
 
       const feedback = {
         bestMove: `${move} is acceptable`,
-        playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.Book]}`
+        playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.book]}`
       };
 
-      dispatchResults(MoveClassification.Book, "solved", feedback);
+      dispatchResults(MoveClassification.book, "solved", feedback);
       return true;
     },
     [puzzle?.positionOpening, dispatchResults]
@@ -124,7 +135,8 @@ export const useMoveHandler = (game: Chess) => {
 
   const handleSameMistake = useCallback(
     (playedMove: Move) => {
-      const lichessClassification = (puzzle?.evaluation.judgment?.name as Classification) || null;
+      const lichessClassification = normalizeClassification(puzzle?.evaluation.judgment?.name);
+      if (!lichessClassification) return;
       const bestMove = convertLanToSan(puzzle!.fen.current, puzzle!.evaluation.best ?? "");
       processEvaluation(bestMove, playedMove, lichessClassification, "failed");
     },

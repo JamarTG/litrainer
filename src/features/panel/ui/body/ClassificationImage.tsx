@@ -9,16 +9,23 @@ const FALLBACK_CLASSIFICATION_ALT = "move quality";
 const INITIAL_CLASSIFICATION_IMG_SIZE = 54;
 const FINAL_CLASSIFICATION_IMG_SIZE = 54;
 
+const normalizeClassification = (value?: string | null): Classification | null => {
+  if (!value) return null;
+  const normalized = value.toLowerCase() as Classification;
+  return normalized in CLASSIFICATION_IMAGES ? normalized : null;
+};
+
 const ClassificationImage = () => {
   const puzzle = useSelector(getPuzzle);
   const classification = useSelector(getClassification);
   const playedMove = useSelector(getPlayedMove);
-  const initialImageSrc = CLASSIFICATION_IMAGES[puzzle.evaluation.judgment?.name as Classification];
+  const puzzleClassification = normalizeClassification(puzzle.evaluation.judgment?.name);
+  const initialImageSrc = puzzleClassification
+    ? CLASSIFICATION_IMAGES[puzzleClassification]
+    : CLASSIFICATION_IMAGES[MoveClassification.inaccuracy];
   const initialImageAlt = puzzle.evaluation.judgment?.name ?? FALLBACK_CLASSIFICATION_ALT;
 
-  const finalImageSrc = classification
-    ? CLASSIFICATION_IMAGES[classification as keyof typeof MoveClassification]
-    : initialImageSrc;
+  const finalImageSrc = classification ? CLASSIFICATION_IMAGES[classification] : initialImageSrc;
   const finalImageAlt = classification ?? initialImageAlt;
 
   const isAttempted = !!(playedMove && classification);
