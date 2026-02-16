@@ -11,8 +11,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const activeBtn =
       "border-[var(--color-border)] text-[var(--color-fg)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-fg)]";
-    // Use a much more distinct background and border for disabled buttons in light mode
-    const disabledBtn = "border-[#e5e7eb] text-[#b0b0b0] bg-[#e5e7eb] dark:bg-[var(--color-surface-strong)] dark:text-[var(--color-muted)] cursor-not-allowed shadow-none";
+    const disabledBtn = "border-[var(--color-border)] text-[var(--color-muted)] cursor-not-allowed shadow-none";
 
     return (
       <button ref={ref} {...props} className={`${baseBtn} ${props.disabled ? disabledBtn : activeBtn} ${className || ""}`}>
