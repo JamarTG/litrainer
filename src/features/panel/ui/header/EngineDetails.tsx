@@ -1,7 +1,7 @@
 import { getEngineDepth, getEngineState } from "@/redux/slices/engine";
 
 import { useSelector } from "react-redux";
-import { useEngineContext } from "@/context/hooks/useEngineContext";
+import { useEngineContext } from "@/features/analysis-engine";
 import { Fragment } from "react/jsx-runtime";
 
 

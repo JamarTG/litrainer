@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { EngineName } from "./typing/enums";
 import Router from "@/routes/router";
 import "./App.css";
-import { EngineProvider } from "@/context/EngineContext";
+import { EngineProvider } from "@/features/analysis-engine";
 import { Toaster } from "react-hot-toast";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";

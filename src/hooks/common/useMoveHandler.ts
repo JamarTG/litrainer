@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useMemo } from "react";
 
 // Internal imports
-import { UciEngine } from "@/libs/analysis/engine/uciEngine";
+import { UciEngine } from "@/features/analysis-engine";
 import { playSound } from "@/sound";
 import { attemptMove } from "@/libs/board/move";
-import { useEngineContext } from "@/context/hooks/useEngineContext";
+import { useEngineContext } from "@/features/analysis-engine";
 
 // Redux slices & selectors
 import {
