@@ -241,7 +241,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
       </nav>
       <BugReportForm isOpen={isBugFormOpen} onClose={() => setIsBugFormOpen(false)} recipientEmail={CONTACT_EMAIL} />
-      <main className="relative z-10">{children}</main>
+      <main className="relative z-10 sm:pt-2 md:pt-4">{children}</main>
     </section>
   );
 };
