@@ -1,3 +1,8 @@
+---
+
+## Why I Built This
+
+I created litrainer because I was frustrated with the lack of bulk puzzle/game review tools on Lichess. The official "Learn from your mistakes" feature required visiting each game individually, which was tedious and slow. I wanted a system more like Chess.com's move classification and feedback, but for Lichess, and noticed the Lichess devs weren't actively improving this part of the site. litrainer fills that gap by letting you review your mistakes in bulk, with rich feedback and a modern UI.
 ![License](https://img.shields.io/github/license/JamarTG/litrainer)
 ![Issues](https://img.shields.io/github/issues/JamarTG/litrainer)
 ![Last Commit](https://img.shields.io/github/last-commit/JamarTG/litrainer)
