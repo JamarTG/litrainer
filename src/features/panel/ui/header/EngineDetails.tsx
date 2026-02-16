@@ -12,18 +12,14 @@ const EngineDetails = () => {
   const engineDepth = useSelector(getEngineDepth);
 
   return (
-    <div className="flex gap-1">
-      <div className="flex flex-row gap-2 justify-center items-center text-md">
+    <div className="min-h-6 min-w-[220px]">
+      <div className="flex items-center text-sm leading-6">
         <Fragment>
-          {isEngineRunning ? (
-            <p>evaluating move ...</p>
-          ) : (
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-semibold">{engineName}</span>
-              <span className="text-gray-500">depth {engineDepth}</span>
-            </div>
-
-          )}
+          <p className={`${isEngineRunning ? "opacity-100" : "opacity-0 absolute pointer-events-none"}`}>evaluating move...</p>
+          <div className={`flex items-center gap-2 ${isEngineRunning ? "opacity-0 absolute pointer-events-none" : "opacity-100"}`}>
+            <span className="font-semibold truncate max-w-[150px]">{engineName}</span>
+            <span className="text-[var(--color-muted)] whitespace-nowrap">depth {engineDepth}</span>
+          </div>
         </Fragment>
       </div>
     </div>

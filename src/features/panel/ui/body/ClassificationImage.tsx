@@ -24,13 +24,13 @@ const ClassificationImage = () => {
   const isAttempted = !!(playedMove && classification);
 
   return (
-    <div className="w-12 h-12 relative flex-shrink-0 rounded-full bg-zinc-200 dark:bg-zinc-700 shadow-inner flex items-center justify-center overflow-hidden">
+    <div className="w-14 h-14 self-center relative flex-shrink-0 flex items-center justify-center overflow-hidden">
       <img
         src={initialImageSrc}
         width={INITIAL_CLASSIFICATION_IMG_SIZE}
         height={INITIAL_CLASSIFICATION_IMG_SIZE}
         alt={initialImageAlt}
-        className={`absolute transition-opacity duration-500 ease-in-out ${isAttempted ? "opacity-0" : "opacity-100"}`}
+        className={`absolute inset-0 m-auto w-11 h-11 object-contain object-center transition-opacity duration-500 ease-in-out ${isAttempted ? "opacity-0" : "opacity-100"}`}
         style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.2))" }}
       />
       <img
@@ -38,7 +38,7 @@ const ClassificationImage = () => {
         width={FINAL_CLASSIFICATION_IMG_SIZE}
         height={FINAL_CLASSIFICATION_IMG_SIZE}
         alt={finalImageAlt}
-        className={`absolute transition-opacity duration-500 ease-in-out ${isAttempted ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 m-auto w-11 h-11 object-contain object-center transition-opacity duration-500 ease-in-out ${isAttempted ? "opacity-100" : "opacity-0"}`}
         style={{ filter: "drop-shadow(0 0 1px rgba(0,0,0,0.4))" }}
       />
     </div>
