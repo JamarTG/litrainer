@@ -5,19 +5,27 @@ import { isDarkModeActive } from "@/state/slices/theme";
 import { ICON_SIZES } from "@/constants/icons";
 import { Moon, Sun } from "lucide-react";
 
-const ThemeChanger = () => {
+interface ThemeChangerProps {
+  buttonClassName?: string;
+  showLabel?: boolean;
+}
+
+const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel = false }) => {
   const dispatch = useDispatch();
   const isDarkMode = useSelector(isDarkModeActive);
   const toggleAppTheme = () => dispatch(toggleTheme());
 
+  const defaultClassName = "w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4";
+
   return (
     <button
       title="light or dark?"
-      className="w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4"
+      className={buttonClassName ?? defaultClassName}
       onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
       {isDarkMode ? <Sun size={ICON_SIZES.LARGE} /> : <Moon size={ICON_SIZES.LARGE} />}
+      {showLabel ? <span className="text-sm font-medium">Theme</span> : null}
     </button>
   );
 };
