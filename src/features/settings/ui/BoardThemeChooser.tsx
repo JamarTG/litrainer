@@ -10,6 +10,7 @@ const BoardThemeChooser = () => {
 
   return (
     <GenericChooser
+      label="Board Theme"
       options={BOARD_THEMES}
       selected={boardTheme}
       onSelect={(value) => {
@@ -17,9 +18,9 @@ const BoardThemeChooser = () => {
         playSelectSound();
       }}
       getDisplay={(theme) => (
-        <div className="h-8 flex items-center gap-1">
-          <img title={theme.name} src={theme.thumbnail ?? ""} className="w-8 h-4" alt={theme.name} />
-          {theme.name}
+        <div className="h-6 flex items-center gap-2 min-w-0">
+          <img title={theme.name} src={theme.thumbnail ?? ""} className="w-8 h-4 rounded-sm" alt={theme.name} />
+          <span className="truncate">{theme.name}</span>
         </div>
       )}
       getOptionKey={(option: { name: string; path: string; thumbnail: string | null }): string => option.name}

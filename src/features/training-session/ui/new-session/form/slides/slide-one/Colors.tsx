@@ -8,12 +8,19 @@ interface ColorsProps {
 }
 
 const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
+  const optionClassName = (active: boolean) =>
+    `flex items-center w-full rounded-lg h-[32px] border px-2.5 ${
+      active
+        ? "bg-[var(--color-surface-hover)] border-[var(--color-border-strong)]"
+        : "bg-[var(--color-surface)] border-[var(--color-border)]"
+    }`;
+
   return (
     <div className="grid gap-2">
-      <h1 className="text-landingText text-sm text-offWhite">Colors</h1>
+      <h1 className="text-sm text-[var(--color-muted)]">Colors</h1>
 
       <div className="w-full flex items-center justify-between gap-x-2">
-        <div className={`flex items-center bg-secondary w-full rounded-lg h-[32px] border border-shadowGray px-2.5 `}>
+        <div className={optionClassName(formData.color === "white")}>
           <label className="flex items-center  justify-between  w-full  cursor-pointer">
             <input
               type="radio"
@@ -24,9 +31,11 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm  ${formData.color === "white" ? "text-offWhite" : "text-muted"}`}>White</span>
+            <span className={`text-sm ${formData.color === "white" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+              White
+            </span>
             {!(formData.color == "both") && formData.color === ColorLongForm.WHITE ? (
-              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-accent">
+              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-[var(--color-fg)]">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12zM5 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
               </svg>
             ) : (
@@ -35,7 +44,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
                 height="16"
                 fill="currentColor"
                 viewBox="0 0 16 16"
-                className="transition-all duration-300 text-tertiary"
+                className="transition-all duration-300 text-[var(--color-border-strong)]"
               >
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
               </svg>
@@ -43,7 +52,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
           </label>
         </div>
 
-        <div className={`flex items-center bg-secondary w-full rounded-lg h-[32px] border  px-2.5 border-shadowGray`}>
+        <div className={optionClassName(formData.color === "black")}>
           <label className="flex items-center  justify-between  w-full  cursor-pointer">
             <input
               type="radio"
@@ -54,10 +63,12 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm  ${formData.color === "black" ? "text-offWhite" : "text-muted"}`}>Black</span>
+            <span className={`text-sm ${formData.color === "black" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+              Black
+            </span>
 
             {formData.color === "black" ? (
-              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-accent">
+              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-[var(--color-fg)]">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12zM5 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
               </svg>
             ) : (
@@ -66,7 +77,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
                 height="16"
                 fill="currentColor"
                 viewBox="0 0 16 16"
-                className="transition-all duration-300 text-tertiary"
+                className="transition-all duration-300 text-[var(--color-border-strong)]"
               >
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
               </svg>
@@ -74,7 +85,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
           </label>
         </div>
 
-        <div className={`flex items-center bg-secondary w-full rounded-lg h-[32px] border  px-2.5 border-shadowGray`}>
+        <div className={optionClassName(formData.color === "both")}>
           <label className="flex items-center  justify-between  w-full  cursor-pointer">
             <input
               type="radio"
@@ -85,9 +96,11 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm  ${formData.color === "both" ? "text-offWhite" : "text-muted"}`}>Both</span>
+            <span className={`text-sm ${formData.color === "both" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+              Both
+            </span>
             {formData.color === "both" ? (
-              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-accent">
+              <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="text-[var(--color-fg)]">
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12zM5 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
               </svg>
             ) : (
@@ -96,7 +109,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
                 height="16"
                 fill="currentColor"
                 viewBox="0 0 16 16"
-                className="transition-all duration-300 text-tertiary"
+                className="transition-all duration-300 text-[var(--color-border-strong)]"
               >
                 <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
               </svg>

@@ -14,32 +14,26 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
   return (
     <div
       style={{ zIndex: 100 }}
-      className="absolute w-full min-h-[499px] inset-0 bg-[var(--color-surface-strong)] text-[var(--color-fg)] p-4 flex flex-col gap-4 animate-fade-in"
+      className="absolute inset-0 w-full min-h-[499px] bg-[var(--color-surface-strong)] text-[var(--color-fg)] p-3 flex flex-col gap-3 animate-fade-in"
     >
-      <div className="h-8 flex items-center justify-between">
+      <div className="h-10 flex items-center justify-between px-1">
         <button
           onClick={() => setShowSettings(false)}
-          className="flex items-center gap-1 text-[var(--color-muted)] hover:text-[var(--color-fg)] transition"
+          className="flex items-center justify-center h-8 w-8 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+          aria-label="Close settings"
         >
-          <ArrowLeft size={ICON_SIZES.MEDIUM} />
+          <ArrowLeft size={ICON_SIZES.SMALL} />
         </button>
+        <h2 className="text-sm uppercase tracking-wide text-[var(--color-muted)] font-semibold">Settings</h2>
+        <span className="w-8" />
       </div>
-      <div className="flex h-full justify-center items-center">
-        <div className="w-full max-w-md h-96 flex justify-center items-center  dark:border-zinc-600 rounded-md flex-col gap-4 mt-6">
-          <div className="flex flex-col justify-center items-center  rounded-md p-4 gap-5">
-            <div className="flex w-72 justify-start items-center">
-              <AutoSkip />
-            </div>
-            <div className="flex w-72 justify-start items-center">
-              <PieceSetChooser />
-            </div>
-            <div className="flex w-72 justify-start items-center">
-              <BoardThemeChooser />
-            </div>
-            <div className="flex w-72 justify-start items-center">
-              <EngineDepthControl />
-            </div>
-          </div>
+
+      <div className="flex flex-1 justify-center items-start pt-2">
+        <div className="w-full max-w-md rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3 space-y-3">
+          <AutoSkip />
+          <PieceSetChooser />
+          <BoardThemeChooser />
+          <EngineDepthControl />
         </div>
       </div>
     </div>

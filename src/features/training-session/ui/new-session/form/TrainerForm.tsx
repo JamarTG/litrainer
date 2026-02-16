@@ -28,7 +28,7 @@ const TrainerForm: FC<ParamsFormProps> = ({ isModalOpen, setIsModalOpen }) => {
         <div className="fixed inset-0 z-40"></div>
         <div
           ref={modalRef}
-          className={`m-10 bg-white min-w-[350px] dark:bg-zinc-900 pt-4 w-[420px]  border-[1.5px] border-quaternary rounded-xl ${
+          className={`m-10 min-w-[350px] w-[420px] pt-3 bg-[var(--color-surface)] text-[var(--color-fg)] border border-[var(--color-border)] rounded-xl shadow-sm ${
             isModalOpen ? "fadeIn" : "animate-fadeOut"
           } z-50`}
         >

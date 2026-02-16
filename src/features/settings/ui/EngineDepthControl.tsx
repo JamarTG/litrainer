@@ -14,24 +14,25 @@ const EngineDepthControl = () => {
   };
 
   return (
-    <div className="w-full max-w-md">
-      <div className="flex items-center gap-4">
-        <label htmlFor="engine-depth" className="whitespace-nowrap">
-          engine depth
+    <div className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] p-3">
+      <div className="flex items-center justify-between gap-3 mb-2">
+        <label htmlFor="engine-depth" className="text-sm font-medium text-[var(--color-fg)]">
+          Engine Depth
         </label>
-
-        <input
-          id="engine-depth"
-          type="range"
-          min={MIN_ALLOWABLE_ENGINE_DEPTH}
-          max={MAX_ALLOWABLE_ENGINE_DEPTH}
-          value={depth}
-          onChange={(e) => adjustEngineDepthHandler(e)}
-          className="custom-slider flex-1"
-        />
-        <span className="text-sm dark:text-zinc-600 w-6 text-right">{depth}</span>
+        <span className="text-sm text-[var(--color-muted)] w-7 text-right">{depth}</span>
       </div>
-      <small className="text-red-500">higher depth = slower eval</small>
+
+      <input
+        id="engine-depth"
+        type="range"
+        min={MIN_ALLOWABLE_ENGINE_DEPTH}
+        max={MAX_ALLOWABLE_ENGINE_DEPTH}
+        value={depth}
+        onChange={(e) => adjustEngineDepthHandler(e)}
+        className="w-full accent-[var(--color-muted)]"
+      />
+
+      <small className="text-xs text-[var(--color-muted)]">Higher depth means slower evaluation.</small>
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { Sort } from "@/typing/types";
 
 const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: Sort) => void }) => {
   return (
-    <div className="bg-white dark:bg-[#222]  w-[128px] rounded-lg border border-shadowGray px-2 py-2">
-      <div className="flex flex-col text-xs text-offWhite space-y-0">
+    <div className="bg-[var(--color-surface)] w-[128px] rounded-lg border border-[var(--color-border)] px-2 py-2 shadow-sm">
+      <div className="flex flex-col text-xs text-[var(--color-fg)] space-y-0">
         <button
-          className="hover:bg-tertiary hover:rounded-md py-2 px-2 flex gap-x-2"
+          className="hover:bg-[var(--color-surface-hover)] hover:rounded-md py-2 px-2 flex gap-x-2 transition-colors"
           onClick={() => onSortOptionSelect("asc")}
         >
           <div>
@@ -25,7 +25,7 @@ const SortBy = ({ onSortOptionSelect }: { onSortOptionSelect: (option: Sort) => 
           <p>Ascending</p>
         </button>
         <button
-          className="hover:bg-tertiary hover:rounded-md py-2 px-2 flex gap-x-2"
+          className="hover:bg-[var(--color-surface-hover)] hover:rounded-md py-2 px-2 flex gap-x-2 transition-colors"
           onClick={() => onSortOptionSelect("desc")}
         >
           <div>

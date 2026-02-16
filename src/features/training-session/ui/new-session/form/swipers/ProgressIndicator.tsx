@@ -18,7 +18,9 @@ const ProgressIndicator: FC<ProgressIndicatorProps> = ({ children, currentIndex,
       key={index}
       onClick={() => handleIndicatorClick(index)}
       className={`transition-all duration-300 ease-in-out ${
-        index === currentIndex ? "w-8 h-2 bg-accent rounded-full" : "w-2 h-2 bg-[#ffffff12]  rounded-full"
+        index === currentIndex
+          ? "w-8 h-2 bg-[var(--color-fg)] rounded-full"
+          : "w-2 h-2 bg-[var(--color-border)] rounded-full"
       }`}
     />
   );

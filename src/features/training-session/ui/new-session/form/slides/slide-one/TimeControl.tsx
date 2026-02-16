@@ -24,10 +24,10 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
     <button
       key={timeControl}
       name="timeControls"
-      className={`flex justify-between px-2.5 hover:bg-tertiary hover:rounded-lg  transition-all ease-in-out`}
+      className="flex justify-between px-2.5 py-1.5 hover:bg-[var(--color-surface-hover)] transition-colors"
       onClick={() => handleGameTypesChange(timeControl)}
     >
-      <div className="flex text-[#000] dark:text-[#fff] items-center my-auto gap-x-2">
+      <div className="flex text-[var(--color-fg)] items-center my-auto gap-x-2 capitalize">
         <GameSpeedIcon size={ICON_SIZES.MEDIUM} speed={timeControl} />
         {timeControl}
       </div>
@@ -37,11 +37,11 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
   return (
     <div className="grid gap-2">
-      <h1 className="text-landingText text-sm text-offWhite">Time controls</h1>
+      <h1 className="text-sm text-[var(--color-muted)]">Time controls</h1>
 
       <div className="relative w-full flex items-center">
         <input
-          className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+          className="cursor-pointer flex-1 w-full h-[32px] outline-none bg-[var(--color-surface)] text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)] pr-8"
           placeholder="Select games"
           value={formData.gameTypes.join(",")}
           onChange={handleInputChange}
@@ -71,7 +71,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
             <div
               ref={gamesDropdown.dropdownRef}
               style={{ zIndex: GAMES_DROPDOWN_Z_INDEX }}
-              className="bg-white shadow-2xl w-[386px] dark:bg-zinc-900 dark:text-white rounded-md border border-gray-200"
+              className="bg-[var(--color-surface)] text-[var(--color-fg)] shadow-sm w-[386px] rounded-md border border-[var(--color-border)]"
             >
               <div className="flex flex-col space-y-0">{TIME_CONTROLS.map(renderTimeControl)}</div>
             </div>,

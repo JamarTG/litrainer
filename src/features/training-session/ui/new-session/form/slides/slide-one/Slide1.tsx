@@ -69,8 +69,8 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
   const renderAutoCompletedUser = (username: string, index: number) => (
     <div
       key={username}
-      className={`px-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 ${
-        index === keyboardHoverOption ? "bg-gray-100 dark:bg-zinc-700" : ""
+      className={`px-2 py-1 cursor-pointer text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] ${
+        index === keyboardHoverOption ? "bg-[var(--color-surface-hover)]" : ""
       }`}
       onClick={() => updateFormUsername(username)}
       onMouseEnter={() => setKeyboardHoverOption(index)}
@@ -83,11 +83,11 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
       <div className="grid gap-4 ">
         <div className="flex flex-col gap-2 md:flex-row sm:gap-2 justify-between">
           <div className="grid gap-2">
-            <h1 className="text-landingText text-sm text-offWhite">Username</h1>
+            <h1 className="text-sm text-[var(--color-muted)]">Username</h1>
             <div className="relative">
               <input
                 ref={inputRef}
-                className="flex text-[#222] w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted"
+                className="flex w-full h-[32px] outline-none bg-[var(--color-surface)] text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)]"
                 placeholder="Lichess Username"
                 value={formData.username}
                 onKeyDown={handleKeyboardHover}
@@ -96,19 +96,19 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
                 onBlur={handleInputBlur}
               />
               {autoCompletedUsers.length > 0 && (
-                <div className="absolute pb-5 text-sm dark:bg-zinc-800 dark:text-white bg-white flex flex-col w-full max-h-50 overflow-auto rounded-md z-50">
+                <div className="absolute pb-1 text-sm bg-[var(--color-surface)] text-[var(--color-fg)] flex flex-col w-full max-h-50 overflow-auto rounded-md border border-[var(--color-border)] z-50">
                   {firstFiveAutoCompletedUsers.map(renderAutoCompletedUser)}
                 </div>
               )}
             </div>
           </div>
           <div className="grid gap-2">
-            <h1 className="text-landingText text-sm text-offWhite">
+            <h1 className="text-sm text-[var(--color-muted)]">
               Max <span className="inline md:hidden"># </span>
               <span className="hidden md:inline">number </span> of games
             </h1>
             <input
-              className="flex w-full bg-secondary text-[#222] h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted"
+              className="flex w-full h-[32px] outline-none bg-[var(--color-surface)] text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)]"
               placeholder="10"
               value={formData.maxNoGames ?? 1}
               type="number"

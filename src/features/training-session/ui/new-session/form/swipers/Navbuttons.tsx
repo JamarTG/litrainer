@@ -25,12 +25,12 @@ const NavigationButtons: FC<NavigationButtonsProps> = ({
   };
 
   return (
-    <div className={` flex justify-end gap-4 text-offWhite `}>
-      <Button onClick={handlePrev} disabled={currentIndex === 0} variant="primary">
+    <div className="flex justify-end gap-2.5">
+      <Button onClick={handlePrev} disabled={currentIndex === 0} className="px-3 py-1.5 text-sm font-medium rounded-md">
         Go back
       </Button>
 
-      <Button onClick={submitHandler} variant="secondary">
+      <Button onClick={submitHandler} className="px-3 py-1.5 text-sm font-medium rounded-md">
         {currentIndex === length - 1 ? "Submit" : "Continue"}
       </Button>
     </div>

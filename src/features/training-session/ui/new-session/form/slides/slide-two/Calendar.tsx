@@ -104,16 +104,18 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
       const isEnd = isEndDate(date);
       const inRange = isWithinRange(date);
 
-      let dateClasses = "hover:bg-tertiary";
+      let dateClasses = "hover:bg-[var(--color-surface-hover)]";
 
       if (isStart && isEnd) {
-        dateClasses = "bg-zinc-800 dark:bg-zinc-700 text-white";
+        dateClasses = "bg-[var(--color-fg)] text-[var(--color-surface)]";
       } else if (isStart) {
-        dateClasses = "bg-zinc-600 dark:bg-slate-800  text-white";
+        dateClasses = "bg-[var(--color-border-strong)] text-[var(--color-fg)]";
       } else if (isEnd) {
-        dateClasses = "bg-zinc-600 dark:bg-slate-800  text-white";
+        dateClasses = "bg-[var(--color-border-strong)] text-[var(--color-fg)]";
       } else if (inRange) {
-        dateClasses = "bg-zinc-800/50 dark:bg-slate-500/50  text-white";
+        dateClasses = "bg-[var(--color-surface-hover)] text-[var(--color-fg)]";
+      } else {
+        dateClasses = "hover:bg-[var(--color-surface-hover)] text-[var(--color-fg)]";
       }
 
       daysArray.push(
@@ -164,9 +166,12 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
   };
 
   return (
-    <div className=" bg-white dark:bg-zinc-900  w-[250px] rounded-lg border border-shadowGray px-2 py-2">
-      <div className="flex justify-between items-center text-offWhite">
-        <button onClick={handlePrevMonth} className="rounded-md bg-secondary border border-shadowGray h-7 w-7">
+    <div className="bg-[var(--color-surface)] w-[250px] rounded-lg border border-[var(--color-border)] px-2 py-2 shadow-sm">
+      <div className="flex justify-between items-center text-[var(--color-fg)]">
+        <button
+          onClick={handlePrevMonth}
+          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 hover:bg-[var(--color-surface-hover)] transition-colors"
+        >
           <svg viewBox="0 0 512 512" fill="currentColor" height="1em" width="1em" className="mx-auto">
             <path
               fill="none"
@@ -183,7 +188,10 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
           {MONTHS_OF_THE_YEAR[currentDate.getMonth()]} {currentDate.getFullYear()}
         </div>
 
-        <button onClick={handleNextMonth} className="rounded-md bg-secondary border border-shadowGray h-7 w-7">
+        <button
+          onClick={handleNextMonth}
+          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 hover:bg-[var(--color-surface-hover)] transition-colors"
+        >
           <svg viewBox="0 0 512 512" fill="currentColor" height="1em" width="1em" className="mx-auto">
             <path
               fill="none"
@@ -199,14 +207,20 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect }) => {
 
       <div className="grid grid-cols-7 py-2">{DAYS_OF_THE_WEEK.map(renderDay)}</div>
 
-      <div className="grid grid-cols-7 text-xs text-offWhite ">{renderDays()}</div>
+      <div className="grid grid-cols-7 text-xs text-[var(--color-fg)]">{renderDays()}</div>
 
-      <div className="flex justify-between items-center text-offWhite pt-2">
-        <button onClick={handleCancel} className="rounded-md bg-secondary text-xs border border-shadowGray h-7 px-3">
+      <div className="flex justify-between items-center text-[var(--color-fg)] pt-2">
+        <button
+          onClick={handleCancel}
+          className="rounded-md bg-[var(--color-surface)] text-xs border border-[var(--color-border)] h-7 px-3 hover:bg-[var(--color-surface-hover)] transition-colors"
+        >
           Cancel
         </button>
 
-        <button onClick={handleApply} className="rounded-md bg-accent border text-xs border-shadowGray h-7 px-3">
+        <button
+          onClick={handleApply}
+          className="rounded-md bg-[var(--color-surface-hover)] border text-xs border-[var(--color-border)] h-7 px-3 hover:bg-[var(--color-surface-strong)] transition-colors"
+        >
           Apply
         </button>
       </div>

@@ -10,6 +10,7 @@ const PieceSetChooser = () => {
 
   return (
     <GenericChooser
+      label="Piece Set"
       options={PIECE_SETS}
       selected={pieceSet}
       onSelect={(value) => {
@@ -17,9 +18,9 @@ const PieceSetChooser = () => {
         playSelectSound();
       }}
       getDisplay={(setName) => (
-        <div className="h-8 flex items-center gap-1" title={setName}>
-          <img src={`themes/pieces/${setName}/wK.svg`} className="w-8" alt={setName} />
-          {setName}
+        <div className="h-6 flex items-center gap-2 min-w-0" title={setName}>
+          <img src={`themes/pieces/${setName}/wK.svg`} className="w-5 h-5" alt={setName} />
+          <span className="truncate">{setName}</span>
         </div>
       )}
       getOptionKey={(option: string): string => option}

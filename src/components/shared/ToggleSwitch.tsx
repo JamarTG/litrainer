@@ -7,16 +7,24 @@ interface ToggleSwitchProps {
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ handleToggleSwitch, isOn }) => {
   return (
-    <button className="w-full flex justify-end" onClick={handleToggleSwitch}>
-      <svg viewBox="0 0 16 16" height="35" width="35">
-        <path d="M0 8a5 5 0 005 5h6a5 5 0 000-10H5a5 5 0 00-5 5z" fill={` ${isOn ? "#287F71" : "#424242"}`} />
-        <path
-          d="M5 4a4 4 0 110 8 4 4 0 010-8z"
-          fill="#ffffff"
-          className={`transition transform 0.3s ease ${isOn ? "transform translate-x-[6px]" : ""}`}
-        />
-      </svg>
-    </button>
+    <div
+      className="w-11 h-6 flex items-center rounded-full p-0.5 transition-colors cursor-pointer"
+      style={{ backgroundColor: isOn ? "var(--color-fg)" : "var(--color-border)" }}
+      onClick={handleToggleSwitch}
+      role="switch"
+      aria-checked={isOn}
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if ((event.key === "Enter" || event.key === " ") && handleToggleSwitch) {
+          event.preventDefault();
+          handleToggleSwitch();
+        }
+      }}
+    >
+      <span
+        className={`h-5 w-5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] transition-transform ${isOn ? "translate-x-5" : "translate-x-0"}`}
+      />
+    </div>
   );
 };
 

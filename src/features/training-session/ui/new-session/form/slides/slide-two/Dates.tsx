@@ -41,11 +41,11 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
   return (
     <div className="flex flex-col gap-y-4">
       <div className="grid">
-        <h1 className=" text-sm text-offWhite mb-1">Date</h1>
+        <h1 className="text-sm text-[var(--color-muted)] mb-1">Date</h1>
 
         <div className="relative w-[250px] flex items-center justify-center ">
           <input
-            className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none text-textwhite caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="cursor-pointer flex-1 w-full bg-[var(--color-surface)] h-[32px] outline-none text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)] pr-8"
             value={convertDateToReadableFormat(formData.startDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -72,7 +72,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
         </div>
         <div className="relative w-[250px] flex items-center mt-2">
           <input
-            className="cursor-pointer flex-1 text-[#222]  w-full bg-secondary h-[32px] outline-none caret-accent text-offWhite rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted pr-8"
+            className="cursor-pointer flex-1 w-full bg-[var(--color-surface)] h-[32px] outline-none text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)] pr-8"
             value={convertDateToReadableFormat(formData.endDate)}
             onChange={handleInputChange}
             ref={calendarDropdown.triggerRef}
@@ -108,10 +108,10 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
       </div>
 
       <div className=" grid gap-2 w-[128px] ">
-        <h1 className="text-landingText text-sm text-offWhite">Order Games</h1>
+        <h1 className="text-sm text-[var(--color-muted)]">Order Games</h1>
         <div className="relative  flex items-center">
           <input
-            className="cursor-pointer  flex text-[#222] w-full h-[32px]   outline-none caret-accent  rounded-lg border border-shadowGray px-2.5 text-sm placeholder:text-muted  "
+            className="cursor-pointer flex text-[var(--color-fg)] w-full h-[32px] outline-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 text-sm placeholder:text-[var(--color-muted)]"
             placeholder="Ascending"
             value={sortOption}
             onChange={handleInputChange}

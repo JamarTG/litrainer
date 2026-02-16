@@ -58,7 +58,7 @@ const Swiper: FC<SwiperProps> = ({ children, className, handleSubmit, currentSli
         {children.map(renderChild)}
       </div>
 
-      <div className=" flex justify-between py-4 px-4 bg-secondary border-quaternary border-t rounded-es-lg rounded-ee-lg">
+      <div className="flex justify-between py-4 px-4 bg-[var(--color-surface-hover)] border-[var(--color-border)] border-t rounded-es-lg rounded-ee-lg">
         <ProgressIndicator
           children={children}
           currentIndex={currentSlide}
