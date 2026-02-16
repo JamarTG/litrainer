@@ -23,7 +23,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
     return (
       <div
         className={`hidden md:block absolute left-1/2 transform -translate-x-1/2 ${
-          position === "top" ? "-top-8" : "bottom-[-2rem]"
+          position === "top" ? "top-0 -translate-y-full" : "bottom-0 translate-y-full"
         }`}
       >
         <HeaderForPlayer playerColor={color} playerMaterial={playerMaterial} hasPuzzle={hasActivePuzzle} />

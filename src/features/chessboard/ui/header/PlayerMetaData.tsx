@@ -29,7 +29,7 @@ const PlayerMetaData: FC<PlayerMetaDataProps> = ({ playerColor }) => {
       <PatronIcon isPatron={player?.user?.patron ?? null} />
       <PlayerTitle title={player.user?.title} />
       <PlayerName name={player.user?.name} />
-      <div className="text-gray-400 flex gap-1">
+      <div className="flex gap-1 opacity-75">
         <PlayerRating isProvisional={player?.provisional} rating={player?.rating} />
         <RatingDifference ratingDiff={player?.ratingDiff} />
       </div>
