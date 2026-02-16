@@ -33,7 +33,7 @@ const PanelBody = () => {
         <NavigatePuzzle />
       </div>
 
-      <div className="order-2 md:hidden w-full max-w-md border border-[var(--color-border)] rounded-md px-3 py-2 bg-[var(--color-surface)]/90 flex items-center justify-between gap-3">
+      <div className="order-2 md:hidden w-full max-w-md border border-[var(--color-border)] rounded-md px-3 py-2 bg-[var(--color-surface)] flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <img src={mobileClassificationIcon} alt={mobileMoveLabel} className="w-5 h-5 flex-shrink-0" />
           <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)] truncate">{mobileMoveLabel}</span>
