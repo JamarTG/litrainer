@@ -1,1 +1,1 @@
-export {};
+export { default as Panel } from "./ui";
