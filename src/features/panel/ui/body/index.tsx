@@ -1,6 +1,6 @@
 import NavigatePuzzle from "./NavigatePuzzle";
 import ClassificationText from "./ClassificationText";
-import ClassificationImage from "./ClassificationImage";
+// import ClassificationImage from "./ClassificationImage";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 import { getPuzzle } from "@/state/slices/puzzle";
@@ -29,7 +29,16 @@ const PanelBody = () => {
     : "Severity";
   const mobileMoveValue = playedMove ?? puzzle.userMove?.san ?? "--";
   const mobileClassification = classification ?? puzzle.evaluation.judgment?.name ?? MoveClassification.inaccuracy;
-  const mobileClassificationIcon = CLASSIFICATION_IMAGES[mobileClassification.toLowerCase?.() || mobileClassification] ?? CLASSIFICATION_IMAGES[MoveClassification.inaccuracy];
+  function normalizeClassificationKey(key: unknown): MoveClassification {
+    if (!key) return MoveClassification.inaccuracy;
+    const str = String(key).toLowerCase();
+    if (Object.values(MoveClassification).includes(str as MoveClassification)) {
+      return str as MoveClassification;
+    }
+    return MoveClassification.inaccuracy;
+  }
+  const mobileClassificationKey = normalizeClassificationKey(mobileClassification);
+  const mobileClassificationIcon = CLASSIFICATION_IMAGES[mobileClassificationKey];
 
   return (
     <div className="flex flex-col flex-1 justify-start items-center md:justify-center px-4 pb-4 pt-1 md:p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
