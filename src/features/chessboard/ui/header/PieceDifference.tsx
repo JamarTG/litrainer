@@ -8,13 +8,15 @@ interface PieceDifferenceProps {
 
 const PieceDifference: React.FC<PieceDifferenceProps> = ({ pieceCounts }) => {
   return (
-    <React.Fragment>
-      {pieceCounts.map((piece, index) => (
-        <div key={index}>
-          <PieceNTimes piece={piece} />
-        </div>
-      ))}
-    </React.Fragment>
+    <div className="flex items-center">
+      {pieceCounts.map(([pieceType, count], index) =>
+        count > 0 ? (
+          <div key={index}>
+            <PieceNTimes piece={[pieceType, count]} />
+          </div>
+        ) : null
+      )}
+    </div>
   );
 };
 

@@ -5,43 +5,56 @@ import PieceDifference from "./PieceDifference";
 import { PieceCount } from "@/typing/types";
 import { PIECE_VALUE } from "@/constants/piece";
 
+import { Color } from "chess.js";
+
 interface MaterialProps {
   playerMaterial: Material;
   opponentMaterial: Material;
+  playerColor: Color;
 }
 
 const MATERIAL_KEYS: Array<keyof Material> = ["p", "n", "b", "r", "q"];
 
-const getMaterialImbalance = (material: Material, opponentMaterial: Material): Material => {
-  return {
-    p: Math.max(material.p - opponentMaterial.p, 0),
-    n: Math.max(material.n - opponentMaterial.n, 0),
-    b: Math.max(material.b - opponentMaterial.b, 0),
-    r: Math.max(material.r - opponentMaterial.r, 0),
-    q: Math.max(material.q - opponentMaterial.q, 0)
-  };
-};
 
-const getMaterialValue = (material: Material): number => {
-  return MATERIAL_KEYS.reduce((total, pieceKey) => total + material[pieceKey] * PIECE_VALUE[pieceKey], 0);
-};
+const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial, playerColor }) => {
+  const playerPieceCounts: PieceCount[] = [];
+  const opponentPieceCounts: PieceCount[] = [];
+  let materialScore = 0;
 
-const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial }) => {
-  const playerImbalance = getMaterialImbalance(playerMaterial, opponentMaterial);
-  const opponentImbalance = getMaterialImbalance(opponentMaterial, playerMaterial);
+  MATERIAL_KEYS.forEach((piece) => {
+    const playerCount = playerMaterial[piece];
+    const opponentCount = opponentMaterial[piece];
+    if (playerCount > opponentCount) {
+      playerPieceCounts.push([piece, playerCount - opponentCount]);
+      materialScore += (playerCount - opponentCount) * PIECE_VALUE[piece];
+    } else if (opponentCount > playerCount) {
+      opponentPieceCounts.push([piece, opponentCount - playerCount]);
+      materialScore -= (opponentCount - playerCount) * PIECE_VALUE[piece];
+    }
+  });
 
-  const materialScore = getMaterialValue(playerImbalance) - getMaterialValue(opponentImbalance);
+  if (materialScore === 0) return null;
 
-  if (materialScore <= 0) return null;
+  let winningColor: Color | null = null;
+  if (materialScore > 0) winningColor = playerColor;
+  else if (materialScore < 0) winningColor = playerColor === "w" ? "b" : "w";
 
-  const pieceCounts = Object.entries(playerImbalance) as PieceCount[];
-
-  return (
-    <div className="flex justify-center items-center ">
-      <PieceDifference pieceCounts={pieceCounts} />
-      <MaterialScore score={materialScore} />
-    </div>
-  );
+  if (materialScore > 0) {
+    return (
+      <div className="flex justify-center items-center gap-1">
+        <PieceDifference pieceCounts={playerPieceCounts} />
+        <MaterialScore score={materialScore} />
+      </div>
+    );
+  } else if (materialScore < 0) {
+    return (
+      <div className="flex justify-center items-center gap-1">
+        <PieceDifference pieceCounts={opponentPieceCounts} />
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default PlayerMaterial;
