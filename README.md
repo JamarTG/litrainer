@@ -71,6 +71,13 @@ The application relies on the Lichess API to fetch games and PGN data. The engin
 
 Other Tools: TypeScript, React, Tailwind CSS.
 
+## Architecture note
+
+- Use `@/state/*` for app state imports.
+- Use `@/services/*` for external IO modules (e.g. Lichess API access).
+- Use `@/shared/*` for cross-feature shared utilities.
+- `@/redux/*` and `@/libs/*` are considered legacy internals and are restricted by lint for app-facing modules.
+
 ---
 
 ## Installation
