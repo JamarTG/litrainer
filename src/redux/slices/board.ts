@@ -60,6 +60,7 @@ const boardSlice = createSlice({
 
 export const getFen = (state: RootState) => state.board.fen;
 export const getMarkerPosition = (state: RootState) => state.board.markerPosition;
+export const getSourceSquare = (state: RootState) => state.board.sourceSquare;
 export const getDestinationSquare = (state: RootState) => state.board.destinationSquare;
 export const getMaterials = (state: RootState) => state.board.materials;
 export const { setFen, setMarkerPosition, updateMaterials, resetBoardState, updateBoardStates } = boardSlice.actions;
