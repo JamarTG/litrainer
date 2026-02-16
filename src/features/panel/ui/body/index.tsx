@@ -1,6 +1,8 @@
 import NavigatePuzzle from "./NavigatePuzzle";
 import ClassificationText from "./ClassificationText";
 import ClassificationImage from "./ClassificationImage";
+import { CLASSIFICATION_IMAGES } from "@/constants/classification";
+import { MoveClassification } from "@/typing/enums";
 import { getPuzzle } from "@/state/slices/puzzle";
 import { getClassification, getPlayedMove } from "@/state/slices/feedback";
 import { useSelector } from "react-redux";
@@ -22,6 +24,8 @@ const PanelBody = () => {
 
   const mobileMoveLabel = classification ?? puzzle.evaluation.judgment?.name ?? "Blunder";
   const mobileMoveValue = playedMove ?? puzzle.userMove?.san ?? "--";
+  const mobileClassification = classification ?? puzzle.evaluation.judgment?.name ?? MoveClassification.inaccuracy;
+  const mobileClassificationIcon = CLASSIFICATION_IMAGES[mobileClassification.toLowerCase?.() || mobileClassification] ?? CLASSIFICATION_IMAGES[MoveClassification.inaccuracy];
 
   return (
     <div className="flex flex-col flex-1 justify-start items-center md:justify-center px-4 pb-4 pt-1 md:p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
@@ -30,8 +34,11 @@ const PanelBody = () => {
       </div>
 
       <div className="order-2 md:hidden w-full max-w-md border border-[var(--color-border)] rounded-md px-3 py-2 bg-[var(--color-surface)]/90 flex items-center justify-between gap-3">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)] truncate">{mobileMoveLabel}</span>
-        <span className="text-sm font-semibold text-[var(--color-fg)] truncate">→ {mobileMoveValue}</span>
+        <div className="flex items-center gap-2 min-w-0">
+          <img src={mobileClassificationIcon} alt={mobileMoveLabel} className="w-5 h-5 flex-shrink-0" />
+          <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)] truncate">{mobileMoveLabel}</span>
+        </div>
+        <span className="text-sm font-semibold text-[var(--color-fg)] truncate">{mobileMoveValue}</span>
       </div>
 
       <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-[var(--color-surface)]/90">
