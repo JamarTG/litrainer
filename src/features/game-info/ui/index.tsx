@@ -1,4 +1,5 @@
 import useClickOutside from "@/hooks/panel/useClickOutside";
+import { ReactNode } from "react";
 import { useRef, useState } from "react";
 import GameInfoPopup from "./GameInfoPopup";
 import GameInfoButton from "./GameInfoButton";
@@ -6,9 +7,11 @@ import GameInfoButton from "./GameInfoButton";
 interface GameInfoTriggerButtonProps {
   buttonClassName?: string;
   iconSize?: number;
+  showLabel?: boolean;
+  iconOverride?: ReactNode;
 }
 
-const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonClassName, iconSize }) => {
+const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonClassName, iconSize, showLabel = true, iconOverride }) => {
   const [showPopup, setShowPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,6 +26,8 @@ const GameInfoTriggerButton: React.FC<GameInfoTriggerButtonProps> = ({ buttonCla
         showPopup={showPopup}
         className={buttonClassName}
         iconSize={iconSize}
+        showLabel={showLabel}
+        iconOverride={iconOverride}
       />
       <GameInfoPopup showPopup={showPopup} setShowPopup={setShowPopup} />
     </div>

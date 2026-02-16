@@ -3,7 +3,36 @@ import { GameInfoTriggerButton } from "@/features/game-info";
 import { NewSessionTriggerButton } from "@/features/training-session";
 import { SettingsTriggerButton } from "@/features/settings";
 
-const PanelButtons = () => {
+interface PanelButtonsProps {
+  iconOnly?: boolean;
+}
+
+const PanelButtons: React.FC<PanelButtonsProps> = ({ iconOnly = false }) => {
+  if (iconOnly) {
+    return (
+      <div className="rounded-sm flex items-center justify-center gap-2 w-full max-w-md">
+        <NewSessionTriggerButton
+          buttonClassName="h-9 w-9 rounded-full px-0 py-0"
+          iconSize={16}
+          showLabel={false}
+          iconOverride={<span aria-hidden className="text-lg leading-none">＋</span>}
+        />
+        <GameInfoTriggerButton
+          buttonClassName="h-9 w-9 rounded-full px-0 py-0"
+          iconSize={16}
+          showLabel={false}
+          iconOverride={<span aria-hidden className="text-base leading-none">i</span>}
+        />
+        <SettingsTriggerButton
+          buttonClassName="h-9 w-9 rounded-full px-0 py-0"
+          iconSize={16}
+          showLabel={false}
+          iconOverride={<span aria-hidden className="text-base leading-none">⚙</span>}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-sm flex flex-col gap-2.5 w-full max-w-md">
       <div className="w-full">
