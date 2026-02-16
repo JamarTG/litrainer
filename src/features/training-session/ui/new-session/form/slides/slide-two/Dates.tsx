@@ -3,7 +3,7 @@ import usePopperDropDown from "@/hooks/common/usePopperDropDown";
 import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
 import SortBy from "./SortBy";
-import { convertDateToReadableFormat } from "@/libs/lichess/date";
+import { convertDateToReadableFormat } from "@/services/lichess";
 import { Fields } from "@/typing/interfaces";
 import { Sort } from "@/typing/types";
 import { Sort as SortEnum } from "@/typing/enums";

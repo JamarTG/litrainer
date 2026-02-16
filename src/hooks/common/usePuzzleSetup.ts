@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
-import { resetFeedback } from "@/redux/slices/feedback";
+import { resetFeedback } from "@/state/slices/feedback";
 import { playSound } from "@/sound";
-import { setFen } from "@/redux/slices/board";
-import { getPuzzle } from "@/redux/slices/puzzle";
+import { setFen } from "@/state/slices/board";
+import { getPuzzle } from "@/state/slices/puzzle";
 
 const usePuzzleSetup = () => {
   const [game, setGame] = useState<Chess>(new Chess());

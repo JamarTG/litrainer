@@ -1,6 +1,6 @@
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
-import { getClassification, getPlayedMove } from "@/redux/slices/feedback";
-import { getPuzzle } from "@/redux/slices/puzzle";
+import { getClassification, getPlayedMove } from "@/state/slices/feedback";
+import { getPuzzle } from "@/state/slices/puzzle";
 import { Classification } from "@/typing/types";
 import { MoveClassification } from "@/typing/enums";
 import { useSelector } from "react-redux";

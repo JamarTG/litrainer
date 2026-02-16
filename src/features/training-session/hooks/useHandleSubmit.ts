@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { getLichessGames } from "@/libs/lichess/api";
+import { generatePuzzles, getLichessGames } from "@/services/lichess";
 import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
-import generatePuzzles from "@/libs/lichess/parsers";
-import { dateRangeToEpochMillis, validateDateRange } from "@/libs/lichess/date";
+import { dateRangeToEpochMillis, validateDateRange } from "@/services/lichess";
 import { saveToLocalStorage } from "@/utils/storage";
 import { Fields, LichessEvaluation, LichessGameResponse } from "@/typing/interfaces";
 

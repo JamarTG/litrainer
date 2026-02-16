@@ -1,10 +1,10 @@
 import { useEffect, RefObject } from "react";
 import { Square } from "chess.js";
 import { useDispatch } from "react-redux";
-import { setMarkerPosition } from "@/redux/slices/board";
+import { setMarkerPosition } from "@/state/slices/board";
 import { ColorLongForm } from "@/typing/enums";
 import { useSelector } from "react-redux";
-import { getUserColor } from "@/redux/slices/puzzle";
+import { getUserColor } from "@/state/slices/puzzle";
 import { MARKER_OFFSET, NUM_RANKS } from "@/constants/board";
 
 const convertSquareToFileRank = (square: Square): [number, number] => {

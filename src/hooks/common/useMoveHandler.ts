@@ -17,11 +17,11 @@ import {
   setClassification,
   setFeedback,
   setPuzzleStatus
-} from "@/redux/slices/feedback";
-import { updateBoardStates } from "@/redux/slices/board";
-import { setEngineRunning } from "@/redux/slices/engine";
-import { getPuzzle, nextPuzzle } from "@/redux/slices/puzzle";
-import { RootState, store } from "@/redux/store";
+} from "@/state/slices/feedback";
+import { updateBoardStates } from "@/state/slices/board";
+import { setEngineRunning } from "@/state/slices/engine";
+import { getPuzzle, nextPuzzle } from "@/state/slices/puzzle";
+import { RootState, store } from "@/state/store";
 
 // Types & constants
 import { Classification } from "@/typing/types";

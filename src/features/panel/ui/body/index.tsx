@@ -1,7 +1,7 @@
 import NavigatePuzzle from "./NavigatePuzzle";
 import ClassificationText from "./ClassificationText";
 import ClassificationImage from "./ClassificationImage";
-import { getPuzzle } from "@/redux/slices/puzzle";
+import { getPuzzle } from "@/state/slices/puzzle";
 import { useSelector } from "react-redux";
 import { NewSessionTriggerButton } from "@/features/training-session";
 

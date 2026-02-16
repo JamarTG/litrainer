@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
 import { useSelector } from "react-redux";
-import { getPuzzle } from "@/redux/slices/puzzle";
-import { formatTimeControl } from "@/libs/board/text";
+import { getPuzzle } from "@/state/slices/puzzle";
+import { formatTimeControl } from "@/shared/lib";
 import { ICON_SIZES } from "@/constants/icons";
 import { ColorLongForm, GameMode } from "@/typing/enums";
 

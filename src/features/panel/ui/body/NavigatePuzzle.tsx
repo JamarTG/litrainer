@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@/redux/hooks/useAppDispatch";
+import { useAppDispatch } from "@/state/hooks/useAppDispatch";
 import { useSelector } from "react-redux";
 import {
   isFirstPuzzle as onFirstPuzzle,
@@ -6,10 +6,10 @@ import {
   nextPuzzle,
   prevPuzzle,
   redoPuzzle
-} from "@/redux/slices/puzzle";
-import { hasAttempted, resetFeedback } from "@/redux/slices/feedback";
+} from "@/state/slices/puzzle";
+import { hasAttempted, resetFeedback } from "@/state/slices/feedback";
 
-import { getEngineState } from "@/redux/slices/engine";
+import { getEngineState } from "@/state/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
 import next from "/icons/next.svg";
 import prev from "/icons/prev.svg";

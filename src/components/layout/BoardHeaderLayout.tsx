@@ -2,8 +2,8 @@ import HeaderForPlayer from "@/features/chessboard/ui/header";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
-import { getPuzzle } from "@/redux/slices/puzzle";
-import { getMaterials } from "@/redux/slices/board";
+import { getPuzzle } from "@/state/slices/puzzle";
+import { getMaterials } from "@/state/slices/board";
 import { ColorShortForm } from "@/typing/enums";
 
 interface BoardHeaderLayoutProps {

@@ -1,5 +1,5 @@
-import { getBestMove, getPlayedMove, hasAttempted } from "@/redux/slices/feedback";
-import { getPuzzle } from "@/redux/slices/puzzle";
+import { getBestMove, getPlayedMove, hasAttempted } from "@/state/slices/feedback";
+import { getPuzzle } from "@/state/slices/puzzle";
 import { useSelector } from "react-redux";
 
 const ClassificationText = () => {

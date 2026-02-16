@@ -1,4 +1,4 @@
-import { getEngineDepth, getEngineState } from "@/redux/slices/engine";
+import { getEngineDepth, getEngineState } from "@/state/slices/engine";
 
 import { useSelector } from "react-redux";
 import { useEngineContext } from "@/features/analysis-engine";

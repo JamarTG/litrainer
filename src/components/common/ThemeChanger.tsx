@@ -1,9 +1,9 @@
-import { toggleTheme } from "@/redux/slices/theme";
+import { toggleTheme } from "@/state/slices/theme";
 import moon from "/icons/moon.svg";
 import sun from "/icons/sun.svg";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { isDarkModeActive } from "@/redux/slices/theme";
+import { isDarkModeActive } from "@/state/slices/theme";
 import { ICON_SIZES } from "@/constants/icons";
 
 const ThemeChanger = () => {

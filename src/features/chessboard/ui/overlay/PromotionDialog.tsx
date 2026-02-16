@@ -1,7 +1,7 @@
 import { Square } from "chess.js";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { getPieceSet } from "@/redux/slices/piece-set";
+import { getPieceSet } from "@/state/slices/piece-set";
 import { PROMOTION_DIALOG_Z_INDEX } from "@/constants/ui";
 import { PromotionPiece } from "@/typing/interfaces";
 import { ColorLongForm } from "@/typing/enums";

@@ -1,4 +1,4 @@
-import { getEngineDepth, setDepth } from "@/redux/slices/engine";
+import { getEngineDepth, setDepth } from "@/state/slices/engine";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 

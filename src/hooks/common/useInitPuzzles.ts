@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPuzzles } from "@/redux/slices/puzzle";
+import { setPuzzles } from "@/state/slices/puzzle";
 import { Puzzle } from "@/typing/interfaces";
 
 const useInitPuzzles = (puzzles: Puzzle[]) => {

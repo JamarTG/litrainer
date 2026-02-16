@@ -1,4 +1,4 @@
-import { getGameStatusDescription } from "@/libs/board/text";
+import { getGameStatusDescription } from "@/shared/lib";
 import { ColorLongForm } from "@/typing/enums";
 import { LichessPlayer } from "@/typing/interfaces";
 

@@ -1,4 +1,4 @@
-import { getMaterials } from "@/redux/slices/board";
+import { getMaterials } from "@/state/slices/board";
 import { getRelativeMaterial } from "@/libs/board/material";
 import { Color } from "chess.js";
 import { useEffect, useState } from "react";

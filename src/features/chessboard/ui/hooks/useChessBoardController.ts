@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { Square, Chess } from "chess.js";
-import { PuzzleStatus } from "@/redux/slices/feedback";
+import { PuzzleStatus } from "@/state/slices/feedback";
 import { ColorLongForm, ColorShortForm } from "@/typing/enums";
 import { isPromotionMove, buildDestsMap, createMovableConfig, getDefaultMovableConfig } from "@/utils/board";
 import { PromotionMoveObject } from "../overlay/PromotionDialog";

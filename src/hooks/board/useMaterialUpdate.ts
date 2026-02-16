@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Chess } from "chess.js";
 import { calculateMaterialDifference } from "@/libs/board/material";
-import { getFen, updateMaterials } from "@/redux/slices/board";
+import { getFen, updateMaterials } from "@/state/slices/board";
 import { useDispatch, useSelector } from "react-redux";
 
 export const useMaterialUpdate = (game: Chess) => {
