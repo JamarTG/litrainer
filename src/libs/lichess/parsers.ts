@@ -53,7 +53,6 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
     const history = chessgame.history({ verbose: true });
     const gameEvaluations = evaluations[index];
 
-    // Skip initial evaluation if it corresponds to the starting position
     const trimmedEvaluations = gameEvaluations.length > history.length ? gameEvaluations.slice(1) : gameEvaluations;
 
     const OPColor = username.toLocaleLowerCase() === game.players.white.user.name.toLocaleLowerCase() ? "w" : "b";

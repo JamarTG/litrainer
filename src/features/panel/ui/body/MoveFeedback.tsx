@@ -16,7 +16,7 @@ const MoveFeedback = () => {
   const renderMovePrompt = () => (isPuzzleAttempted ? "Best Move" : "Find a better move");
   const renderBestMove = () => (isPuzzleAttempted ? bestMove : "\u00A0");
 
-  // Determine icon for the best move classification (if available)
+  
   const bestMoveClassification = classification ?? MoveClassification.best;
   const bestMoveIcon = CLASSIFICATION_IMAGES[bestMoveClassification] ?? undefined;
 

@@ -24,7 +24,6 @@ const ClassificationMarker: FC<ClassificationMarkerProps> = ({ boardRef }) => {
   const destinationSquare = useSelector(getDestinationSquare);
   const orientation = useSelector(getUserColorLongForm);
 
-  // Classification and Destination are required in order to render the marker
   const { shouldMarkerBeVisible } = useMarkerVisibility(classification, destinationSquare);
 
   const boardSize = boardRef.current?.offsetWidth || DEFAULT_BOARD_SIZE;

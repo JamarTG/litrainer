@@ -1,7 +1,7 @@
 import { ColorLongForm, ColorShortForm } from "@/typing/enums";
 import { Chess, Move, Square } from "chess.js";
 
-// Board Logic
+
 export const turnColor = (game: Chess) => {
   return game.turn() === ColorShortForm.WHITE ? ColorLongForm.WHITE : ColorLongForm.BLACK;
 };
@@ -15,11 +15,10 @@ export const isPromotionMove = (game: Chess, from: Square, to: Square): boolean 
 
   return (
     (piece.color === ColorShortForm.WHITE && fromRank === 7 && toRank === 8) ||
-    (piece.color === "b" && fromRank === 2 && toRank === 1)
+    (piece.color === ColorShortForm.BLACK && fromRank === 2 && toRank === 1)
   );
 };
 
-// Board Configuration
 
 export const buildDestsMap = (moves: Move[]): Map<string, string[]> => {
   const dests = new Map<string, string[]>();

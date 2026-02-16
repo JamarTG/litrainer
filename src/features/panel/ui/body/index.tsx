@@ -1,6 +1,5 @@
 import NavigatePuzzle from "./NavigatePuzzle";
 import ClassificationText from "./ClassificationText";
-// import ClassificationImage from "./ClassificationImage";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 import { getPuzzle } from "@/state/slices/puzzle";
@@ -22,7 +21,6 @@ const PanelBody = () => {
     );
   }
 
-  // Show severity (classification) instead of best move label before the player moves
   const hasPlayedMove = !!playedMove || !!puzzle.userMove;
   const mobileMoveLabel = hasPlayedMove
     ? (classification ?? puzzle.evaluation.judgment?.name ?? "Blunder")

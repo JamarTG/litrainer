@@ -2,7 +2,6 @@ import { Color, PieceSymbol, Square } from "chess.js";
 import { ColorLongForm } from "./enums";
 import { GameType, Phase, Sort } from "./types";
 
-// Engine
 
 export interface PositionEvaluation {
   bestMove?: string;
@@ -23,7 +22,6 @@ export interface VariationLineEvaluation {
   multiPv: number;
 }
 
-// Lichess
 
 export interface LichessEvaluation {
   eval: number;
@@ -128,7 +126,6 @@ export interface Fen {
   previous: string;
 }
 
-// Form
 
 export interface Fields {
   username: string;
@@ -139,8 +136,6 @@ export interface Fields {
   color: ColorLongForm | "both";
   sort: Sort;
 }
-
-// Material
 
 export interface Material {
   p: number;
@@ -155,7 +150,6 @@ export interface Materials {
   b: Material;
 }
 
-// Chess Pieces
 
 type PieceShortForm = "p" | "b" | "r" | "k" | "n" | "q";
 type PieceLongForm = "pawn" | "bishop" | "rook" | "king" | "knight" | "queen";

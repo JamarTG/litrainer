@@ -19,8 +19,7 @@ const ClassificationText = () => {
   const headerText = isPuzzleAttempted ? "Move Feedback" : "Error in Game";
   const playedMoveLabel = isPuzzleAttempted ? "Your Move" : "Error";
 
-  // Icon for played move
-  // Normalize classification key to MoveClassification or fallback
+
   function normalizeClassificationKey(key: unknown): MoveClassification {
     if (!key) return MoveClassification.inaccuracy;
     const str = String(key).toLowerCase();
@@ -32,9 +31,7 @@ const ClassificationText = () => {
   const playedMoveClassificationKey = isPuzzleAttempted ? classification : puzzle.evaluation.judgment?.name;
   const playedMoveKey = normalizeClassificationKey(playedMoveClassificationKey);
   const playedMoveIcon = CLASSIFICATION_IMAGES[playedMoveKey];
-  // Icon for best move
   const bestMoveIcon = isPuzzleAttempted ? CLASSIFICATION_IMAGES[MoveClassification.best] : undefined;
-  // Icon for error/severity (before move)
   const errorIcon = !isPuzzleAttempted ? playedMoveIcon : undefined;
 
   return (

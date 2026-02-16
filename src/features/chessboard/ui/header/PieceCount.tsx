@@ -21,7 +21,6 @@ const PieceNTimes: React.FC<PieceNTimesProps> = ({ piece }) => {
   if (!PieceSVGComponent) return null;
 
   const renderPieceByCount = () => {
-    // array with length as much as number of times to render
     const pieceCountArray = Array.from({ length: pieceCount });
 
     const pieceIconStyles = { width: MATERIAL_ICON_SIZE, height: MATERIAL_ICON_SIZE };

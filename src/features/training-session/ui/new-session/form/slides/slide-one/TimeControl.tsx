@@ -20,7 +20,6 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
   const gamesDropdown = usePopperDropDown();
 
   const renderTimeControl = (timeControl: GameType) => (
-    // <ToggleSwitch />
     <button
       key={timeControl}
       name="timeControls"
