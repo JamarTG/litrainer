@@ -1,16 +1,20 @@
 import { Dispatch, SetStateAction } from "react";
-import GameSpeedIcon from "@/components/shared/GameSpeedIcon";
 import { useSelector } from "react-redux";
 import { getPuzzle } from "@/state/slices/puzzle";
 import { formatTimeControl } from "@/shared/lib";
-import { ICON_SIZES } from "@/constants/icons";
 import { ColorLongForm, GameMode } from "@/typing/enums";
-import { BookOpen, Clock3, Crown, ExternalLink, Flag, User, X } from "lucide-react";
+import { Activity, BookOpen, Clock3, Crown, ExternalLink, Flag, LucideIcon, User, X } from "lucide-react";
 
 interface GameInfoPopupProps {
   showPopup: boolean;
   setShowPopup: Dispatch<SetStateAction<boolean>>;
 }
+
+const PHASE_ICONS: Record<string, LucideIcon> = {
+  opening: BookOpen,
+  middlegame: Activity,
+  endgame: Flag
+};
 
 const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }) => {
   const puzzle = useSelector(getPuzzle);
@@ -20,6 +24,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
   }
 
   const phaseLabel = `${puzzle.phase[0].toLocaleUpperCase()}${puzzle.phase.slice(1)} Position`;
+  const PhaseIcon = PHASE_ICONS[puzzle.phase] ?? BookOpen;
   const gameMode = puzzle.rated ? GameMode.Rated : GameMode.Casual;
   const timeControlLabel = `${puzzle.timeControl} ${formatTimeControl(puzzle.clock.initial, puzzle.clock.increment)}`;
   const winnerName =
@@ -32,12 +37,12 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
       <div className="flex flex-col gap-3 text-[var(--color-fg)]">
         <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-[var(--color-border)]">
           <div className="flex items-center gap-2.5 min-w-0">
-            <img
-              src={`/phases/${puzzle.phase}.svg`}
-              alt={`${puzzle.phase} icon`}
+            <div
               title={`Position taken from ${puzzle.phase}`}
-              className="w-8 h-8 bg-[var(--color-surface-hover)] border border-[var(--color-border)] rounded-md p-1"
-            />
+              className="w-8 h-8 bg-[var(--color-surface-hover)] border border-[var(--color-border)] rounded-md p-1 flex items-center justify-center"
+            >
+              <PhaseIcon size={18} className="text-[var(--color-muted)]" aria-hidden />
+            </div>
             <div className="min-w-0">
               <p className="text-xs uppercase tracking-wide text-[var(--color-muted)] font-semibold">Reference Game</p>
               <p className="text-sm font-medium text-[var(--color-fg)] truncate">{phaseLabel}</p>
@@ -57,10 +62,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup }
             <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
               <Flag size={13} /> Mode
             </span>
-            <span className="inline-flex items-center gap-1.5 min-w-0 font-medium">
-              <GameSpeedIcon speed={puzzle.timeControl} size={ICON_SIZES.SMALL} />
-              <span className="truncate">{gameMode}</span>
-            </span>
+            <span className="truncate font-medium">{gameMode}</span>
           </div>
 
           <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] px-2.5 py-2">

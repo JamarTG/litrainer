@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useSelector } from "react-redux";
+import type { ComponentProps } from "react";
 import { useMaterialUpdate } from "@/hooks/board/useMaterialUpdate";
 import "@/styles/chessground.css";
 import { ColorLongForm } from "@/typing/enums";
@@ -13,6 +14,9 @@ import useLoadSet from "@/hooks/board/useLoadSet";
 import BoardHeaderLayout from "@/components/layout/BoardHeaderLayout";
 import BoardContent from "./BoardContent";
 import { useChessBoardController } from "./hooks/useChessBoardController";
+import Chessground from "react-chessground";
+
+type ChessgroundLastMove = ComponentProps<typeof Chessground>["lastMove"];
 
 const ChessBoard = () => {
   const boardRef = useRef<HTMLDivElement>(null);
@@ -24,7 +28,8 @@ const ChessBoard = () => {
   const puzzleStatus = useSelector(getPuzzleStatus);
   const classification = useSelector(getClassification);
 
-  const lastMove = sourceSquare && destinationSquare ? [sourceSquare, destinationSquare] : undefined;
+  const lastMove: ChessgroundLastMove =
+    sourceSquare && destinationSquare ? ([sourceSquare, destinationSquare] as ChessgroundLastMove) : undefined;
 
   const { game } = usePuzzleSetup();
   const { handleMoveAttempt } = useMoveHandler(game);

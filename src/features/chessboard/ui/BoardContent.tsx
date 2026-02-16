@@ -1,4 +1,4 @@
-import { CSSProperties, RefObject } from "react";
+import { CSSProperties, ComponentProps, RefObject } from "react";
 import { Chess } from "chess.js";
 import Chessground from "react-chessground";
 import ClassificationMarker from "./overlay/ClassificationMarker";
@@ -9,19 +9,20 @@ import { BOARD_CONFIG } from "@/constants/board";
 import { Classification } from "@/typing/types";
 import { CLASSIFICATION_COLORS } from "@/constants/classification";
 
+type ChessgroundProps = ComponentProps<typeof Chessground>;
+type ChessgroundMovable = NonNullable<ChessgroundProps["movable"]>;
+type ChessgroundLastMove = ChessgroundProps["lastMove"];
+type ChessgroundOnMove = NonNullable<ChessgroundProps["onMove"]>;
+
 interface BoardContentProps {
   boardRef: RefObject<HTMLDivElement>;
   fen: string;
   playerColorLongForm: ColorLongForm;
   game: Chess;
   classification: Classification | null;
-  lastMove?: [string, string];
-  movable: {
-    free: boolean;
-    dests: Map<string, string[]>;
-    color: ColorLongForm;
-  };
-  onMove: (from: string, to: string) => void;
+  lastMove?: ChessgroundLastMove;
+  movable: ChessgroundMovable;
+  onMove: ChessgroundOnMove;
   promotionMoveObject: PromotionMoveObject | null;
   handlePromotion: (promotionPiece: string) => void;
   handlePromotionCancel: VoidFunction;
@@ -67,8 +68,8 @@ const BoardContent = ({
         fen={fen}
         orientation={playerColorLongForm}
         turnColor={turnColor(game)}
-        movable={movable}
-        lastMove={lastMove}
+        movable={movable as ChessgroundMovable}
+        lastMove={lastMove as ChessgroundLastMove}
         onMove={onMove}
         drawable={{
           enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
