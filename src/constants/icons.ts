@@ -5,8 +5,8 @@ export const ICON_SIZES = {
 };
 
 export const PlayerIcons = {
-  filled: "&#xe028;",
-  unfilled: "&#xe029;",
+  // filled: "&#xe028;",
+  // unfilled: "&#xe029;",
   patron: "&#xe06c;"
 };
 

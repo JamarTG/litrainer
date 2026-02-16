@@ -23,9 +23,12 @@ const ClassificationImage = () => {
 
   const isAttempted = !!(playedMove && classification);
 
+
   return (
-    <div className="w-12 h-12 relative flex-shrink-0 rounded-full bg-zinc-200 dark:bg-zinc-700 shadow-inner flex items-center justify-center overflow-hidden">
+    <div title={classification || "h"} className="w-12 h-12 relative flex-shrink-0 rounded-full bg-zinc-200 dark:bg-zinc-700 shadow-inner flex items-center justify-center overflow-hidden">
+
       <img
+        
         src={initialImageSrc}
         width={INITIAL_CLASSIFICATION_IMG_SIZE}
         height={INITIAL_CLASSIFICATION_IMG_SIZE}

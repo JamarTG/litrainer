@@ -11,10 +11,7 @@ import { hasAttempted, resetFeedback } from "@/redux/slices/feedback";
 
 import { getEngineState } from "@/redux/slices/engine";
 import { ICON_SIZES } from "@/constants/icons";
-import next from "/icons/next.svg";
-import prev from "/icons/prev.svg";
-import retry from "/icons/retry.svg";
-
+import { nextIcon, previousIcon, retryIcon } from "@/assets/icons/ui";
 
 
 const baseBtn =
@@ -56,7 +53,7 @@ const NavigatePuzzle = () => {
         disabled={isFirstPuzzle || isEngineRunning}
         className={baseBtn}
       >
-        <img src={prev} width={ICON_SIZES.LARGE} />
+        <img src={previousIcon} width={ICON_SIZES.LARGE} />
       </button>
 
       <button
@@ -65,7 +62,7 @@ const NavigatePuzzle = () => {
         disabled={!attemptedPuzzle}
         className={baseBtn}
       >
-        <img src={retry} width={ICON_SIZES.LARGE} />
+        <img src={retryIcon} width={ICON_SIZES.LARGE} />
       </button>
 
       <button
@@ -74,7 +71,7 @@ const NavigatePuzzle = () => {
         disabled={isLastPuzzle || isEngineRunning}
         className={baseBtn}
       >
-        <img src={next} width={ICON_SIZES.LARGE} />
+        <img src={nextIcon} width={ICON_SIZES.LARGE} />
       </button>
     </div>
   );

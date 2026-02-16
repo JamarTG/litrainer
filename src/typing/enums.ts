@@ -1,25 +1,21 @@
-// Engine
-
 export enum EngineName {
   Stockfish17SingleThreaded = "stockfish_17_single",
   Stockfish17LiteSingleThreaded = "stockfish_17_lite_single",
   Stockfish17LiteMultiThreaded = "stockfish_17_lite_multi"
 }
 
-// Classification
 
 export enum MoveClassification {
-  Blunder = "Blunder",
-  Mistake = "Mistake",
-  Inaccuracy = "Inaccuracy",
-  Good = "Good",
-  Excellent = "Excellent",
-  Best = "Best",
-  Book = "Book",
-  Great = "Great"
+  blunder = "blunder",
+  mistake = "mistake",
+  inaccuracy = "inaccuracy",
+  good = "good",
+  excellent = "excellent",
+  best = "best",
+  book = "book",
+  great = "great"
 }
 
-// Colors
 export enum ColorLongForm {
   WHITE = "white",
   BLACK = "black"
@@ -30,7 +26,6 @@ export enum ColorShortForm {
   BLACK = "b"
 }
 
-// Lichess
 export enum GameMode {
   Rated = "Rated",
   Casual = "Casual"

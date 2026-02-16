@@ -1,44 +1,44 @@
 import { MoveClassification } from "@/typing/enums";
 import { 
-  BlunderIcon, 
-  InaccuracyIcon, 
-  MistakeIcon,
-  GoodIcon, 
-  ExcellentIcon, 
-  BestIcon, 
-  GreatIcon, 
-  BookIcon 
+  blunderIcon, 
+  inaccuracyIcon, 
+  mistakeIcon,
+  goodIcon, 
+  excellentIcon, 
+  bestIcon, 
+  greatIcon, 
+  bookIcon 
 } from "@/assets/icons/classification/index";
 
 export const CLASSIFICATION_IMAGES: Record<MoveClassification, string> = {
 
-  [MoveClassification.Blunder]: BlunderIcon,
-  [MoveClassification.Inaccuracy]: InaccuracyIcon,
-  [MoveClassification.Mistake]: MistakeIcon,
-  [MoveClassification.Good]: GoodIcon,
-  [MoveClassification.Excellent]: ExcellentIcon,
-  [MoveClassification.Best]: BestIcon,
-  [MoveClassification.Great]: GreatIcon,
-  [MoveClassification.Book]: BookIcon,
+  [MoveClassification.blunder]: blunderIcon,
+  [MoveClassification.inaccuracy]: inaccuracyIcon,
+  [MoveClassification.mistake]: mistakeIcon,
+  [MoveClassification.good]: goodIcon,
+  [MoveClassification.excellent]: excellentIcon,
+  [MoveClassification.best]: bestIcon,
+  [MoveClassification.great]: greatIcon,
+  [MoveClassification.book]: bookIcon,
 } as const;
 
 export const CLASSIFICATION_COLORS: Record<string, string> = {
-  [MoveClassification.Book]: "#a88865",
-  [MoveClassification.Best]: "#96bc4b",
-  [MoveClassification.Excellent]: "#96bc4b",
-  [MoveClassification.Good]: "#96af8b",
-  [MoveClassification.Inaccuracy]: "#f7c045",
-  [MoveClassification.Mistake]: "#e58f2a",
-  [MoveClassification.Blunder]: "#ca3431"
+  [MoveClassification.book]: "#a88865",
+  [MoveClassification.best]: "#96bc4b",
+  [MoveClassification.excellent]: "#96bc4b",
+  [MoveClassification.good]: "#96af8b",
+  [MoveClassification.inaccuracy]: "#f7c045",
+  [MoveClassification.mistake]: "#e58f2a",
+  [MoveClassification.blunder]: "#ca3431"
 } as const;
 
 export const CLASSIFICATION_MESSAGES: Record<MoveClassification, string> = {
-  [MoveClassification.Blunder]: "is a blunder",
-  [MoveClassification.Mistake]: "is a mistake",
-  [MoveClassification.Inaccuracy]: "is an inaccuracy",
-  [MoveClassification.Good]: "is a good move",
-  [MoveClassification.Excellent]: "is an excellent move",
-  [MoveClassification.Best]: "is the best move",
-  [MoveClassification.Book]: "is a book move",
-  [MoveClassification.Great]: "is a great move"
+  [MoveClassification.blunder]: "is a blunder",
+  [MoveClassification.mistake]: "is a mistake",
+  [MoveClassification.inaccuracy]: "is an inaccuracy",
+  [MoveClassification.good]: "is a good move",
+  [MoveClassification.excellent]: "is an excellent move",
+  [MoveClassification.best]: "is the best move",
+  [MoveClassification.book]: "is a book move",
+  [MoveClassification.great]: "is a great move"
 } as const;

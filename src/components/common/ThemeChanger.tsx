@@ -1,6 +1,5 @@
 import { toggleTheme } from "@/redux/slices/theme";
-import moon from "/icons/moon.svg";
-import sun from "/icons/sun.svg";
+import { moonIcon,sunIcon } from "@/assets/icons/ui";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { isDarkModeActive } from "@/redux/slices/theme";
@@ -18,7 +17,7 @@ const ThemeChanger = () => {
       onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
-      <img src={isDarkMode ? sun : moon} width={ICON_SIZES.LARGE} alt="toggle theme" />
+      <img src={isDarkMode ? sunIcon : moonIcon} width={ICON_SIZES.LARGE} alt="toggle theme" />
     </button>
   );
 };
