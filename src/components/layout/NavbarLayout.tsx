@@ -26,7 +26,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <section className="app-background relative min-h-screen text-[var(--color-fg)]">
       <nav className="sm:hidden p-2 pb-3 z-20 relative">
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center">
+          <span className="text-xl font-bold text-[var(--color-fg)]">litrainer</span>
+          <span className="text-sm font-semibold text-[var(--color-muted)] ml-2">Start Training</span>
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
@@ -156,6 +158,8 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <div className="flex items-center gap-3">
+          <span className="text-xl font-bold text-[var(--color-fg)]">litrainer</span>
+          <span className="text-sm font-semibold text-[var(--color-muted)] ml-2">Start Training</span>
           <span className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Project & Feedback</span>
           <a
             target="_blank"
