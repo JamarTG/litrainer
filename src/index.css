@@ -18,6 +18,12 @@
   --color-accent-hover: #292524;
   --color-accent-soft: #f1efeb;
 
+  --app-bg-spot-a: rgba(161, 137, 112, 0.22);
+  --app-bg-spot-b: rgba(255, 255, 255, 0.5);
+  --app-bg-sheen: rgba(255, 255, 255, 0.28);
+  --app-bg-line: rgba(120, 113, 108, 0.08);
+  --app-bg-dot: rgba(120, 113, 108, 0.14);
+
   --scroll-track: #e7e5e4;
   --scroll-thumb: #a8a29e;
   --scroll-thumb-hover: #78716c;
@@ -38,6 +44,12 @@ body.dark {
   --color-accent: #d6d3d1;
   --color-accent-hover: #f5f5f4;
   --color-accent-soft: #292524;
+
+  --app-bg-spot-a: rgba(114, 107, 101, 0.28);
+  --app-bg-spot-b: rgba(31, 31, 31, 0.58);
+  --app-bg-sheen: rgba(64, 64, 64, 0.22);
+  --app-bg-line: rgba(120, 113, 108, 0.14);
+  --app-bg-dot: rgba(168, 162, 158, 0.18);
 
   --scroll-track: #1f1f1f;
   --scroll-thumb: #57534e;
@@ -65,9 +77,25 @@ body.dark {
 }
 
 body {
+  position: relative;
   background-color: var(--color-bg);
-  background-image: var(--color-bg-gradient);
+  background-image:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-surface) 38%, transparent) 0%, transparent 55%),
+    var(--color-bg-gradient);
   color: var(--color-fg);
+}
+
+.app-background {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 14% 16%, var(--app-bg-spot-a) 0%, transparent 40%),
+    radial-gradient(circle at 88% 8%, var(--app-bg-spot-b) 0%, transparent 36%),
+    linear-gradient(145deg, var(--app-bg-sheen) 0%, transparent 58%),
+    repeating-linear-gradient(125deg, var(--app-bg-line) 0 1px, transparent 1px 16px),
+    radial-gradient(circle, var(--app-bg-dot) 1px, transparent 1.2px);
+  background-size: auto, auto, auto, auto, 22px 22px;
+  background-position: center, center, center, center, 0 0;
+  background-attachment: fixed;
 }
 
 html,

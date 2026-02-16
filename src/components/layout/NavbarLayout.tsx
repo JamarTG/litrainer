@@ -1,7 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import { ICON_SIZES } from "@/constants/icons";
-import { Bug, Github, GitPullRequest, MessageCircle, Star } from "lucide-react";
+import { Bug, GitPullRequest, MessageCircle, Star } from "lucide-react";
 import { LICHESS_URLS } from "@/constants/urls";
 import BugReportForm from "./BugReportForm";
 
@@ -12,7 +11,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen bg-[var(--color-bg)] text-[var(--color-fg)]">
+    <section className="app-background relative min-h-screen text-[var(--color-fg)]">
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <div className="flex items-center gap-3">
@@ -53,10 +52,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
             <MessageCircle size={14} /> Contact on Lichess
-          </a>
-
-          <a target="_blank" rel="noreferrer" href="https://github.com/JamarTG/litrainer" aria-label="GitHub repository">
-            <Github size={ICON_SIZES.LARGE} className="text-[var(--color-muted)] hover:text-[var(--color-fg)] transition" />
           </a>
         </div>
 
