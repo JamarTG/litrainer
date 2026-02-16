@@ -5,7 +5,7 @@ import { SettingsTriggerButton } from "@/features/settings";
 
 const PanelButtons = () => {
   return (
-    <div className="rounded-sm flex flex-col mt-2 gap-2.5 w-full max-w-md">
+    <div className="rounded-sm flex flex-col gap-2.5 w-full max-w-md">
       <div className="w-full">
         <NewSessionTriggerButton buttonClassName="w-full justify-center px-3 py-2 text-sm font-medium rounded-md gap-2" iconSize={16} />
       </div>

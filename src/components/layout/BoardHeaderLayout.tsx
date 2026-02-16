@@ -32,7 +32,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="p-2 relative sm:w-full lg:w-fit w-full flex gap-20 items-center justify-center">
+    <div className="px-2 pb-0 pt-0 md:p-2 relative sm:w-full lg:w-fit w-full flex gap-20 items-center justify-center">
       {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
       {children}
       {playerColor && renderHeaderForPlayer(playerColor, "bottom")}
