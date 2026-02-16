@@ -63,44 +63,45 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               <SettingsTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
             </div>
 
-            <div className="mt-3 grid grid-cols-1 gap-2.5">
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/JamarTG/litrainer"
-                aria-label="Star the repository"
-                className={mobileMenuItemClass}
-              >
-                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                  <Star size={14} className="star-drift" />
-                </span>
-                <span>Star the repo</span>
-              </a>
-
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/JamarTG/litrainer"
-                aria-label="Contribute to the repository"
-                className={mobileMenuItemClass}
-              >
-                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                  <GitPullRequest size={14} />
-                </span>
-                <span>Contribute</span>
-              </a>
-
-              <button
-                type="button"
-                onClick={handleOpenBugReport}
-                aria-label="Report a bug by email"
-                className={mobileMenuItemClass}
-              >
-                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                  <Bug size={14} />
-                </span>
-                <span>Report a bug</span>
-              </button>
+            <div className="mt-3">
+              <p className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold mb-2 px-1">Project & Feedback</p>
+              <div className="grid grid-cols-1 gap-2.5">
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://github.com/JamarTG/litrainer"
+                  aria-label="Star the repository"
+                  className={mobileMenuItemClass}
+                >
+                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                    <Star size={14} className="star-drift" />
+                  </span>
+                  <span>Star the repo</span>
+                </a>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://github.com/JamarTG/litrainer"
+                  aria-label="Contribute to the repository"
+                  className={mobileMenuItemClass}
+                >
+                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                    <GitPullRequest size={14} />
+                  </span>
+                  <span>Contribute</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleOpenBugReport}
+                  aria-label="Report a bug by email"
+                  className={mobileMenuItemClass}
+                >
+                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                    <Bug size={14} />
+                  </span>
+                  <span>Report a bug</span>
+                </button>
+              </div>
             </div>
 
             <div className="mt-3">
@@ -166,6 +167,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <div className="flex items-center gap-3">
+          <span className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Project & Feedback</span>
           <a
             target="_blank"
             rel="noreferrer"
