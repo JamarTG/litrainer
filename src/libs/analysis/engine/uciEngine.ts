@@ -131,7 +131,7 @@ export abstract class UciEngine {
   public async evaluateMoveQuality(
     fen: string,
     move: string
-  ): Promise<{ classification: MoveClassification; bestMove: string }> {
+  ): Promise<{ classification: MoveClassification; bestMove: string; evaluationCp: number | null; evaluationMate: number | null }> {
     const chess = new Chess(fen);
     const isValidMove = chess.move(move);
 
@@ -143,7 +143,9 @@ export abstract class UciEngine {
 
     return {
       classification: basicClassification,
-      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san
+      bestMove: new Chess(fen).move(lastPositionEval.lines[0]?.pv[0], { strict: false })?.san ?? "",
+      evaluationCp: currentPositionEval.lines[0]?.cp ?? null,
+      evaluationMate: currentPositionEval.lines[0]?.mate ?? null
     };
   }
 }

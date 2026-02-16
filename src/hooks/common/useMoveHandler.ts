@@ -44,6 +44,8 @@ const normalizeClassification = (value?: string | null): Classification | null =
 interface EvaluationResult {
   classification: Classification | null;
   bestMove: string | null;
+  evaluationCp: number | null;
+  evaluationMate: number | null;
 }
 
 const convertLanToSan = (fen: string, lanMove: string) => {
@@ -77,9 +79,17 @@ export const useMoveHandler = (game: Chess) => {
   );
 
   const createFeedback = useCallback(
-    (bestMove: string | null, playedMove: Move, classification: Classification): Feedback => ({
+    (
+      bestMove: string | null,
+      playedMove: Move,
+      classification: Classification,
+      evaluationCp: number | null,
+      evaluationMate: number | null
+    ): Feedback => ({
       bestMove: bestMove ? `${bestMove} is the best move` : "Repeated Error",
-      playedMove: `${playedMove.san} ${CLASSIFICATION_MESSAGES[classification]}`
+      playedMove: `${playedMove.san} ${CLASSIFICATION_MESSAGES[classification]}`,
+      evaluationCp,
+      evaluationMate
     }),
     []
   );
@@ -90,7 +100,9 @@ export const useMoveHandler = (game: Chess) => {
 
       const feedback = {
         bestMove: `${move} is acceptable`,
-        playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.book]}`
+        playedMove: `${move} ${CLASSIFICATION_MESSAGES[MoveClassification.book]}`,
+        evaluationCp: puzzle?.evaluation.eval ?? null,
+        evaluationMate: null
       };
 
       dispatchResults(MoveClassification.book, "solved", feedback);
@@ -100,8 +112,15 @@ export const useMoveHandler = (game: Chess) => {
   );
 
   const processEvaluation = useCallback(
-    (bestMove: string | null, playedMove: Move, classification: Classification, puzzleStatus: PuzzleStatus) => {
-      const feedback = createFeedback(bestMove, playedMove, classification);
+    (
+      bestMove: string | null,
+      playedMove: Move,
+      classification: Classification,
+      puzzleStatus: PuzzleStatus,
+      evaluationCp: number | null,
+      evaluationMate: number | null
+    ) => {
+      const feedback = createFeedback(bestMove, playedMove, classification, evaluationCp, evaluationMate);
       dispatchResults(classification, puzzleStatus, feedback);
     },
     [createFeedback, dispatchResults]
@@ -121,11 +140,13 @@ export const useMoveHandler = (game: Chess) => {
 
         return {
           classification: result.classification ?? null,
-          bestMove: result.bestMove ?? null
+          bestMove: result.bestMove ?? null,
+          evaluationCp: result.evaluationCp ?? null,
+          evaluationMate: result.evaluationMate ?? null
         };
       } catch (error) {
         console.error("Error evaluating move quality:", error);
-        return { classification: null, bestMove: null };
+        return { classification: null, bestMove: null, evaluationCp: null, evaluationMate: null };
       } finally {
         dispatch(setEngineRunning(false));
       }
@@ -138,17 +159,17 @@ export const useMoveHandler = (game: Chess) => {
       const lichessClassification = normalizeClassification(puzzle?.evaluation.judgment?.name);
       if (!lichessClassification) return;
       const bestMove = convertLanToSan(puzzle!.fen.current, puzzle!.evaluation.best ?? "");
-      processEvaluation(bestMove, playedMove, lichessClassification, "failed");
+      processEvaluation(bestMove, playedMove, lichessClassification, "failed", puzzle?.evaluation.eval ?? null, null);
     },
     [puzzle, processEvaluation]
   );
 
   const handleNewMove = useCallback(
     async (playedMove: Move) => {
-      const { classification, bestMove } = await evaluateMoveQuality(fen, playedMove);
+      const { classification, bestMove, evaluationCp, evaluationMate } = await evaluateMoveQuality(fen, playedMove);
       if (!classification) return;
 
-      processEvaluation(bestMove, playedMove, classification, "solved");
+      processEvaluation(bestMove, playedMove, classification, "solved", evaluationCp, evaluationMate);
 
       if (autoSkip && POSITIVE_CLASSIFICATIONS.has(classification)) {
         setTimeout(() => dispatch(nextPuzzle()), 1000);

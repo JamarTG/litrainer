@@ -1,4 +1,5 @@
 import HeaderForPlayer from "@/features/chessboard/ui/header";
+import EvalBar from "@/features/chessboard/ui/EvalBar";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
@@ -32,10 +33,18 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="px-2 pb-0 pt-0 md:p-2 relative sm:w-full lg:w-fit w-full flex gap-20 items-center justify-center">
-      {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
-      {children}
-      {playerColor && renderHeaderForPlayer(playerColor, "bottom")}
+    <div className="px-2 pb-0 pt-0 md:p-2 sm:w-full lg:w-fit w-full flex flex-col items-center">
+      <div className="w-full lg:w-fit flex items-stretch justify-center md:gap-3">
+        <EvalBar orientation="vertical" className="hidden md:flex" />
+
+        <div className="relative">
+          {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
+          {children}
+          {playerColor && renderHeaderForPlayer(playerColor, "bottom")}
+        </div>
+      </div>
+
+      <EvalBar orientation="horizontal" className="mt-2 max-w-[520px]" />
     </div>
   );
 };
