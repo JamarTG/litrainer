@@ -5,18 +5,16 @@ import PieceDifference from "./PieceDifference";
 import { PieceCount } from "@/typing/types";
 import { PIECE_VALUE } from "@/constants/piece";
 
-import { Color } from "chess.js";
 
 interface MaterialProps {
   playerMaterial: Material;
   opponentMaterial: Material;
-  playerColor: Color;
 }
 
 const MATERIAL_KEYS: Array<keyof Material> = ["p", "n", "b", "r", "q"];
 
 
-const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial, playerColor }) => {
+const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial }) => {
   const playerPieceCounts: PieceCount[] = [];
   const opponentPieceCounts: PieceCount[] = [];
   let materialScore = 0;
@@ -35,9 +33,6 @@ const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial, p
 
   if (materialScore === 0) return null;
 
-  let winningColor: Color | null = null;
-  if (materialScore > 0) winningColor = playerColor;
-  else if (materialScore < 0) winningColor = playerColor === "w" ? "b" : "w";
 
   if (materialScore > 0) {
     return (

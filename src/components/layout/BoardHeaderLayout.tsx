@@ -1,5 +1,4 @@
 import HeaderForPlayer from "@/features/chessboard/ui/header";
-import EvalBar from "@/features/chessboard/ui/EvalBar";
 import { useSelector } from "react-redux";
 import { FC, ReactNode } from "react";
 import { Color } from "chess.js";
