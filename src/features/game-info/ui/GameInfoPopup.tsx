@@ -35,7 +35,7 @@ const GameInfoPopup: React.FC<GameInfoPopupProps> = ({ showPopup, setShowPopup, 
 
   const popupContainerClass = inPanel
     ? "w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5 max-h-[70vh] overflow-y-auto"
-    : "fixed inset-x-2 top-14 bottom-2 z-[120] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5 overflow-y-auto md:absolute md:inset-auto md:right-full md:top-0 md:mr-2 md:z-20 md:w-[320px] md:max-w-[calc(100vw-1rem)] md:max-h-[80vh]";
+    : "fixed inset-x-2 top-14 bottom-2 z-[120] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-sm p-3.5 overflow-y-auto md:absolute md:inset-auto md:left-full md:top-0 md:ml-2 md:z-20 md:w-[320px] md:max-w-[calc(100vw-1rem)] md:max-h-[80vh]";
 
   return (
     <div className={popupContainerClass}>
