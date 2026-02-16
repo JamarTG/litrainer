@@ -7,8 +7,8 @@ const ClassificationText = () => {
   const bestMove = useSelector(getBestMove);
   const classification = useSelector(getClassification);
 
-  const playedMoveText = isPuzzleAttempted ? playedMove ?? "--" : "—";
-  const bestMoveText = isPuzzleAttempted ? bestMove ?? "--" : "Play a move";
+  const playedMoveText = isPuzzleAttempted ? playedMove ?? "--" : "--";
+  const bestMoveText = isPuzzleAttempted ? bestMove ?? "--" : "--";
   const statusText = classification ?? "Pending";
 
   return (
