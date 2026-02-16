@@ -8,8 +8,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({ icon, children, className, border = false, ...props }) => {
   const baseBtn = `${border ? "border-2" : ""} flex items-center justify-center px-5 py-1 rounded-lg font-semibold transition-all duration-150 active:translate-y-1 gap-2`;
 
-  const activeBtn = "dark:border-zinc-300 dark:text-zinc-300 text-zinc-600 border-zinc-500";
-  const disabledBtn = "border-zinc-400 dark:border-zinc-600 text-zinc-400 cursor-not-allowed shadow-none";
+  const activeBtn =
+    "border-[var(--color-border-strong)] text-[var(--color-fg)] bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]";
+  const disabledBtn = "border-[var(--color-border)] text-[var(--color-muted)] cursor-not-allowed shadow-none";
 
   return (
     <button {...props} className={`${baseBtn} ${props.disabled ? disabledBtn : activeBtn} ${className || ""}`}>

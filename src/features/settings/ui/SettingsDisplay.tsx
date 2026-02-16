@@ -14,12 +14,12 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
   return (
     <div
       style={{ zIndex: 100 }}
-      className="absolute w-full min-h-[499px] inset-0 bg-[#e7e3e3] dark:bg-zinc-900 p-4 flex flex-col gap-4 animate-fade-in"
+      className="absolute w-full min-h-[499px] inset-0 bg-[var(--color-surface-strong)] text-[var(--color-fg)] p-4 flex flex-col gap-4 animate-fade-in"
     >
       <div className="h-8 flex items-center justify-between">
         <button
           onClick={() => setShowSettings(false)}
-          className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
+          className="flex items-center gap-1 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition"
         >
           <ArrowLeft size={ICON_SIZES.MEDIUM} />
         </button>
