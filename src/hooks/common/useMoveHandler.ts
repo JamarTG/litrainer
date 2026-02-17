@@ -186,7 +186,7 @@ export const useMoveHandler = (game: Chess) => {
 
       processEvaluation(bestMove, playedMove, classification, "solved", evaluationCp, evaluationMate);
 
-      if ( POSITIVE_CLASSIFICATIONS.has(classification) && autoSkip) {
+      if ( POSITIVE_CLASSIFICATIONS.has(classification)) {
         setTimeout(() => dispatch(nextPuzzle()), 1000);
       } else  {
         //

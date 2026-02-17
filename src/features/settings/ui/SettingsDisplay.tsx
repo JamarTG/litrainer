@@ -2,7 +2,6 @@ import { ArrowLeft } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import BoardThemeChooser from "./BoardThemeChooser";
 import PieceSetChooser from "./PieceSetChooser";
-import AutoSkip from "./AutoSkip";
 import EngineDepthControl from "./EngineDepthControl";
 import { ICON_SIZES } from "@/constants/icons";
 
