@@ -1,7 +1,5 @@
 import { FC } from "react";
 import { Material } from "@/typing/interfaces";
-import MaterialScore from "./MaterialScore";
-import PieceDifference from "./PieceDifference";
 import { PieceCount } from "@/typing/types";
 import { PIECE_VALUE } from "@/constants/piece";
 
