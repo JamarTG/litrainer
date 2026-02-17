@@ -5,7 +5,6 @@ import useUpdateTheme from "@/hooks/common/useUpdateTheme";
 import { TrainerForm } from "@/features/training-session";
 import { ChessBoard } from "@/features/chessboard";
 import { Panel } from "@/features/panel";
-import { Dumbbell } from "lucide-react";
 
 interface PlaygroundProps {
   puzzles: Puzzle[];

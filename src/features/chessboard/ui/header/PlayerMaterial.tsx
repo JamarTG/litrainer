@@ -37,14 +37,14 @@ const PlayerMaterial: FC<MaterialProps> = ({ playerMaterial, opponentMaterial })
   if (materialScore > 0) {
     return (
       <div className="flex justify-center items-center gap-1">
-        <PieceDifference pieceCounts={playerPieceCounts} />
-        <MaterialScore score={materialScore} />
+        {/* <PieceDifference pieceCounts={playerPieceCounts} /> */}
+        {/* <MaterialScore score={materialScore} /> */}
       </div>
     );
   } else if (materialScore < 0) {
     return (
       <div className="flex justify-center items-center gap-1">
-        <PieceDifference pieceCounts={opponentPieceCounts} />
+        {/* <PieceDifference pieceCounts={opponentPieceCounts} /> */}
       </div>
     );
   } else {

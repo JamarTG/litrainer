@@ -1,21 +1,15 @@
-import { getBestMove, getClassification, getPlayedMove, hasAttempted } from "@/state/slices/feedback";
+import {  getClassification, getPlayedMove, hasAttempted } from "@/state/slices/feedback";
 import { getPuzzle } from "@/state/slices/puzzle";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 const ClassificationText = () => {
   const puzzle = useSelector(getPuzzle);
   const playedMove = useSelector(getPlayedMove);
   const isPuzzleAttempted = useSelector(hasAttempted);
-  const bestMove = useSelector(getBestMove);
   const classification = useSelector(getClassification);
-
-  const [showBestMove, setShowBestMove] = useState(false);
-
   const playedMoveText = playedMove ?? puzzle.userMove?.san ?? "--";
-  const bestMoveText = isPuzzleAttempted ? bestMove ?? "--" : "--";
 
   const normalizeClassificationKey = (key: unknown): MoveClassification => {
     if (!key) return MoveClassification.inaccuracy;
@@ -32,9 +26,6 @@ const ClassificationText = () => {
 
   return (
     <div className="flex flex-col w-full min-w-0 h-full justify-center items-center">
-
-      {/* <div className="flex flex-col items-center gap-4 w-full px-4 min-h-[120px]"> */}
-
         <div className="flex w-full items-center justify-start">
           <img
             src={playedMoveIcon}
