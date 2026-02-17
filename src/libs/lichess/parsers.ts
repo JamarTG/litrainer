@@ -73,7 +73,7 @@ const generatePuzzles = (username: string, games: LichessGameResponse[], evaluat
 
       if (!evaluation || !move) continue;
 
-      if (evaluation.judgment && move.color === OPColor && i > 0) {
+      if ((evaluation.judgment?.name === "Blunder" || evaluation.judgment?.name === "Mistake") && move.color === OPColor && i > 0) {
         let phase: GamePhase.opening | GamePhase.middlegame | GamePhase.endgame;
 
         if (plyNumber < middlegameStartPly) {
