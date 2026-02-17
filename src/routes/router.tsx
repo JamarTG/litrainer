@@ -6,11 +6,9 @@ import { loadFromLocalStorage } from "@/utils/storage";
 import { PUZZLE_STORAGE_KEY } from "@/constants/storage";
 
 const getPreloadedPuzzles = () => {
-
   const r = test.filter(({evaluation}) => {
     return !evaluation.judgment || evaluation.judgment?.name !== "Inaccuracy";
   });
-
   return {
     puzzles: loadFromLocalStorage(PUZZLE_STORAGE_KEY, r)
   };

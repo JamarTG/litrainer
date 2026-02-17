@@ -3,6 +3,7 @@ import { getPuzzle } from "@/state/slices/puzzle";
 import { CLASSIFICATION_IMAGES } from "@/constants/classification";
 import { MoveClassification } from "@/typing/enums";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const ClassificationText = () => {
   const puzzle = useSelector(getPuzzle);
@@ -11,74 +12,52 @@ const ClassificationText = () => {
   const bestMove = useSelector(getBestMove);
   const classification = useSelector(getClassification);
 
+  const [showBestMove, setShowBestMove] = useState(false);
+
   const playedMoveText = playedMove ?? puzzle.userMove?.san ?? "--";
   const bestMoveText = isPuzzleAttempted ? bestMove ?? "--" : "--";
-  const statusText = isPuzzleAttempted
-    ? classification ?? "Pending"
-    : puzzle.evaluation.judgment?.name ?? "Pending";
-  const headerText = isPuzzleAttempted ? "Move Feedback" : "Error in Game";
-  const playedMoveLabel = isPuzzleAttempted ? "Your Move" : "Error";
 
-
-  function normalizeClassificationKey(key: unknown): MoveClassification {
+  const normalizeClassificationKey = (key: unknown): MoveClassification => {
     if (!key) return MoveClassification.inaccuracy;
     const str = String(key).toLowerCase();
-    if (Object.values(MoveClassification).includes(str as MoveClassification)) {
-      return str as MoveClassification;
-    }
-    return MoveClassification.inaccuracy;
-  }
-  const playedMoveClassificationKey = isPuzzleAttempted ? classification : puzzle.evaluation.judgment?.name;
-  const playedMoveKey = normalizeClassificationKey(playedMoveClassificationKey);
+    return Object.values(MoveClassification).includes(str as MoveClassification)
+      ? (str as MoveClassification)
+      : MoveClassification.inaccuracy;
+  };
+
+  const playedMoveKey = normalizeClassificationKey(
+    isPuzzleAttempted ? classification : puzzle.evaluation.judgment?.name
+  );
   const playedMoveIcon = CLASSIFICATION_IMAGES[playedMoveKey];
-  const bestMoveIcon = isPuzzleAttempted ? CLASSIFICATION_IMAGES[MoveClassification.best] : undefined;
-  const errorIcon = !isPuzzleAttempted ? playedMoveIcon : undefined;
 
   return (
-    <div className="flex flex-col flex-1 min-w-0 gap-3 h-full justify-start">
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">{headerText}</span>
-      </div>
+    <div className="flex flex-col w-full min-w-0 h-full justify-center items-center">
 
-      <div className="grid grid-cols-[88px_1fr] gap-x-3 gap-y-1.5 items-center text-sm leading-5">
-        <span className="text-[var(--color-muted)] font-semibold">{playedMoveLabel}</span>
-        <span className="text-[var(--color-fg)] font-semibold truncate flex items-center gap-1">
-          {isPuzzleAttempted && playedMoveIcon && (
-            <img
-              src={playedMoveIcon}
-              alt={playedMoveKey}
-              className="w-4 h-4 inline-block align-middle"
-              style={{ marginRight: 2 }}
-            />
-          )}
-          {playedMoveText}
-        </span>
+      {/* <div className="flex flex-col items-center gap-4 w-full px-4 min-h-[120px]"> */}
 
-        <span className="text-[var(--color-muted)] font-semibold flex items-center gap-1">
-          {isPuzzleAttempted ? "Best Move" : "Severity"}
-          {!isPuzzleAttempted && errorIcon && (
-            <img
-              src={errorIcon}
-              alt={playedMoveKey}
-              className="w-4 h-4 inline-block align-middle"
-              style={{ marginLeft: 2 }}
-            />
-          )}
-        </span>
-        <span className="text-[var(--color-fg)] truncate flex items-center gap-1">
-          {isPuzzleAttempted && bestMoveIcon && (
-            <img
-              src={bestMoveIcon}
-              alt="best"
-              className="w-4 h-4 inline-block align-middle"
-              style={{ marginRight: 2 }}
-            />
-          )}
-          {isPuzzleAttempted ? bestMoveText : statusText}
-        </span>
-      </div>
+        <div className="flex w-full items-center justify-start">
+          <img
+            src={playedMoveIcon}
+            alt={playedMoveKey}
+            className="w-16 h-16 inline-block align-middle"
+            style={{ marginLeft: 2 }}
+          />
+          <div className="flex flex-col items-start p-4">
+            <p className="text-lg font-semibold text-[var(--color-fg)]">
+              {playedMoveText || ""}
+              {!isPuzzleAttempted && playedMoveText ? " was played here" : ""}
+            </p>
+            {isPuzzleAttempted
+              ? <p>Try another move :)</p>
+              : <p>Find a better move</p>
+            }
+          </div>
+        </div>
+
+
     </div>
   );
 };
 
 export default ClassificationText;
+
