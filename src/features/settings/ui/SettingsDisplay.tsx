@@ -30,7 +30,7 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
 
       <div className="flex flex-1 justify-center items-start pt-2">
         <div className="w-full max-w-md rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3 space-y-3">
-          <AutoSkip />
+          {/* <AutoSkip /> */}
           <PieceSetChooser />
           <BoardThemeChooser />
           <EngineDepthControl />
