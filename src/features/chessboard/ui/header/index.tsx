@@ -4,14 +4,14 @@ import { Material } from "@/typing/interfaces";
 import PlayerMaterial from "./PlayerMaterial";
 import PlayerMetaData from "./PlayerMetaData";
 
-interface HeaderForPlayerProps {
+interface ChessboardHeaderProps {
   playerColor: Color;
   playerMaterial: Material;
   opponentMaterial: Material;
   hasPuzzle: boolean;
 }
 
-const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial, opponentMaterial, hasPuzzle }) => {
+const ChessboardHeader: FC<ChessboardHeaderProps> = ({ playerColor, playerMaterial, opponentMaterial, hasPuzzle }) => {
   if (!hasPuzzle) return;
 
   return (
@@ -22,4 +22,4 @@ const HeaderForPlayer: FC<HeaderForPlayerProps> = ({ playerColor, playerMaterial
   );
 };
 
-export default HeaderForPlayer;
+export default ChessboardHeader;
