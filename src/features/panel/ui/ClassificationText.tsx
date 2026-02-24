@@ -40,7 +40,7 @@ const ClassificationText = () => {
             </p>
             {isPuzzleAttempted
               ? (
-                  [MoveClassification.correct, MoveClassification.good, MoveClassification.excellent, MoveClassification.best, MoveClassification.great].includes(playedMoveKey)
+                  [MoveClassification.good, MoveClassification.excellent, MoveClassification.best, MoveClassification.great].includes(playedMoveKey)
                     ? <p className="text-green-600">Move accepted!</p>
                     : <p>Try another move :)</p>
                 )
