@@ -1,16 +1,11 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
 import { Bug, ExternalLink,  Star } from "lucide-react";
-import { CHESSCOM_URLS, LICHESS_URLS } from "@/constants/urls";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
 import { SettingsTriggerButton } from "@/features/settings";
 
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
-const LICHESS_USERNAME = "JamariTheGreat";
-const CHESSCOM_USERNAME = "theSadisticBiscuit";
-const LINKEDIN_PROFILE_URL = "https://www.linkedin.com/in/jamarimcfarlane/";
-const GITHUB_PROFILE_URL = "https://github.com/JamarTG";
 const mobileMenuItemClass =
   "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
 
