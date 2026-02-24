@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import { Bug, ExternalLink,  Star } from "lucide-react";
+import { Bug, Star } from "lucide-react";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
 import { SettingsTriggerButton } from "@/features/settings";
