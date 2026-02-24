@@ -1,8 +1,8 @@
 import { Dispatch, FC, SetStateAction, useRef } from "react";
-import Swiper from "./swipers/Swiper";
+import Swiper from "../swipers/Swiper";
 import Portal from "./Portal";
-import SlideOne from "./slides/slide-one/Slide1";
-import SlideTwo from "./slides/slide-two/Slide2";
+import SlideOne from "../slides/Slide1";
+import SlideTwo from "../slides/Slide2";
 import FormHeader from "./FormHeader";
 import { useTrainerFormState } from "@/features/training-session/hooks/useTrainerFormState";
 
