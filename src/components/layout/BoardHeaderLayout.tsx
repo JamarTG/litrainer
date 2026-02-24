@@ -8,9 +8,10 @@ import { ColorShortForm } from "@/typing/enums";
 
 interface BoardHeaderLayoutProps {
   children: ReactNode;
+  hideHeaders?: boolean;
 }
 
-const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
+const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children, hideHeaders = false }) => {
   const currentPuzzle = useSelector(getPuzzle);
   const hasActivePuzzle = Boolean(currentPuzzle);
   const playerColor = currentPuzzle?.userMove.color;
@@ -41,13 +42,11 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
     <div className="px-2 pb-0 pt-0 md:p-2 sm:w-full lg:w-fit w-full flex flex-col items-center">
       <div className="w-full lg:w-fit flex items-stretch justify-center md:gap-3">
         <div className="relative">
-          {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
+          {!hideHeaders && opponentColor && renderHeaderForPlayer(opponentColor, "top")}
           {children}
-          {playerColor && renderHeaderForPlayer(playerColor, "bottom")}
+          {!hideHeaders && playerColor && renderHeaderForPlayer(playerColor, "bottom")}
         </div>
       </div>
-
-    
     </div>
   );
 };

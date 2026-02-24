@@ -8,6 +8,9 @@ interface PlayerNameProps {
 const PlayerName: FC<PlayerNameProps> = ({ name }) => {
   if (!name) return null;
 
+  // Capitalize first letter, lowercase the rest
+  const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+
   return (
     <a
       href={`${LICHESS_URLS.Profile}/${name}`}
@@ -15,7 +18,7 @@ const PlayerName: FC<PlayerNameProps> = ({ name }) => {
       rel="noopener noreferrer"
       className="text-blue-500 hover:underline"
     >
-      {name}
+      {displayName}
     </a>
   );
 };

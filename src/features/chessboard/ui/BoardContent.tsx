@@ -26,6 +26,7 @@ interface BoardContentProps {
   promotionMoveObject: PromotionMoveObject | null;
   handlePromotion: (promotionPiece: string) => void;
   handlePromotionCancel: VoidFunction;
+  hidePieces?: boolean;
 }
 
 const BoardContent = ({
@@ -39,7 +40,8 @@ const BoardContent = ({
   onMove,
   promotionMoveObject,
   handlePromotion,
-  handlePromotionCancel
+  handlePromotionCancel,
+  hidePieces = false
 }: BoardContentProps) => {
   const convertHexToRgba = (hexColor: string, alpha: number) => {
     const sanitized = hexColor.replace("#", "");
@@ -65,31 +67,33 @@ const BoardContent = ({
     <div ref={boardRef} style={boardStyle} className="box relative main-board green merida">
       <Chessground
         key={`puzzle-${fen}`}
-        fen={fen}
+        fen={hidePieces ? '8/8/8/8/8/8/8/8' : fen}
         orientation={playerColorLongForm}
         turnColor={turnColor(game)}
-        movable={movable as ChessgroundMovable}
-        lastMove={lastMove as ChessgroundLastMove}
-        onMove={onMove}
-        drawable={{
+        movable={hidePieces ? { free: false, color: undefined, dests: {} } : (movable as ChessgroundMovable)}
+        lastMove={hidePieces ? undefined : (lastMove as ChessgroundLastMove)}
+        onMove={hidePieces ? undefined : onMove}
+        drawable={hidePieces ? { enabled: false, visible: false, shapes: [] } : {
           enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
           visible: BOARD_CONFIG.VISIBLE_ENABLED,
           defaultSnapToValidMove: BOARD_CONFIG.DEFAULT_SNAP_TO_VALID_MOVE,
           shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
         }}
         className="relative"
-        highlight={{ lastMove: BOARD_CONFIG.HIGHLIGHT_LAST_MOVE, check: BOARD_CONFIG.HIGHLIGHT_LAST_CHECK }}
+        highlight={hidePieces ? { lastMove: false, check: false } : { lastMove: BOARD_CONFIG.HIGHLIGHT_LAST_MOVE, check: BOARD_CONFIG.HIGHLIGHT_LAST_CHECK }}
         addPieceZIndex={BOARD_CONFIG.ADD_PIECE_Z_INDEX}
       />
-
-      <ClassificationMarker boardRef={boardRef} boardSize={boardRef.current?.offsetWidth || BOARD_CONFIG.DEFAULT_BOARD_SIZE} />
-
-      <PromotionModal
-        isOpen={!!promotionMoveObject}
-        color={promotionMoveObject?.color ?? null}
-        onPromote={handlePromotion}
-        onCancel={handlePromotionCancel}
-      />
+      {!hidePieces && (
+        <>
+          <ClassificationMarker boardRef={boardRef} boardSize={boardRef.current?.offsetWidth || BOARD_CONFIG.DEFAULT_BOARD_SIZE} />
+          <PromotionModal
+            isOpen={!!promotionMoveObject}
+            color={promotionMoveObject?.color ?? null}
+            onPromote={handlePromotion}
+            onCancel={handlePromotionCancel}
+          />
+        </>
+      )}
     </div>
   );
 };

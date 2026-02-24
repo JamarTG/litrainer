@@ -24,7 +24,7 @@ const Playground: FC<PlaygroundProps> = ({ puzzles }) => {
 
   return (
     <div className="flex flex-col md:flex-row gap-0 md:gap-4 md:items-start md:justify-center md:mx-2 lg:mx-4 relative">
-      <ChessBoard />
+      <ChessBoard hidePieces={interactionRequired} />
       <Panel />
       {interactionRequired && (
         <InteractionModal

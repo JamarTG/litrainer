@@ -18,7 +18,7 @@ import Chessground from "react-chessground";
 
 type ChessgroundLastMove = ComponentProps<typeof Chessground>["lastMove"];
 
-const ChessBoard = () => {
+const ChessBoard = ({ hidePieces = false }: { hidePieces?: boolean }) => {
   const boardRef = useRef<HTMLDivElement>(null);
 
   const fen = useSelector(getFen);
@@ -46,7 +46,7 @@ const ChessBoard = () => {
   });
 
   return (
-    <BoardHeaderLayout>
+    <BoardHeaderLayout hideHeaders={hidePieces}>
       <BoardContent
         boardRef={boardRef}
         fen={fen}
@@ -59,6 +59,7 @@ const ChessBoard = () => {
         promotionMoveObject={promotionMoveObject}
         handlePromotion={handlePromotion}
         handlePromotionCancel={handlePromotionCancel}
+        hidePieces={hidePieces}
       />
     </BoardHeaderLayout>
   );
