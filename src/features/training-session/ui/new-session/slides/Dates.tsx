@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import usePopperDropDown from "@/hooks/common/usePopperDropDown";
 import ReactDOM from "react-dom";
-import Calendar from "../Calendar";
+import Calendar from "./Calendar";
 import SortBy from "./SortBy";
 import { convertDateToReadableFormat } from "@/services/lichess";
 import { Fields } from "@/typing/interfaces";
