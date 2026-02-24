@@ -48,7 +48,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
   return (
     <div className="flex flex-col gap-y-4">
       <div className="grid">
-        <h1 className="text-sm text-[var(--color-muted)] mb-1">Date</h1>
+        <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)] mb-1">Date</h1>
 
         <div className="relative w-[250px] flex items-center justify-center ">
           <input
@@ -119,7 +119,7 @@ const Dates: FC<DatesProps> = ({ handleInputChange, setFormData, formData }) => 
       </div>
 
       <div className=" grid gap-2 w-[128px] ">
-        <h1 className="text-sm text-[var(--color-muted)]">Order Games</h1>
+        <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Order Games</h1>
         <div className="relative  flex items-center">
           <input
             className="cursor-pointer flex text-[var(--color-fg)] w-full h-[32px] outline-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 text-sm placeholder:text-[var(--color-muted)]"

@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, useState } from "react";
-import TrainerForm from "./form/TrainerForm";
+import TrainerPanel from "./form/TrainerPanel";
 import { PlusCircle } from "lucide-react";
 import { ICON_SIZES } from "@/constants/icons";
 import Button from "@/components/shared/Button";
@@ -11,30 +11,33 @@ interface NewSessionTriggerButtonProps {
   iconOverride?: ReactNode;
 }
 
+
 const NewSessionTriggerButton: React.FC<NewSessionTriggerButtonProps> = ({
   buttonClassName,
   iconSize = ICON_SIZES.SMALL,
   showLabel = true,
   iconOverride
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [showTrainer, setShowTrainer] = useState<boolean>(false);
 
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleToggleTrainer = () => {
+    setShowTrainer(!showTrainer);
   };
 
   return (
     <Fragment>
-      <TrainerForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      {/* <TrainerForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
 
       <Button
         aria-label="Create New Session"
         title="Create New Session"
-        onClick={handleToggleModal}
+        onClick={handleToggleTrainer}
         className={buttonClassName}
       >
         {iconOverride ?? <PlusCircle size={iconSize} />} {showLabel ? "Add Games" : null}
       </Button>
+
+      {showTrainer && <TrainerPanel setShowTrainer={setShowTrainer} />}
     </Fragment>
   );
 };

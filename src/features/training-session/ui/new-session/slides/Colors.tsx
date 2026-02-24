@@ -17,7 +17,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
 
   return (
     <div className="grid gap-2">
-      <h1 className="text-sm text-[var(--color-muted)]">Colors</h1>
+      <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Colors</h1>
 
       <div className="w-full flex items-center justify-between gap-x-2">
         <div className={optionClassName(formData.color === "white")}>

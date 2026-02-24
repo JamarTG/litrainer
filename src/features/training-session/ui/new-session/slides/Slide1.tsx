@@ -83,7 +83,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
       <div className="grid gap-4 ">
         <div className="flex flex-col gap-2 md:flex-row sm:gap-2 justify-between">
           <div className="grid gap-2">
-            <h1 className="text-sm text-[var(--color-muted)]">Username</h1>
+            <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Username</h1>
             <div className="relative">
               <input
                 ref={inputRef}
@@ -103,7 +103,7 @@ const SlideOne: FC<SlideOneProps> = ({ formData, setFormData, handleInputChange 
             </div>
           </div>
           <div className="grid gap-2">
-            <h1 className="text-sm text-[var(--color-muted)]">
+            <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">
               Max <span className="inline md:hidden"># </span>
               <span className="hidden md:inline">number </span> of games
             </h1>

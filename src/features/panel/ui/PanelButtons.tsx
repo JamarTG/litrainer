@@ -22,9 +22,11 @@ const PanelButtons: React.FC<PanelButtonsProps> = ({ iconOnly = false }) => {
 
   return (
     <div className="rounded-sm flex flex-col gap-2.5 w-full max-w-md">
-      <div className="w-full">
-        <NewSessionTriggerButton buttonClassName="w-full justify-center px-2.5 py-1.5 text-xs font-medium rounded-full gap-1.5" iconSize={15} />
-      </div>
+
+
+      <div className="min-w-0">
+          <NewSessionTriggerButton buttonClassName="w-full justify-center px-2.5 py-1.5 text-xs font-medium rounded-full gap-1.5" iconSize={15} />
+        </div>
 
       <div className="w-full grid grid-cols-2 gap-2">
         <div className="min-w-0">

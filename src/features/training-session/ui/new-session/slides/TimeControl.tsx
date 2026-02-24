@@ -36,7 +36,7 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
   return (
     <div className="grid gap-2">
-      <h1 className="text-sm text-[var(--color-muted)]">Time controls</h1>
+      <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Time Controls</h1>
 
       <div className="relative w-full flex items-center">
         <input
