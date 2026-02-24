@@ -12,7 +12,7 @@ const CHESSCOM_USERNAME = "theSadisticBiscuit";
 const LINKEDIN_PROFILE_URL = "https://www.linkedin.com/in/jamarimcfarlane/";
 const GITHUB_PROFILE_URL = "https://github.com/JamarTG";
 const mobileMenuItemClass =
-  "w-full inline-flex items-center justify-start gap-2 text-sm font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
+  "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
@@ -65,7 +65,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             </div>
 
             <div className="mt-3">
-              <p className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold mb-2 px-1">Project & Feedback</p>
+              <p className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold mb-2 px-1 ">Project & Feedback</p>
               <div className="grid grid-cols-1 gap-2.5">
                 <a
                   target="_blank"
@@ -75,11 +75,11 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <Star size={14} className="star-drift" />
+                    <Star size={20} className="star-drift" />
                   </span>
                   <span>Star the repo</span>
                 </a>
-                {/* Contribute link removed */}
+           
                 <button
                   type="button"
                   onClick={handleOpenBugReport}
@@ -87,7 +87,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <Bug size={14} />
+                    <Bug size={20} />
                   </span>
                   <span>Report a bug</span>
                 </button>
@@ -105,7 +105,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={14} />
+                    <ExternalLink size={20} />
                   </span>
                   <span>Lichess</span>
                 </a>
@@ -118,7 +118,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={14} />
+                    <ExternalLink size={20} />
                   </span>
                   <span>Chess.com</span>
                 </a>
@@ -131,7 +131,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={14} />
+                    <ExternalLink size={20} />
                   </span>
                   <span>LinkedIn</span>
                 </a>
@@ -144,7 +144,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={14} />
+                    <ExternalLink size={20} />
                   </span>
                   <span>GitHub</span>
                 </a>
@@ -157,26 +157,24 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <div className="flex items-center gap-3">
-          <span className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Project & Feedback</span>
+          <span className="hidden xl:block text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Project & Feedback</span>
           <a
             target="_blank"
             rel="noreferrer"
             href="https://github.com/JamarTG/litrainer"
             aria-label="Star the repository"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <Star size={14} className="star-drift" /> Star the repo
+            <Star size={20} className="star-drift" /> <span className="hidden lg:block">Star the repo</span>
           </a>
-
-          {/* Contribute link removed */}
 
           <button
             type="button"
             onClick={() => setIsBugFormOpen(true)}
             aria-label="Report a bug by email"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <Bug size={14} /> Report a bug
+            <Bug size={20} /> <span className="hidden lg:block">Report a bug</span>
           </button>
 
           <div className="h-4 w-px bg-[var(--color-border)]" />
@@ -187,9 +185,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             rel="noreferrer"
             href={`${LICHESS_URLS.Profile}${LICHESS_USERNAME}`}
             aria-label="View creator profile on Lichess"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> Lichess
+            <ExternalLink size={20} /> Lichess
           </a>
 
           <a
@@ -197,9 +195,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             rel="noreferrer"
             href={`${CHESSCOM_URLS.Profile}${CHESSCOM_USERNAME}`}
             aria-label="View creator profile on Chess.com"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> Chess.com
+            <ExternalLink size={20} /> Chess.com
           </a>
 
           <a
@@ -207,9 +205,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             rel="noreferrer"
             href={LINKEDIN_PROFILE_URL}
             aria-label="View creator profile on LinkedIn"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> LinkedIn
+            <ExternalLink size={20} /> LinkedIn
           </a>
 
           <a
@@ -217,9 +215,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             rel="noreferrer"
             href={GITHUB_PROFILE_URL}
             aria-label="View creator profile on GitHub"
-            className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
           >
-            <ExternalLink size={14} /> GitHub
+            <ExternalLink size={20} /> GitHub
           </a>
         </div>
 

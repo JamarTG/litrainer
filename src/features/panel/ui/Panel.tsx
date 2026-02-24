@@ -1,5 +1,5 @@
-import PanelBody from "./body";
-import PanelHeader from "./header";
+import PanelBody from "./PanelBody";
+import PanelHeader from "./PanelHeader";
 
 const Panel = () => {
   return (

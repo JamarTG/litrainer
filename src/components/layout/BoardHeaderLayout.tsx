@@ -40,8 +40,6 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
   return (
     <div className="px-2 pb-0 pt-0 md:p-2 sm:w-full lg:w-fit w-full flex flex-col items-center">
       <div className="w-full lg:w-fit flex items-stretch justify-center md:gap-3">
-        {/* <EvalBar orientation="vertical" className="hidden md:flex" /> */}
-
         <div className="relative">
           {opponentColor && renderHeaderForPlayer(opponentColor, "top")}
           {children}
@@ -49,7 +47,7 @@ const BoardHeaderLayout: FC<BoardHeaderLayoutProps> = ({ children }) => {
         </div>
       </div>
 
-      {/* <EvalBar orientation="horizontal" className="mt-2 max-w-[520px]" /> */}
+    
     </div>
   );
 };

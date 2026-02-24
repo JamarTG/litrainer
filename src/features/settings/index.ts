@@ -1,1 +1,1 @@
-export { default as SettingsTriggerButton } from "./ui";
+export { default as SettingsTriggerButton } from "./ui/SettingsTriggerButton";

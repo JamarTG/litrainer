@@ -1,1 +1,1 @@
-export { default as GameInfoTriggerButton } from "./ui";
+export { default as GameInfoTriggerButton } from "./ui/GameInfoTriggerButton";
