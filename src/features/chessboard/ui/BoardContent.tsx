@@ -62,7 +62,7 @@ const BoardContent = ({
   } as CSSProperties;
 
   return (
-    <div ref={boardRef} style={boardStyle} className="box relative rounded main-board green merida">
+    <div ref={boardRef} style={boardStyle} className="box relative main-board green merida">
       <Chessground
         key={`puzzle-${fen}`}
         fen={fen}
