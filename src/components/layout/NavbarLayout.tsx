@@ -94,62 +94,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               </div>
             </div>
 
-            <div className="mt-3">
-              <p className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold mb-2 px-1">Creator socials</p>
-              <div className="grid grid-cols-1 gap-2.5">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`${LICHESS_URLS.Profile}${LICHESS_USERNAME}`}
-                  aria-label="View creator profile on Lichess"
-                  className={mobileMenuItemClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={20} />
-                  </span>
-                  <span>Lichess</span>
-                </a>
-
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`${CHESSCOM_URLS.Profile}${CHESSCOM_USERNAME}`}
-                  aria-label="View creator profile on Chess.com"
-                  className={mobileMenuItemClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={20} />
-                  </span>
-                  <span>Chess.com</span>
-                </a>
-
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={LINKEDIN_PROFILE_URL}
-                  aria-label="View creator profile on LinkedIn"
-                  className={mobileMenuItemClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={20} />
-                  </span>
-                  <span>LinkedIn</span>
-                </a>
-
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={GITHUB_PROFILE_URL}
-                  aria-label="View creator profile on GitHub"
-                  className={mobileMenuItemClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <ExternalLink size={20} />
-                  </span>
-                  <span>GitHub</span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       )}
@@ -157,7 +101,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
         <ThemeChanger />
         <div className="flex items-center gap-3">
-          <span className="hidden xl:block text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Project & Feedback</span>
           <a
             target="_blank"
             rel="noreferrer"
@@ -176,49 +119,6 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
           >
             <Bug size={20} /> <span className="hidden lg:block">Report a bug</span>
           </button>
-
-          <div className="h-4 w-px bg-[var(--color-border)]" />
-          <span className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">Creator socials</span>
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`${LICHESS_URLS.Profile}${LICHESS_USERNAME}`}
-            aria-label="View creator profile on Lichess"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
-          >
-            <ExternalLink size={20} /> Lichess
-          </a>
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`${CHESSCOM_URLS.Profile}${CHESSCOM_USERNAME}`}
-            aria-label="View creator profile on Chess.com"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
-          >
-            <ExternalLink size={20} /> Chess.com
-          </a>
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={LINKEDIN_PROFILE_URL}
-            aria-label="View creator profile on LinkedIn"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
-          >
-            <ExternalLink size={20} /> LinkedIn
-          </a>
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={GITHUB_PROFILE_URL}
-            aria-label="View creator profile on GitHub"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
-          >
-            <ExternalLink size={20} /> GitHub
-          </a>
         </div>
 
       </nav>
