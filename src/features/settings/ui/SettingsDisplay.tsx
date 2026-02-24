@@ -23,7 +23,7 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
         >
           <ArrowLeft size={ICON_SIZES.SMALL} />
         </button>
-        <h2 className="text-sm uppercase tracking-wide text-[var(--color-muted)] font-semibold">Settings</h2>
+        <h2 className="text-4xl uppercase tracking-wide text-[var(--color-muted)] font-extrabold">Settings</h2>
         <span className="w-8" />
       </div>
 

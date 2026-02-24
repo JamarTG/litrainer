@@ -83,6 +83,7 @@ body {
     linear-gradient(160deg, color-mix(in srgb, var(--color-surface) 38%, transparent) 0%, transparent 55%),
     var(--color-bg-gradient);
   color: var(--color-fg);
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .app-background {
