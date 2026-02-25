@@ -4,7 +4,7 @@ export const BOARD_STORAGE_KEY = "board";
 export const BOARD_STORAGE_FALLBACK = "brown";
 
 export const THEME_STORAGE_KEY = "theme";
-export const THEME_STORAGE_FALLBACK = "light";
+export const THEME_STORAGE_FALLBACK = "dark";
 
 export const ENGINE_DEPTH_STORAGE_KEY = "depth";
 export const ENGINE_DEPTH_STORAGE_FALLBACK = "12";
