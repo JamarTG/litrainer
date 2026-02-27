@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const MIN_ALLOWABLE_ENGINE_DEPTH = 8;
-const MAX_ALLOWABLE_ENGINE_DEPTH = 25;
+const MAX_ALLOWABLE_ENGINE_DEPTH = 18;
 
 const EngineDepthControl = () => {
   const dispatch = useDispatch();
