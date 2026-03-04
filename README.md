@@ -1,8 +1,5 @@
-# Preview of the Site
-<img src="https://github.com/user-attachments/assets/f4a08806-1678-46a3-a173-afce3426497c" width="48%" alt="Image 1" />
 
-
-
+<img width="1918" height="906" alt="image" src="https://github.com/user-attachments/assets/008152d0-81c1-41ee-ad34-fda728602b2a" />
 
 # About The Site
 
