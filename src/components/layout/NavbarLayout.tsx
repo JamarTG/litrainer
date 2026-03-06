@@ -14,7 +14,7 @@ const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const mobileMenuItemClass =
   "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
 const mobilePrimaryButtonClass =
-  "w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out";
+  "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
