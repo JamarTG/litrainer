@@ -83,7 +83,7 @@ cg-board square.premove-dest::after {
   width: 28%;
   height: 28%;
   border-radius: 9999px;
-  background-color: #7A7A78;
+  background-color: #323232;
   opacity: 0.6;
 }
 
