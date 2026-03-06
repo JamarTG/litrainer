@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import { Bug,  Code2Icon} from "lucide-react";
+import { Bug, Code2Icon } from "lucide-react";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
 import { SettingsTriggerButton } from "@/features/settings";
@@ -9,6 +9,7 @@ import darkLogo from "@/assets/ui/dark-logo.svg";
 import { useSelector } from "react-redux";
 import { isDarkModeActive } from "@/state";
 import { ICON_SIZES } from "@/constants/icons";
+import Button from "@/components/shared/Button";
 
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const mobileMenuItemClass =
@@ -30,15 +31,14 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
     <section className="app-background relative min-h-screen text-[var(--color-fg)]">
       <nav className="sm:hidden p-2 pb-3 z-20 relative">
         <div className="flex justify-between items-center">
-        
-          <button
+          <Button
             type="button"
             onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out"
+            className="h-9 w-9 p-0 rounded-lg text-base"
           >
-            <span aria-hidden className="text-base leading-none">{isMobileMenuOpen ? "✕" : "☰"}</span>
-          </button>
+            <span aria-hidden className="leading-none">{isMobileMenuOpen ? "✕" : "☰"}</span>
+          </Button>
         </div>
       </nav>
 
@@ -53,14 +53,14 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                 showLabel
               />
 
-              <button
+              <Button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Close menu"
-                className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out"
+                className="h-9 w-9 p-0 rounded-lg text-base"
               >
-                <span aria-hidden className="text-base leading-none">✕</span>
-              </button>
+                <span aria-hidden className="leading-none">✕</span>
+              </Button>
             </div>
 
             <div className="grid grid-cols-1 gap-2.5">
@@ -127,16 +127,16 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             <span>Repo</span>
           </a>
 
-          <button
+          <Button
             type="button"
             onClick={() => setIsBugFormOpen(true)}
             aria-label="Report a bug by email"
             title="Report a bug"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out min-w-[112px] justify-center"
+            className="min-w-[112px]"
           >
             <Bug size={ICON_SIZES.SMALL} />
             <span>Bug</span>
-          </button>
+          </Button>
         </div>
 
       </nav>

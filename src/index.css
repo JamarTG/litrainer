@@ -20,7 +20,8 @@
   --color-accent-hover: #292524;
   --color-accent-soft: #f1efeb;
 
-  --color-primary: #e0e0e2;           
+  /* Light theme primary buttons: softer base, stronger hover */
+  --color-primary: #b8b8c0;           
   --color-primary-strong: #a1a1aa;    
   --color-primary-hover: #a1a1aa; 
   --color-primary-strong-hover: hsl(240, 4%, 50%); 

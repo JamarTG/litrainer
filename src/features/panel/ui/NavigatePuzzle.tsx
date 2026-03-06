@@ -69,7 +69,6 @@ const NavigatePuzzle = () => {
   return (
     <div className="w-full flex flex-row items-center justify-center gap-2 sm:gap-4">
       <Button
-        border
         aria-label="Previous Puzzle"
         onClick={handlePrev}
         disabled={isFirstPuzzle || isEngineRunning}
@@ -91,7 +90,6 @@ const NavigatePuzzle = () => {
       */}
 
       <Button
-        border
         aria-label="Next Puzzle"
         onClick={handleNext}
         disabled={isLastPuzzle || isEngineRunning}

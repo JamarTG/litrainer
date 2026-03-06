@@ -19,7 +19,6 @@ const PanelHeader = () => {
         <div className="md:hidden">
           <Button
             type="button"
-            border
             aria-label="Game info"
             aria-haspopup="true"
             aria-expanded={showMobileGameInfo}
