@@ -175,11 +175,11 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect, initialStartDate = null, in
   };
 
   return (
-    <div className="bg-[var(--color-surface)] w-[250px] rounded-lg border border-[var(--color-border)] px-2 py-2 shadow-sm">
+    <div className="w-[250px] rounded-xl border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] px-2.5 py-2.5 shadow-sm text-sm">
       <div className="flex justify-between items-center text-[var(--color-fg)]">
         <button
           onClick={handlePrevMonth}
-          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 hover:bg-[var(--color-surface-hover)] transition-colors"
+          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 shadow-sm hover:bg-[var(--color-surface-hover)] transition-colors"
         >
           <svg viewBox="0 0 512 512" fill="currentColor" height="1em" width="1em" className="mx-auto">
             <path
@@ -199,7 +199,7 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect, initialStartDate = null, in
 
         <button
           onClick={handleNextMonth}
-          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 hover:bg-[var(--color-surface-hover)] transition-colors"
+          className="rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] h-7 w-7 shadow-sm hover:bg-[var(--color-surface-hover)] transition-colors"
         >
           <svg viewBox="0 0 512 512" fill="currentColor" height="1em" width="1em" className="mx-auto">
             <path
@@ -221,14 +221,14 @@ const Calendar: FC<CalendarProps> = ({ onDateSelect, initialStartDate = null, in
       <div className="flex justify-between items-center text-[var(--color-fg)] pt-2">
         <button
           onClick={handleCancel}
-          className="rounded-md bg-[var(--color-surface)] text-xs border border-[var(--color-border)] h-7 px-3 hover:bg-[var(--color-surface-hover)] transition-colors"
+          className="rounded-md bg-[var(--color-surface)] text-xs border border-[var(--color-border)] h-7 px-3 shadow-sm hover:bg-[var(--color-surface-hover)] transition-colors"
         >
           Cancel
         </button>
 
         <button
           onClick={handleApply}
-          className="rounded-md bg-[var(--color-surface-hover)] border text-xs border-[var(--color-border)] h-7 px-3 hover:bg-[var(--color-surface-strong)] transition-colors"
+          className="rounded-md bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] border text-xs border-[var(--color-border)] h-7 px-3 shadow-sm hover:from-[var(--color-surface-strong)] hover:to-[var(--color-surface)] transition-colors"
         >
           Apply
         </button>

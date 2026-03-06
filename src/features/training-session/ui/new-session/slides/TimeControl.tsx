@@ -36,11 +36,11 @@ const Games: FC<GamesProps> = ({ handleInputChange, handleGameTypesChange, formD
 
   return (
     <div className="grid gap-2">
-      <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Time Controls</h1>
+      <h1 className="text-sm font-semibold text-[var(--color-muted)]">Time controls</h1>
 
       <div className="relative w-full flex items-center">
         <input
-          className="cursor-pointer flex-1 w-full h-[32px] outline-none bg-[var(--color-surface)] text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-2.5 text-sm placeholder:text-[var(--color-muted)] pr-8"
+          className="cursor-pointer flex-1 w-full h-[36px] outline-none bg-[var(--color-surface)] text-[var(--color-fg)] rounded-lg border border-[var(--color-border)] px-3 text-base placeholder:text-[var(--color-muted)] pr-8"
           placeholder="Select games"
           value={formData.gameTypes.join(",")}
           onChange={handleInputChange}

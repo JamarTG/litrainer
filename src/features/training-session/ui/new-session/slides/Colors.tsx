@@ -17,7 +17,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
 
   return (
     <div className="grid gap-2">
-      <h1 className="text-xs uppercase font-semibold text-[var(--color-muted)]">Colors</h1>
+      <h1 className="text-sm font-semibold text-[var(--color-muted)]">Colors</h1>
 
       <div className="w-full flex items-center justify-between gap-x-2">
         <div className={optionClassName(formData.color === "white")}>
@@ -31,7 +31,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm ${formData.color === "white" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+            <span className={`text-base ${formData.color === "white" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
               White
             </span>
             {!(formData.color == "both") && formData.color === ColorLongForm.WHITE ? (
@@ -63,7 +63,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm ${formData.color === "black" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+            <span className={`text-base ${formData.color === "black" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
               Black
             </span>
 
@@ -96,7 +96,7 @@ const Colors: FC<ColorsProps> = ({ handleInputChange, formData }) => {
               className="hidden"
             />
 
-            <span className={`text-sm ${formData.color === "both" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
+            <span className={`text-base ${formData.color === "both" ? "text-[var(--color-fg)]" : "text-[var(--color-muted)]"}`}>
               Both
             </span>
             {formData.color === "both" ? (
