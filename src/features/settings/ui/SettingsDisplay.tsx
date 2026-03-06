@@ -19,9 +19,8 @@ const SettingsDisplay: React.FC<SettingsProps> = ({ setShowSettings }) => {
       <div className="h-10 flex items-center justify-between px-1">
         <Button
           type="button"
-          border
           onClick={() => setShowSettings(false)}
-          className="h-8 px-2.5 py-0 text-sm rounded-md"
+          className="h-8 px-3 py-0 text-sm rounded-md"
           aria-label="Close settings"
         >
           <ArrowLeft size={ICON_SIZES.SMALL} />

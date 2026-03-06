@@ -4,6 +4,7 @@ import { getPuzzle } from "@/state/slices/puzzle";
 import { ColorLongForm, GameMode } from "@/typing/enums";
 import { Activity, BookOpen, Clock3, Crown, ExternalLink, Flag, LucideIcon, User, X } from "lucide-react";
 import { ICON_SIZES } from "@/constants/icons";
+import Button from "@/components/shared/Button";
 
 interface GameInfoPanelProps {
   setShowGameInfo: Dispatch<SetStateAction<boolean>>;
@@ -41,19 +42,20 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({ setShowGameInfo }) => {
       className="absolute inset-0 w-full min-h-[499px] bg-[var(--color-surface-strong)] text-[var(--color-fg)] p-3 flex flex-col animate-fade-in"
     >
       <div className="h-10 flex items-center justify-between px-1 mb-2">
-        <button
+        <Button
+          type="button"
           onClick={() => setShowGameInfo(false)}
-          className="flex items-center justify-center h-8 w-8 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+          className="h-8 w-8 p-0 rounded-md text-sm"
           aria-label="Close game info"
         >
           <X size={ICON_SIZES.SMALL} />
-        </button>
-        <h2 className="text-8xl uppercase tracking-wide text-[var(--color-muted)] font-extrabold">Game Info</h2>
+        </Button>
+        <h2 className="text-2xl uppercase tracking-wide text-[var(--color-muted)] font-extrabold">Game Info</h2>
         <span className="w-8" />
       </div>
 
       <div className="flex flex-1 justify-center items-start">
-        <div className="w-full max-w-md rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 space-y-4">
+        <div className="w-full max-w-md rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 space-y-4 text-sm">
           <div className="flex items-center gap-3 min-w-0 mb-2">
             <div
               title={`Position taken from ${puzzle.phase}`}
@@ -67,38 +69,38 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({ setShowGameInfo }) => {
             </div>
           </div>
           <div className="grid gap-3 text-xs sm:text-sm">
-            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] px-3 py-2">
+            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] shadow-sm px-3 py-2">
               <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                 <Flag size={13} /> Mode
               </span>
               <span className="truncate font-medium">{gameMode}</span>
             </div>
-            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] px-3 py-2">
+            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] shadow-sm px-3 py-2">
               <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                 <Clock3 size={13} /> Time
               </span>
               <span className="truncate capitalize font-medium">{timeControlLabel}</span>
             </div>
-            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface-hover)] px-3 py-2">
+            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] shadow-sm px-3 py-2">
               <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                 <Crown size={13} /> Status
               </span>
               <span className="truncate font-medium">{statusText}</span>
             </div>
-            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] px-3 py-2">
+            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface)] to-[var(--color-surface-hover)] shadow-sm px-3 py-2">
               <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                 <User size={13} /> White
               </span>
               <span className="truncate">{puzzle.players.white.user.name}</span>
             </div>
-            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] px-3 py-2">
+            <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface)] to-[var(--color-surface-hover)] shadow-sm px-3 py-2">
               <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                 <User size={13} /> Black
               </span>
               <span className="truncate">{puzzle.players.black.user.name}</span>
             </div>
             {puzzle.positionOpening && (
-              <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] px-3 py-2">
+              <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface)] to-[var(--color-surface-hover)] shadow-sm px-3 py-2">
                 <span className="inline-flex items-center gap-1.5 text-[var(--color-muted)]">
                   <BookOpen size={13} /> Opening
                 </span>
@@ -111,7 +113,7 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({ setShowGameInfo }) => {
               href={`https://lichess.org/${puzzle.gameId}#${puzzle.moveNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:underline transition-colors"
+              className="inline-flex items-center gap-1.5 text-md font-medium text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:underline transition-colors"
             >
               <ExternalLink size={13} />
               View full game
