@@ -52,7 +52,7 @@ const PanelBody = () => {
         <span className="text-sm font-semibold truncate">{mobileMoveValue}</span>
       </div>
 
-      <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-[#F6F5F3]/20 dark:bg-[var(--color-surface)]">
+      <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]">
         <ClassificationText />
       </div>
     </div>
