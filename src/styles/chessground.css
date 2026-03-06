@@ -50,6 +50,7 @@ cg-board square {
   pointer-events: none;
   display: flex;
   align-items: center;
+  transition: background-color 140ms ease-out;
 }
 
 .cg-wrap coords {
@@ -91,7 +92,17 @@ cg-board square.premove-dest:hover {
 
 cg-board square.last-move {
   will-change: transform;
-  background-color: var(--last-move-highlight, rgba(155, 199, 0, 0.41));
+}
+
+cg-board square.last-move::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 9999px;
+  pointer-events: none;
+  background-color: rgba(155, 199, 0, 0.41);
+  mix-blend-mode: screen;
+  animation: last-move-flash 220ms ease-out forwards;
 }
 
 cg-board square.selected {
@@ -125,10 +136,13 @@ cg-board square.current-premove {
 cg-board piece.dragging {
   cursor: move;
   z-index: 9;
+  transform: scale(1.04);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
 }
 
 cg-board piece.anim {
   z-index: 8;
+  animation: piece-drop 160ms ease-out;
 }
 
 cg-board piece.fading {
@@ -220,6 +234,28 @@ cg-board piece.fading {
     min-height: 100vw;
     width: 280px;
     height: 280px;
+  }
+}
+
+@keyframes piece-drop {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes last-move-flash {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
   }
 }
 

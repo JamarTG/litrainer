@@ -43,6 +43,11 @@ const boardSlice = createSlice({
       state.fen = action.payload;
     },
 
+    clearLastMove(state) {
+      state.sourceSquare = null;
+      state.destinationSquare = null;
+    },
+
     setMarkerPosition(state, action: PayloadAction<MarkerPosition>) {
       state.markerPosition = action.payload;
     },
@@ -63,6 +68,7 @@ export const getMarkerPosition = (state: RootState) => state.board.markerPositio
 export const getSourceSquare = (state: RootState) => state.board.sourceSquare;
 export const getDestinationSquare = (state: RootState) => state.board.destinationSquare;
 export const getMaterials = (state: RootState) => state.board.materials;
-export const { setFen, setMarkerPosition, updateMaterials, resetBoardState, updateBoardStates } = boardSlice.actions;
+export const { setFen, clearLastMove, setMarkerPosition, updateMaterials, resetBoardState, updateBoardStates } =
+  boardSlice.actions;
 
 export default boardSlice.reducer;

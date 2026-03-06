@@ -29,7 +29,9 @@ const ChessBoard = ({ hidePieces = false }: { hidePieces?: boolean }) => {
   const classification = useSelector(getClassification);
 
   const lastMove: ChessgroundLastMove =
-    sourceSquare && destinationSquare ? ([sourceSquare, destinationSquare] as ChessgroundLastMove) : undefined;
+    sourceSquare && destinationSquare
+      ? ([destinationSquare, destinationSquare] as ChessgroundLastMove)
+      : undefined;
 
   const { game } = usePuzzleSetup();
   const { handleMoveAttempt } = useMoveHandler(game);

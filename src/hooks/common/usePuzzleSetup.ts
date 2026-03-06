@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Chess } from "chess.js";
 import { resetFeedback } from "@/state/slices/feedback";
 import { playSound } from "@/sound";
-import { setFen } from "@/state/slices/board";
+import { clearLastMove, setFen } from "@/state/slices/board";
 import { getPuzzle } from "@/state/slices/puzzle";
 
 const usePuzzleSetup = () => {
@@ -31,6 +31,7 @@ const usePuzzleSetup = () => {
     newGame.load(puzzle.fen.previous);
     setGame(newGame);
     dispatch(setFen(newGame.fen()));
+    dispatch(clearLastMove());
     dispatch(resetFeedback());
 
     executeComputerMove(newGame, puzzle.opponentMove.lan);
