@@ -34,7 +34,8 @@ const NewSessionTriggerButton: React.FC<NewSessionTriggerButtonProps> = ({
         onClick={handleToggleTrainer}
         className={buttonClassName}
       >
-        {iconOverride ?? <PlusCircle size={iconSize} />} {showLabel ? "Add Games" : null}
+        {iconOverride ?? <PlusCircle size={iconSize} />} 
+        <p>{showLabel ? "Add Games" : null}</p>
       </Button>
 
       {showTrainer && <TrainerPanel setShowTrainer={setShowTrainer} />}

@@ -5,20 +5,27 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #f5f4f1;
-  --color-bg-gradient: radial-gradient(circle at top right, #ffffff 0%, #f5f4f1 45%, #ece8e1 100%);
+  --color-bg: #e5e7eb;
+  --color-bg-gradient: radial-gradient(circle at top right, #f9fafb 0%, #e5e7eb 45%, #d4d4d8 100%);
   --color-fg: #1f1f1f;
   --color-muted: #57534e;
 
-  --color-surface: #ffffff;
+  --color-surface: #e2dfdf;
   --color-surface-hover: #f5f4f1;
-  --color-surface-strong: #efede8;
-  --color-border: #e7e5e4;
+  --color-surface-strong: #f5f1f1;
+  --color-border: #cccecf;
   --color-border-strong: #e7e5e4;
 
   --color-accent: #44403c;
   --color-accent-hover: #292524;
   --color-accent-soft: #f1efeb;
+
+  --color-primary: #e0e0e2;           
+  --color-primary-strong: #a1a1aa;    
+  --color-primary-hover: #a1a1aa; 
+  --color-primary-strong-hover: hsl(240, 4%, 50%); 
+  --color-primary-disabled: #c4c4cc;
+  --color-primary-strong-disabled: #a1a1aa;
 
   --app-bg-spot-a: rgba(161, 137, 112, 0.22);
   --app-bg-spot-b: rgba(255, 255, 255, 0.5);
@@ -46,6 +53,14 @@ body.dark {
   --color-accent: #d6d3d1;
   --color-accent-hover: #f5f5f4;
   --color-accent-soft: #292524;
+
+  /* Neutral gray used for 3D buttons and panels (dark theme) */
+  --color-primary: #75757b;              /* base now matches previous hover */
+  --color-primary-strong: #525254;
+  --color-primary-hover: #8f8f95;        /* slightly lighter for hover */
+  --color-primary-strong-hover: #606068; /* slightly lighter strong tone */
+  --color-primary-disabled: #acacac;
+  --color-primary-strong-disabled: #52525b;
 
   --app-bg-spot-a: rgba(114, 107, 101, 0.28);
   --app-bg-spot-b: rgba(31, 31, 31, 0.58);

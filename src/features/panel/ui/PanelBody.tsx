@@ -14,8 +14,8 @@ const PanelBody = () => {
 
   if (!puzzle) {
     return (
-      <div className="flex flex-col flex-1 justify-center items-center p-4 gap-6 min-h-48 rounded-lg">
-        <p className="text-gray-500 dark:text-gray-400">No puzzle data available :(</p>
+      <div className="flex flex-col flex-1 justify-center items-center p-4 gap-6 min-h-48 rounded-lg text-slate-100">
+        <p>No puzzle data available :(</p>
         <NewSessionTriggerButton />
       </div>
     );
@@ -39,7 +39,7 @@ const PanelBody = () => {
   const mobileClassificationIcon = CLASSIFICATION_IMAGES[mobileClassificationKey];
 
   return (
-    <div className="flex flex-col flex-1 justify-start items-center md:justify-center px-4 pb-4 pt-1 md:p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
+    <div className=" flex flex-col flex-1 justify-start items-center md:justify-center px-4 pb-4 pt-1 md:p-4 gap-3 md:gap-6 min-h-48 rounded-lg">
       <div className="order-1 md:order-2 w-full max-w-md min-h-[48px] flex items-center">
         <NavigatePuzzle />
       </div>
@@ -47,12 +47,12 @@ const PanelBody = () => {
       <div className="order-2 md:hidden w-full max-w-md border border-[var(--color-border)] rounded-md px-3 py-2 bg-[var(--color-surface)] flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <img src={mobileClassificationIcon} alt={mobileMoveLabel} className="w-5 h-5 flex-shrink-0" />
-          <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)] truncate">{mobileMoveLabel}</span>
+          <span className="text-xs font-semibold uppercase tracking-wide truncate">{mobileMoveLabel}</span>
         </div>
-        <span className="text-sm font-semibold text-[var(--color-fg)] truncate">{mobileMoveValue}</span>
+        <span className="text-sm font-semibold truncate">{mobileMoveValue}</span>
       </div>
 
-      <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-white dark:bg-[var(--color-surface)]">
+      <div className="order-3 md:order-1 hidden md:flex items-stretch gap-3 w-full max-w-md min-h-[120px] border border-[var(--color-border)] rounded-md p-4 bg-[#F6F5F3]/20 dark:bg-[var(--color-surface)]">
         <ClassificationText />
       </div>
     </div>

@@ -13,6 +13,8 @@ import { ICON_SIZES } from "@/constants/icons";
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const mobileMenuItemClass =
   "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
+const mobilePrimaryButtonClass =
+  "w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
@@ -73,7 +75,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   rel="noreferrer"
                   href="https://github.com/JamarTG/litrainer"
                   aria-label="View the repository on GitHub"
-                  className={mobileMenuItemClass}
+                  className={mobilePrimaryButtonClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <Code2Icon size={20} />
@@ -85,7 +87,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   type="button"
                   onClick={handleOpenBugReport}
                   aria-label="Report a bug by email"
-                  className={mobileMenuItemClass}
+                  className={mobilePrimaryButtonClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
                     <Bug size={20} />
@@ -104,13 +106,13 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
           <img
             src={isDarkMode ? darkLogo : logo}
             alt="LiTrainer logo"
-            className="h-8 w-auto rounded-md object-contain"
+            className="h-12 w-auto rounded-md object-contain"
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <ThemeChanger
-            buttonClassName="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-colors transition-shadow transition-transform duration-150 ease-out"
+            buttonClassName="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out min-w-[112px] justify-center"
             iconSize={ICON_SIZES.SMALL}
             showLabel
           />
@@ -121,7 +123,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             href="https://github.com/JamarTG/litrainer"
             aria-label="View the repository on GitHub"
             title="View repo on GitHub"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-shadow duration-150 ease-out"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out min-w-[112px] justify-center"
           >
             <Code2Icon size={ICON_SIZES.SMALL} />
             <span>Repo</span>
@@ -132,7 +134,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             onClick={() => setIsBugFormOpen(true)}
             aria-label="Report a bug by email"
             title="Report a bug"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-shadow duration-150 ease-out"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out min-w-[112px] justify-center"
           >
             <Bug size={ICON_SIZES.SMALL} />
             <span>Bug</span>

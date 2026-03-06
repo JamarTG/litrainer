@@ -47,7 +47,7 @@ const PromotionDialog: FC<PromotionDialogProps> = ({ isOpen, color, onPromote, o
     <button
       key={piece}
       onClick={() => onPromote(piece)}
-      className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors group"
+      className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
     >
       <span className="group-hover:scale-110 transition-transform">
         <img

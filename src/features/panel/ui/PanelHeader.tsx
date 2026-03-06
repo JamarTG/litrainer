@@ -24,7 +24,7 @@ const PanelHeader = () => {
             aria-haspopup="true"
             aria-expanded={showMobileGameInfo}
             onClick={toggleMobileGameInfo}
-            className="h-8 rounded-md px-2.5 py-0 text-xs font-medium"
+            className="h-8 rounded-md px-2.5 py-0 text-sm font-medium"
           >
             Game Info
           </Button>

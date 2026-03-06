@@ -48,7 +48,7 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({ setShowGameInfo }) => {
         >
           <X size={ICON_SIZES.SMALL} />
         </button>
-        <h2 className="text-4xl uppercase tracking-wide text-[var(--color-muted)] font-extrabold">Game Info</h2>
+        <h2 className="text-8xl uppercase tracking-wide text-[var(--color-muted)] font-extrabold">Game Info</h2>
         <span className="w-8" />
       </div>
 
