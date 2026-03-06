@@ -32,7 +32,7 @@ const EngineDepthControl = () => {
         className="w-full accent-[var(--color-muted)]"
       />
       <div className="mt-1 space-y-0.5">
-        <small className="block text-xs text-[var(--color-muted)]">Using Stockfish 17 Lite (single-thread) as the analysis engine.</small>
+        <small className="block text-xs text-[var(--color-muted)]">Using Stockfish 17 Lite (single-thread)</small>
         <small className="block text-xs text-[var(--color-muted)]">Higher depth means slower evaluation.</small>
       </div>
     </div>
