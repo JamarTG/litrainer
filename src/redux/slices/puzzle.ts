@@ -3,6 +3,7 @@ import { Puzzle } from "@/typing/interfaces";
 import { loadFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { RootState } from "../store";
 import { ColorLongForm, ColorShortForm } from "@/typing/enums";
+import { PUZZLE_INDEX_STORAGE_KEY, PUZZLE_INDEX_STORAGE_FALLBACK } from "@/constants/storage";
 
 export interface PuzzleState {
   puzzles: Puzzle[];
@@ -13,7 +14,7 @@ export interface PuzzleState {
 
 const initialState: PuzzleState = {
   puzzles: [],
-  currentIndex: 0,
+  currentIndex: PUZZLE_INDEX_STORAGE_FALLBACK,
   autoSkip: loadFromLocalStorage("autoSkip", "true") === "true",
   redoTrigger: 0
 };
@@ -24,14 +25,24 @@ const puzzleSlice = createSlice({
   reducers: {
     setPuzzles(state, action: PayloadAction<Puzzle[]>) {
       state.puzzles = action.payload;
-      state.currentIndex = 0;
+      const storedIndex = loadFromLocalStorage(PUZZLE_INDEX_STORAGE_KEY, PUZZLE_INDEX_STORAGE_FALLBACK);
+      const maxIndex = action.payload.length > 0 ? action.payload.length - 1 : 0;
+      const clampedIndex = Math.min(Math.max(storedIndex, 0), maxIndex);
+      state.currentIndex = clampedIndex;
+      saveToLocalStorage(PUZZLE_INDEX_STORAGE_KEY, state.currentIndex);
     },
     nextPuzzle(state) {
-      if (state.currentIndex < state.puzzles.length - 1) state.currentIndex += 1;
+      if (state.currentIndex < state.puzzles.length - 1) {
+        state.currentIndex += 1;
+        saveToLocalStorage(PUZZLE_INDEX_STORAGE_KEY, state.currentIndex);
+      }
     },
 
     prevPuzzle(state) {
-      if (state.currentIndex > 0) state.currentIndex -= 1;
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1;
+        saveToLocalStorage(PUZZLE_INDEX_STORAGE_KEY, state.currentIndex);
+      }
     },
     toggleAutoSkip(state) {
       state.autoSkip = !state.autoSkip;
@@ -43,6 +54,7 @@ const puzzleSlice = createSlice({
         ...currentPuzzle
       };
       state.redoTrigger += 1;
+      saveToLocalStorage(PUZZLE_INDEX_STORAGE_KEY, state.currentIndex);
     }
   }
 });

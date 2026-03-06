@@ -1,4 +1,6 @@
 export const PUZZLE_STORAGE_KEY = "puzzles";
+export const PUZZLE_INDEX_STORAGE_KEY = "puzzleIndex";
+export const PUZZLE_INDEX_STORAGE_FALLBACK = 0;
 
 export const BOARD_STORAGE_KEY = "board";
 export const BOARD_STORAGE_FALLBACK = "brown";

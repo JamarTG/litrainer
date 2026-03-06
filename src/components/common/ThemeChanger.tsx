@@ -11,13 +11,12 @@ interface ThemeChangerProps {
   iconSize?: number;
 }
 
-const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel = false, iconSize = ICON_SIZES.LARGE }) => {
+const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel = false, iconSize = ICON_SIZES.SMALL }) => {
   const dispatch = useDispatch();
   const isDarkMode = useSelector(isDarkModeActive);
   const toggleAppTheme = () => dispatch(toggleTheme());
 
   const defaultClassName = "w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4";
-
   return (
     <button
       title="light or dark?"

@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { MouseEvent } from "react";
 import { dateRangeToEpochMillis, validateDateRange } from "@/services/lichess";
 import { saveToLocalStorage } from "@/utils/storage";
+import { PUZZLE_STORAGE_KEY, PUZZLE_INDEX_STORAGE_KEY, PUZZLE_INDEX_STORAGE_FALLBACK } from "@/constants/storage";
 import { Fields, LichessEvaluation, LichessGameResponse } from "@/typing/interfaces";
 
 const useSubmitHandler = (formData: Fields) => {
@@ -51,7 +52,9 @@ const useSubmitHandler = (formData: Fields) => {
         return;
       }
 
-      saveToLocalStorage("puzzle", puzzles);
+      // Persist new puzzles and reset the stored puzzle index to the beginning
+      saveToLocalStorage(PUZZLE_STORAGE_KEY, puzzles);
+      saveToLocalStorage(PUZZLE_INDEX_STORAGE_KEY, PUZZLE_INDEX_STORAGE_FALLBACK);
 
       toast.success(`Found ${puzzles.length} puzzles for ${username}`);
       navigate("/", { state: { puzzles } });

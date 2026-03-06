@@ -1,9 +1,14 @@
 import { PropsWithChildren, useState } from "react";
 import ThemeChanger from "../common/ThemeChanger";
-import { Bug, Star } from "lucide-react";
+import { Bug,  Code2Icon} from "lucide-react";
 import BugReportForm from "./BugReportForm";
 import { NewSessionTriggerButton } from "@/features/training-session";
 import { SettingsTriggerButton } from "@/features/settings";
+import logo from "@/assets/ui/logo.svg";
+import darkLogo from "@/assets/ui/dark-logo.svg";
+import { useSelector } from "react-redux";
+import { isDarkModeActive } from "@/state";
+import { ICON_SIZES } from "@/constants/icons";
 
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const mobileMenuItemClass =
@@ -12,6 +17,7 @@ const mobileMenuItemClass =
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isDarkMode = useSelector(isDarkModeActive);
 
   const handleOpenBugReport = () => {
     setIsMobileMenuOpen(false);
@@ -66,13 +72,13 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
                   target="_blank"
                   rel="noreferrer"
                   href="https://github.com/JamarTG/litrainer"
-                  aria-label="Star the repository"
+                  aria-label="View the repository on GitHub"
                   className={mobileMenuItemClass}
                 >
                   <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <Star size={20} className="star-drift" />
+                    <Code2Icon size={20} />
                   </span>
-                  <span>Star the repo</span>
+                  <span>View repo</span>
                 </a>
            
                 <button
@@ -94,25 +100,42 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
       )}
 
       <nav className="hidden sm:flex p-2 pb-6 justify-between items-center z-20 relative">
-        <ThemeChanger />
         <div className="flex items-center gap-3">
+          <img
+            src={isDarkMode ? darkLogo : logo}
+            alt="LiTrainer logo"
+            className="h-8 w-auto rounded-md object-contain"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <ThemeChanger
+            buttonClassName="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-colors transition-shadow transition-transform duration-150 ease-out"
+            iconSize={ICON_SIZES.SMALL}
+            showLabel
+          />
+
           <a
             target="_blank"
             rel="noreferrer"
             href="https://github.com/JamarTG/litrainer"
-            aria-label="Star the repository"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            aria-label="View the repository on GitHub"
+            title="View repo on GitHub"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-shadow duration-150 ease-out"
           >
-            <Star size={20} className="star-drift" /> <span className="hidden lg:block">Star the repo</span>
+            <Code2Icon size={ICON_SIZES.SMALL} />
+            <span>Repo</span>
           </a>
 
           <button
             type="button"
             onClick={() => setIsBugFormOpen(true)}
             aria-label="Report a bug by email"
-            className="inline-flex items-center gap-1.5 text-md font-medium px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors"
+            title="Report a bug"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-b from-[#1CB0F6] to-[#0F8DD1] text-white text-xs font-medium shadow-md hover:shadow-lg active:shadow-inner active:translate-y-[1px] active:scale-95 hover:from-[#35B9F8] hover:to-[#127CB6] transition-shadow duration-150 ease-out"
           >
-            <Bug size={20} /> <span className="hidden lg:block">Report a bug</span>
+            <Bug size={ICON_SIZES.SMALL} />
+            <span>Bug</span>
           </button>
         </div>
 
