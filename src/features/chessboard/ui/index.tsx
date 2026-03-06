@@ -15,6 +15,7 @@ import BoardHeaderLayout from "@/components/layout/BoardHeaderLayout";
 import BoardContent from "./BoardContent";
 import { useChessBoardController } from "./hooks/useChessBoardController";
 import Chessground from "react-chessground";
+import { getPuzzle } from "@/state/slices/puzzle";
 
 type ChessgroundLastMove = ComponentProps<typeof Chessground>["lastMove"];
 
@@ -27,6 +28,7 @@ const ChessBoard = ({ hidePieces = false }: { hidePieces?: boolean }) => {
   const playerColorLongForm = useSelector(getUserColorLongForm);
   const puzzleStatus = useSelector(getPuzzleStatus);
   const classification = useSelector(getClassification);
+  const puzzle = useSelector(getPuzzle);
 
   const lastMove: ChessgroundLastMove =
     sourceSquare && destinationSquare
@@ -51,6 +53,7 @@ const ChessBoard = ({ hidePieces = false }: { hidePieces?: boolean }) => {
     <BoardHeaderLayout hideHeaders={hidePieces}>
       <BoardContent
         boardRef={boardRef}
+        boardKey={`puzzle-${puzzle?.id ?? ""}-${fen}`}
         fen={fen}
         playerColorLongForm={playerColorLongForm as ColorLongForm}
         game={game}

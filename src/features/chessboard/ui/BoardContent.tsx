@@ -15,6 +15,7 @@ type ChessgroundOnMove = NonNullable<ChessgroundProps["onMove"]>;
 
 interface BoardContentProps {
   boardRef: RefObject<HTMLDivElement>;
+  boardKey: string;
   fen: string;
   playerColorLongForm: ColorLongForm;
   game: Chess;
@@ -30,6 +31,7 @@ interface BoardContentProps {
 
 const BoardContent = ({
   boardRef,
+  boardKey,
   fen,
   playerColorLongForm,
   game,
@@ -45,7 +47,7 @@ const BoardContent = ({
   return (
     <div ref={boardRef} className="box relative main-board green merida">
       <Chessground
-        key={`puzzle-${fen}`}
+        key={boardKey}
         coordinates={true}
         fen={hidePieces ? '8/8/8/8/8/8/8/8' : fen}
         orientation={playerColorLongForm}
