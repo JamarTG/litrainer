@@ -33,7 +33,7 @@ const BoardContent = ({
   fen,
   playerColorLongForm,
   game,
-  classification,
+  // classification,
   lastMove,
   movable,
   onMove,
@@ -58,7 +58,7 @@ const BoardContent = ({
           enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
           visible: BOARD_CONFIG.VISIBLE_ENABLED,
           defaultSnapToValidMove: BOARD_CONFIG.DEFAULT_SNAP_TO_VALID_MOVE,
-          shapes: [{ orig: "e2", dest: "e4", brush: "green" }]
+          shapes: []
         }}
         className="relative"
         highlight={hidePieces ? { lastMove: false, check: false } : { lastMove: BOARD_CONFIG.HIGHLIGHT_LAST_MOVE, check: BOARD_CONFIG.HIGHLIGHT_LAST_CHECK }}

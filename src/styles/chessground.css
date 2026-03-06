@@ -50,6 +50,7 @@ cg-board square {
   pointer-events: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: background-color 140ms ease-out;
 }
 
@@ -65,29 +66,50 @@ cg-board square {
 }
 
 
-cg-board square.move-dest {
-  background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
-  pointer-events: auto;
-}
-
+cg-board square.move-dest,
 cg-board square.premove-dest {
-  background: radial-gradient(rgba(20, 30, 85, 0.5) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  pointer-events: auto;
+  background: none;
 }
 
-cg-board square.oc.move-dest {
-  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
-}
-
+cg-board square.oc.move-dest,
 cg-board square.oc.premove-dest {
-  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+  background: none;
+  position: relative;
 }
 
-cg-board square.move-dest:hover {
-  background: rgba(20, 85, 30, 0.3);
-}
-
+cg-board square.move-dest:hover,
 cg-board square.premove-dest:hover {
-  background: rgba(20, 30, 85, 0.2);
+  background: none;
+}
+
+cg-board square.move-dest::after,
+cg-board square.premove-dest::after {
+  content: "";
+  width: 28%;
+  height: 28%;
+  border-radius: 9999px;
+  background-color: #7A7A78;
+  opacity: 0.6;
+}
+
+cg-board square.selected.move-dest::after,
+cg-board square.selected.premove-dest::after,
+cg-board square.selected.oc.move-dest::after,
+cg-board square.selected.oc.premove-dest::after {
+  content: none;
+}
+
+cg-board square.oc.move-dest::after,
+cg-board square.oc.premove-dest::after {
+  content: "";
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  border-radius: 9999px;
+  opacity: 20%;
+  border: 2px solid rgba(122, 122, 120, 0.45);
+  pointer-events: none;
 }
 
 cg-board square.last-move {
@@ -100,13 +122,12 @@ cg-board square.last-move::after {
   inset: 14%;
   border-radius: 9999px;
   pointer-events: none;
-  background-color: rgba(155, 199, 0, 0.41);
-  mix-blend-mode: screen;
+  background-color: rgba(210, 210, 205, 0.9);
   animation: last-move-flash 220ms ease-out forwards;
 }
 
 cg-board square.selected {
-  background-color: rgba(20, 85, 30, 0.5);
+  background-color: transparent;
 }
 
 cg-board square.check {
@@ -135,7 +156,7 @@ cg-board square.current-premove {
 
 cg-board piece.dragging {
   cursor: move;
-  z-index: 9;
+  z-index: 999 !important;
   transform: scale(1.04);
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
 }
@@ -148,10 +169,6 @@ cg-board piece.anim {
 cg-board piece.fading {
   z-index: 1;
   opacity: 0.5;
-}
-
-.cg-wrap square.move-dest:hover {
-  background-color: rgba(20, 85, 30, 0.3);
 }
 
 .cg-wrap piece.ghost {
