@@ -53,7 +53,7 @@ const ChessBoard = ({ hidePieces = false }: { hidePieces?: boolean }) => {
     <BoardHeaderLayout hideHeaders={hidePieces}>
       <BoardContent
         boardRef={boardRef}
-        boardKey={`puzzle-${puzzle?.id ?? ""}-${fen}`}
+        boardKey={`puzzle-${puzzle?.fen.current ?? ""}-${fen}`}
         fen={fen}
         playerColorLongForm={playerColorLongForm as ColorLongForm}
         game={game}

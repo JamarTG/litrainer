@@ -72,12 +72,6 @@ cg-board square.premove-dest {
   background: none;
 }
 
-cg-board square.oc.move-dest,
-cg-board square.oc.premove-dest {
-  background: none;
-  position: relative;
-}
-
 cg-board square.move-dest:hover,
 cg-board square.premove-dest:hover {
   background: none;
@@ -104,8 +98,9 @@ cg-board square.oc.move-dest::after,
 cg-board square.oc.premove-dest::after {
   content: "";
   position: absolute;
-  width: 95%;
-  height: 95%;
+  width: 85%;
+  height: 85%;
+  opacity: 20%;
   border-radius: 9999px;
   border: 2px solid rgba(122, 122, 120, 0.45);
   pointer-events: none;
