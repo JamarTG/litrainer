@@ -12,9 +12,9 @@ import { ICON_SIZES } from "@/constants/icons";
 
 const CONTACT_EMAIL = "jamarimcfarlane12@gmail.com";
 const mobileMenuItemClass =
-  "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
+  "w-full inline-flex items-center justify-center gap-2 text-md font-medium px-3 py-2 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] hover:text-[var(--color-fg)] hover:bg-[var(--color-surface-hover)] transition-colors";
 const mobilePrimaryButtonClass =
-  "w-full inline-flex items-center justify-start gap-2 text-md font-medium px-3 py-2 rounded-md bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out";
+  "w-full inline-flex items-center justify-center gap-2 text-md font-medium px-3 py-2 rounded-md bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out";
 
 const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isBugFormOpen, setIsBugFormOpen] = useState(false);
@@ -35,9 +35,9 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             type="button"
             onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out"
           >
-            <span aria-hidden className="text-lg leading-none">{isMobileMenuOpen ? "✕" : "☰"}</span>
+            <span aria-hidden className="text-base leading-none">{isMobileMenuOpen ? "✕" : "☰"}</span>
           </button>
         </div>
       </nav>
@@ -48,17 +48,18 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
           <div className="absolute inset-0 bg-[var(--color-surface)] p-3 overflow-y-auto">
             <div className="flex items-center justify-between mb-3">
               <ThemeChanger
-                buttonClassName="inline-flex items-center justify-center h-9 w-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]"
-                iconSize={18}
+                buttonClassName="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out min-w-[112px] justify-center"
+                iconSize={ICON_SIZES.SMALL}
+                showLabel
               />
 
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Close menu"
-                className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-fg)]"
+                className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out"
               >
-                <span aria-hidden className="text-lg leading-none">✕</span>
+                <span aria-hidden className="text-base leading-none">✕</span>
               </button>
             </div>
 
@@ -67,34 +68,31 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
               <SettingsTriggerButton buttonClassName={mobileMenuItemClass} iconSize={16} />
             </div>
 
-            <div className="mt-3">
-              <p className="text-[10px] uppercase tracking-wide text-[var(--color-muted)] font-semibold mb-2 px-1 ">Project & Feedback</p>
-              <div className="grid grid-cols-1 gap-2.5">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://github.com/JamarTG/litrainer"
-                  aria-label="View the repository on GitHub"
-                  className={mobilePrimaryButtonClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <Code2Icon size={20} />
-                  </span>
-                  <span>View repo</span>
-                </a>
-           
-                <button
-                  type="button"
-                  onClick={handleOpenBugReport}
-                  aria-label="Report a bug by email"
-                  className={mobilePrimaryButtonClass}
-                >
-                  <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
-                    <Bug size={20} />
-                  </span>
-                  <span>Report a bug</span>
-                </button>
-              </div>
+            <div className="mt-3 grid grid-cols-1 gap-2.5">
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/JamarTG/litrainer"
+                aria-label="View the repository on GitHub"
+                className={mobilePrimaryButtonClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <Code2Icon size={ICON_SIZES.MEDIUM} />
+                </span>
+                <span>View repo</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleOpenBugReport}
+                aria-label="Report a bug by email"
+                className={mobilePrimaryButtonClass}
+              >
+                <span className="inline-flex h-4 w-4 items-center justify-center shrink-0">
+                  <Bug size={ICON_SIZES.MEDIUM} />
+                </span>
+                <span>Report a bug</span>
+              </button>
             </div>
 
           </div>
