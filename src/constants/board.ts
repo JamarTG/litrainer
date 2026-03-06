@@ -143,6 +143,7 @@ export const BOARD_CONFIG = {
   HIGHLIGHT_LAST_CHECK: true,
   ADD_PIECE_Z_INDEX: true,
   DEFAULT_BOARD_SIZE: DEFAULT_BOARD_SIZE,
+  ANIMATION_DURATION: 120,
   MOVABLE_SOLVED: {
     free: false,
     dests: new Map()

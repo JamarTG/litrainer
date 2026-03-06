@@ -74,6 +74,7 @@ const BoardContent = ({
         movable={hidePieces ? ({ free: false, color: undefined, dests: new Map() } as ChessgroundMovable) : movable}
         lastMove={hidePieces ? undefined : (lastMove as ChessgroundLastMove)}
         onMove={hidePieces ? undefined : onMove}
+        animation={{ enabled: true, duration: BOARD_CONFIG.ANIMATION_DURATION }}
         drawable={hidePieces ? { enabled: false, visible: false, shapes: [] } : {
           enabled: BOARD_CONFIG.DRAWABLE_ENABLED,
           visible: BOARD_CONFIG.VISIBLE_ENABLED,
