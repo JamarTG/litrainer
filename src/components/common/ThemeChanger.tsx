@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { isDarkModeActive } from "@/state/slices/theme";
 import { ICON_SIZES } from "@/constants/icons";
 import { Moon, Sun } from "lucide-react";
+import Button from "../shared/Button";
 
 interface ThemeChangerProps {
   buttonClassName?: string;
@@ -18,15 +19,15 @@ const ThemeChanger: React.FC<ThemeChangerProps> = ({ buttonClassName, showLabel 
 
   const defaultClassName = "w-16 p-2 rounded-lg flex sm:flex-row items-center justify-center sm:items-start gap-4";
   return (
-    <button
+    <Button
       title="light or dark?"
       className={buttonClassName ?? defaultClassName}
       onClick={toggleAppTheme}
       aria-label="Toggle theme"
     >
       {isDarkMode ? <Sun size={iconSize} /> : <Moon size={iconSize} />}
-      {showLabel ? <span className="text-sm font-medium">Theme</span> : null}
-    </button>
+      {showLabel ? <span className="font-medium">Theme</span> : null}
+    </Button>
   );
 };
 

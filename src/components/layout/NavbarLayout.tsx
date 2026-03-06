@@ -110,7 +110,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
         <div className="flex items-center gap-3">
           <ThemeChanger
-            buttonClassName="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out min-w-[112px] justify-center"
+            buttonClassName="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-colors transition-transform duration-150 ease-out min-w-[112px] justify-center"
             iconSize={ICON_SIZES.SMALL}
             showLabel
           />
@@ -121,7 +121,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             href="https://github.com/JamarTG/litrainer"
             aria-label="View the repository on GitHub"
             title="View repo on GitHub"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-sm font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out min-w-[112px] justify-center"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-b from-[var(--color-primary)] to-[var(--color-primary-strong)] text-white text-md font-medium shadow-sm active:translate-y-[1px] active:scale-95 hover:from-[var(--color-primary-hover)] hover:to-[var(--color-primary-strong-hover)] transition-transform duration-150 ease-out min-w-[112px] justify-center"
           >
             <Code2Icon size={ICON_SIZES.SMALL} />
             <span>Repo</span>
@@ -132,7 +132,7 @@ const NavbarLayout: React.FC<PropsWithChildren> = ({ children }) => {
             onClick={() => setIsBugFormOpen(true)}
             aria-label="Report a bug by email"
             title="Report a bug"
-            className="min-w-[112px]"
+            className="min-w-[112px] text-md"
           >
             <Bug size={ICON_SIZES.SMALL} />
             <span>Bug</span>
