@@ -1,10 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
-html,
-body {
-  font-family: "IBM Plex Sans", sans-serif;
-}
 
+html
 button,
 input,
 select,
@@ -12,9 +8,7 @@ textarea {
   font: inherit;
 }
 
-.logo-font {
- font-family: "Noto Sans", sans-serif;
-}
+
 .feedback-message {
   position: absolute;
   top: 50%;
