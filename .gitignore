@@ -25,3 +25,5 @@ dist-ssr
 
 # Tailwind output files
 *.output.css
+
+lighthouse-notes.txt

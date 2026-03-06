@@ -67,6 +67,7 @@ const BoardContent = ({
     <div ref={boardRef} style={boardStyle} className="box relative main-board green merida">
       <Chessground
         key={`puzzle-${fen}`}
+        coordinates={true}
         fen={hidePieces ? '8/8/8/8/8/8/8/8' : fen}
         orientation={playerColorLongForm}
         turnColor={turnColor(game)}
