@@ -35,11 +35,11 @@ const GenericChooser = <T,>({ label, options, selected, onSelect, getDisplay, ge
       <button
         type="button"
         onClick={toggleDropdown}
-        className="w-full h-10 px-3 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] hover:bg-[var(--color-surface-hover)] transition-colors flex items-center justify-between gap-3"
+        className="w-full h-11 px-3 rounded-lg border border-[var(--color-border)] bg-gradient-to-b from-[var(--color-surface-hover)] to-[var(--color-surface)] shadow-sm hover:from-[var(--color-surface)] hover:to-[var(--color-surface-hover)] transition-colors flex items-center justify-between gap-3"
       >
         <div className="min-w-0 text-left flex-1">
-          <p className="text-xs uppercase tracking-wide text-[var(--color-muted)] font-semibold">{label ?? "Option"}</p>
-          <div className="text-sm text-[var(--color-fg)] truncate">{selected || "Select"}</div>
+          <p className="text-[11px] uppercase tracking-wide text-[var(--color-muted)] font-semibold">{label ?? "Option"}</p>
+          <div className="text-base text-[var(--color-fg)] truncate">{selected || "Select"}</div>
         </div>
 
         <ChevronDown size={16} className={`text-[var(--color-muted)] transition-transform ${isOpen ? "rotate-180" : ""}`} />
