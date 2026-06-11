@@ -2,8 +2,8 @@
 /* In case I ever return to fix coords - also observe lichess' way of doing it*/
 
 .cg-wrap {
-  width: 550px;
-  height: 550px;
+  width: clamp(400px, 42vw, 700px);
+  height: clamp(400px, 42vw, 700px);
   position: relative;
   display: block;
   overflow: hidden;
@@ -217,28 +217,22 @@ cg-board piece.fading {
 
 @media (max-width: 640px) {
   .cg-wrap {
-    min-width: 100vw;
-    min-height: 100vw;
-    width: 400px;
-    height: 400px;
+    width: 100vw;
+    height: 100vw;
   }
 }
 
 @media (max-width: 480px) {
   .cg-wrap {
-    min-width: 100vw;
-    min-height: 100vw;
-    width: 320px;
-    height: 320px;
+    width: 100vw;
+    height: 100vw;
   }
 }
 
 @media (max-width: 360px) {
   .cg-wrap {
-    min-width: 100vw;
-    min-height: 100vw;
-    width: 280px;
-    height: 280px;
+    width: 100vw;
+    height: 100vw;
   }
 }
 
